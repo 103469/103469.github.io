@@ -31,6 +31,7 @@ if (wissel && webgl) {
     wissel.hidden = false;
     wissel.textContent = kiesRustig ? '3D-versie' : 'Rustige versie';
     wissel.setAttribute('aria-label', kiesRustig ? 'Zet het 3D-bos aan' : 'Zet het 3D-bos uit (rustiger en sneller)');
+    wissel.title = wissel.textContent;
     wissel.addEventListener('click', () => {
         try { localStorage.setItem('versie', kiesRustig ? '3d' : 'rustig'); } catch (e) { /* niets */ }
         const plek = window.scrollY;
@@ -863,6 +864,7 @@ function start() {
         const cr = contact.getBoundingClientRect();
         const d = Math.min(1, Math.max(0, 1 - cr.top / H));
         html.style.setProperty('--dageraad', d.toFixed(3));
+        html.style.setProperty('--diep', Math.min(1, window.scrollY / (H * 0.8)).toFixed(3));
         uniforms.uDageraad.value = d;
     }
     window.addEventListener('scroll', kijkWelkeSectie, { passive: true });
@@ -935,7 +937,18 @@ function start() {
         });
     }
 
+    // voorbij de binnenkomst is het bos achtergrond: dan tekenen we met minder pixels
+    let laag = false;
+    function kiesResolutie() {
+        const wil = window.scrollY > H * 0.9;
+        if (wil === laag) return;
+        laag = wil;
+        const p = lichter ? 1 : (laag ? Math.max(1, pr * 0.7) : pr);
+        renderer.setPixelRatio(p); uniforms.uPr.value = p; renderer.setSize(W, H, false);
+    }
+
     function frame() {
+        kiesResolutie();
         const dt = Math.min(klok.getDelta(), 0.07);
         const t = klok.elapsedTime;
         uniforms.uTijd.value = t;

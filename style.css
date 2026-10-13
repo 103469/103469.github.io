@@ -12,10 +12,10 @@
     --nacht: #070E14;
     --nacht-2: #0C1A20;
     --licht: #F3EBD3;          /* tekst, crème */
-    --dof: #9DB0A8;
+    --dof: #B7C6BF;
     --vuur: #E9F27A;           /* vuurvliegjesgeel-groen */
     --vuur-warm: #F6D86B;
-    --glas: rgba(9, 20, 24, 0.62);
+    --glas: rgba(9, 19, 24, 0.78);
     --rand: rgba(233, 242, 122, 0.16);
     --dageraad: 0;
     --scroll: 0;
@@ -93,7 +93,8 @@ main, .site-footer { position: relative; z-index: 4; }
 .over .knop-rij { margin-top: 26px; }
 
 /* Glazen kaart voor projecten */
-.kaart { background: var(--glas); backdrop-filter: blur(12px); border-radius: 22px; padding: 30px 32px; box-shadow: inset 0 0 0 1px var(--rand), 0 30px 60px -30px rgba(0,0,0,0.8); max-width: 520px; }
+.kaart { background: var(--glas); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 22px; padding: 30px 32px; box-shadow: inset 0 0 0 1px var(--rand), 0 30px 60px -30px rgba(0,0,0,0.8); max-width: 540px; }
+.kaart-foto { width: calc(100% + 64px); max-width: none; height: auto; margin: -30px -32px 22px; border-radius: 22px 22px 0 0; aspect-ratio: 16 / 7; object-fit: cover; object-position: top; }
 .kaart h2 { font-size: clamp(2rem, 4vw, 3rem); }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .tags span { font-size: 0.8rem; font-weight: 600; color: var(--vuur); background: rgba(233,242,122,0.08); box-shadow: inset 0 0 0 1px var(--rand); padding: 4px 11px; border-radius: 999px; }
@@ -132,7 +133,7 @@ main, .site-footer { position: relative; z-index: 4; }
 .contact-kaart span { display: block; color: var(--dof); font-size: 0.9rem; }
 .contact-kaart strong { display: block; font-size: 1.15rem; font-weight: 800; margin-top: 2px; word-break: break-word; }
 
-.site-footer { padding: 22px 0 72px; color: var(--dof); font-size: 0.88rem; }
+.site-footer { padding: 22px 0 26px; color: var(--dof); font-size: 0.88rem; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 /* Teksten komen zacht tevoorschijn */
@@ -224,13 +225,49 @@ main, .site-footer { position: relative; z-index: 4; }
 .statisch .laden { transition: none; }
 @media (prefers-reduced-motion: reduce) { .laden { display: none; } }
 
-/* knop om te wisselen tussen de rustige versie en de 3D-versie */
-.wissel { position: fixed; left: 18px; bottom: 18px; z-index: 9; font: inherit; font-weight: 600; font-size: 0.82rem;
-    color: var(--dof); background: rgba(7,14,20,0.6); backdrop-filter: blur(10px); border: 0; border-radius: 999px;
-    box-shadow: inset 0 0 0 1px var(--rand); padding: 8px 14px 8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-    transition: color 0.2s, box-shadow 0.2s; }
+/* knop om te wisselen tussen de rustige versie en de 3D-versie (in het menu) */
+.nav-rechts { display: flex; align-items: center; gap: 8px; }
+.wissel { font: inherit; font-weight: 600; font-size: 0.85rem; color: var(--dof); background: rgba(7,14,20,0.55); backdrop-filter: blur(10px);
+    border: 0; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--rand); padding: 11px 15px 11px 13px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: color 0.2s, box-shadow 0.2s; }
 .wissel::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--vuur); box-shadow: 0 0 10px 2px rgba(233,242,122,0.6); }
 .statisch .wissel::before { background: var(--dof); box-shadow: none; }
 .wissel:hover, .wissel:focus-visible { color: var(--licht); box-shadow: inset 0 0 0 1px var(--vuur); outline: none; }
 .wissel[hidden] { display: none; }
-@media (max-width: 640px) { .wissel { left: 12px; bottom: 12px; font-size: 0.75rem; padding: 7px 12px 7px 10px; } }
+@media (max-width: 860px) {
+    .site-nav .wrap { position: relative; }
+    .nav-rechts { max-width: 100%; }
+    /* op de telefoon: een rond knopje rechts naast je naam */
+    .wissel { position: absolute; right: 0; top: 8px; padding: 0; width: 34px; height: 34px; justify-content: center; font-size: 0; gap: 0; }
+}
+
+/* ─── PROFESSIONELER: inhoud voorop, het bos als sfeer ───────── */
+/* bovenaan: status, korte uitleg en twee knoppen */
+.status { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 16px; padding: 6px 14px 6px 12px; border-radius: 999px;
+    font-weight: 600; font-size: 0.88rem; color: var(--vuur); background: rgba(7,14,20,0.6); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px var(--rand); }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: #7CF29A; box-shadow: 0 0 10px 2px rgba(124,242,154,0.7); animation: knipper 2s ease-in-out infinite; }
+.binnenkomst .ondertitel { font-size: 1.2rem; line-height: 1.5; max-width: 34em; text-shadow: 0 1px 14px rgba(7,14,20,0.95); }
+.binnenkomst .knop-rij { justify-content: center; margin-top: 24px; }
+
+/* teksten staan op een leesbaar glazen vlak */
+.stuk:not(.contact) .kolom { background: var(--glas); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 22px;
+    padding: 30px 32px; box-shadow: inset 0 0 0 1px var(--rand), 0 30px 60px -30px rgba(0,0,0,0.8); max-width: 520px; }
+.stuk-kort { min-height: 64vh; }
+
+/* na de binnenkomst wordt het bos iets donkerder, zodat de inhoud wint */
+.sluier { position: fixed; inset: 0; z-index: 3; pointer-events: none; background: var(--nacht); opacity: calc(var(--diep, 0) * 0.32); }
+.statisch .sluier { display: none; }
+
+.contact-kaarten { grid-template-columns: 1.35fr 1fr 0.85fr; }
+.contact .kolom { max-width: 940px; }
+.contact .kolom > p { max-width: 640px; margin-left: auto; margin-right: auto; }
+.contact-kaart strong { word-break: normal; overflow-wrap: anywhere; }
+
+@media (max-width: 860px) {
+    .binnenkomst .ondertitel { font-size: 1.02rem; }
+    .binnenkomst .ondertitel br { display: none; }
+    .stuk:not(.contact) .kolom, .kaart { padding: 24px 22px; }
+    .kaart-foto { width: calc(100% + 44px); margin: -24px -22px 20px; }
+    .stuk-kort { min-height: 86vh; }
+    .contact-kaarten { grid-template-columns: 1fr; }
+}
