@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quinten Löb — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-decor" aria-hidden="true">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+</div>
+
+<!-- NAV -->
+<nav class="site-nav">
+    <a href="index.html" class="nav-brand">Quinten Löb</a>
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="projecten.html">Projecten</a>
+        <a href="over-mij.html">Over mij</a>
+        <a href="contact.html">Contact</a>
+    </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <p class="eyebrow">Beschikbaar voor bijbaan / stage</p>
+            <h1 class="hero-name">Quinten <span class="accent-word">Löb</span></h1>
+            <p class="hero-desc">
+                18 jaar, uit Rotterdam. Ik zit in het tweede jaar van Software Development
+                op het Grafisch Lyceum Rotterdam en ik zoek een bijbaan of stage
+                waar ik echt kan meedoen.
+            </p>
+            <div class="hero-cta-row">
+                <a href="projecten.html" class="btn-primary">Bekijk mijn projecten</a>
+                <a href="contact.html" class="btn-ghost">Neem contact op</a>
+            </div>
+        </div>
+        <img src="img/quinten.jpg" alt="Foto van Quinten Löb" class="hero-photo">
+    </div>
+</section>
+
+<!-- UITGELICHT -->
+<section class="projects-section">
+    <div class="container">
+        <span class="section-label">Uitgelicht</span>
+        <h2 class="section-title">Waar ik trots op ben</h2>
+        <div class="project-grid two">
+            <article class="proj-card">
+                <div class="proj-tags"><span class="tag-php">PHP</span><span class="tag-db">SQLite</span><span class="tag-css">Tailwind</span></div>
+                <h3>WK 2026</h3>
+                <p>Website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden zien. De groepsstanden worden automatisch uitgerekend uit de uitslagen in de database.</p>
+                <a href="https://github.com/103469/wk2026" class="proj-link" target="_blank">Bekijk de code →</a>
+            </article>
+            <article class="proj-card">
+                <div class="proj-tags"><span class="tag-html">HTML</span><span class="tag-css">CSS</span><span class="tag-js">JS</span></div>
+                <h3>Quizzie</h3>
+                <p>Quizsite over leefstijl, gemaakt met Destiny en Kaïn. Ik maakte de Fitness Quiz en de code die de antwoorden groen of rood kleurt.</p>
+                <span class="proj-note">Groepsproject</span>
+                <a href="https://github.com/103469/quizzi" class="proj-link" target="_blank">Bekijk de code →</a>
+            </article>
+        </div>
+        <a href="projecten.html" class="more-link">Alle projecten →</a>
+    </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <span>© 2026 Quinten Löb</span>
+    <span>Gebouwd terwijl ik dit eigenlijk voor school moest doen</span>
+    <span>Rotterdam</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
