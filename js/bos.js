@@ -75,39 +75,132 @@ function start() {
     let pogingen = 0;
     while (bomen.length < aantalBomen && pogingen++ < 20000) {
         const kant = Math.random() < 0.5 ? -1 : 1;
-        const x = kant * (9 + Math.pow(Math.random(), 1.1) * 95);
+        const h = 8 + Math.random() * 13;
+        // het pad in het midden vrijhouden: de takken mogen er niet in hangen
+        const x = kant * (7 + h * 0.5 + Math.pow(Math.random(), 1.1) * 95);
         const z = 50 - Math.random() * 620;
         if (Math.hypot(x, (z - OPEN_Z) * 0.85) < OPEN_R) continue;     // open plek vrijhouden
         if (z < OPEN_Z - 30 && Math.abs(x) < 30) continue;
-        const h = 7 + Math.random() * 13;
         bomen.push({ x, z, h, b: h * (0.3 + Math.random() * 0.08), r: Math.random() * Math.PI });
     }
-    const kegel = new THREE.ConeGeometry(1, 1, 9, 1);
-    kegel.translate(0, 0.5, 0);
-    const stam = new THREE.CylinderGeometry(0.08, 0.12, 1, 5);
-    stam.translate(0, 0.5, 0);
-    const boomMat = new THREE.MeshBasicMaterial({ color: '#0B1B1C' });
-    const lagen = [
-        { geo: kegel, y: 0.18, hoog: 0.42, breed: 1.0 },
-        { geo: kegel, y: 0.42, hoog: 0.36, breed: 0.74 },
-        { geo: kegel, y: 0.64, hoog: 0.36, breed: 0.48 },
-        { geo: stam, y: 0.0, hoog: 0.2, breed: 1.6 },
-    ];
+    // ── Een den met echte takken ────────────────────────────────
+    // Elke boom bestaat uit lagen takken. De rand van elke laag is puntig
+    // (lange en korte takken door elkaar) en hangt een beetje naar beneden.
+    // Kleur per hoekpunt: lichter aan de maankant (links), donker in de schaduw
+    // en onderaan elke laag. Drie soorten bomen voor afwisseling.
+    function maakDen(soort) {
+        const posities = [], kleuren = [], index = [];
+        const kleurVan = (y, nx, rand) => {
+            const maan = 0.62 + Math.max(0, -nx) * 0.55;                 // maan staat links
+            const hoogte = 0.75 + y * 0.35;
+            const v = maan * hoogte * (rand ? 1.0 : 0.62);
+            return [v * 0.86, v * 1.0, v * 0.92];
+        };
+        const voegToe = (x, y, z, k) => { posities.push(x, y, z); kleuren.push(k[0], k[1], k[2]); return posities.length / 3 - 1; };
+
+        const lagen = soort === 0 ? 6 : soort === 1 ? 8 : 5;
+        const breed = soort === 2 ? 0.5 : soort === 1 ? 0.34 : 0.42;
+        const segs = 18;
+        for (let l = 0; l < lagen; l++) {
+            const t = l / (lagen - 1);
+            const onder = 0.16 + t * 0.7;                                   // onderkant van deze laag
+            const top = Math.min(1, onder + (soort === 1 ? 0.2 : 0.26));
+            const r = breed * (1 - t * 0.82) * (0.9 + Math.random() * 0.2);
+            const draai = Math.random() * Math.PI * 2;
+            const topI = voegToe((Math.random() - 0.5) * 0.02, top, (Math.random() - 0.5) * 0.02, kleurVan(top, 0, true));
+            const binnen = voegToe(0, onder + 0.04, 0, kleurVan(onder, 0, false));
+            const rand = [];
+            for (let s = 0; s < segs; s++) {
+                const a = draai + s / segs * Math.PI * 2;
+                const lang = s % 2 === 0;                                 // takpunt of inham
+                const rr = r * (lang ? 1.0 + Math.random() * 0.22 : 0.58 + Math.random() * 0.12);
+                const zak = lang ? 0.03 + Math.random() * 0.05 : 0.0;   // takpunten hangen iets naar beneden
+                const nx = Math.cos(a);
+                rand.push(voegToe(Math.cos(a) * rr, onder - zak, Math.sin(a) * rr, kleurVan(onder, nx, lang)));
+            }
+            for (let s = 0; s < segs; s++) {
+                const a = rand[s], b = rand[(s + 1) % segs];
+                index.push(topI, a, b);            // bovenkant van de laag
+                index.push(binnen, b, a);          // onderkant (donker)
+            }
+        }
+        // stam
+        const stamR = 0.022, stamH = 0.24, stamSegs = 6;
+        const stamOnder = [], stamBoven = [];
+        for (let s = 0; s < stamSegs; s++) {
+            const a = s / stamSegs * Math.PI * 2, nx = Math.cos(a);
+            const k = kleurVan(0, nx, false).map((v) => v * 0.75);
+            stamOnder.push(voegToe(Math.cos(a) * stamR * 1.4, -0.02, Math.sin(a) * stamR * 1.4, k));
+            stamBoven.push(voegToe(Math.cos(a) * stamR, stamH, Math.sin(a) * stamR, k));
+        }
+        for (let s = 0; s < stamSegs; s++) {
+            const a = stamOnder[s], b = stamOnder[(s + 1) % stamSegs], c = stamBoven[s], d = stamBoven[(s + 1) % stamSegs];
+            index.push(a, c, b, b, c, d);
+        }
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.Float32BufferAttribute(posities, 3));
+        g.setAttribute('color', new THREE.Float32BufferAttribute(kleuren, 3));
+        g.setIndex(index);
+        return g;
+    }
+
+    // Shader voor de bomen: kleur per hoekpunt, mist, en wiegen in de wind
+    const boomUniforms = THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
+        uTijd: { value: 0 },
+        uBasis: { value: new THREE.Color('#1B3B36') },
+    }]);
+    const boomMat = new THREE.ShaderMaterial({
+        uniforms: boomUniforms,
+        fog: true,
+        vertexColors: true,
+        side: THREE.DoubleSide,
+        vertexShader: /* glsl */`
+            #include <fog_pars_vertex>
+            uniform float uTijd;
+            varying vec3 vKleur;
+            varying float vHoogte;
+            void main() {
+                vKleur = color;
+                vHoogte = position.y;
+                vec4 wereld = instanceMatrix * vec4(position, 1.0);
+                // elke boom zijn eigen ritme, hoe hoger hoe meer hij wiegt
+                float plek = instanceMatrix[3].x * 0.13 + instanceMatrix[3].z * 0.07;
+                float wieg = position.y * position.y;
+                wereld.x += sin(uTijd * 0.9 + plek) * 0.18 * wieg * instanceMatrix[1].y * 0.12;
+                wereld.z += cos(uTijd * 0.7 + plek * 1.3) * 0.12 * wieg * instanceMatrix[1].y * 0.12;
+                vec4 mvPosition = viewMatrix * wereld;
+                gl_Position = projectionMatrix * mvPosition;
+                #include <fog_vertex>
+            }`,
+        fragmentShader: /* glsl */`
+            #include <fog_pars_fragment>
+            uniform vec3 uBasis;
+            varying vec3 vKleur;
+            varying float vHoogte;
+            void main() {
+                vec3 k = uBasis * vKleur;
+                // heel licht randje maanlicht op de toppen
+                k += vec3(0.05, 0.07, 0.07) * smoothstep(0.75, 1.0, vHoogte);
+                gl_FragColor = vec4(k, 1.0);
+                #include <fog_fragment>
+            }`,
+    });
+
+    // drie soorten dennen, verdeeld over de bomen
+    const soorten = [maakDen(0), maakDen(1), maakDen(2)];
     const hulp = new THREE.Object3D();
-    const kleur = new THREE.Color();
-    lagen.forEach((laag, li) => {
-        const mesh = new THREE.InstancedMesh(laag.geo, boomMat, bomen.length);
-        bomen.forEach((bm, i) => {
-            hulp.position.set(bm.x, bm.h * laag.y, bm.z);
-            hulp.rotation.set(0, bm.r, 0);
-            hulp.scale.set(bm.b * laag.breed, bm.h * laag.hoog, bm.b * laag.breed);
+    soorten.forEach((geom, soort) => {
+        const mijn = bomen.filter((_, i) => i % 3 === soort);
+        const mesh = new THREE.InstancedMesh(geom, boomMat, mijn.length);
+        mijn.forEach((bm, i) => {
+            hulp.position.set(bm.x, 0, bm.z);
+            hulp.rotation.set((Math.random() - 0.5) * 0.06, bm.r, (Math.random() - 0.5) * 0.06);
+            const s = bm.h;
+            hulp.scale.set(s * (0.9 + Math.random() * 0.25), s, s * (0.9 + Math.random() * 0.25));
             hulp.updateMatrix();
             mesh.setMatrixAt(i, hulp.matrix);
-            // kleine verschillen per boom (wordt vermenigvuldigd met de donkere basiskleur)
-            const f = li === 3 ? 0.55 : 0.7 + Math.random() * 0.6;
-            kleur.setRGB(f, f * (0.95 + Math.random() * 0.1), f);
-            mesh.setColorAt(i, kleur);
         });
+        mesh.frustumCulled = false;
         scene.add(mesh);
     });
 
@@ -449,10 +542,23 @@ function start() {
     const e = m.elements, v = vp.elements;
     const rechts = new THREE.Vector3(), boven = new THREE.Vector3();
 
+    // langzame computer? dan automatisch een lichtere versie (minder pixels)
+    let meetFrames = 0, meetStart = 0, lichter = false;
+    function controleerSnelheid() {
+        if (lichter) return;
+        meetFrames++;
+        if (meetFrames === 30) meetStart = performance.now();
+        if (meetFrames === 150) {
+            const fps = 120 / ((performance.now() - meetStart) / 1000);
+            if (fps < 35) { lichter = true; renderer.setPixelRatio(1); uniforms.uPr.value = 1; renderer.setSize(W, H, false); }
+        }
+    }
+
     function frame() {
         const dt = Math.min(klok.getDelta(), 0.07);
         const t = klok.elapsedTime;
         uniforms.uTijd.value = t;
+        boomUniforms.uTijd.value = t;
         uniforms.uAan.value = Math.min(1, uniforms.uAan.value + dt * 0.45);
         tegoed += dt * 60;
         const stappen = Math.min(4, Math.floor(tegoed));
@@ -581,6 +687,8 @@ function start() {
         knal = null;
         geo.attributes.position.needsUpdate = true;
         renderer.render(scene, camera);
+        if (!html.classList.contains('geladen')) html.classList.add('geladen');
+        controleerSnelheid();
         requestAnimationFrame(frame);
     }
 
