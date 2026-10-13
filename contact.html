@@ -3,50 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact — Quinten Löb</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Contact, Quinten Löb</title>
+    <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="bg-decor" aria-hidden="true">
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-</div>
-
-<!-- NAV -->
-<nav class="site-nav">
-    <a href="index.html" class="nav-brand">Quinten Löb</a>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="projecten.html">Projecten</a>
-        <a href="over-mij.html">Over mij</a>
-        <a href="contact.html" class="active">Contact</a>
+<!-- NAVIGATIE -->
+<header class="site-nav">
+    <div class="wrap">
+        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projecten.html">Projecten</a>
+            <a href="over-mij.html">Over mij</a>
+            <a href="contact.html" class="active" aria-current="page">Contact</a>
+        </nav>
     </div>
-</nav>
+</header>
 
 <main>
-<section class="contact-section">
-    <div class="container">
-        <div class="contact-inner">
-            <div class="contact-text">
-                <span class="section-label">Contact</span>
-                <h1 class="section-title">Laten we kennismaken</h1>
-                <p class="contact-sub">Heb je een vraag, een stageplek, of wil je gewoon hoi zeggen? Stuur me een mail, ik reageer altijd terug.</p>
-            </div>
+<section class="page-head">
+    <div class="wrap">
+        <h1>Contact</h1>
+        <p>Heb je een stageplek of een vraag? Stuur me een mail, ik reageer altijd.</p>
+    </div>
+</section>
 
-            <div class="contact-cards">
-                <a href="mailto:quintenlob6@gmail.com" class="contact-card">
-                    <span>E-mail</span>
-                    <strong>quintenlob6@gmail.com</strong>
-                </a>
-                <a href="https://github.com/103469" class="contact-card" target="_blank">
-                    <span>GitHub</span>
-                    <strong>github.com/103469</strong>
-                </a>
-            </div>
+<section class="sectie omhoog">
+    <div class="wrap">
+        <div class="contact-kaarten">
+            <a href="mailto:quintenlob6@gmail.com" class="contact-kaart">
+                <span>E-mail</span>
+                <strong>quintenlob6@gmail.com</strong>
+            </a>
+            <a href="https://github.com/103469" class="contact-kaart" target="_blank" rel="noopener">
+                <span>GitHub</span>
+                <strong>github.com/103469</strong>
+            </a>
         </div>
     </div>
 </section>
@@ -54,9 +48,10 @@
 
 <!-- FOOTER -->
 <footer class="site-footer">
-    <span>© 2026 Quinten Löb</span>
-    <span>Gebouwd terwijl ik dit eigenlijk voor school moest doen</span>
-    <span>Rotterdam</span>
+    <div class="wrap">
+        <span>© 2026 Quinten Löb</span>
+        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+    </div>
 </footer>
 
 <script src="script.js"></script>

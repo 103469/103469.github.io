@@ -3,81 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinten Löb — Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Quinten Löb, portfolio</title>
+    <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="bg-decor" aria-hidden="true">
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-</div>
-
-<!-- NAV -->
-<nav class="site-nav">
-    <a href="index.html" class="nav-brand">Quinten Löb</a>
-    <div class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="projecten.html">Projecten</a>
-        <a href="over-mij.html">Over mij</a>
-        <a href="contact.html">Contact</a>
+<!-- NAVIGATIE -->
+<header class="site-nav">
+    <div class="wrap">
+        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <nav class="nav-links">
+            <a href="index.html" class="active" aria-current="page">Home</a>
+            <a href="projecten.html">Projecten</a>
+            <a href="over-mij.html">Over mij</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </div>
-</nav>
+</header>
 
 <main>
 <!-- HERO -->
 <section class="hero">
-    <div class="hero-inner">
-        <div class="hero-text">
-            <p class="eyebrow">Beschikbaar voor bijbaan / stage</p>
-            <h1 class="hero-name">Quinten <span class="accent-word">Löb</span></h1>
-            <p class="hero-desc">
-                17 jaar, uit Rotterdam. Ik zit in het tweede jaar van Software Development
-                op het Grafisch Lyceum Rotterdam en ik zoek een bijbaan of stage
-                waar ik echt kan meedoen.
+    <div class="wrap">
+        <div>
+            <h1>Hoi, ik ben Quinten.</h1>
+            <p class="hero-tekst">
+                Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar
+                Software Development op het Grafisch Lyceum.
+                <strong>Ik zoek een stageplek</strong> waar ik mee kan draaien in een team.
             </p>
-            <div class="hero-cta-row">
-                <a href="projecten.html" class="btn-primary">Bekijk mijn projecten</a>
-                <a href="contact.html" class="btn-ghost">Neem contact op</a>
+            <div class="knop-rij">
+                <a href="projecten.html" class="knop knop-mint">Bekijk mijn projecten</a>
+                <a href="contact.html" class="knop knop-rand-licht">Neem contact op</a>
             </div>
         </div>
-        <img src="img/quinten.jpg" alt="Foto van Quinten Löb" class="hero-photo">
+        <img src="img/quinten.jpg" alt="Foto van Quinten Löb" class="hero-foto">
     </div>
 </section>
 
-<!-- UITGELICHT -->
-<section class="projects-section">
-    <div class="container">
-        <span class="section-label">Uitgelicht</span>
-        <h2 class="section-title">Waar ik trots op ben</h2>
-        <div class="project-grid two">
-            <article class="proj-card">
-                <div class="proj-tags"><span class="tag-php">PHP</span><span class="tag-db">SQLite</span><span class="tag-css">Tailwind</span></div>
+<!-- PROJECTEN -->
+<section class="sectie omhoog">
+    <div class="wrap">
+        <h2 style="margin-bottom:24px">Mijn projecten</h2>
+        <div class="projecten">
+        <article class="project">
+            <img class="project-foto" src="img/wk2026.jpg" alt="Homepage van de WK 2026-website" loading="lazy">
+            <div class="project-body">
                 <h3>WK 2026</h3>
-                <p>Website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden zien. De groepsstanden worden automatisch uitgerekend uit de uitslagen in de database.</p>
-                <a href="https://github.com/103469/wk2026" class="proj-link" target="_blank">Bekijk de code →</a>
-            </article>
-            <article class="proj-card">
-                <div class="proj-tags"><span class="tag-html">HTML</span><span class="tag-css">CSS</span><span class="tag-js">JS</span></div>
+                <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
+                <div class="tags"><span>PHP</span><span>SQLite</span><span>Tailwind CSS</span></div>
+                <div class="knop-rij">
+                    <a class="knop knop-vol" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk het project</a>
+                    <a class="knop knop-rand" href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Bekijk de code</a>
+                </div>
+            </div>
+        </article>
+        <article class="project">
+            <img class="project-foto" src="img/quizzie.jpg" alt="Homepage van Quizzie" loading="lazy">
+            <div class="project-body">
                 <h3>Quizzie</h3>
-                <p>Quizsite over leefstijl, gemaakt met Destiny en Kaïn. Ik maakte de Fitness Quiz en de code die de antwoorden groen of rood kleurt.</p>
-                <span class="proj-note">Groepsproject</span>
-                <a href="https://github.com/103469/quizzi" class="proj-link" target="_blank">Bekijk de code →</a>
-            </article>
+                <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten. Ik maakte de Fitness Quiz en de code die meteen laat zien of je antwoord goed of fout is.</p>
+                <p class="groep"><strong>Groepsproject</strong> met Destiny en Kaïn</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                <div class="knop-rij">
+                    <a class="knop knop-vol" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk het project</a>
+                    <a class="knop knop-rand" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Bekijk de code</a>
+                </div>
+            </div>
+        </article>
         </div>
-        <a href="projecten.html" class="more-link">Alle projecten →</a>
+        <p style="margin-top:28px"><a class="tekst-link" href="over-mij.html">Meer over mij en wat ik kan</a></p>
     </div>
 </section>
 </main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
-    <span>© 2026 Quinten Löb</span>
-    <span>Gebouwd terwijl ik dit eigenlijk voor school moest doen</span>
-    <span>Rotterdam</span>
+    <div class="wrap">
+        <span>© 2026 Quinten Löb</span>
+        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+    </div>
 </footer>
 
 <script src="script.js"></script>

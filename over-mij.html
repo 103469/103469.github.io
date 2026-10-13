@@ -3,31 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Over mij — Quinten Löb</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Over mij, Quinten Löb</title>
+    <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="bg-decor" aria-hidden="true">
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-</div>
-
-<!-- REIS MODAL -->
-<div class="journey-overlay" id="journeyOverlay">
+<!-- REIS -->
+<div class="journey-overlay" id="journeyOverlay" role="dialog" aria-modal="true" aria-labelledby="reisTitel">
     <div class="journey-modal">
         <button class="journey-close" id="journeyClose" aria-label="Sluiten">✕</button>
-        <div class="journey-modal-header">
-            <span class="section-label">Mijn reis</span>
-            <h2 class="section-title">Van start tot stage</h2>
-        </div>
+        <h2 id="reisTitel">Van start tot stage</h2>
         <div class="journey-path-wrap">
-            <svg class="journey-svg" viewBox="0 0 400 940" preserveAspectRatio="xMidYMin meet">
-                <path class="journey-line"
-                    d="M 130,60 L 290,150 L 130,240 L 290,330 L 130,420 L 290,510 L 130,600 L 290,690 L 130,780 L 290,870" />
+            <svg class="journey-svg" viewBox="0 0 400 940" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+                <path class="journey-line" d="M 130,60 L 290,150 L 130,240 L 290,330 L 130,420 L 290,510 L 130,600 L 290,690 L 130,780 L 290,870" />
             </svg>
             <div class="journey-node" style="left:32.5%; top:6.4%;">
                 <div class="journey-dot done">1</div>
@@ -63,7 +52,7 @@
             </div>
             <div class="journey-node" style="left:32.5%; top:83%;">
                 <div class="journey-dot next">9</div>
-                <div class="journey-label">Bijbaan of<br>stage</div>
+                <div class="journey-label">Stage</div>
             </div>
             <div class="journey-node" style="left:72.5%; top:92.5%;">
                 <div class="journey-dot todo">10</div>
@@ -73,142 +62,80 @@
     </div>
 </div>
 
-<!-- NAV -->
-<nav class="site-nav">
-    <a href="index.html" class="nav-brand">Quinten Löb</a>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="projecten.html">Projecten</a>
-        <a href="over-mij.html" class="active">Over mij</a>
-        <a href="contact.html">Contact</a>
+<!-- NAVIGATIE -->
+<header class="site-nav">
+    <div class="wrap">
+        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projecten.html">Projecten</a>
+            <a href="over-mij.html" class="active" aria-current="page">Over mij</a>
+            <a href="contact.html">Contact</a>
+        </nav>
     </div>
-</nav>
+</header>
 
 <main>
-<section class="page-head container">
-    <span class="section-label">Wie ik ben</span>
-    <h1 class="page-title">Over mij</h1>
-</section>
-
-<section class="about-section container">
-    <div class="about-content">
-        <p class="about-body">
-            Ik ben Quinten, 17 jaar oud. Ik zit in het tweede jaar van Software Development
-            op het Grafisch Lyceum Rotterdam. Ik leer het meest door gewoon dingen te bouwen
-            in plaats van alleen theorie te lezen.
-        </p>
-        <p class="about-body">
-            Ik zoek een bijbaan of stageplek waar ik echt iets kan bijdragen.
-            Niet zomaar wat rondhangen, maar meedraaien, code schrijven en
-            leren van mensen die al verder zijn dan ik.
-        </p>
-        <ul class="about-tags">
-            <li>Sociaal</li>
-            <li>Werkt graag in een team</li>
-            <li>Nieuwsgierig</li>
-            <li>Pakt dingen snel op</li>
-        </ul>
+<section class="page-head">
+    <div class="wrap">
+        <h1>Over mij</h1>
+        <p>Wie ik ben, wat ik kan en waar ik naartoe wil.</p>
     </div>
 </section>
 
-<!-- SKILLS -->
-<section class="skills-section container">
-    <span class="section-label">Skills</span>
-    <h2 class="section-title">Wat ik al kan</h2>
-
-    <div class="skills-layout">
-        <div class="skills-list">
-            <div class="skill-row skill-html">
-                <span class="skill-check">✓</span>
-                <span class="skill-name">HTML</span>
-                <span class="skill-level">Goed in</span>
-            </div>
-            <div class="skill-row skill-css">
-                <span class="skill-check">✓</span>
-                <span class="skill-name">CSS &amp; Tailwind</span>
-                <span class="skill-level">Goed in</span>
-            </div>
-            <div class="skill-row skill-php">
-                <span class="skill-check">✓</span>
-                <span class="skill-name">PHP</span>
-                <span class="skill-level">Nog aan het leren</span>
-            </div>
-            <div class="skill-row skill-db">
-                <span class="skill-check">✓</span>
-                <span class="skill-name">Database (SQL)</span>
-                <span class="skill-level">Nog aan het leren</span>
-            </div>
-            <div class="skill-row skill-js">
-                <span class="skill-check">✓</span>
-                <span class="skill-name">JavaScript</span>
-                <span class="skill-level">Nog aan het leren</span>
-            </div>
+<section class="sectie omhoog">
+    <div class="wrap over">
+        <div class="over-tekst vrije-tijd">
+            <p>Ik ben Quinten, 17 jaar, uit Rotterdam. Ik zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
+            <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
+            <p>Ik zoek een stageplek waar ik mee kan draaien in een team, echte code kan schrijven en kan leren van mensen die verder zijn dan ik.</p>
         </div>
-
-        <div class="soft-skills-box">
-            <h3>Verder ben ik</h3>
-            <ul class="soft-list">
-                <li>Iemand die goed in een team werkt</li>
-                <li>Snel iets opgepakt</li>
-                <li>Hulpvaardig</li>
-                <li>Gemotiveerd om te leren</li>
-                <li>Open voor feedback</li>
-            </ul>
+        <div class="vrije-tijd">
+            <h3>Naast school</h3>
+            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/><path d="M12 3v4M21 10l-5 0M18 19l-3.5-4.5M6 19l3.5-4.5M3 10h5"/></svg></div><div><b>Keepen</b><span>Ik sta op doel en train meerdere keren per week.</span></div></div>
+            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg></div><div><b>Fitness</b><span>Ik sport veel in de gym.</span></div></div>
+            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2a3 3 0 01-5.2 2L14 14h-4l-1.8 2A3 3 0 013 14v-2a4 4 0 014-4z"/><path d="M8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg></div><div><b>Gamen</b><span>Vooral Minecraft en ARK.</span></div></div>
         </div>
     </div>
 </section>
 
-<!-- PARCOURS -->
-<section class="exp-section container">
-    <span class="section-label">Parcours</span>
-    <h2 class="section-title">Hoe ik hier gekomen ben</h2>
+<section class="sectie" style="padding-top:8px">
+    <div class="wrap">
+        <h2>Wat ik kan</h2>
+        <p class="sectie-intro" style="margin-bottom:24px">Per onderdeel zie je waar ik het echt heb gebruikt.</p>
+        <div class="skills">
+            <div class="skill"><b>HTML en CSS</b><span>Gebruikt in Quizzie, WK 2026 en dit portfolio</span></div>
+            <div class="skill"><b>PHP</b><span>Gebruikt in WK 2026 en mijn sportquiz</span></div>
+            <div class="skill"><b>SQL</b><span>SQLite in WK 2026, MySQL in mijn sportquiz</span></div>
+            <div class="skill"><b>Tailwind CSS</b><span>Gebruikt in WK 2026</span></div>
+            <div class="skill"><b>JavaScript</b><span>De quizlogica van Quizzie en dit portfolio</span></div>
+            <div class="skill"><b>Git en GitHub</b><span>Al mijn projecten staan erop</span></div>
+            <div class="skill"><b>Plesk</b><span>WK 2026 zelf online gezet</span></div>
+        </div>
+        <p class="nu-bezig"><b>Nu mee bezig:</b> beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
+    </div>
+</section>
 
-    <button id="journeyBtn" class="journey-btn">
-        Bekijk mijn reis <span class="journey-btn-arrow">→</span>
-    </button>
-
-    <div class="timeline">
-        <div class="tl-item">
-            <div class="tl-year">2025</div>
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-                <h4>Start opleiding Software Development</h4>
-                <p>Begonnen op het Grafisch Lyceum Rotterdam. Eerste stappen in HTML, CSS en JavaScript.</p>
-            </div>
-        </div>
-        <div class="tl-item">
-            <div class="tl-year">2026</div>
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-                <h4>Eerste echte projecten</h4>
-                <p>De WK 2026-website met PHP en een database, en Quizzie samen met mijn groepje.</p>
-            </div>
-        </div>
-        <div class="tl-item">
-            <div class="tl-year">Nu</div>
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-                <h4>Tweede jaar</h4>
-                <p>Verder met PHP, databases en grotere projecten in een team.</p>
-            </div>
-        </div>
-        <div class="tl-item future">
-            <div class="tl-year">Binnenkort?</div>
-            <div class="tl-dot"></div>
-            <div class="tl-card">
-                <h4>Bijbaan of stage</h4>
-                <p>Ik zoek een plek waar ik kan meedraaien en leren. Misschien bij jou?</p>
-            </div>
-        </div>
+<section class="sectie" style="padding-top:8px">
+    <div class="wrap">
+        <h2 style="margin-bottom:20px">Hoe ik hier gekomen ben</h2>
+        <button id="journeyBtn" class="knop knop-rand reis-knop">Bekijk mijn hele reis</button>
+        <ol class="tijdlijn">
+            <li><span class="jaar">2025</span><b>Start Software Development</b><p>Begonnen op het Grafisch Lyceum Rotterdam met HTML, CSS en JavaScript.</p></li>
+            <li><span class="jaar">2026</span><b>Eerste echte projecten</b><p>De WK 2026-website met PHP en een database, en Quizzie met mijn groepje.</p></li>
+            <li><span class="jaar">Nu</span><b>Tweede jaar</b><p>Verder met PHP, databases en grotere projecten in een team.</p></li>
+            <li class="straks"><span class="jaar">Straks</span><b>Stage</b><p>Een plek waar ik kan meedraaien en leren. Misschien bij jou?</p></li>
+        </ol>
     </div>
 </section>
 </main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
-    <span>© 2026 Quinten Löb</span>
-    <span>Gebouwd terwijl ik dit eigenlijk voor school moest doen</span>
-    <span>Rotterdam</span>
+    <div class="wrap">
+        <span>© 2026 Quinten Löb</span>
+        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+    </div>
 </footer>
 
 <script src="script.js"></script>
