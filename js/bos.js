@@ -204,6 +204,79 @@ function start() {
         scene.add(mesh);
     });
 
+    // ── GRAS ───────────────────────────────────────────────────────
+    // Tienduizenden sprietjes (één driehoekje per spriet, "instanced").
+    // Ze liggen in een strook voor de camera; als je verder het bos in
+    // loopt, schuiven ze in de shader mee (zo is er altijd gras om je heen).
+    const GRAS_N = mobiel() ? 16000 : 52000;
+    const GRAS_LENGTE = 64;
+    const spriet = new THREE.InstancedBufferGeometry();
+    spriet.setAttribute('position', new THREE.Float32BufferAttribute([-0.5, 0, 0, 0.5, 0, 0, 0.05, 1, 0], 3));
+    spriet.setIndex([0, 1, 2]);
+    const gOffset = new Float32Array(GRAS_N * 2), gVorm = new Float32Array(GRAS_N * 3);
+    for (let i = 0; i < GRAS_N; i++) {
+        // meer gras aan de zijkanten, iets minder midden op het pad
+        let x = (Math.random() - 0.5) * 70;
+        if (Math.abs(x) < 3 && Math.random() < 0.6) x += Math.sign(x || 1) * 3;
+        gOffset[i * 2] = x;
+        gOffset[i * 2 + 1] = Math.random() * GRAS_LENGTE;
+        gVorm[i * 3] = 0.25 + Math.pow(Math.random(), 1.6) * 0.75;     // hoogte
+        gVorm[i * 3 + 1] = Math.random() * Math.PI * 2;                 // draaiing
+        gVorm[i * 3 + 2] = Math.random();                               // kleurverschil
+    }
+    spriet.setAttribute('aOffset', new THREE.InstancedBufferAttribute(gOffset, 2));
+    spriet.setAttribute('aVorm', new THREE.InstancedBufferAttribute(gVorm, 3));
+    spriet.instanceCount = GRAS_N;
+    const grasUniforms = THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
+        uTijd: { value: 0 }, uCamZ: { value: 0 }, uLengte: { value: GRAS_LENGTE },
+    }]);
+    const grasMat = new THREE.ShaderMaterial({
+        uniforms: grasUniforms, fog: true, side: THREE.DoubleSide,
+        vertexShader: /* glsl */`
+            #include <fog_pars_vertex>
+            uniform float uTijd, uCamZ, uLengte;
+            attribute vec2 aOffset;
+            attribute vec3 aVorm;
+            varying float vTop, vTint;
+            // zelfde heuvels als de grond
+            float grondHoogte(float x, float z) {
+                float gy = -(z + 250.0);
+                return sin(x * 0.05) * cos(gy * 0.04) * 1.6 + sin(x * 0.13 + gy * 0.07) * 0.5;
+            }
+            void main() {
+                // strook voor de camera: van 1.5 tot uLengte ver
+                float afstand = 1.5 + mod(aOffset.y - uCamZ, uLengte);
+                float z = uCamZ - afstand;
+                float x = aOffset.x;
+                float hoog = aVorm.x * smoothstep(uLengte, uLengte - 14.0, afstand);   // ver weg krimpen = geen plopjes
+                float breed = 0.06 + aVorm.x * 0.05;
+                float c = cos(aVorm.y), s = sin(aVorm.y);
+                vec3 p = vec3(position.x * breed * c, position.y * hoog, position.x * breed * s);
+                // wind: golven die over het gras trekken, de punt beweegt het meest
+                float golf = sin(uTijd * 1.4 + x * 0.35 + z * 0.22) * 0.6 + sin(uTijd * 2.3 + x * 0.9) * 0.25;
+                p.x += golf * 0.16 * position.y * position.y * hoog;
+                p.z += golf * 0.06 * position.y * hoog;
+                vec3 wereld = vec3(x, grondHoogte(x, z) - 0.05, z) + p;
+                vTop = position.y;
+                vTint = aVorm.z;
+                vec4 mvPosition = viewMatrix * vec4(wereld, 1.0);
+                gl_Position = projectionMatrix * mvPosition;
+                #include <fog_vertex>
+            }`,
+        fragmentShader: /* glsl */`
+            #include <fog_pars_fragment>
+            varying float vTop, vTint;
+            void main() {
+                vec3 voet = vec3(0.020, 0.045, 0.040);
+                vec3 punt = mix(vec3(0.07, 0.15, 0.12), vec3(0.10, 0.19, 0.13), vTint);
+                gl_FragColor = vec4(mix(voet, punt, vTop), 1.0);
+                #include <fog_fragment>
+            }`,
+    });
+    const gras = new THREE.Mesh(spriet, grasMat);
+    gras.frustumCulled = false;
+    scene.add(gras);
+
     // maan: staat ver weg en loopt mee met de camera
     const maan = new THREE.Group();
     maan.add(new THREE.Mesh(new THREE.CircleGeometry(7, 40), new THREE.MeshBasicMaterial({ color: '#F4EBC9', fog: false })));
@@ -559,6 +632,7 @@ function start() {
         const t = klok.elapsedTime;
         uniforms.uTijd.value = t;
         boomUniforms.uTijd.value = t;
+        grasUniforms.uTijd.value = t;
         uniforms.uAan.value = Math.min(1, uniforms.uAan.value + dt * 0.45);
         tegoed += dt * 60;
         const stappen = Math.min(4, Math.floor(tegoed));
@@ -586,6 +660,7 @@ function start() {
         vp.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
         rechts.setFromMatrixColumn(m, 0); boven.setFromMatrixColumn(m, 1);
         const cz = camera.position.z;
+        grasUniforms.uCamZ.value = cz;
 
         // maan en mist
         maan.position.set(camera.position.x - 300, 205, cz - 560);
