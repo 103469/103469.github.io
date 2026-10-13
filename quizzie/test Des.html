@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mocha/mocha.css">
+</head>
+<body>
+
+<div id="mocha"></div>
+
+<!-- Mocha -->
+<script src="https://cdn.jsdelivr.net/npm/mocha/mocha.js"></script>
+
+<!-- ✅ JUISTE Chai (UMD versie) -->
+<script src="https://cdn.jsdelivr.net/npm/chai@4.3.7/chai.min.js"></script>
+
+<script>
+    mocha.setup('bdd');
+
+    console.log("chai loaded?", typeof chai); // moet "object" zijn
+
+    const expect = chai.expect;
+</script>
+
+<script src="./Javascript/des.js"> </script> 
+
+<script> 
+// test van des.js
+    function sum(a, b) {
+        return a + b;
+    }
+
+    // describe('Sum function', function () {
+    //     it('should return 3', function () {
+    //         expect(sum(1, 2)).to.equal(3);
+    //     });
+    // });
+
+    // describe('sum', function () {
+    //     it('sd', function () {
+    //         expect(sum(1, 2)).not.to.equal(4, 1);
+    //     });
+    // });
+        //alleen voor de vraag
+        describe('vraag1', function () { // vraag naam kan van alles zijn
+        it("Vraag 1:Wat is een drug?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[0]).to.equal("Vraag 1:Wat is een drug?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord1', function () {
+        it('2', function () {
+            expect(antwoorden[0]).to.equal(2);
+        });
+    });
+
+    describe('vraag2', function () { // vraag naam kan van alles zijn
+        it('"Vraag 2: Welke van deze middelen is een stimulerende drug?"', function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[1]).to.equal("Vraag 2: Welke van deze middelen is een stimulerende drug?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord2', function () {
+        it('3', function () {
+            expect(antwoorden[1]).to.equal(3);
+        });
+    });
+
+    describe('vraag3', function () { // vraag naam kan van alles zijn
+        it("Vraag 3: Wat kan een risico zijn van drugsgebruik op jonge leeftijd?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[2]).to.equal("Vraag 3: Wat kan een risico zijn van drugsgebruik op jonge leeftijd?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord3', function () {
+        it('3', function () {
+            expect(antwoorden[2]).to.equal(3);
+        });
+    });
+
+    describe('vraag4', function () { // vraag naam kan van alles zijn
+        it("Vraag 4: Welke drug valt onder verdovende middelen?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[3]).to.equal("Vraag 4: Welke drug valt onder verdovende middelen?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord4', function () {
+        it('2', function () {
+            expect(antwoorden[3]).to.equal(2);
+        });
+    });
+
+    describe('vraag5', function () { // vraag naam kan van alles zijn
+        it("Vraag 5: Wat betekent verslaving?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[4]).to.equal("Vraag 5: Wat betekent verslaving?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+
+        //alleen antwoord
+    describe('antwoord5', function () {
+        it('2', function () {
+            expect(antwoorden[4]).to.equal(2);
+        });
+    });
+
+
+    describe('vraag6', function () { // vraag naam kan van alles zijn
+        it("Vraag 6: Wat kan een effect zijn van XTC?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[5]).to.equal("Vraag 6: Wat kan een effect zijn van XTC?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord6', function () {
+        it('1', function () {
+            expect(antwoorden[5]).to.equal(1);
+        });
+    });
+
+    
+    describe('vraag7', function () { // vraag naam kan van alles zijn
+        it("Vraag 7: Welke drug is het meest veilig?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[6]).to.equal("Vraag 7: Welke drug is het meest veilig?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord7', function () {
+        it('koffie', function () {
+            expect(antwoorden[6]).to.equal("koffie");
+        });
+    });
+
+     describe('vraag8', function () { // vraag naam kan van alles zijn
+        it("Vraag 8: Weet de wetenschap wat de meest schadelijkste drugs is?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[7]).to.equal("Vraag 8: Weet de wetenschap wat de meest schadelijkste drugs is?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord8', function () {
+        it('nee', function () {
+            expect(antwoorden[7]).to.equal("nee");
+        });
+    });
+
+    describe('vraag9', function () { // vraag naam kan van alles zijn
+        it("Vraag 9: Wat is verstandig als iemand drugs aanbiedt en jij twijfelt?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[8]).to.equal("Vraag 9: Wat is verstandig als iemand drugs aanbiedt en jij twijfelt?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord9', function () {
+        it("4", function () {
+            expect(antwoorden[8]).to.equal(4);
+        });
+    });
+
+    describe('vraag10', function () { // vraag naam kan van alles zijn
+        it("Vraag 10: Waarom is drugsgebruik riskanter voor jongeren?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[9]).to.equal("Vraag 10: Waarom is drugsgebruik riskanter voor jongeren?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord10', function () {
+        it("4", function () {
+            expect(antwoorden[9]).to.equal(4);
+        });
+    });
+
+describe('vraag11', function () { // vraag naam kan van alles zijn
+        it("Vraag 11: Welke stof in alcohol zorgt voor het effect?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[10]).to.equal("Vraag 11: Welke stof in alcohol zorgt voor het effect?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord11', function () {
+        it("ethanol", function () {
+            expect(antwoorden[10]).to.equal("ethanol");
+        });
+    });
+describe('vraag12', function () { // vraag naam kan van alles zijn
+        it("Vraag 12: Wat is een hallucinerende drug?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[11]).to.equal("Vraag 12: Wat is een hallucinerende drug?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord12', function () {
+        it("1", function () {
+            expect(antwoorden[11]).to.equal(1);
+        });
+    });
+
+    describe('vraag13', function () { // vraag naam kan van alles zijn
+        it("Vraag 13: Welk risico hebben drugs wel en paracetamol meestal niet?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[12]).to.equal("Vraag 13: Welk risico hebben drugs wel en paracetamol meestal niet?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord13', function () {
+        it("verslaving", function () {
+            expect(antwoorden[12]).to.equal("verslaving");
+        });
+    });
+
+    describe('vraag14', function () { // vraag naam kan van alles zijn
+        it("Vraag 14: Kan een paracetamol rust geven?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[13]).to.equal("Vraag 14: Kan een paracetamol rust geven?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord14', function () {
+        it("ja", function () {
+            expect(antwoorden[13]).to.equal("ja");
+        });
+    });
+
+    describe('vraag15', function () { // vraag naam kan van alles zijn
+        it("Vraag 15: Wat kan een gevolg zijn van te veel alcohol drinken?", function () { // hoe de string vraag heet (vraag1)
+            expect(vragen[14]).to.equal("Vraag 15: Wat kan een gevolg zijn van te veel alcohol drinken?"); // vragen[0] moet gelijk zijn aan (vraag1)
+        });
+    });
+        //alleen antwoord
+    describe('antwoord15', function () {
+        it("2", function () {
+            expect(antwoorden[14]).to.equal(2);
+        });
+    });
+
+</script>
+
+<script>
+    mocha.run();
+</script>
+
+</body>
+</html>

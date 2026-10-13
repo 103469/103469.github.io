@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzie</title>
+    <link rel="stylesheet" href="../../CSS/quin.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+    <script src="../../Javascript/quin.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+  <img src="../../assets/logo2.png" alt="logo" class="logo">
+
+  <input type="checkbox" id="wisselaar">
+  <label for="wisselaar" class="hamburger">☰</label>
+
+  <div class="menu">
+    <ul class="list">
+      <li><a href="../../home.html">Home</a></li>
+      <li><a href="../../HTML/Destiny/info1.html">Drugs Quiz</a></li>
+      <li><a href="../../HTML/Quinten/info2.html">Fitness Quiz</a></li>
+      <li><a href="../../HTML/Kain/info3.html">Food Quiz</a></li>
+      <li><a href="../../team.html">Over ons team</a></li>
+    </ul>
+  </div>
+</nav>
+
+<h1 class="lijn">sport en fitness Quiz</h1>
+
+<label id="label" for="naam">Vul je naam in:</label>
+<input type="text" id="naam">
+<span id="foutmelding"></span>
+
+<div id="hidden">
+<button id="start" type="button">Start quiz</button>
+
+<h3 id="naamin"></h3>
+
+  <form id="form">
+  <div class="question-section">
+    <div class="vraag">
+      <img src="../../assets/sport.png" alt="Sport en fitness afbeelding">
+      <p id="quiz"></p>
+    </div>
+
+    <div id="fieldset" class="antwoorden">
+      <div class="ab">
+      <input class="radio" id="A" type="radio" name="antwoord" value="1">
+      <label class="antwoord-button" for="A"></label>
+      <br>
+      
+      <input class="radio" id="B" type="radio" name="antwoord" value="2">
+      <label class="antwoord-button" for="B"></label>
+      </div>
+      <br>
+      <div class="cd">
+      <input class="radio" id="C" type="radio" name="antwoord" value="3">
+      <label class="antwoord-button" for="C"></label>
+
+      <br>
+      <input class="radio" id="D" type="radio" name="antwoord" value="4">
+      <label class="antwoord-button" for="D"></label>
+    </div>
+    </div>
+
+    <input type="text" id="openvraag">
+    <div id="loader1"></div>
+    <div id="goud"><img src="../../assets/goud.png" width="200px" ></div>
+    <div id="zilver"><img src="../../assets/zilver.png" width="200px" ></div>
+    <div id="brons"><img src="../../assets/brons.png" width="200px" ></div>
+    <div id="knopterug"><a href="../../home.html">Terug naar Home</a></div>
+    <p id="resultaat"></p>
+    </div>
+    <div class="footer">
+      <button class="nav-button" id="knop" type="submit">Antwoord</button>
+      <!-- <a class="nav-button" id="scoreboard-link" href="./scoreboard2.html">Volgende</a> -->
+    </div>
+    <!-- <p id="resultaat"></p> -->
+  </div>
+  </form>
+
+<footer class="bold bottom">
+  <p>&copy;2026 Team Leefstijl</p>
+</footer>
+</body>
+</html>
