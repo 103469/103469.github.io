@@ -280,3 +280,26 @@ a { color: inherit; }
     html { scroll-behavior: auto; }
     * { transition: none !important; }
 }
+
+/* ─── MIJN REIS (eigen pagina) ───────────────────────────────── */
+.reis-kaart {
+    background: var(--wit); border: 1px solid var(--lijn); border-radius: var(--radius);
+    padding: 40px 24px; display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: start;
+}
+.reis-groot { width: 400px; height: 940px; margin: 0 auto; }
+.reis-groot .journey-node { width: 140px; }
+.reis-groot .journey-dot { width: 48px; height: 48px; font-size: 1.05rem; }
+.reis-groot .journey-label { font-size: 0.92rem; }
+.reis-uitleg { position: sticky; top: 24px; color: var(--grijs); }
+.reis-uitleg p { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.stip { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--fles); flex-shrink: 0; }
+.stip.done { background: var(--fles); }
+.stip.next { background: var(--mint); }
+.stip.todo { border-style: dashed; }
+@media (max-width: 860px) {
+    .reis-kaart { grid-template-columns: 1fr; padding: 28px 12px; }
+    .reis-groot { width: 330px; height: 776px; }
+    .reis-groot .journey-node { width: 112px; }
+    .reis-groot .journey-label { font-size: 0.8rem; }
+    .reis-uitleg { position: static; display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center; }
+}

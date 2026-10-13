@@ -9,59 +9,6 @@
 </head>
 <body>
 
-<!-- REIS -->
-<div class="journey-overlay" id="journeyOverlay" role="dialog" aria-modal="true" aria-labelledby="reisTitel">
-    <div class="journey-modal">
-        <button class="journey-close" id="journeyClose" aria-label="Sluiten">✕</button>
-        <h2 id="reisTitel">Van start tot stage</h2>
-        <div class="journey-path-wrap">
-            <svg class="journey-svg" viewBox="0 0 400 940" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
-                <path class="journey-line" d="M 130,60 L 290,150 L 130,240 L 290,330 L 130,420 L 290,510 L 130,600 L 290,690 L 130,780 L 290,870" />
-            </svg>
-            <div class="journey-node" style="left:32.5%; top:6.4%;">
-                <div class="journey-dot done">1</div>
-                <div class="journey-label">Start opleiding<br>Software Development</div>
-            </div>
-            <div class="journey-node" style="left:72.5%; top:16%;">
-                <div class="journey-dot done">2</div>
-                <div class="journey-label">Eerste portfolio<br>online</div>
-            </div>
-            <div class="journey-node" style="left:32.5%; top:25.5%;">
-                <div class="journey-dot done">3</div>
-                <div class="journey-label">Bootstrap<br>bestelformulier</div>
-            </div>
-            <div class="journey-node" style="left:72.5%; top:35.1%;">
-                <div class="journey-dot done">4</div>
-                <div class="journey-label">Bedrijfssafari bij<br>W.T. International</div>
-            </div>
-            <div class="journey-node" style="left:32.5%; top:44.7%;">
-                <div class="journey-dot done">5</div>
-                <div class="journey-label">WK 2026<br>website</div>
-            </div>
-            <div class="journey-node" style="left:72.5%; top:54.3%;">
-                <div class="journey-dot done">6</div>
-                <div class="journey-label">Quizzie<br>(groepsproject)</div>
-            </div>
-            <div class="journey-node" style="left:32.5%; top:63.8%;">
-                <div class="journey-dot done">7</div>
-                <div class="journey-label">Door naar<br>jaar 2</div>
-            </div>
-            <div class="journey-node" style="left:72.5%; top:73.4%;">
-                <div class="journey-dot done">8</div>
-                <div class="journey-label">PHP CRUD<br>met MySQL</div>
-            </div>
-            <div class="journey-node" style="left:32.5%; top:83%;">
-                <div class="journey-dot next">9</div>
-                <div class="journey-label">Stage</div>
-            </div>
-            <div class="journey-node" style="left:72.5%; top:92.5%;">
-                <div class="journey-dot todo">10</div>
-                <div class="journey-label">Software<br>developer</div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- NAVIGATIE -->
 <header class="site-nav">
     <div class="wrap">
@@ -69,6 +16,7 @@
         <nav class="nav-links">
             <a href="index.html" class="active" aria-current="page">Home</a>
             <a href="projecten.html">Projecten</a>
+            <a href="mijn-reis.html">Mijn reis</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
@@ -114,31 +62,10 @@
 
 <section class="sectie" style="padding-top:8px">
     <div class="wrap">
-        <h2>Wat ik kan</h2>
-        <p class="sectie-intro" style="margin-bottom:24px">Per onderdeel zie je waar ik het echt heb gebruikt.</p>
-        <div class="skills">
-            <div class="skill"><b>HTML en CSS</b><span>Gebruikt in Quizzie, WK 2026 en dit portfolio</span></div>
-            <div class="skill"><b>PHP</b><span>Gebruikt in WK 2026 en mijn sportquiz</span></div>
-            <div class="skill"><b>SQL</b><span>SQLite in WK 2026, MySQL in mijn sportquiz</span></div>
-            <div class="skill"><b>Tailwind CSS</b><span>Gebruikt in WK 2026</span></div>
-            <div class="skill"><b>JavaScript</b><span>De quizlogica van Quizzie en dit portfolio</span></div>
-            <div class="skill"><b>Git en GitHub</b><span>Al mijn projecten staan erop</span></div>
-            <div class="skill"><b>Plesk</b><span>WK 2026 zelf online gezet</span></div>
+        <div class="knop-rij">
+            <a class="knop knop-vol" href="projecten.html">Bekijk mijn projecten</a>
+            <a class="knop knop-rand" href="mijn-reis.html">Bekijk mijn reis</a>
         </div>
-        <p class="nu-bezig"><b>Nu mee bezig:</b> beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
-    </div>
-</section>
-
-<section class="sectie" style="padding-top:8px">
-    <div class="wrap">
-        <h2 style="margin-bottom:20px">Hoe ik hier gekomen ben</h2>
-        <button id="journeyBtn" class="knop knop-rand reis-knop">Bekijk mijn hele reis</button>
-        <ol class="tijdlijn">
-            <li><span class="jaar">2025</span><b>Start Software Development</b><p>Begonnen op het Grafisch Lyceum Rotterdam met HTML, CSS en JavaScript.</p></li>
-            <li><span class="jaar">2026</span><b>Eerste echte projecten</b><p>De WK 2026-website met PHP en een database, en Quizzie met mijn groepje.</p></li>
-            <li><span class="jaar">Nu</span><b>Tweede jaar</b><p>Verder met PHP, databases en grotere projecten in een team.</p></li>
-            <li class="straks"><span class="jaar">Straks</span><b>Stage</b><p>Een plek waar ik kan meedraaien en leren. Misschien bij jou?</p></li>
-        </ol>
     </div>
 </section>
 </main>
