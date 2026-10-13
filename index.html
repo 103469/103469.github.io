@@ -3,95 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinten Löb, speler 1</title>
+    <title>Quinten Löb, portfolio</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
+    <meta name="theme-color" content="#070E14">
+    <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HET BOS: lucht, sterren, bomen en de vuurvliegjes -->
+<div class="lucht" aria-hidden="true"></div>
+<div class="sterren" aria-hidden="true"><svg aria-hidden="true"><circle cx="45.24%" cy="34.71%" r="1.3" fill="#fff" opacity="0.85"/><circle cx="50.78%" cy="36.42%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="62.99%" cy="49.16%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="30.34%" cy="5.62%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="96.48%" cy="40.54%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="83.17%" cy="3.92%" r="0.6" fill="#fff" opacity="0.4"/><circle cx="87.96%" cy="37.18%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="44.05%" cy="52.23%" r="0.8" fill="#fff" opacity="0.6"/><circle cx="49.98%" cy="41.07%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="40.68%" cy="34.18%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="31.53%" cy="14.24%" r="1" fill="#fff" opacity="0.25"/><circle cx="7.02%" cy="47.51%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="84.66%" cy="23.96%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="21.35%" cy="57.48%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="37.55%" cy="43.95%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="56.62%" cy="12.31%" r="1" fill="#fff" opacity="0.6"/><circle cx="8.71%" cy="20.62%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="13.46%" cy="43.83%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="46.49%" cy="30.18%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="50.89%" cy="61.09%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="64.37%" cy="7.22%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="0.05%" cy="53.59%" r="1" fill="#fff" opacity="0.25"/><circle cx="21.07%" cy="24.45%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="98.93%" cy="13.22%" r="1" fill="#fff" opacity="0.25"/><circle cx="77.27%" cy="20.40%" r="1" fill="#fff" opacity="0.85"/><circle cx="7.34%" cy="5.59%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="60.13%" cy="23.05%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="95.91%" cy="29.99%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="18.28%" cy="9.56%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="72.54%" cy="9.83%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="88.22%" cy="37.42%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="10.38%" cy="2.40%" r="1" fill="#fff" opacity="0.4"/><circle cx="73.98%" cy="24.28%" r="1.3" fill="#fff" opacity="0.85"/><circle cx="29.34%" cy="10.88%" r="0.6" fill="#fff" opacity="0.4"/><circle cx="22.84%" cy="34.68%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="21.24%" cy="56.73%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="26.92%" cy="27.63%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="17.63%" cy="22.86%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="36.21%" cy="55.24%" r="1" fill="#fff" opacity="0.4"/><circle cx="58.99%" cy="57.26%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="70.10%" cy="59.69%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="48.22%" cy="45.29%" r="1" fill="#fff" opacity="0.4"/><circle cx="99.94%" cy="4.67%" r="1" fill="#fff" opacity="0.25"/><circle cx="90.02%" cy="45.70%" r="0.8" fill="#fff" opacity="0.6"/><circle cx="35.18%" cy="42.48%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="94.42%" cy="1.88%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="62.50%" cy="23.70%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="8.02%" cy="39.64%" r="1" fill="#fff" opacity="0.85"/><circle cx="72.82%" cy="24.08%" r="1.3" fill="#fff" opacity="0.85"/><circle cx="46.26%" cy="33.56%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="60.13%" cy="29.82%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="49.73%" cy="38.10%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="89.64%" cy="22.81%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="51.84%" cy="46.73%" r="1" fill="#fff" opacity="0.85"/><circle cx="49.83%" cy="14.97%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="19.85%" cy="26.72%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="38.44%" cy="36.15%" r="1" fill="#fff" opacity="0.4"/><circle cx="13.62%" cy="30.78%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="95.00%" cy="17.16%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="45.06%" cy="17.06%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="38.25%" cy="32.24%" r="1" fill="#fff" opacity="0.85"/><circle cx="32.03%" cy="51.38%" r="1" fill="#fff" opacity="0.25"/><circle cx="67.83%" cy="17.43%" r="1" fill="#fff" opacity="0.6"/><circle cx="64.93%" cy="34.97%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="45.48%" cy="1.53%" r="1" fill="#fff" opacity="0.4"/><circle cx="77.93%" cy="49.40%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="10.90%" cy="33.19%" r="1" fill="#fff" opacity="0.25"/><circle cx="68.45%" cy="12.36%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="17.87%" cy="0.67%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="17.91%" cy="16.89%" r="1" fill="#fff" opacity="0.4"/><circle cx="39.35%" cy="49.10%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="41.05%" cy="55.34%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="45.05%" cy="12.21%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="55.00%" cy="40.47%" r="1" fill="#fff" opacity="0.85"/><circle cx="32.65%" cy="60.90%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="21.33%" cy="55.80%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="53.70%" cy="49.03%" r="1" fill="#fff" opacity="0.6"/><circle cx="91.00%" cy="53.06%" r="1" fill="#fff" opacity="0.25"/><circle cx="3.71%" cy="21.21%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="48.74%" cy="1.76%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="79.99%" cy="10.72%" r="1" fill="#fff" opacity="0.4"/><circle cx="47.06%" cy="61.99%" r="1.3" fill="#fff" opacity="0.85"/><circle cx="57.90%" cy="42.72%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="52.67%" cy="17.99%" r="0.8" fill="#fff" opacity="0.6"/><circle cx="31.17%" cy="23.64%" r="0.8" fill="#fff" opacity="0.6"/><circle cx="85.08%" cy="60.04%" r="1" fill="#fff" opacity="0.85"/><circle cx="20.10%" cy="33.23%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="2.78%" cy="60.10%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="49.10%" cy="42.84%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="41.38%" cy="59.33%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="24.63%" cy="30.57%" r="1" fill="#fff" opacity="0.85"/><circle cx="90.09%" cy="58.01%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="10.86%" cy="26.01%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="12.95%" cy="48.32%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="19.41%" cy="14.09%" r="1" fill="#fff" opacity="0.6"/><circle cx="72.36%" cy="15.16%" r="1.3" fill="#fff" opacity="0.25"/><circle cx="49.97%" cy="36.10%" r="1" fill="#fff" opacity="0.4"/><circle cx="70.14%" cy="54.48%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="63.30%" cy="51.16%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="86.38%" cy="33.11%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="85.13%" cy="37.93%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="91.48%" cy="38.93%" r="1" fill="#fff" opacity="0.4"/><circle cx="31.59%" cy="19.53%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="77.83%" cy="12.06%" r="0.6" fill="#fff" opacity="0.4"/><circle cx="88.90%" cy="8.22%" r="0.6" fill="#fff" opacity="0.6"/><circle cx="38.79%" cy="26.96%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="20.06%" cy="38.94%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="20.09%" cy="42.31%" r="1" fill="#fff" opacity="0.25"/><circle cx="70.47%" cy="39.35%" r="1" fill="#fff" opacity="0.4"/><circle cx="80.28%" cy="29.89%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="76.20%" cy="38.03%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="18.96%" cy="7.13%" r="0.8" fill="#fff" opacity="0.4"/><circle cx="99.03%" cy="57.47%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="13.45%" cy="42.22%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="32.68%" cy="28.95%" r="1" fill="#fff" opacity="0.85"/><circle cx="21.01%" cy="23.14%" r="0.6" fill="#fff" opacity="0.4"/><circle cx="18.13%" cy="28.14%" r="1" fill="#fff" opacity="0.85"/><circle cx="92.19%" cy="37.50%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="32.37%" cy="5.26%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="50.43%" cy="60.93%" r="1" fill="#fff" opacity="0.6"/><circle cx="91.13%" cy="46.15%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="13.32%" cy="20.45%" r="1" fill="#fff" opacity="0.85"/><circle cx="76.52%" cy="25.16%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="79.73%" cy="18.70%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="88.80%" cy="61.42%" r="0.6" fill="#fff" opacity="0.4"/><circle cx="27.30%" cy="59.61%" r="1" fill="#fff" opacity="0.6"/><circle cx="21.60%" cy="25.18%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="38.96%" cy="61.99%" r="0.8" fill="#fff" opacity="0.25"/><circle cx="76.17%" cy="60.77%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="61.54%" cy="45.81%" r="1" fill="#fff" opacity="0.85"/><circle cx="40.16%" cy="3.13%" r="0.8" fill="#fff" opacity="0.85"/><circle cx="1.08%" cy="16.03%" r="1" fill="#fff" opacity="0.6"/><circle cx="55.01%" cy="31.48%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="80.95%" cy="4.72%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="93.02%" cy="9.92%" r="1.3" fill="#fff" opacity="0.4"/><circle cx="85.57%" cy="33.60%" r="0.6" fill="#fff" opacity="0.85"/><circle cx="94.53%" cy="26.08%" r="1.3" fill="#fff" opacity="0.6"/><circle cx="36.56%" cy="17.72%" r="1" fill="#fff" opacity="0.6"/><circle cx="66.36%" cy="46.36%" r="0.6" fill="#fff" opacity="0.25"/><circle cx="77.25%" cy="36.32%" r="0.8" fill="#fff" opacity="0.85"/></svg></div>
+<div class="dageraad" aria-hidden="true"></div>
+<div class="bomen bomen-ver" aria-hidden="true"><svg viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M-40 234 L-33 270 L-36 270 L-26 307 L-32 307 L-19 343 L-29 343 L-13 380 L-25 380 L-37 382 L-43 382 L-55 380 L-67 380 L-51 343 L-61 343 L-48 307 L-54 307 L-44 270 L-47 270Z M-8 194 L1 240 L-3 240 L10 287 L2 287 L18 333 L6 333 L27 380 L11 380 L-5 382 L-11 382 L-28 380 L-44 380 L-23 333 L-35 333 L-18 287 L-26 287 L-13 240 L-17 240Z M25 259 L32 289 L29 289 L38 319 L32 319 L44 350 L36 350 L50 380 L39 380 L28 382 L22 382 L12 380 L1 380 L15 350 L7 350 L19 319 L13 319 L22 289 L19 289Z M52 234 L60 271 L56 271 L67 307 L60 307 L75 344 L65 344 L83 380 L69 380 L55 382 L49 382 L35 380 L21 380 L39 344 L29 344 L44 307 L37 307 L48 271 L44 271Z M90 168 L99 221 L95 221 L109 274 L100 274 L119 327 L106 327 L129 380 L111 380 L93 382 L87 382 L68 380 L51 380 L73 327 L60 327 L79 274 L70 274 L84 221 L80 221Z M142 243 L149 278 L146 278 L155 312 L149 312 L162 346 L153 346 L168 380 L156 380 L145 382 L139 382 L128 380 L116 380 L131 346 L122 346 L135 312 L129 312 L138 278 L136 278Z M182 202 L190 247 L186 247 L199 291 L191 291 L208 336 L196 336 L217 380 L201 380 L185 382 L179 382 L162 380 L147 380 L167 336 L155 336 L172 291 L164 291 L177 247 L173 247Z M229 253 L236 285 L233 285 L242 316 L236 316 L248 348 L240 348 L255 380 L243 380 L232 382 L226 382 L216 380 L204 380 L219 348 L211 348 L223 316 L217 316 L226 285 L223 285Z M263 227 L269 265 L266 265 L275 303 L269 303 L281 342 L273 342 L287 380 L276 380 L266 382 L260 382 L249 380 L238 380 L252 342 L244 342 L256 303 L250 303 L259 265 L256 265Z M300 208 L308 251 L304 251 L317 294 L309 294 L325 337 L314 337 L333 380 L318 380 L303 382 L297 382 L281 380 L266 380 L286 337 L274 337 L290 294 L283 294 L295 251 L291 251Z M351 181 L361 231 L356 231 L371 281 L362 281 L382 330 L368 330 L392 380 L373 380 L354 382 L348 382 L328 380 L310 380 L334 330 L320 330 L340 281 L330 281 L345 231 L341 231Z M399 172 L408 224 L404 224 L418 276 L409 276 L427 328 L415 328 L437 380 L420 380 L402 382 L396 382 L378 380 L361 380 L383 328 L371 328 L389 276 L380 276 L394 224 L389 224Z M458 163 L467 217 L463 217 L476 272 L468 272 L485 326 L473 326 L494 380 L478 380 L461 382 L455 382 L438 380 L422 380 L443 326 L431 326 L448 272 L440 272 L453 217 L449 217Z M493 236 L501 272 L498 272 L508 308 L502 308 L516 344 L506 344 L523 380 L510 380 L496 382 L490 382 L477 380 L464 380 L481 344 L471 344 L485 308 L478 308 L489 272 L486 272Z M530 191 L538 238 L534 238 L546 286 L539 286 L554 333 L543 333 L563 380 L548 380 L533 382 L527 382 L511 380 L497 380 L516 333 L505 333 L520 286 L513 286 L525 238 L521 238Z M571 218 L578 258 L575 258 L586 299 L579 299 L593 339 L583 339 L600 380 L587 380 L574 382 L568 382 L555 380 L542 380 L559 339 L549 339 L563 299 L557 299 L567 258 L564 258Z M609 196 L618 242 L614 242 L628 288 L619 288 L637 334 L624 334 L647 380 L630 380 L612 382 L606 382 L588 380 L571 380 L593 334 L581 334 L598 288 L590 288 L604 242 L599 242Z M661 158 L672 213 L667 213 L683 269 L673 269 L695 324 L680 324 L706 380 L686 380 L664 382 L658 382 L636 380 L616 380 L642 324 L627 324 L649 269 L638 269 L655 213 L650 213Z M733 186 L741 235 L737 235 L749 283 L742 283 L757 332 L746 332 L765 380 L751 380 L736 382 L730 382 L715 380 L700 380 L719 332 L708 332 L724 283 L716 283 L728 235 L725 235Z M782 154 L793 210 L788 210 L805 267 L795 267 L817 323 L801 323 L828 380 L807 380 L785 382 L779 382 L756 380 L735 380 L763 323 L747 323 L769 267 L759 267 L775 210 L770 210Z M842 181 L850 231 L847 231 L859 281 L851 281 L867 330 L856 330 L876 380 L861 380 L845 382 L839 382 L823 380 L808 380 L828 330 L817 330 L833 281 L825 281 L837 231 L834 231Z M892 197 L900 243 L897 243 L908 288 L901 288 L916 334 L905 334 L924 380 L910 380 L895 382 L889 382 L875 380 L860 380 L879 334 L868 334 L883 288 L876 288 L888 243 L884 243Z M922 166 L934 220 L928 220 L945 273 L935 273 L956 327 L941 327 L967 380 L947 380 L925 382 L919 382 L898 380 L877 380 L904 327 L889 327 L910 273 L900 273 L916 220 L911 220Z M965 172 L975 224 L971 224 L984 276 L976 276 L994 328 L981 328 L1003 380 L986 380 L968 382 L962 382 L945 380 L928 380 L950 328 L937 328 L955 276 L947 276 L960 224 L956 224Z M1003 228 L1011 266 L1007 266 L1018 304 L1012 304 L1026 342 L1016 342 L1033 380 L1020 380 L1006 382 L1000 382 L987 380 L973 380 L991 342 L981 342 L995 304 L988 304 L999 266 L996 266Z M1049 255 L1055 286 L1052 286 L1061 318 L1055 318 L1067 349 L1059 349 L1073 380 L1062 380 L1052 382 L1046 382 L1036 380 L1025 380 L1039 349 L1031 349 L1042 318 L1037 318 L1046 286 L1043 286Z M1071 181 L1080 231 L1076 231 L1089 280 L1081 280 L1097 330 L1086 330 L1106 380 L1090 380 L1074 382 L1068 382 L1052 380 L1036 380 L1057 330 L1045 330 L1061 280 L1053 280 L1066 231 L1062 231Z M1124 152 L1135 209 L1130 209 L1145 266 L1136 266 L1156 323 L1142 323 L1167 380 L1148 380 L1127 382 L1121 382 L1101 380 L1082 380 L1107 323 L1093 323 L1113 266 L1103 266 L1119 209 L1114 209Z M1192 226 L1198 264 L1195 264 L1204 303 L1199 303 L1211 341 L1202 341 L1217 380 L1206 380 L1195 382 L1189 382 L1178 380 L1167 380 L1181 341 L1173 341 L1185 303 L1179 303 L1188 264 L1186 264Z M1225 257 L1230 287 L1228 287 L1236 318 L1231 318 L1241 349 L1234 349 L1246 380 L1237 380 L1228 382 L1222 382 L1214 380 L1204 380 L1217 349 L1209 349 L1219 318 L1215 318 L1222 287 L1220 287Z M1250 193 L1258 240 L1254 240 L1266 286 L1259 286 L1274 333 L1263 333 L1281 380 L1267 380 L1253 382 L1247 382 L1233 380 L1219 380 L1237 333 L1226 333 L1241 286 L1234 286 L1246 240 L1242 240Z M1279 165 L1289 218 L1284 218 L1298 272 L1290 272 L1308 326 L1295 326 L1317 380 L1300 380 L1282 382 L1276 382 L1258 380 L1241 380 L1264 326 L1251 326 L1269 272 L1260 272 L1274 218 L1270 218Z M1339 161 L1348 216 L1344 216 L1358 271 L1349 271 L1368 325 L1355 325 L1378 380 L1360 380 L1342 382 L1336 382 L1317 380 L1300 380 L1323 325 L1309 325 L1328 271 L1319 271 L1333 216 L1329 216Z M1386 203 L1395 247 L1391 247 L1404 291 L1396 291 L1412 336 L1401 336 L1421 380 L1405 380 L1389 382 L1383 382 L1368 380 L1352 380 L1372 336 L1361 336 L1377 291 L1369 291 L1382 247 L1378 247Z M1431 198 L1440 244 L1436 244 L1449 289 L1441 289 L1457 335 L1446 335 L1466 380 L1450 380 L1434 382 L1428 382 L1412 380 L1397 380 L1417 335 L1405 335 L1422 289 L1414 289 L1427 244 L1423 244Z M1485 204 L1493 248 L1490 248 L1501 292 L1494 292 L1509 336 L1499 336 L1517 380 L1503 380 L1488 382 L1482 382 L1468 380 L1453 380 L1472 336 L1461 336 L1477 292 L1469 292 L1481 248 L1477 248Z M1530 234 L1537 270 L1534 270 L1543 307 L1537 307 L1549 343 L1541 343 L1556 380 L1544 380 L1533 382 L1527 382 L1516 380 L1505 380 L1520 343 L1511 343 L1523 307 L1517 307 L1527 270 L1524 270Z M1571 203 L1579 247 L1575 247 L1587 291 L1580 291 L1596 336 L1584 336 L1604 380 L1589 380 L1574 382 L1568 382 L1552 380 L1537 380 L1557 336 L1546 336 L1562 291 L1554 291 L1566 247 L1562 247Z M1601 214 L1609 256 L1605 256 L1617 297 L1610 297 L1624 339 L1614 339 L1632 380 L1618 380 L1604 382 L1598 382 L1584 380 L1570 380 L1588 339 L1577 339 L1592 297 L1585 297 L1597 256 L1593 256Z M1630 192 L1639 239 L1634 239 L1648 286 L1639 286 L1657 333 L1644 333 L1665 380 L1649 380 L1633 382 L1627 382 L1610 380 L1594 380 L1615 333 L1603 333 L1620 286 L1612 286 L1625 239 L1621 239Z" fill="#0F232A"/><rect x="0" y="380" width="1600" height="42" fill="#0F232A"/></svg></div>
+<canvas id="vuurvliegjes" aria-hidden="true"></canvas>
+<div class="bomen bomen-dicht" aria-hidden="true"><svg viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M-40 24 L-20 118 L-29 118 L-1 213 L-18 213 L19 307 L-8 307 L39 402 L3 402 L-37 404 L-43 404 L-83 402 L-119 402 L-72 307 L-99 307 L-62 213 L-79 213 L-51 118 L-60 118Z M38 -19 L55 86 L47 86 L72 192 L57 192 L90 297 L66 297 L107 402 L76 402 L41 404 L35 404 L-0 402 L-31 402 L9 297 L-14 297 L19 192 L3 192 L28 86 L21 86Z M112 -16 L130 88 L122 88 L148 193 L132 193 L166 297 L141 297 L183 402 L151 402 L115 404 L109 404 L73 402 L41 402 L83 297 L59 297 L92 193 L76 193 L102 88 L94 88Z M208 123 L221 193 L215 193 L234 263 L222 263 L246 332 L229 332 L259 402 L236 402 L211 404 L205 404 L180 402 L157 402 L187 332 L170 332 L194 263 L183 263 L201 193 L196 193Z M272 187 L283 241 L278 241 L293 295 L284 295 L304 348 L290 348 L315 402 L296 402 L275 404 L269 404 L248 402 L228 402 L254 348 L239 348 L260 295 L250 295 L266 241 L261 241Z M313 200 L322 251 L318 251 L330 301 L322 301 L338 352 L327 352 L346 402 L331 402 L316 404 L310 404 L296 402 L281 402 L300 352 L289 352 L304 301 L297 301 L309 251 L305 251Z M349 197 L359 248 L355 248 L370 300 L360 300 L380 351 L366 351 L391 402 L372 402 L352 404 L346 404 L326 402 L307 402 L331 351 L317 351 L337 300 L328 300 L343 248 L338 248Z M398 244 L405 284 L401 284 L411 323 L405 323 L418 363 L409 363 L425 402 L413 402 L401 404 L395 404 L383 402 L371 402 L387 363 L377 363 L390 323 L384 323 L394 284 L391 284Z M441 263 L448 298 L445 298 L454 333 L448 333 L461 367 L452 367 L468 402 L456 402 L444 404 L438 404 L427 402 L415 402 L430 367 L421 367 L434 333 L428 333 L438 298 L435 298Z M472 227 L480 271 L476 271 L487 315 L481 315 L495 358 L485 358 L503 402 L489 402 L475 404 L469 404 L455 402 L441 402 L459 358 L449 358 L463 315 L457 315 L468 271 L464 271Z M515 255 L522 292 L519 292 L529 329 L523 329 L536 365 L526 365 L543 402 L530 402 L518 404 L512 404 L499 402 L487 402 L503 365 L494 365 L507 329 L501 329 L511 292 L508 292Z M558 264 L564 299 L561 299 L570 333 L564 333 L575 368 L568 368 L581 402 L571 402 L561 404 L555 404 L545 402 L535 402 L549 368 L541 368 L552 333 L547 333 L555 299 L552 299Z M580 250 L587 288 L584 288 L594 326 L588 326 L601 364 L591 364 L608 402 L595 402 L583 404 L577 404 L564 402 L552 402 L568 364 L559 364 L572 326 L566 326 L576 288 L573 288Z M609 260 L616 295 L613 295 L622 331 L616 331 L629 366 L620 366 L636 402 L624 402 L612 404 L606 404 L594 402 L582 402 L598 366 L589 366 L602 331 L596 331 L605 295 L602 295Z M647 275 L652 307 L650 307 L658 338 L653 338 L664 370 L656 370 L669 402 L659 402 L650 404 L644 404 L635 402 L625 402 L638 370 L630 370 L641 338 L636 338 L644 307 L641 307Z M672 282 L677 312 L675 312 L682 342 L678 342 L687 372 L681 372 L692 402 L683 402 L675 404 L669 404 L661 402 L652 402 L664 372 L657 372 L667 342 L662 342 L670 312 L667 312Z M701 324 L705 343 L703 343 L709 363 L705 363 L713 382 L707 382 L716 402 L710 402 L704 404 L698 404 L693 402 L686 402 L695 382 L690 382 L697 363 L694 363 L699 343 L697 343Z M722 290 L728 318 L725 318 L734 346 L729 346 L739 374 L732 374 L745 402 L735 402 L725 404 L719 404 L710 402 L700 402 L713 374 L705 374 L716 346 L711 346 L719 318 L717 318Z M751 326 L754 345 L753 345 L757 364 L754 364 L760 383 L756 383 L764 402 L758 402 L754 404 L748 404 L744 402 L738 402 L746 383 L741 383 L747 364 L744 364 L749 345 L748 345Z M767 315 L771 336 L769 336 L774 358 L771 358 L778 380 L773 380 L781 402 L775 402 L770 404 L764 404 L759 402 L753 402 L761 380 L756 380 L763 358 L760 358 L765 336 L763 336Z M789 316 L793 338 L791 338 L797 359 L793 359 L801 381 L796 381 L806 402 L798 402 L792 404 L786 404 L780 402 L772 402 L782 381 L776 381 L784 359 L781 359 L787 338 L785 338Z M806 327 L809 346 L808 346 L812 365 L810 365 L815 383 L811 383 L819 402 L813 402 L809 404 L803 404 L800 402 L794 402 L802 383 L797 383 L803 365 L800 365 L805 346 L803 346Z M820 326 L824 345 L822 345 L827 364 L824 364 L831 383 L826 383 L834 402 L828 402 L823 404 L817 404 L813 402 L806 402 L814 383 L810 383 L816 364 L813 364 L818 345 L817 345Z M836 301 L841 326 L839 326 L847 351 L842 351 L852 377 L845 377 L857 402 L848 402 L839 404 L833 404 L825 402 L816 402 L828 377 L821 377 L831 351 L826 351 L833 326 L831 326Z M857 317 L861 338 L859 338 L865 359 L861 359 L868 381 L863 381 L872 402 L865 402 L860 404 L854 404 L850 402 L843 402 L852 381 L847 381 L853 359 L850 359 L855 338 L854 338Z M877 289 L882 317 L880 317 L887 345 L882 345 L892 374 L885 374 L896 402 L888 402 L880 404 L874 404 L866 402 L858 402 L869 374 L863 374 L872 345 L867 345 L874 317 L872 317Z M905 314 L908 336 L907 336 L912 358 L909 358 L915 380 L911 380 L919 402 L913 402 L908 404 L902 404 L897 402 L891 402 L899 380 L894 380 L901 358 L898 358 L903 336 L901 336Z M925 308 L929 331 L927 331 L933 355 L929 355 L937 378 L932 378 L941 402 L934 402 L928 404 L922 404 L916 402 L909 402 L919 378 L913 378 L921 355 L917 355 L923 331 L921 331Z M944 310 L948 333 L946 333 L953 356 L949 356 L957 379 L951 379 L961 402 L953 402 L947 404 L941 404 L935 402 L928 402 L937 379 L932 379 L940 356 L936 356 L942 333 L940 333Z M964 296 L969 322 L967 322 L975 349 L970 349 L980 375 L973 375 L985 402 L976 402 L967 404 L961 404 L953 402 L944 402 L956 375 L949 375 L959 349 L954 349 L962 322 L959 322Z M987 308 L991 331 L989 331 L994 355 L991 355 L998 378 L993 378 L1002 402 L995 402 L990 404 L984 404 L978 402 L971 402 L980 378 L975 378 L982 355 L979 355 L985 331 L983 331Z M1002 280 L1007 311 L1005 311 L1013 341 L1008 341 L1018 372 L1011 372 L1023 402 L1014 402 L1005 404 L999 404 L990 402 L980 402 L993 372 L985 372 L996 341 L991 341 L999 311 L996 311Z M1034 272 L1040 304 L1037 304 L1046 337 L1041 337 L1053 369 L1044 369 L1059 402 L1048 402 L1037 404 L1031 404 L1020 402 L1008 402 L1023 369 L1014 369 L1027 337 L1021 337 L1030 304 L1027 304Z M1074 288 L1078 317 L1076 317 L1083 345 L1079 345 L1088 374 L1081 374 L1092 402 L1084 402 L1077 404 L1071 404 L1064 402 L1056 402 L1066 374 L1060 374 L1069 345 L1065 345 L1071 317 L1069 317Z M1092 261 L1099 296 L1096 296 L1106 331 L1100 331 L1112 367 L1103 367 L1119 402 L1107 402 L1095 404 L1089 404 L1077 402 L1065 402 L1081 367 L1072 367 L1085 331 L1079 331 L1089 296 L1086 296Z M1130 250 L1138 288 L1134 288 L1146 326 L1139 326 L1154 364 L1143 364 L1162 402 L1148 402 L1133 404 L1127 404 L1113 402 L1098 402 L1117 364 L1106 364 L1121 326 L1114 326 L1126 288 L1122 288Z M1159 200 L1167 250 L1163 250 L1176 301 L1168 301 L1184 351 L1173 351 L1193 402 L1178 402 L1162 404 L1156 404 L1140 402 L1124 402 L1144 351 L1133 351 L1149 301 L1141 301 L1154 250 L1150 250Z M1211 249 L1219 287 L1215 287 L1227 325 L1220 325 L1235 364 L1224 364 L1243 402 L1228 402 L1214 404 L1208 404 L1193 402 L1179 402 L1198 364 L1187 364 L1202 325 L1195 325 L1206 287 L1203 287Z M1256 135 L1269 202 L1263 202 L1282 269 L1270 269 L1294 335 L1277 335 L1307 402 L1284 402 L1259 404 L1253 404 L1229 402 L1206 402 L1236 335 L1219 335 L1243 269 L1231 269 L1249 202 L1244 202Z M1308 107 L1321 181 L1315 181 L1335 255 L1323 255 L1348 328 L1330 328 L1362 402 L1337 402 L1311 404 L1305 404 L1279 402 L1254 402 L1286 328 L1268 328 L1293 255 L1281 255 L1301 181 L1295 181Z M1359 122 L1372 192 L1367 192 L1385 262 L1374 262 L1398 332 L1381 332 L1411 402 L1388 402 L1362 404 L1356 404 L1331 402 L1308 402 L1338 332 L1321 332 L1345 262 L1333 262 L1352 192 L1346 192Z M1423 149 L1434 213 L1429 213 L1444 276 L1435 276 L1455 339 L1441 339 L1465 402 L1446 402 L1426 404 L1420 404 L1400 402 L1381 402 L1406 339 L1392 339 L1412 276 L1402 276 L1417 213 L1413 213Z M1478 77 L1492 158 L1485 158 L1505 239 L1493 239 L1519 321 L1500 321 L1532 402 L1508 402 L1481 404 L1475 404 L1448 402 L1424 402 L1456 321 L1437 321 L1463 239 L1451 239 L1471 158 L1465 158Z M1543 -10 L1564 93 L1554 93 L1584 196 L1566 196 L1604 299 L1577 299 L1624 402 L1588 402 L1546 404 L1540 404 L1499 402 L1463 402 L1510 299 L1483 299 L1521 196 L1503 196 L1532 93 L1523 93Z" fill="#03080B"/><rect x="0" y="402" width="1600" height="20" fill="#03080B"/></svg></div>
+<div class="mist" aria-hidden="true"></div>
+
 <!-- MENU -->
 <header class="site-nav">
     <div class="wrap">
-        <a href="index.html" class="nav-brand">QUINTEN.EXE</a>
-        <nav class="nav-links">
-            <a href="index.html" class="active" aria-current="page">Speler</a>
-            <a href="projecten.html">Missies</a>
-            <a href="mijn-reis.html">Levels</a>
-            <a href="contact.html">Contact</a>
+        <a href="#top" class="merk">Quinten Löb</a>
+        <nav class="menu" aria-label="Hoofdmenu">
+            <a href="#over">Over mij</a>
+            <a href="#projecten">Projecten</a>
+            <a href="#skills">Skills</a>
+            <a href="#reis">Mijn reis</a>
+            <a href="#contact">Contact</a>
         </nav>
     </div>
 </header>
 
 <main>
-<!-- SPELER 1 -->
-<section class="speler">
-    <div class="wrap speler-grid">
-        <div class="portret pix">
-            <span class="tag">SPELER 1</span>
-            <img src="img/quinten.jpg" alt="Foto van Quinten Löb">
-            <div class="portret-onder">
-                <span class="pixel" style="font-size:.6rem;color:var(--lime)">LVL 17</span>
-                <span class="levens" aria-label="3 levens">♥♥♥</span>
+    <!-- 1. BINNENKOMST: de vuurvliegjes vormen mijn naam -->
+    <section class="binnenkomst" id="top" data-vorm="naam" data-menu="top">
+        <h1>Quinten Löb</h1>
+        <p class="ondertitel">Student <b>Software Development</b> uit Rotterdam</p>
+        <a class="scroll-hint" href="#over">Scroll het bos in <i aria-hidden="true"></i></a>
+    </section>
+
+    <!-- 2. OVER MIJ -->
+    <div id="over" data-menu="over">
+    <section class="stuk over" data-vorm="vrij">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Over mij</span>
+                <h2>Hoi, ik ben Quinten.</h2>
+                <p>Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
+                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
+                <p><strong>Ik zoek een stageplek</strong> waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
+                <div class="over-foto">
+                    <img src="img/quinten.jpg" alt="Foto van Quinten Löb">
+                    <span><b>Quinten Löb</b>Software Development, jaar 2</span>
+                </div>
+                <div class="knop-rij">
+                    <a class="knop" href="#projecten">Bekijk mijn projecten</a>
+                    <a class="knop knop-rand" href="#contact">Stuur me een mail</a>
+                </div>
             </div>
         </div>
-        <div>
-            <span class="label">Karakter gekozen</span>
-            <h1 class="speler-naam">QUINTEN<br>LÖB</h1>
-            <p class="klasse">Klasse: <b>keeper en developer in opleiding</b> · Thuisbasis: <b>Rotterdam</b></p>
+    </section>
 
-            <div class="balken">
-                <div class="balk-rij"><span class="pixel">XP</span><div class="balk"><i data-breedte="80%"></i></div><span class="waarde">8/10</span></div>
-                <div class="balk-rij"><span class="pixel">JAAR</span><div class="balk lime"><i data-breedte="50%"></i></div><span class="waarde">2</span></div>
-            </div>
-
-            <div class="dialoog pix">
-                <p>Hoi! Ik ben Quinten. Ik zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
-                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie.</p>
-                <span class="verder" aria-hidden="true">▼</span>
+    <!-- 3. NAAST SCHOOL: de vuurvliegjes vormen een bal, een halter en een controller -->
+    <section class="stuk stuk-kort" data-vorm="bal">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Naast school</span>
+                <h2>Keepen</h2>
+                <p>Ik sta op doel en train meerdere keren per week. Ballen tegenhouden is mijn ding.</p>
             </div>
         </div>
+    </section>
+    <section class="stuk stuk-kort" data-vorm="halter">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <h2>Fitness</h2>
+                <p>Ik sport veel in de gym. Goed voor mijn conditie en mijn hoofd.</p>
+            </div>
+        </div>
+    </section>
+    <section class="stuk stuk-kort" data-vorm="controller">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <h2>Gamen</h2>
+                <p>Vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
+            </div>
+        </div>
+    </section>
     </div>
-</section>
 
-<!-- HUIDIGE MISSIE -->
-<section class="sectie" style="padding-top:32px">
-    <div class="wrap">
-        <div class="missie-nu pix">
-            <span class="uitroep" aria-hidden="true">!</span>
-            <div>
-                <b>HUIDIGE MISSIE: STAGEPLEK VINDEN</b>
-                <span>Ik zoek een plek waar ik mee kan draaien in een team, echte code kan schrijven en kan leren van mensen die verder zijn dan ik.</span>
+    <!-- 4. PROJECTEN: een wereldbol voor WK 2026, een vraagteken voor Quizzie -->
+    <div id="projecten" data-menu="projecten">
+    <section class="stuk" data-vorm="wereld">
+        <div class="wrap">
+            <div class="kaart verschijn">
+                <span class="label">Project 1</span>
+                <h2>WK 2026</h2>
+                <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
+                <div class="tags"><span>PHP</span><span>SQLite</span><span>Tailwind CSS</span></div>
+                <ul class="gedaan">
+                        <li>Database ontworpen met landen, groepen en wedstrijden</li>
+                        <li>Code opgesplitst in PHP-bestanden en aparte views</li>
+                        <li>Puntentelling geprogrammeerd voor de groepsstanden</li>
+                        <li>Zelf online gezet op een Plesk-server</li>
+                </ul>
+                <div class="knop-rij">
+                    <a class="knop" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk het project</a>
+                    <a class="knop knop-rand" href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Bekijk de code</a>
+                </div>
             </div>
-            <a class="knop" href="contact.html">Help mee</a>
         </div>
+    </section>
+    <section class="stuk" data-vorm="vraag">
+        <div class="wrap">
+            <div class="kaart verschijn">
+                <span class="label">Project 2</span>
+                <h2>Quizzie</h2>
+                <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten. Ik maakte de Fitness Quiz en de code die meteen laat zien of je antwoord goed of fout is.</p>
+                    <p class="groep"><b>Groepsproject</b> met Destiny en Kaïn</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                <ul class="gedaan">
+                        <li>De Fitness Quiz gebouwd, met open vragen en meerkeuzevragen</li>
+                        <li>Antwoordknoppen die groen of rood kleuren, gebruikt in alle drie de quizzen</li>
+                        <li>Een infopagina met uitleg en een video voor de quiz begint</li>
+                </ul>
+                <div class="knop-rij">
+                    <a class="knop" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk het project</a>
+                    <a class="knop knop-rand" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Bekijk de code</a>
+                </div>
+            </div>
+        </div>
+    </section>
     </div>
-</section>
 
-<!-- KRACHTEN -->
-<section class="sectie" style="padding-top:8px">
-    <div class="wrap">
-        <h2 class="sectie-titel">Bijzondere krachten</h2>
-        <p>Wat ik doe als ik niet achter mijn laptop zit.</p>
-        <div class="krachten">
-            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/></svg></div><b>KEEPEN</b><span>Ik sta op doel en train meerdere keren per week. Ballen tegenhouden is mijn ding.</span></div>
-            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg></div><b>FITNESS</b><span>Ik sport veel in de gym. Goed voor je conditie en je hoofd.</span></div>
-            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2a3 3 0 01-5.2 2L14 14h-4l-1.8 2A3 3 0 013 14v-2a4 4 0 014-4z"/><path d="M8 11v3M6.5 12.5h3"/></svg></div><b>GAMEN</b><span>Vooral Minecraft en ARK. Vandaar ook deze site.</span></div>
+    <!-- 5. SKILLS: elk groepje vuurvliegjes is een skill -->
+    <div id="skills" data-menu="skills">
+    <section class="stuk" data-vorm="skills">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Wat ik kan</span>
+                <h2>Zeven lichtjes</h2>
+                <p>Elk groepje vuurvliegjes is iets wat ik kan. Ga over een skill en zijn groepje licht op.</p>
+                <ul class="skills">
+                    <li class="skill" tabindex="0" data-groep="1"><div><b>HTML en CSS</b><span>Quizzie, WK 2026 en deze site</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="2"><div><b>PHP</b><span>WK 2026 en mijn sportquiz</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="3"><div><b>SQL</b><span>SQLite in WK 2026, MySQL in mijn sportquiz</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="4"><div><b>Tailwind CSS</b><span>WK 2026</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="5"><div><b>JavaScript</b><span>De quizlogica van Quizzie en deze site</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="6"><div><b>Git en GitHub</b><span>Al mijn projecten staan erop</span></div></li>
+                    <li class="skill" tabindex="0" data-groep="7"><div><b>Plesk</b><span>WK 2026 zelf online gezet</span></div></li>
+                </ul>
+                <p class="tip">Nu mee bezig: beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
+            </div>
         </div>
-        <div class="knop-rij" style="margin-top:36px">
-            <a class="knop" href="projecten.html">Bekijk mijn missies</a>
-            <a class="knop knop-tweede" href="mijn-reis.html">Bekijk de levelmap</a>
-        </div>
+    </section>
     </div>
-</section>
+
+    <!-- 6. MIJN REIS: een pad door het bos -->
+    <div id="reis" data-menu="reis">
+    <section class="stuk" data-vorm="pad">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Mijn reis</span>
+                <h2>Het pad tot nu toe</h2>
+                <p>Acht lichtjes branden al. Het negende knippert: daar ben ik nu.</p>
+                <ol class="stops">
+                    <li>Start opleiding Software Development</li>
+                    <li>Eerste portfolio online</li>
+                    <li>Bootstrap bestelformulier</li>
+                    <li>Bedrijfssafari bij W.T. International</li>
+                    <li>WK 2026 website</li>
+                    <li>Quizzie, met mijn groepje</li>
+                    <li>Door naar jaar 2</li>
+                    <li>PHP CRUD met MySQL</li>
+                    <li class="nu">Stage: hier ben ik nu</li>
+                    <li class="nog">Software developer</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- 7. CONTACT: de open plek, waar het licht wordt -->
+    <div id="contact" data-menu="contact">
+    <section class="stuk contact" data-vorm="open">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Contact</span>
+                <h2>Kom naar de open plek</h2>
+                <p>Heb je een stageplek of een vraag? Stuur me een mail, ik reageer altijd.</p>
+                <div class="contact-kaarten">
+                    <a href="mailto:quintenlob6@gmail.com" class="contact-kaart"><span>E-mail</span><strong>quintenlob6@gmail.com</strong></a>
+                    <a href="https://github.com/103469" class="contact-kaart" target="_blank" rel="noopener"><span>GitHub</span><strong>github.com/103469</strong></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
 </main>
 
 <footer class="site-footer">
     <div class="wrap">
         <span>© 2026 Quinten Löb</span>
-        <span>Zelf gebouwd met HTML, CSS en JS</span>
+        <span>Zelf gebouwd met HTML, CSS, JavaScript en three.js</span>
     </div>
 </footer>
 
-<script src="script.js"></script>
+<script type="module" src="js/bos.js"></script>
 </body>
 </html>
