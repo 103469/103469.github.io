@@ -18,8 +18,31 @@ function heeftWebGL() {
         return !!(c.getContext('webgl2') || c.getContext('webgl'));
     } catch (e) { return false; }
 }
-if (rustig || !heeftWebGL()) html.classList.add('statisch');
+// eigen keuze van de bezoeker (knop "Rustige versie" / "3D-versie")
+let keuze = null;
+try { keuze = localStorage.getItem('versie'); } catch (e) { /* geen opslag, dan gewoon de standaard */ }
+const webgl = heeftWebGL();
+const kiesRustig = !webgl || (keuze ? keuze === 'rustig' : rustig);
+if (kiesRustig) html.classList.add('statisch');
 else start();
+
+const wissel = document.querySelector('.wissel');
+if (wissel && webgl) {
+    wissel.hidden = false;
+    wissel.textContent = kiesRustig ? '3D-versie' : 'Rustige versie';
+    wissel.setAttribute('aria-label', kiesRustig ? 'Zet het 3D-bos aan' : 'Zet het 3D-bos uit (rustiger en sneller)');
+    wissel.addEventListener('click', () => {
+        try { localStorage.setItem('versie', kiesRustig ? '3d' : 'rustig'); } catch (e) { /* niets */ }
+        const plek = window.scrollY;
+        try { sessionStorage.setItem('plek', String(plek)); } catch (e) { /* niets */ }
+        location.reload();
+    });
+}
+// na het wisselen terug naar dezelfde plek op de pagina
+try {
+    const plek = sessionStorage.getItem('plek');
+    if (plek) { sessionStorage.removeItem('plek'); window.scrollTo(0, Number(plek)); }
+} catch (e) { /* niets */ }
 
 function start() {
     html.classList.add('levend');

@@ -132,7 +132,7 @@ main, .site-footer { position: relative; z-index: 4; }
 .contact-kaart span { display: block; color: var(--dof); font-size: 0.9rem; }
 .contact-kaart strong { display: block; font-size: 1.15rem; font-weight: 800; margin-top: 2px; word-break: break-word; }
 
-.site-footer { padding: 22px 0 26px; color: var(--dof); font-size: 0.88rem; }
+.site-footer { padding: 22px 0 72px; color: var(--dof); font-size: 0.88rem; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 /* Teksten komen zacht tevoorschijn */
@@ -223,3 +223,14 @@ main, .site-footer { position: relative; z-index: 4; }
 .geladen .laden, .statisch .laden { opacity: 0; visibility: hidden; pointer-events: none; }
 .statisch .laden { transition: none; }
 @media (prefers-reduced-motion: reduce) { .laden { display: none; } }
+
+/* knop om te wisselen tussen de rustige versie en de 3D-versie */
+.wissel { position: fixed; left: 18px; bottom: 18px; z-index: 9; font: inherit; font-weight: 600; font-size: 0.82rem;
+    color: var(--dof); background: rgba(7,14,20,0.6); backdrop-filter: blur(10px); border: 0; border-radius: 999px;
+    box-shadow: inset 0 0 0 1px var(--rand); padding: 8px 14px 8px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: color 0.2s, box-shadow 0.2s; }
+.wissel::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--vuur); box-shadow: 0 0 10px 2px rgba(233,242,122,0.6); }
+.statisch .wissel::before { background: var(--dof); box-shadow: none; }
+.wissel:hover, .wissel:focus-visible { color: var(--licht); box-shadow: inset 0 0 0 1px var(--vuur); outline: none; }
+.wissel[hidden] { display: none; }
+@media (max-width: 640px) { .wissel { left: 12px; bottom: 12px; font-size: 0.75rem; padding: 7px 12px 7px 10px; } }
