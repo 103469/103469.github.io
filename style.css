@@ -28,6 +28,7 @@ a { color: inherit; }
 img { display: block; max-width: 100%; }
 :focus-visible { outline: 3px solid var(--vuur); outline-offset: 4px; border-radius: 6px; }
 .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ─── HET BOS (vaste lagen achter de inhoud) ─────────────────── */
 .lucht { position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse 120% 80% at 50% 110%, #12303A 0%, var(--nacht-2) 45%, var(--nacht) 100%); }
@@ -167,4 +168,32 @@ main, .site-footer { position: relative; z-index: 4; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ─── LICHTJE: je muis is een klein lampje ───────────────────── */
+.lichtje { position: fixed; left: 0; top: 0; z-index: 5; width: 0; height: 0; pointer-events: none; opacity: 0; transition: opacity 0.4s; }
+.lichtje::before { content: ''; position: absolute; left: -130px; top: -130px; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(233,242,122,0.13) 0%, rgba(233,242,122,0.05) 35%, transparent 70%); transition: transform 0.3s; }
+.lichtje::after { content: ''; position: absolute; left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--vuur); box-shadow: 0 0 12px 4px rgba(233,242,122,0.55); }
+.levend.muis .lichtje { opacity: 1; }
+.roept .lichtje::before { transform: scale(1.6); }
+
+.muis-tip { margin-top: 14px; color: var(--dof); font-size: 0.85rem; opacity: 0; transition: opacity 1s 3s; }
+.levend.muis .muis-tip { opacity: 0.8; }
+
+/* ─── VOORTGANG: lampjes rechts ──────────────────────────────── */
+.voortgang { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 9; display: flex; flex-direction: column; gap: 14px; }
+.voortgang a { width: 10px; height: 10px; border-radius: 50%; background: rgba(157,176,168,0.35); transition: background 0.3s, box-shadow 0.3s, transform 0.3s; }
+.voortgang a:hover { background: var(--licht); }
+.voortgang a.actief { background: var(--vuur); box-shadow: 0 0 12px 4px rgba(233,242,122,0.55); transform: scale(1.2); }
+.statisch .voortgang { display: none; }
+
+/* stops in de lijst: ook over te hoveren */
+.stops li { border-radius: 12px; padding: 4px 8px; margin-left: -8px; transition: background 0.2s; outline: none; cursor: default; }
+.stops li:hover, .stops li:focus-visible { background: rgba(233,242,122,0.07); }
+
+@media (max-width: 860px) {
+    .voortgang { right: 8px; gap: 10px; }
+    .voortgang a { width: 7px; height: 7px; }
+    .muis-tip { display: none; }
 }

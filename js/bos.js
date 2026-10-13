@@ -86,6 +86,7 @@ function start() {
         uLicht: { value: -1 },     // welk skill-groepje licht op (-1 = geen)
         uDageraad: { value: 0 },   // 0 = nacht, 1 = dageraad bij contact
         uAan: { value: 0 },        // vuurvliegjes gaan langzaam aan bij het laden
+        uDiepte: { value: new THREE.Vector2(0, 0) },
     };
     const mat = new THREE.ShaderMaterial({
         uniforms,
@@ -94,6 +95,7 @@ function start() {
         blending: THREE.AdditiveBlending,
         vertexShader: /* glsl */`
             uniform float uTijd, uPr, uLicht, uAan;
+            uniform vec2 uDiepte;
             attribute float aMaat, aFase, aGroep;
             varying float vSterk;
             varying float vTint;
@@ -103,18 +105,21 @@ function start() {
                 float sterk = 0.28 + 0.72 * knipper * knipper;
                 float grootte = aMaat;
 
-                // groepjes: 1-7 skills, 20 gehaald, 21 nu (knippert), 22 nog niet
-                if (aGroep > 0.5 && aGroep < 7.5 && abs(aGroep - uLicht) < 0.5) { sterk = 1.0; grootte *= 1.6; }
-                if (abs(aGroep - 20.0) < 0.5) { sterk = max(sterk, 0.85); grootte *= 1.25; }
-                if (abs(aGroep - 21.0) < 0.5) { sterk = 0.15 + 0.85 * (0.5 + 0.5 * sin(uTijd * 5.0)); grootte *= 1.4; }
-                if (abs(aGroep - 22.0) < 0.5) { sterk *= 0.22; }
+                // groepjes: 1-7 skills, 30-37 gehaalde stops, 38 nu (knippert), 39 nog niet
+                if (aGroep > 29.5 && aGroep < 37.5) { sterk = max(sterk, 0.85); grootte *= 1.25; }
+                if (abs(aGroep - 38.0) < 0.5) { sterk = 0.15 + 0.85 * (0.5 + 0.5 * sin(uTijd * 5.0)); grootte *= 1.4; }
+                if (abs(aGroep - 39.0) < 0.5) { sterk *= 0.22; }
+                if (aGroep > 0.5 && abs(aGroep - uLicht) < 0.5) { sterk = 1.0; grootte *= 1.7; }
 
                 // langzaam aangaan, elk vuurvliegje op een eigen moment
                 float aan = clamp(uAan * 3.0 - fract(aFase * 0.37) * 2.0, 0.0, 1.0);
                 vSterk = sterk * aan;
                 vTint = fract(aFase * 0.913);
                 gl_PointSize = grootte * uPr * (0.75 + 0.5 * knipper);
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                // diepte: grote (dichtbij) lichtjes verschuiven meer als je de muis beweegt
+                vec3 p = position;
+                p.xy += uDiepte * (aMaat / 6.0) * 18.0;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
             }`,
         fragmentShader: /* glsl */`
             uniform float uDageraad;
@@ -264,7 +269,7 @@ function start() {
         }
         for (let s = 0; s < 10; s++) {
             const [sx, sy] = padPunt(s / 9);
-            const g = s < 8 ? 20 : s === 8 ? 21 : 22;
+            const g = 30 + s;   // stop 1 = groep 30 … stop 10 = groep 39
             for (let k = 0; k < 60; k++) {
                 const r = Math.sqrt(Math.random()) * 0.03, h = Math.random() * Math.PI * 2;
                 vormen.pad.push([sx + Math.cos(h) * r, sy + Math.sin(h) * r, g]);
@@ -316,12 +321,37 @@ function start() {
 
     // ── Muis en vinger ─────────────────────────────────────────────
     let mx = 99999, my = 99999, vorigeX = 0, vorigeY = 0, muisSnel = 0;
+    let roepen = false, roepTijd = 0, knal = null;
+    const lichtje = document.querySelector('.lichtje');
+    let dieptX = 0, dieptY = 0;
     function beweeg(cx, cy) {
         mx = cx - W / 2; my = H / 2 - cy;
+        if (lichtje) lichtje.style.transform = `translate(${cx}px, ${cy}px)`;
     }
-    window.addEventListener('pointermove', (e) => beweeg(e.clientX, e.clientY), { passive: true });
-    window.addEventListener('pointerleave', () => { mx = my = 99999; });
-    window.addEventListener('touchend', () => { mx = my = 99999; }, { passive: true });
+    window.addEventListener('pointermove', (e) => {
+        beweeg(e.clientX, e.clientY);
+        if (e.pointerType === 'mouse') html.classList.add('muis');
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => { mx = my = 99999; html.classList.remove('muis'); });
+    window.addEventListener('touchend', () => { mx = my = 99999; roepen = false; }, { passive: true });
+
+    // Ingedrukt houden op een lege plek: de vrije vuurvliegjes komen naar je toe.
+    // Kort klikken: ze schieten weg vanaf die plek.
+    const opKnop = (el) => el.closest('a, button, input, textarea, .skill, .stops li');
+    window.addEventListener('pointerdown', (e) => {
+        if (opKnop(e.target)) return;
+        beweeg(e.clientX, e.clientY);
+        roepen = true; roepTijd = performance.now();
+        html.classList.add('roept');
+    });
+    window.addEventListener('pointercancel', () => { roepen = false; html.classList.remove('roept'); });
+    window.addEventListener('scroll', () => { if (roepen && performance.now() - roepTijd > 120) { roepen = false; html.classList.remove('roept'); } }, { passive: true });
+    window.addEventListener('pointerup', (e) => {
+        if (!roepen) return;
+        if (performance.now() - roepTijd < 220) knal = { x: e.clientX - W / 2, y: H / 2 - e.clientY, kracht: 1 };
+        roepen = false;
+        html.classList.remove('roept');
+    });
 
     // ── Welke sectie is in beeld ───────────────────────────────────
     const secties = [...document.querySelectorAll('[data-vorm]')];
@@ -334,10 +364,12 @@ function start() {
             if (r.bottom > 0 && r.top < H && afstand < besteAfstand) { beste = s; besteAfstand = afstand; }
         });
         if (!beste) return;
+        if (huidigeVorm === 'start' && performance.now() < 1500) return;
         const vorm = beste.dataset.vorm || null;
         if (vorm !== huidigeVorm) zetVorm(vorm === 'vrij' ? null : vorm);
         huidigeVorm = vorm;
         const hoofd = beste.closest('[data-menu]')?.dataset.menu;
+        document.querySelectorAll('.voortgang a').forEach((a) => a.classList.toggle('actief', a.getAttribute('href') === '#' + hoofd));
         menuLinks.forEach((a) => a.classList.toggle('actief', a.getAttribute('href') === '#' + hoofd));
 
         // Dageraad: hoe ver ben je in de contact-sectie
@@ -351,7 +383,8 @@ function start() {
     window.addEventListener('scroll', kijkWelkeSectie, { passive: true });
 
     // Skills oplichten als je eroverheen gaat
-    document.querySelectorAll('[data-groep]').forEach((el) => {
+    document.querySelectorAll('[data-groep], [data-stop]').forEach((el) => {
+        if (el.dataset.stop !== undefined) el.dataset.groep = String(30 + Number(el.dataset.stop));
         const aan = () => { uniforms.uLicht.value = Number(el.dataset.groep); };
         const uit = () => { uniforms.uLicht.value = -1; };
         el.addEventListener('pointerenter', aan); el.addEventListener('focus', aan);
@@ -360,10 +393,13 @@ function start() {
 
     // ── Formaat van het scherm verandert ───────────────────────────
     window.addEventListener('resize', () => {
-        W = window.innerWidth; H = window.innerHeight;
+        const nieuwW = window.innerWidth, nieuwH = window.innerHeight;
+        const alleenAdresbalk = nieuwW === W && Math.abs(nieuwH - H) < 140;
+        W = nieuwW; H = nieuwH;
         camera.left = -W / 2; camera.right = W / 2; camera.top = H / 2; camera.bottom = -H / 2;
         camera.updateProjectionMatrix();
         renderer.setSize(W, H, false);
+        if (alleenAdresbalk) return;
         for (let i = 0; i < N; i++) nieuweThuis(i);
         maakVormen();
         zetVorm(huidigeVorm === 'vrij' ? null : huidigeVorm);
@@ -388,6 +424,11 @@ function start() {
         muisSnel = muisSnel * 0.85 + Math.min(Math.hypot(dx, dy), 200) * 0.15;
         vorigeX = mx; vorigeY = my;
 
+        // diepte: zacht meeschuiven met de muis
+        const doelDX = mx > 9999 ? 0 : mx / W, doelDY = my > 9999 ? 0 : my / H;
+        dieptX += (doelDX - dieptX) * 0.05; dieptY += (doelDY - dieptY) * 0.05;
+        uniforms.uDiepte.value.set(-dieptX, -dieptY);
+
         // scrollen laat het hele bos een beetje meebewegen
         const scrollDelta = window.scrollY - vorigeScroll;
         vorigeScroll = window.scrollY;
@@ -399,7 +440,14 @@ function start() {
             let tx = doel[iv], ty = doel[iv + 1], kracht;
             const f = fase[i];
 
-            if (Number.isNaN(tx)) {
+            if (Number.isNaN(tx) && roepen && mx < 9999) {
+                // geroepen: in een zwerm om je muis heen draaien
+                const hoek = t * (0.8 + (f % 1)) + f;
+                const r = 30 + (f * 7.3) % 110;
+                tx = mx + Math.cos(hoek) * r;
+                ty = my + Math.sin(hoek) * r;
+                kracht = 0.012;
+            } else if (Number.isNaN(tx)) {
                 // vrij vliegen: rond een eigen plek zweven
                 tx = thuis[iv] + Math.sin(t * 0.3 + f) * 60 + Math.sin(t * 0.13 + f * 2.1) * 40;
                 ty = thuis[iv + 1] + Math.cos(t * 0.27 + f * 1.3) * 50;
@@ -430,10 +478,21 @@ function start() {
                 }
             }
 
+            // klik: een golf die de vuurvliegjes wegduwt
+            if (knal && stap === 0) {
+                const kx = x - knal.x, ky = y - knal.y;
+                const kd = Math.hypot(kx, ky) || 1;
+                if (kd < 320) {
+                    const duw = (1 - kd / 320) * 14 * knal.kracht;
+                    vx += (kx / kd) * duw; vy += (ky / kd) * duw;
+                }
+            }
+
             vx *= 0.9; vy *= 0.9;
             vel[iv] = vx; vel[iv + 1] = vy;
             pos[ix] = x + vx; pos[ix + 1] = y + vy;
         }
+        knal = null;
         geo.attributes.position.needsUpdate = true;
         renderer.render(scene, camera);
         requestAnimationFrame(frame);
@@ -443,8 +502,14 @@ function start() {
     const klaar = document.fonts && document.fonts.load ? document.fonts.load('800 100px Bricolage') : Promise.resolve();
     klaar.catch(() => {}).finally(() => {
         maakVormen();
-        kijkWelkeSectie();
-        if (!huidigeVorm) zetVorm('naam');
+        const bovenaan = window.scrollY < H * 0.4;
+        if (bovenaan) {
+            // eerst even vrij rondvliegen, dan komen ze samen tot je naam
+            zetVorm(null); huidigeVorm = 'start';
+            setTimeout(() => { if (huidigeVorm === 'start') kijkWelkeSectie(); }, 1600);
+        } else {
+            kijkWelkeSectie();
+        }
         requestAnimationFrame(frame);
     });
 }
