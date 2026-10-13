@@ -205,39 +205,64 @@ function start() {
     });
 
     // ── GRAS ───────────────────────────────────────────────────────
-    // Tienduizenden sprietjes (één driehoekje per spriet, "instanced").
-    // Ze liggen in een strook voor de camera; als je verder het bos in
-    // loopt, schuiven ze in de shader mee (zo is er altijd gras om je heen).
-    const GRAS_N = mobiel() ? 16000 : 52000;
+    // Tienduizenden gebogen sprietjes (elk 4 stukjes + een punt, "instanced").
+    // Ze groeien in pollen en liggen in een strook voor de camera; als je
+    // verder het bos in loopt, schuiven ze in de shader mee.
+    const GRAS_N = mobiel() ? 20000 : 46000;
     const GRAS_LENGTE = 64;
+    const STUKJES = 4;
+    const sprietPos = [], sprietIndex = [];
+    for (let j = 0; j < STUKJES; j++) { const y = j / STUKJES; sprietPos.push(-0.5, y, 0, 0.5, y, 0); }
+    sprietPos.push(0, 1, 0);
+    for (let j = 0; j < STUKJES - 1; j++) { const a = j * 2; sprietIndex.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    const laatste = (STUKJES - 1) * 2;
+    sprietIndex.push(laatste, laatste + 1, laatste + 2);
     const spriet = new THREE.InstancedBufferGeometry();
-    spriet.setAttribute('position', new THREE.Float32BufferAttribute([-0.5, 0, 0, 0.5, 0, 0, 0.05, 1, 0], 3));
-    spriet.setIndex([0, 1, 2]);
-    const gOffset = new Float32Array(GRAS_N * 2), gVorm = new Float32Array(GRAS_N * 3);
+    spriet.setAttribute('position', new THREE.Float32BufferAttribute(sprietPos, 3));
+    spriet.setIndex(sprietIndex);
+
+    const gOffset = new Float32Array(GRAS_N * 2), gVorm = new Float32Array(GRAS_N * 4), gKleur = new Float32Array(GRAS_N * 2);
+    let pol = null, inPol = 0;
     for (let i = 0; i < GRAS_N; i++) {
-        // meer gras aan de zijkanten, iets minder midden op het pad
-        let x = (Math.random() - 0.5) * 70;
-        if (Math.abs(x) < 3 && Math.random() < 0.6) x += Math.sign(x || 1) * 3;
-        gOffset[i * 2] = x;
-        gOffset[i * 2 + 1] = Math.random() * GRAS_LENGTE;
-        gVorm[i * 3] = 0.25 + Math.pow(Math.random(), 1.6) * 0.75;     // hoogte
-        gVorm[i * 3 + 1] = Math.random() * Math.PI * 2;                 // draaiing
-        gVorm[i * 3 + 2] = Math.random();                               // kleurverschil
+        // nieuwe pol: een plek waar 6 tot 24 sprietjes dicht bij elkaar staan
+        if (!pol || inPol <= 0) {
+            let x = (Math.random() - 0.5) * 70;
+            if (Math.abs(x) < 2.5 && Math.random() < 0.7) x += Math.sign(x || 1) * 2.5;   // het pad is wat kaler
+            pol = { x, z: Math.random() * GRAS_LENGTE, r: 0.12 + Math.random() * 0.4, h: 0.45 + Math.random() * 0.75 };
+            inPol = 6 + Math.floor(Math.random() * 18);
+            if (Math.random() < 0.3) { pol.r = 1.6; inPol = 3; }                        // losse sprietjes tussen de pollen
+        }
+        inPol--;
+        const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * pol.r;
+        gOffset[i * 2] = pol.x + Math.cos(a) * r;
+        gOffset[i * 2 + 1] = (pol.z + Math.sin(a) * r + GRAS_LENGTE) % GRAS_LENGTE;
+        const midden = 1 - r / pol.r;                                    // midden van de pol = langer
+        gVorm[i * 4] = pol.h * (0.45 + midden * 0.45 + Math.random() * 0.35);          // hoogte
+        gVorm[i * 4 + 1] = a + (Math.random() - 0.5) * 1.2;                           // draaiing (naar buiten)
+        gVorm[i * 4 + 2] = 0.15 + Math.random() * 0.55 + (1 - midden) * 0.3;           // hoe ver hij buigt
+        gVorm[i * 4 + 3] = Math.random() * 100;                                        // fase voor de wind
+        gKleur[i * 2] = Math.random();                                                 // kleurverschil
+        gKleur[i * 2 + 1] = Math.random() < 0.09 ? 0.6 + Math.random() * 0.4 : 0;      // droog sprietje
     }
     spriet.setAttribute('aOffset', new THREE.InstancedBufferAttribute(gOffset, 2));
-    spriet.setAttribute('aVorm', new THREE.InstancedBufferAttribute(gVorm, 3));
+    spriet.setAttribute('aVorm', new THREE.InstancedBufferAttribute(gVorm, 4));
+    spriet.setAttribute('aKleur', new THREE.InstancedBufferAttribute(gKleur, 2));
     spriet.instanceCount = GRAS_N;
+    const LAMPJES = 10;
     const grasUniforms = THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
-        uTijd: { value: 0 }, uCamZ: { value: 0 }, uLengte: { value: GRAS_LENGTE },
+        uTijd: { value: 0 }, uCamZ: { value: 0 }, uLengte: { value: GRAS_LENGTE }, uDageraad: { value: 0 },
+        uLampjes: { value: Array.from({ length: LAMPJES }, () => new THREE.Vector4(0, -99, 0, 0)) },
     }]);
     const grasMat = new THREE.ShaderMaterial({
         uniforms: grasUniforms, fog: true, side: THREE.DoubleSide,
         vertexShader: /* glsl */`
             #include <fog_pars_vertex>
             uniform float uTijd, uCamZ, uLengte;
-            attribute vec2 aOffset;
-            attribute vec3 aVorm;
-            varying float vTop, vTint;
+            uniform vec4 uLampjes[${LAMPJES}];
+            attribute vec2 aOffset, aKleur;
+            attribute vec4 aVorm;
+            varying float vTop, vTint, vDroog, vMaan;
+            varying vec3 vLamp;
             // zelfde heuvels als de grond
             float grondHoogte(float x, float z) {
                 float gy = -(z + 250.0);
@@ -248,28 +273,59 @@ function start() {
                 float afstand = 1.5 + mod(aOffset.y - uCamZ, uLengte);
                 float z = uCamZ - afstand;
                 float x = aOffset.x;
+                float h = position.y;
                 float hoog = aVorm.x * smoothstep(uLengte, uLengte - 14.0, afstand);   // ver weg krimpen = geen plopjes
-                float breed = 0.06 + aVorm.x * 0.05;
+                // smal, en naar de punt toe steeds smaller
+                float breed = (0.035 + aVorm.x * 0.035) * (1.0 - h * 0.75);
                 float c = cos(aVorm.y), s = sin(aVorm.y);
-                vec3 p = vec3(position.x * breed * c, position.y * hoog, position.x * breed * s);
-                // wind: golven die over het gras trekken, de punt beweegt het meest
-                float golf = sin(uTijd * 1.4 + x * 0.35 + z * 0.22) * 0.6 + sin(uTijd * 2.3 + x * 0.9) * 0.25;
-                p.x += golf * 0.16 * position.y * position.y * hoog;
-                p.z += golf * 0.06 * position.y * hoog;
-                vec3 wereld = vec3(x, grondHoogte(x, z) - 0.05, z) + p;
-                vTop = position.y;
-                vTint = aVorm.z;
+                vec2 dwars = vec2(c, s), voor = vec2(-s, c);
+                // buigen: hoe hoger, hoe verder de spriet overhelt
+                float buig = aVorm.z * h * h * hoog;
+                vec3 p = vec3(dwars.x * position.x * breed + voor.x * buig, h * hoog * (1.0 - aVorm.z * h * 0.35), dwars.y * position.x * breed + voor.y * buig);
+                // wind: grote, trage windvlagen die over het veld trekken + klein getril
+                float vlaag = sin(z * 0.09 + x * 0.03 + uTijd * 0.9) * 0.5 + 0.5;
+                vlaag = vlaag * vlaag * (0.6 + 0.4 * sin(x * 0.11 - uTijd * 0.5));
+                float tril = sin(uTijd * 3.1 + aVorm.w) * 0.06;
+                float wind = (0.12 + vlaag * 0.5 + tril) * h * h * hoog;
+                p.x += wind;
+                p.z += wind * 0.35;
+                p.y -= wind * wind * 0.4;
+                vec3 wereld = vec3(x, grondHoogte(x, z) - 0.04, z) + p;
+
+                // licht van de maan (links) op de kant die ernaar kijkt
+                vMaan = abs(dot(voor, normalize(vec2(-0.8, 0.5))));
+                // licht van vuurvliegjes die vlakbij het gras vliegen
+                vec3 lamp = vec3(0.0);
+                for (int k = 0; k < ${LAMPJES}; k++) {
+                    vec3 d = uLampjes[k].xyz - wereld;
+                    lamp += uLampjes[k].w / (1.0 + dot(d, d) * 1.6);
+                }
+                vLamp = lamp * vec3(0.95, 0.9, 0.45);
+                vTop = h;
+                vTint = aKleur.x;
+                vDroog = aKleur.y;
                 vec4 mvPosition = viewMatrix * vec4(wereld, 1.0);
                 gl_Position = projectionMatrix * mvPosition;
                 #include <fog_vertex>
             }`,
         fragmentShader: /* glsl */`
             #include <fog_pars_fragment>
-            varying float vTop, vTint;
+            uniform float uDageraad;
+            varying float vTop, vTint, vDroog, vMaan;
+            varying vec3 vLamp;
             void main() {
-                vec3 voet = vec3(0.020, 0.045, 0.040);
-                vec3 punt = mix(vec3(0.07, 0.15, 0.12), vec3(0.10, 0.19, 0.13), vTint);
-                gl_FragColor = vec4(mix(voet, punt, vTop), 1.0);
+                vec3 voet = vec3(0.012, 0.03, 0.026);
+                vec3 midden = mix(vec3(0.045, 0.11, 0.085), vec3(0.075, 0.15, 0.09), vTint);
+                vec3 punt = mix(vec3(0.10, 0.20, 0.13), vec3(0.15, 0.24, 0.12), vTint);
+                vec3 droog = mix(vec3(0.13, 0.12, 0.07), vec3(0.20, 0.17, 0.09), vTint);
+                vec3 k = vTop < 0.5 ? mix(voet, midden, vTop * 2.0) : mix(midden, punt, vTop * 2.0 - 1.0);
+                k = mix(k, mix(voet, droog, vTop), vDroog);
+                // zacht randje maanlicht op de bovenkant
+                k += vec3(0.05, 0.07, 0.09) * vMaan * pow(vTop, 2.5);
+                // gloed van vuurvliegjes
+                k += vLamp * (0.25 + vTop * 0.75) * 0.5;
+                k *= 1.0 + uDageraad * 0.6;
+                gl_FragColor = vec4(k, 1.0);
                 #include <fog_fragment>
             }`,
     });
@@ -295,6 +351,7 @@ function start() {
     const maat = new Float32Array(N);
     const fase = new Float32Array(N);
     const groep = new Float32Array(N);
+    const kleurMix = new Float32Array(N);      // 0 = gewone kleur, 1 = kleur van de vorm
     const vormPunt = new Int32Array(N).fill(-1);  // welk punt van de vorm (-1 = vrij)
     const volgorde = Array.from({ length: N }, (_, i) => i).sort(() => Math.random() - 0.5);
 
@@ -317,18 +374,39 @@ function start() {
     geo.setAttribute('aMaat', new THREE.BufferAttribute(maat, 1));
     geo.setAttribute('aFase', new THREE.BufferAttribute(fase, 1));
     geo.setAttribute('aGroep', new THREE.BufferAttribute(groep, 1));
+    geo.setAttribute('aMix', new THREE.BufferAttribute(kleurMix, 1));
     geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6);   // nooit wegvallen
 
     const uniforms = {
         uTijd: { value: 0 }, uPr: { value: pr }, uLicht: { value: -1 },
         uDageraad: { value: 0 }, uAan: { value: 0 }, uSchaal: { value: H / 900 },
+        uK1: { value: new THREE.Vector3(1.0, 0.86, 0.42) }, uK2: { value: new THREE.Vector3(0.78, 1.0, 0.45) },
+        uK3: { value: new THREE.Vector3(0.78, 1.0, 0.45) }, uDrie: { value: 0 }, uRgb: { value: 0 },
+        // skills: elke taal zijn eigen kleur (HTML, PHP, SQL, Tailwind, JS, Git, Plesk)
+        uSkill: { value: [[1.0, 0.5, 0.22], [0.66, 0.55, 1.0], [0.35, 0.65, 1.0], [0.25, 0.92, 1.0], [1.0, 0.92, 0.25], [1.0, 0.32, 0.3], [0.35, 1.0, 0.6]].map((k) => new THREE.Vector3(...k)) },
     };
+    // kleuren per vorm: twee (of drie) kleuren, en de controller wisselt als RGB
+    const KLASSIEK = { k: [[1.0, 0.86, 0.42], [0.78, 1.0, 0.45]] };
+    const PALET = {
+        bal: { k: [[0.95, 1.0, 0.9], [0.35, 1.0, 0.42]] },
+        halter: { k: [[1.0, 0.36, 0.08], [1.0, 0.55, 0.15]] },
+        controller: { k: [[0.2, 0.95, 1.0], [0.78, 0.3, 1.0]], rgb: 1 },
+        wereld: { k: [[0.3, 1.0, 0.42], [1.0, 0.28, 0.28], [0.35, 0.55, 1.0]] },
+        vraag: { k: [[1.0, 0.42, 0.78], [0.72, 0.42, 1.0]] },
+        pad: { k: [[1.0, 0.82, 0.32], [1.0, 0.66, 0.2]] },
+        open: { k: [[0.85, 0.94, 1.0], [0.55, 0.78, 1.0]] },
+    };
+    let palet = KLASSIEK;
+    const doelK = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
     const mat = new THREE.ShaderMaterial({
         uniforms, transparent: true, depthWrite: false, depthTest: true, blending: THREE.AdditiveBlending,
         vertexShader: /* glsl */`
             uniform float uTijd, uPr, uLicht, uAan, uSchaal;
-            attribute float aMaat, aFase, aGroep;
-            varying float vSterk, vTint, vZacht;
+            uniform vec3 uK1, uK2, uK3, uSkill[7];
+            uniform float uDrie, uRgb;
+            attribute float aMaat, aFase, aGroep, aMix;
+            varying float vSterk, vZacht;
+            varying vec3 vKleur;
             void main() {
                 float snel = 0.7 + fract(aFase * 0.618) * 1.6;
                 float knipper = 0.5 + 0.5 * sin(uTijd * snel + aFase);
@@ -346,22 +424,32 @@ function start() {
                 // heel dichtbij = groot en wazig (zoals bij een echte camera)
                 vZacht = smoothstep(14.0, 46.0, px);
                 vSterk = sterk * aan * mix(1.0, 0.45, vZacht) * smoothstep(0.6, 2.5, diep);
-                vTint = fract(aFase * 0.913);
+                float tint = fract(aFase * 0.913);
+                vec3 klassiek = mix(vec3(1.0, 0.86, 0.42), vec3(0.78, 1.0, 0.45), tint);
+                vec3 thema = mix(uK1, uK2, tint);
+                vec3 drie = tint < 0.34 ? uK1 : (tint < 0.67 ? uK2 : uK3);
+                thema = mix(thema, drie, uDrie);
+                // gaming: kleuren die als een golf door de vorm lopen
+                float golf = 0.5 + 0.5 * sin(uTijd * 1.8 + position.x * 0.6 + position.y * 0.9);
+                thema = mix(thema, mix(uK1, uK2, golf), uRgb);
+                if (aGroep > 0.5 && aGroep < 7.5) thema = uSkill[int(aGroep + 0.5) - 1];
+                vKleur = mix(klassiek, thema, aMix);
                 gl_PointSize = min(px, 72.0 * uPr);
                 gl_Position = projectionMatrix * mv;
             }`,
         fragmentShader: /* glsl */`
             uniform float uDageraad;
-            varying float vSterk, vTint, vZacht;
+            varying float vSterk, vZacht;
+            varying vec3 vKleur;
             void main() {
                 float d = length(gl_PointCoord - 0.5);
                 if (d > 0.5) discard;
                 float kern = pow(smoothstep(0.5, 0.0, d), mix(4.0, 1.4, vZacht));
                 float gloed = exp(-d * d * mix(18.0, 9.0, vZacht)) * 0.55;
-                vec3 kleur = mix(vec3(1.0, 0.86, 0.42), vec3(0.78, 1.0, 0.45), vTint);
-                kleur = mix(kleur, vec3(1.0, 0.78, 0.55), uDageraad * 0.5);
+                vec3 kleur = mix(vKleur, vec3(1.0, 0.78, 0.55), uDageraad * 0.4);
                 float a = (kern * 1.4 + gloed) * vSterk;
-                gl_FragColor = vec4(kleur * a, a);
+                // het hartje is bijna wit, de gloed eromheen heeft de kleur
+                gl_FragColor = vec4(kleur * a + vec3(0.35) * kern * kern * vSterk, a);
             }`,
     });
     const punten = new THREE.Points(geo, mat);
@@ -527,6 +615,7 @@ function start() {
     function zetVorm(naam) {
         actieveVorm = naam && vormen[naam] ? naam : null;
         huidigeVorm = naam;
+        palet = (naam && PALET[naam]) || KLASSIEK;
         uniforms.uLicht.value = -1;
         const lijst = actieveVorm ? vormen[actieveVorm] : null;
         const aantal = lijst ? Math.floor(N * (AANDEEL[naam] || 0.7)) : 0;
@@ -627,12 +716,52 @@ function start() {
         }
     }
 
+    // een paar vuurvliegjes die laag bij het gras vliegen, verlichten het gras
+    const lampIndex = new Int32Array(LAMPJES).fill(-1);
+    let lampTeller = 0;
+    function kiesLampjes(cz) {
+        if (lampTeller++ % 20 === 0) {
+            const goed = (i) => {
+                const y = pos[i * 3 + 1], dz = cz - pos[i * 3 + 2];
+                return y < 3.2 && dz > 2 && dz < 34 && Math.abs(pos[i * 3]) < 26;
+            };
+            for (let k = 0; k < LAMPJES; k++) {
+                if (lampIndex[k] >= 0 && goed(lampIndex[k])) continue;     // houden zolang hij laag vliegt
+                lampIndex[k] = -1;
+                grasUniforms.uLampjes.value[k].w = 0;                      // nieuwe lamp begint uit
+                for (let poging = 0; poging < 60; poging++) {
+                    const i = Math.floor(Math.random() * N);
+                    if (goed(i) && !lampIndex.includes(i)) { lampIndex[k] = i; break; }
+                }
+            }
+        }
+        const aan = uniforms.uAan.value;
+        grasUniforms.uLampjes.value.forEach((l, k) => {
+            const i = lampIndex[k];
+            if (i < 0) { l.w += (0 - l.w) * 0.1; return; }
+            // gloed volgt het knipperen een beetje, en dooft zacht uit als hij hoog vliegt
+            const hoogte = pos[i * 3 + 1];
+            const doel = aan * Math.max(0, 1 - hoogte / 3.2) * (0.6 + 0.4 * Math.sin(klok.elapsedTime * 1.5 + fase[i]));
+            l.set(pos[i * 3], hoogte, pos[i * 3 + 2], l.w + (doel - l.w) * 0.1);
+        });
+    }
+
     function frame() {
         const dt = Math.min(klok.getDelta(), 0.07);
         const t = klok.elapsedTime;
         uniforms.uTijd.value = t;
         boomUniforms.uTijd.value = t;
         grasUniforms.uTijd.value = t;
+        grasUniforms.uDageraad.value = uniforms.uDageraad.value;
+        // kleuren rustig laten overlopen naar die van de nieuwe vorm
+        const zacht = Math.min(1, dt * 1.6);
+        for (let k = 0; k < 3; k++) doelK[k].set(...palet.k[Math.min(k, palet.k.length - 1)]);
+        uniforms.uK1.value.lerp(doelK[0], zacht); uniforms.uK2.value.lerp(doelK[1], zacht); uniforms.uK3.value.lerp(doelK[2], zacht);
+        uniforms.uDrie.value += ((palet.k.length > 2 ? 1 : 0) - uniforms.uDrie.value) * zacht;
+        uniforms.uRgb.value += ((palet.rgb || 0) - uniforms.uRgb.value) * zacht;
+        const mixStap = Math.min(1, dt * 1.4);
+        for (let i = 0; i < N; i++) kleurMix[i] += ((vormPunt[i] >= 0 ? 1 : 0.22) - kleurMix[i]) * mixStap;
+        geo.attributes.aMix.needsUpdate = true;
         uniforms.uAan.value = Math.min(1, uniforms.uAan.value + dt * 0.45);
         tegoed += dt * 60;
         const stappen = Math.min(4, Math.floor(tegoed));
@@ -661,6 +790,7 @@ function start() {
         rechts.setFromMatrixColumn(m, 0); boven.setFromMatrixColumn(m, 1);
         const cz = camera.position.z;
         grasUniforms.uCamZ.value = cz;
+        kiesLampjes(cz);
 
         // maan en mist
         maan.position.set(camera.position.x - 300, 205, cz - 560);
