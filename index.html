@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#070E14">
     <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070E14'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23E9F27A' opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23E9F27A'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.css?v=pro3">
+    <link rel="stylesheet" href="style.css?v=pro4">
 </head>
 <body>
 
@@ -65,7 +65,7 @@
         <p class="ondertitel"><b>Software Development-student</b> (mbo 4) uit Rotterdam. <br>Ik bouw websites met PHP, JavaScript en databases.</p>
         <div class="knop-rij">
             <a class="knop" href="#over">Leer me kennen</a>
-            <a class="knop knop-rand" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b">Vraag mijn CV aan</a>
+            <a class="knop knop-rand" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>Vraag mijn CV aan</a>
         </div>
         <p class="muis-tip">Tip: houd je muis ingedrukt om de vuurvliegjes te roepen</p>
     </section>
@@ -85,7 +85,7 @@
                     <span><b>Quinten Löb</b>Software Development, jaar 2</span>
                 </div>
                 <div class="knop-rij">
-                    <a class="knop" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b">Vraag mijn CV aan</a>
+                    <a class="knop" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>Vraag mijn CV aan</a>
                     <a class="knop knop-rand" href="#contact">Stuur me een mail</a>
                 </div>
             </div>
@@ -225,7 +225,7 @@
                 <div class="contact-kaarten">
                     <a href="mailto:quintenlob6@gmail.com" class="contact-kaart"><span>E-mail</span><strong>quintenlob6@gmail.com</strong></a>
                     <a href="https://github.com/103469" class="contact-kaart" target="_blank" rel="noopener"><span>GitHub</span><strong>github.com/103469</strong></a>
-                    <a href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" class="contact-kaart"><span>CV</span><strong>Op aanvraag</strong></a>
+                    <a href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" class="contact-kaart" data-cv><span>CV</span><strong>Op aanvraag</strong></a>
                 </div>
             </div>
         </div>
@@ -244,6 +244,20 @@
     // vangnet: na 6 seconden verdwijnt het laadscherm altijd
     setTimeout(function () { document.documentElement.classList.add('geladen'); }, 6000);
 </script>
-<script type="module" src="js/bos.js?v=pro3"></script>
+<!-- CV AANVRAGEN: een venster met knoppen voor Gmail, Outlook en kopiëren -->
+<dialog class="cv-venster" aria-labelledby="cv-titel">
+    <button class="cv-sluit" type="button" aria-label="Sluiten">×</button>
+    <span class="label">CV aanvragen</span>
+    <h2 id="cv-titel">Wil je mijn CV?</h2>
+    <p>Stuur me een mail, dan stuur ik je mijn CV zo snel mogelijk toe.</p>
+    <div class="cv-adres"><strong>quintenlob6@gmail.com</strong><button class="cv-kopieer" type="button">Kopieer</button></div>
+    <div class="cv-knoppen">
+        <a class="knop" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=quintenlob6@gmail.com&amp;su=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Open in Gmail</a>
+        <a class="knop knop-rand" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=quintenlob6@gmail.com&amp;subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Open in Outlook</a>
+        <a class="knop knop-rand" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Mail-app</a>
+    </div>
+</dialog>
+<script src="js/cv.js?v=pro4"></script>
+<script type="module" src="js/bos.js?v=pro4"></script>
 </body>
 </html>
