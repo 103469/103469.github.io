@@ -34,7 +34,7 @@ function start() {
     let W = window.innerWidth, H = window.innerHeight;
     const mobiel = () => W < 860;
     const canvas = document.getElementById('vuurvliegjes');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !mobiel(), alpha: true, powerPreference: 'high-performance' });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: !mobiel(), alpha: true, stencil: true, powerPreference: 'high-performance' });
     const pr = Math.min(window.devicePixelRatio || 1, mobiel() ? 1.5 : 2);
     renderer.setPixelRatio(pr);
     renderer.setSize(W, H, false);
@@ -56,15 +56,76 @@ function start() {
     const START_Z = 30, EIND_Z = -350;            // de camera loopt van hier naar daar
     const OPEN_Z = -405, OPEN_R = 46;              // open plek aan het eind
 
-    // grond
-    const grondGeo = new THREE.PlaneGeometry(700, 1100, 70, 110);
+    // ── WATER: een beekje langs het pad dat uitkomt in een meertje ──
+    // Deze hoogte-functie bestaat twee keer: hier in JavaScript (voor de grond)
+    // en als GLSL in de shader van het gras. Ze moeten precies hetzelfde zijn.
+    const BEEK_B = 1.6;                             // halve breedte van de beek
+    const MEER_Z = -380, MEER_RX = 19, MEER_RZ = 13, MEER_Y = 0.1;
+    const glad = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+    const heuvel = (x, z) => { const gy = -(z + 250); return Math.sin(x * 0.05) * Math.cos(gy * 0.04) * 1.6 + Math.sin(x * 0.13 + gy * 0.07) * 0.5; };
+    const beekX = (z) => -4.6 + Math.sin(z * 0.035) * 1.3 + Math.sin(z * 0.011 + 1.0) * 0.9;
+    const beekY = (z) => { const c = heuvel(beekX(z), z) - 0.1; return c + (MEER_Y - c) * glad(-345, -366, z); };
+    function grondHoogte(x, z) {
+        let h = heuvel(x, z);
+        const r = Math.hypot(x / MEER_RX, (z - MEER_Z) / MEER_RZ);
+        if (r < 1) return MEER_Y - 0.02 - 0.7 * (1 - r * r);             // bodem van het meer
+        h = MEER_Y + 0.1 + (h - MEER_Y - 0.1) * glad(1, 1.7, r);          // vlakke oever rond het meer
+        if (z > MEER_Z && z < 70) {
+            const d = Math.abs(x - beekX(z)), wy = beekY(z);
+            h = d < BEEK_B ? wy - 0.02 - 0.4 * (1 - (d / BEEK_B) ** 2) : wy + 0.12 + (h - wy - 0.12) * glad(BEEK_B, BEEK_B + 1.8, d);
+        }
+        return h;
+    }
+    const HOOGTE_GLSL = /* glsl */`
+        float glad(float a, float b, float x) { return smoothstep(a, b, x); }
+        float heuvel(float x, float z) { float gy = -(z + 250.0); return sin(x * 0.05) * cos(gy * 0.04) * 1.6 + sin(x * 0.13 + gy * 0.07) * 0.5; }
+        float beekX(float z) { return -4.6 + sin(z * 0.035) * 1.3 + sin(z * 0.011 + 1.0) * 0.9; }
+        float beekY(float z) { float c = heuvel(beekX(z), z) - 0.1; return c + (${MEER_Y.toFixed(2)} - c) * glad(-345.0, -366.0, z); }
+        float grondHoogte(float x, float z) {
+            float h = heuvel(x, z);
+            float r = length(vec2(x / ${MEER_RX.toFixed(1)}, (z - ${MEER_Z.toFixed(1)}) / ${MEER_RZ.toFixed(1)}));
+            if (r < 1.0) return ${MEER_Y.toFixed(2)} - 0.02 - 0.7 * (1.0 - r * r);
+            h = ${MEER_Y.toFixed(2)} + 0.1 + (h - ${MEER_Y.toFixed(2)} - 0.1) * glad(1.0, 1.7, r);
+            if (z > ${MEER_Z.toFixed(1)} && z < 70.0) {
+                float d = abs(x - beekX(z)), wy = beekY(z);
+                float q = d / ${BEEK_B.toFixed(2)};
+                h = d < ${BEEK_B.toFixed(2)} ? wy - 0.02 - 0.4 * (1.0 - q * q) : wy + 0.12 + (h - wy - 0.12) * glad(${BEEK_B.toFixed(2)}, ${(BEEK_B + 1.8).toFixed(2)}, d);
+            }
+            return h;
+        }
+        // 1 = hier staat water (dan geen gras), daartussen = oever met kort gras
+        float isWater(float x, float z) {
+            float r = length(vec2(x / ${MEER_RX.toFixed(1)}, (z - ${MEER_Z.toFixed(1)}) / ${MEER_RZ.toFixed(1)}));
+            float d = abs(x - beekX(z));
+            // de rand van het water is onregelmatig: soms groeit het gras er tot in
+            float rafel = sin(z * 1.7 + x) * 0.18 + sin(z * 4.3 - x * 2.0) * 0.1;
+            float beek = z > ${MEER_Z.toFixed(1)} ? 1.0 - smoothstep(${(BEEK_B - 0.25).toFixed(2)}, ${(BEEK_B + 1.6).toFixed(2)}, d + rafel) * 0.3 - step(${(BEEK_B - 0.25).toFixed(2)}, d + rafel) * 0.7 : 0.0;
+            float meer = 1.0 - smoothstep(0.98, 1.3, r + rafel * 0.03) * 0.3 - step(0.98, r + rafel * 0.03) * 0.7;
+            return max(beek, meer);
+        }`;
+
+    // grond: veel puntjes dicht bij het pad (voor de beek), weinig ver weg
+    const grondGeo = new THREE.PlaneGeometry(2, 1100, 170, 550);
     const gp = grondGeo.attributes.position;
     for (let i = 0; i < gp.count; i++) {
-        const gx = gp.getX(i), gy = gp.getY(i);
-        gp.setZ(i, Math.sin(gx * 0.05) * Math.cos(gy * 0.04) * 1.6 + Math.sin(gx * 0.13 + gy * 0.07) * 0.5);
+        const u = gp.getX(i), gx = Math.sign(u) * 350 * u * u, gy = gp.getY(i);
+        gp.setX(i, gx);
+        gp.setZ(i, grondHoogte(gx, -250 - gy));
     }
+    // kleur van de grond: een beetje afwisseling, en natte (donkere) oevers bij het water
+    const grondKleur = new Float32Array(gp.count * 3), basis = new THREE.Color('#060F0E');
+    for (let i = 0; i < gp.count; i++) {
+        const gx = gp.getX(i), gz = -250 - gp.getY(i);
+        const r = Math.hypot(gx / MEER_RX, (gz - MEER_Z) / MEER_RZ);
+        const d = gz > MEER_Z ? Math.abs(gx - beekX(gz)) - BEEK_B : 99;
+        const nat = Math.max(1 - glad(0, 1.6, d), 1 - glad(1, 1.25, r));
+        const v = 0.85 + 0.3 * (Math.sin(gx * 0.7 + gz * 0.3) * Math.sin(gz * 0.5 - gx * 0.2) * 0.5 + 0.5);
+        const k = v * (1 - nat * 0.45);
+        grondKleur[i * 3] = basis.r * k; grondKleur[i * 3 + 1] = basis.g * k; grondKleur[i * 3 + 2] = basis.b * k * (1 + nat * 0.3);
+    }
+    grondGeo.setAttribute('color', new THREE.BufferAttribute(grondKleur, 3));
     grondGeo.computeVertexNormals();
-    const grond = new THREE.Mesh(grondGeo, new THREE.MeshBasicMaterial({ color: '#060F0E' }));
+    const grond = new THREE.Mesh(grondGeo, new THREE.MeshBasicMaterial({ vertexColors: true }));
     grond.rotation.x = -Math.PI / 2;
     grond.position.set(0, 0, -250);
     scene.add(grond);
@@ -263,11 +324,8 @@ function start() {
             attribute vec4 aVorm;
             varying float vTop, vTint, vDroog, vMaan;
             varying vec3 vLamp;
-            // zelfde heuvels als de grond
-            float grondHoogte(float x, float z) {
-                float gy = -(z + 250.0);
-                return sin(x * 0.05) * cos(gy * 0.04) * 1.6 + sin(x * 0.13 + gy * 0.07) * 0.5;
-            }
+            // zelfde heuvels (en beek en meer) als de grond
+            ${HOOGTE_GLSL}
             void main() {
                 // strook voor de camera: van 1.5 tot uLengte ver
                 float afstand = 1.5 + mod(aOffset.y - uCamZ, uLengte);
@@ -275,6 +333,7 @@ function start() {
                 float x = aOffset.x;
                 float h = position.y;
                 float hoog = aVorm.x * smoothstep(uLengte, uLengte - 14.0, afstand);   // ver weg krimpen = geen plopjes
+                hoog *= 1.0 - isWater(x, z);                                              // geen gras in het water
                 // smal, en naar de punt toe steeds smaller
                 float breed = (0.035 + aVorm.x * 0.035) * (1.0 - h * 0.75);
                 float c = cos(aVorm.y), s = sin(aVorm.y);
@@ -332,6 +391,97 @@ function start() {
     const gras = new THREE.Mesh(spriet, grasMat);
     gras.frustumCulled = false;
     scene.add(gras);
+
+    // het water zelf: donker, met kleine golfjes en de maan die erin glinstert
+    const waterUniforms = THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
+        uTijd: { value: 0 }, uMaan: { value: new THREE.Vector3() }, uDageraad: { value: 0 },
+    }]);
+    const waterMat = new THREE.ShaderMaterial({
+        uniforms: waterUniforms, fog: true,
+        // het water zet een "stempel" (stencil) zodat de weerspiegeling alleen op het water komt
+        stencilWrite: true, stencilRef: 1, stencilFunc: THREE.AlwaysStencilFunc, stencilZPass: THREE.ReplaceStencilOp,
+        vertexShader: /* glsl */`
+            #include <fog_pars_vertex>
+            attribute float aStroom;
+            varying vec3 vWereld;
+            varying float vStroom;
+            void main() {
+                vec4 w = modelMatrix * vec4(position, 1.0);
+                vWereld = w.xyz;
+                vStroom = aStroom;
+                vec4 mvPosition = viewMatrix * w;
+                gl_Position = projectionMatrix * mvPosition;
+                #include <fog_vertex>
+            }`,
+        fragmentShader: /* glsl */`
+            #include <fog_pars_fragment>
+            uniform float uTijd, uDageraad;
+            uniform vec3 uMaan;
+            varying vec3 vWereld;
+            varying float vStroom;
+            void main() {
+                vec2 p = vWereld.xz;
+                float t = uTijd;
+                float s = t * 1.6 * vStroom;                  // in de beek stroomt het water mee
+                // golfjes: een paar sinussen door elkaar
+                vec2 g = vec2(0.0);
+                g += vec2(cos(p.x * 2.1 + p.y * 0.7 + t * 1.3), 0.0) * 0.06;
+                g += vec2(0.0, cos(p.y * 2.6 + s * 2.0 - p.x * 0.4 + t * 0.9)) * 0.07;
+                g += vec2(cos(p.x * 5.3 - p.y * 3.1 + t * 2.2), cos(p.y * 6.1 + p.x * 2.3 + s * 3.0 + t * 1.7)) * 0.025;
+                float ver = length(cameraPosition - vWereld);
+                g *= 1.0 / (1.0 + ver * 0.08);                 // ver weg rustiger, anders flikkert het
+                vec3 n = normalize(vec3(g.x, 1.0, g.y));
+                vec3 V = normalize(cameraPosition - vWereld);
+                float fresnel = 0.15 + 0.85 * pow(1.0 - max(dot(n, V), 0.0), 3.0);
+                vec3 diep = vec3(0.003, 0.010, 0.018);
+                vec3 lucht = mix(vec3(0.04, 0.08, 0.105), vec3(0.20, 0.14, 0.18), uDageraad);
+                vec3 R0 = reflect(-V, n);
+                // de lucht in het water: lichter naar de horizon
+                float hor = 1.0 - R0.y;
+                vec3 k = mix(diep, lucht, fresnel) * (0.6 + 1.2 * hor * hor);
+                // sterren die in het water weerspiegelen (en mee golven)
+                vec2 sc = floor(R0.xz / max(R0.y, 0.05) * 70.0);
+                float ster = step(0.993, fract(sin(dot(sc, vec2(12.9898, 78.233))) * 43758.5453));
+                k += vec3(0.75, 0.8, 0.85) * ster * (1.0 - uDageraad) * smoothstep(0.05, 0.3, R0.y);
+                // de maan glinstert in het water
+                vec3 L = normalize(uMaan - vWereld);
+                vec3 R = reflect(-V, n);
+                float m = max(dot(R, L), 0.0);
+                k += vec3(0.95, 0.92, 0.78) * (pow(m, 2500.0) * 1.1 + pow(m, 250.0) * 0.06);
+                gl_FragColor = vec4(k, 1.0);
+                #include <fog_fragment>
+            }`,
+    });
+    // beek: een lint van punten langs beekX, net zo breed als de bedding
+    {
+        const p = [], st = [], idx = [];
+        const breed = BEEK_B + 0.6;
+        let rij = 0;
+        for (let z = 62; z >= MEER_Z + 2; z -= 0.8, rij++) {
+            const x = beekX(z), y = beekY(z);
+            p.push(x - breed, y, z, x + breed, y, z);
+            st.push(1, 1);
+            if (rij > 0) { const a = (rij - 1) * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+        }
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+        g.setAttribute('aStroom', new THREE.Float32BufferAttribute(st, 1));
+        g.setIndex(idx);
+        const beek = new THREE.Mesh(g, waterMat);
+        beek.renderOrder = 1; beek.frustumCulled = false;
+        scene.add(beek);
+    }
+    // meer: een plat ovaal bij de open plek
+    {
+        const g = new THREE.CircleGeometry(1, 72);
+        g.rotateX(-Math.PI / 2);
+        g.setAttribute('aStroom', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count), 1));
+        const meer = new THREE.Mesh(g, waterMat);
+        meer.scale.set(MEER_RX * 1.12, 1, MEER_RZ * 1.12);
+        meer.position.set(0, MEER_Y, MEER_Z);
+        meer.renderOrder = 1;
+        scene.add(meer);
+    }
 
     // maan: staat ver weg en loopt mee met de camera
     const maan = new THREE.Group();
@@ -455,6 +605,31 @@ function start() {
     const punten = new THREE.Points(geo, mat);
     punten.frustumCulled = false;
     scene.add(punten);
+
+    // spiegelbeeld van de vuurvliegjes in het water: dezelfde puntjes,
+    // omgeklapt rond het wateroppervlak, en alleen zichtbaar waar water is
+    const spiegelVertex = mat.vertexShader
+        .replace('void main() {', `
+            float beekXs(float z) { return -4.6 + sin(z * 0.035) * 1.3 + sin(z * 0.011 + 1.0) * 0.9; }
+            float heuvelS(float x, float z) { float gy = -(z + 250.0); return sin(x * 0.05) * cos(gy * 0.04) * 1.6 + sin(x * 0.13 + gy * 0.07) * 0.5; }
+            void main() {`)
+        .replace('vec4 mv = modelViewMatrix * vec4(position, 1.0);', `
+                float c = heuvelS(beekXs(position.z), position.z) - 0.1;
+                float niveau = c + (${MEER_Y.toFixed(2)} - c) * smoothstep(-345.0, -366.0, position.z);
+                vec3 sp = vec3(position.x, 2.0 * niveau - position.y, position.z);
+                sp.x += sin(uTijd * 2.0 + position.z * 3.0) * 0.04 * min(position.y - niveau, 4.0);   // golfjes vervormen het beeld
+                vec4 mv = modelViewMatrix * vec4(sp, 1.0);`)
+        .replace('vSterk = sterk * aan', 'vSterk = 0.42 * sterk * aan');
+    const spiegelMat = new THREE.ShaderMaterial({
+        uniforms, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
+        stencilWrite: true, stencilRef: 1, stencilFunc: THREE.EqualStencilFunc,
+        stencilFail: THREE.KeepStencilOp, stencilZFail: THREE.KeepStencilOp, stencilZPass: THREE.KeepStencilOp,
+        vertexShader: spiegelVertex, fragmentShader: mat.fragmentShader,
+    });
+    const spiegel = new THREE.Points(geo, spiegelMat);
+    spiegel.frustumCulled = false;
+    spiegel.renderOrder = 2;
+    scene.add(spiegel);
 
     // ── 3D-VORMEN (alles rond het midden, ongeveer -0.5 tot 0.5) ───
     const vormen = {};
@@ -753,6 +928,8 @@ function start() {
         boomUniforms.uTijd.value = t;
         grasUniforms.uTijd.value = t;
         grasUniforms.uDageraad.value = uniforms.uDageraad.value;
+        waterUniforms.uTijd.value = t;
+        waterUniforms.uDageraad.value = uniforms.uDageraad.value;
         // kleuren rustig laten overlopen naar die van de nieuwe vorm
         const zacht = Math.min(1, dt * 1.6);
         for (let k = 0; k < 3; k++) doelK[k].set(...palet.k[Math.min(k, palet.k.length - 1)]);
@@ -795,6 +972,7 @@ function start() {
         // maan en mist
         maan.position.set(camera.position.x - 300, 205, cz - 560);
         maan.lookAt(camera.position);
+        waterUniforms.uMaan.value.copy(maan.position);
         scene.fog.color.copy(mistNacht).lerp(mistDag, uniforms.uDageraad.value * 0.85);
 
         // vorm: plek, schaal en draaiing
