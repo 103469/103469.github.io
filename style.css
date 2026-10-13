@@ -197,3 +197,9 @@ main, .site-footer { position: relative; z-index: 4; }
     .voortgang a { width: 7px; height: 7px; }
     .muis-tip { display: none; }
 }
+
+/* ─── 3D-BOS ─────────────────────────────────────────────────── */
+/* het 3D-bos vervangt de getekende bomen; die blijven alleen in de stille versie */
+.levend .bomen { display: none; }
+.levend .lucht { background: radial-gradient(ellipse 130% 70% at 50% 75%, #12303A 0%, #0C1A20 45%, var(--nacht) 100%); }
+.levend .mist { height: 26vh; opacity: 0.7; }
