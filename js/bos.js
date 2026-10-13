@@ -392,9 +392,9 @@ function start() {
     gras.frustumCulled = false;
     scene.add(gras);
 
-    // het water zelf: donker, met kleine golfjes en de maan die erin glinstert
+    // het water zelf: donker, met kleine golfjes en sterren die erin glinsteren
     const waterUniforms = THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
-        uTijd: { value: 0 }, uMaan: { value: new THREE.Vector3() }, uDageraad: { value: 0 },
+        uTijd: { value: 0 }, uDageraad: { value: 0 },
     }]);
     const waterMat = new THREE.ShaderMaterial({
         uniforms: waterUniforms, fog: true,
@@ -416,7 +416,6 @@ function start() {
         fragmentShader: /* glsl */`
             #include <fog_pars_fragment>
             uniform float uTijd, uDageraad;
-            uniform vec3 uMaan;
             varying vec3 vWereld;
             varying float vStroom;
             void main() {
@@ -443,11 +442,6 @@ function start() {
                 vec2 sc = floor(R0.xz / max(R0.y, 0.05) * 70.0);
                 float ster = step(0.993, fract(sin(dot(sc, vec2(12.9898, 78.233))) * 43758.5453));
                 k += vec3(0.75, 0.8, 0.85) * ster * (1.0 - uDageraad) * smoothstep(0.05, 0.3, R0.y);
-                // de maan glinstert in het water
-                vec3 L = normalize(uMaan - vWereld);
-                vec3 R = reflect(-V, n);
-                float m = max(dot(R, L), 0.0);
-                k += vec3(0.95, 0.92, 0.78) * (pow(m, 2500.0) * 1.1 + pow(m, 250.0) * 0.06);
                 gl_FragColor = vec4(k, 1.0);
                 #include <fog_fragment>
             }`,
@@ -483,15 +477,6 @@ function start() {
         scene.add(meer);
     }
 
-    // maan: staat ver weg en loopt mee met de camera
-    const maan = new THREE.Group();
-    maan.add(new THREE.Mesh(new THREE.CircleGeometry(7, 40), new THREE.MeshBasicMaterial({ color: '#F4EBC9', fog: false })));
-    for (const [r, o] of [[16, 0.06], [30, 0.035], [55, 0.02]]) {
-        const g = new THREE.Mesh(new THREE.CircleGeometry(r, 40), new THREE.MeshBasicMaterial({ color: '#F4EBC9', transparent: true, opacity: o, fog: false, depthWrite: false }));
-        g.position.z = -0.5; maan.add(g);
-    }
-    maan.renderOrder = -1;
-    scene.add(maan);
 
     // ── VUURVLIEGJES ───────────────────────────────────────────────
     const N = mobiel() ? 1400 : 3400;
@@ -501,6 +486,7 @@ function start() {
     const maat = new Float32Array(N);
     const fase = new Float32Array(N);
     const groep = new Float32Array(N);
+    const inVorm = new Float32Array(N);         // 1 = hoort bij de vorm, altijd vóór de bomen
     const kleurMix = new Float32Array(N);      // 0 = gewone kleur, 1 = kleur van de vorm
     const vormPunt = new Int32Array(N).fill(-1);  // welk punt van de vorm (-1 = vrij)
     const volgorde = Array.from({ length: N }, (_, i) => i).sort(() => Math.random() - 0.5);
@@ -525,6 +511,7 @@ function start() {
     geo.setAttribute('aFase', new THREE.BufferAttribute(fase, 1));
     geo.setAttribute('aGroep', new THREE.BufferAttribute(groep, 1));
     geo.setAttribute('aMix', new THREE.BufferAttribute(kleurMix, 1));
+    geo.setAttribute('aInVorm', new THREE.BufferAttribute(inVorm, 1));
     geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6);   // nooit wegvallen
 
     const uniforms = {
@@ -554,7 +541,7 @@ function start() {
             uniform float uTijd, uPr, uLicht, uAan, uSchaal;
             uniform vec3 uK1, uK2, uK3, uSkill[7];
             uniform float uDrie, uRgb;
-            attribute float aMaat, aFase, aGroep, aMix;
+            attribute float aMaat, aFase, aGroep, aMix, aInVorm;
             varying float vSterk, vZacht;
             varying vec3 vKleur;
             void main() {
@@ -586,6 +573,8 @@ function start() {
                 vKleur = mix(klassiek, thema, aMix);
                 gl_PointSize = min(px, 72.0 * uPr);
                 gl_Position = projectionMatrix * mv;
+                // vuurvliegjes in een vorm (je naam, de voetbal...) komen altijd vóór de bomen
+                if (aInVorm > 0.5) gl_Position.z = -gl_Position.w * 0.999;
             }`,
         fragmentShader: /* glsl */`
             uniform float uDageraad;
@@ -798,8 +787,10 @@ function start() {
             const i = volgorde[k];
             if (lijst && k < aantal) { vormPunt[i] = k % lijst.length; groep[i] = lijst[vormPunt[i]][3]; }
             else { vormPunt[i] = -1; groep[i] = 0; }
+            inVorm[i] = vormPunt[i] >= 0 ? 1 : 0;
         }
         geo.attributes.aGroep.needsUpdate = true;
+        geo.attributes.aInVorm.needsUpdate = true;
     }
 
     // ── MUIS ───────────────────────────────────────────────────────
@@ -969,10 +960,7 @@ function start() {
         grasUniforms.uCamZ.value = cz;
         kiesLampjes(cz);
 
-        // maan en mist
-        maan.position.set(camera.position.x - 300, 205, cz - 560);
-        maan.lookAt(camera.position);
-        waterUniforms.uMaan.value.copy(maan.position);
+        // mist
         scene.fog.color.copy(mistNacht).lerp(mistDag, uniforms.uDageraad.value * 0.85);
 
         // vorm: plek, schaal en draaiing
