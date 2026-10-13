@@ -3,78 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinten Löb, portfolio</title>
+    <title>Quinten Löb, speler 1</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAVIGATIE -->
+<!-- MENU -->
 <header class="site-nav">
     <div class="wrap">
-        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <a href="index.html" class="nav-brand">QUINTEN.EXE</a>
         <nav class="nav-links">
-            <a href="index.html" class="active" aria-current="page">Home</a>
-            <a href="projecten.html">Projecten</a>
-            <a href="mijn-reis.html">Mijn reis</a>
+            <a href="index.html" class="active" aria-current="page">Speler</a>
+            <a href="projecten.html">Missies</a>
+            <a href="mijn-reis.html">Levels</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
 </header>
 
 <main>
-<!-- HERO -->
-<section class="hero">
-    <div class="wrap">
-        <div>
-            <h1>Hoi, ik ben Quinten.</h1>
-            <p class="hero-tekst">
-                Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar
-                Software Development op het Grafisch Lyceum.
-                <strong>Ik zoek een stageplek</strong> waar ik mee kan draaien in een team.
-            </p>
-            <div class="knop-rij">
-                <a href="projecten.html" class="knop knop-mint">Bekijk mijn projecten</a>
-                <a href="contact.html" class="knop knop-rand-licht">Neem contact op</a>
+<!-- SPELER 1 -->
+<section class="speler">
+    <div class="wrap speler-grid">
+        <div class="portret pix">
+            <span class="tag">SPELER 1</span>
+            <img src="img/quinten.jpg" alt="Foto van Quinten Löb">
+            <div class="portret-onder">
+                <span class="pixel" style="font-size:.6rem;color:var(--lime)">LVL 17</span>
+                <span class="levens" aria-label="3 levens">♥♥♥</span>
             </div>
         </div>
-        <img src="img/quinten.jpg" alt="Foto van Quinten Löb" class="hero-foto">
+        <div>
+            <span class="label">Karakter gekozen</span>
+            <h1 class="speler-naam">QUINTEN<br>LÖB</h1>
+            <p class="klasse">Klasse: <b>keeper en developer in opleiding</b> · Thuisbasis: <b>Rotterdam</b></p>
+
+            <div class="balken">
+                <div class="balk-rij"><span class="pixel">XP</span><div class="balk"><i data-breedte="80%"></i></div><span class="waarde">8/10</span></div>
+                <div class="balk-rij"><span class="pixel">JAAR</span><div class="balk lime"><i data-breedte="50%"></i></div><span class="waarde">2</span></div>
+            </div>
+
+            <div class="dialoog pix">
+                <p>Hoi! Ik ben Quinten. Ik zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
+                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie.</p>
+                <span class="verder" aria-hidden="true">▼</span>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="sectie omhoog">
+<!-- HUIDIGE MISSIE -->
+<section class="sectie" style="padding-top:32px">
     <div class="wrap">
-        <h2 style="margin-bottom:24px">Over mij</h2>
-    </div>
-    <div class="wrap over">
-        <div class="over-tekst vrije-tijd">
-            <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
-            <p>Tijdens mijn stage wil ik meedraaien in een echt team, code schrijven die gebruikt wordt en leren van mensen die verder zijn dan ik.</p>
-        </div>
-        <div class="vrije-tijd">
-            <h3>Naast school</h3>
-            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/><path d="M12 3v4M21 10l-5 0M18 19l-3.5-4.5M6 19l3.5-4.5M3 10h5"/></svg></div><div><b>Keepen</b><span>Ik sta op doel en train meerdere keren per week.</span></div></div>
-            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg></div><div><b>Fitness</b><span>Ik sport veel in de gym.</span></div></div>
-            <div class="hobby"><div class="hobby-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2a3 3 0 01-5.2 2L14 14h-4l-1.8 2A3 3 0 013 14v-2a4 4 0 014-4z"/><path d="M8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg></div><div><b>Gamen</b><span>Vooral Minecraft en ARK.</span></div></div>
+        <div class="missie-nu pix">
+            <span class="uitroep" aria-hidden="true">!</span>
+            <div>
+                <b>HUIDIGE MISSIE: STAGEPLEK VINDEN</b>
+                <span>Ik zoek een plek waar ik mee kan draaien in een team, echte code kan schrijven en kan leren van mensen die verder zijn dan ik.</span>
+            </div>
+            <a class="knop" href="contact.html">Help mee</a>
         </div>
     </div>
 </section>
 
+<!-- KRACHTEN -->
 <section class="sectie" style="padding-top:8px">
     <div class="wrap">
-        <div class="knop-rij">
-            <a class="knop knop-vol" href="projecten.html">Bekijk mijn projecten</a>
-            <a class="knop knop-rand" href="mijn-reis.html">Bekijk mijn reis</a>
+        <h2 class="sectie-titel">Bijzondere krachten</h2>
+        <p>Wat ik doe als ik niet achter mijn laptop zit.</p>
+        <div class="krachten">
+            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/></svg></div><b>KEEPEN</b><span>Ik sta op doel en train meerdere keren per week. Ballen tegenhouden is mijn ding.</span></div>
+            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M6 7v10M3 9v6M18 7v10M21 9v6M6 12h12"/></svg></div><b>FITNESS</b><span>Ik sport veel in de gym. Goed voor je conditie en je hoofd.</span></div>
+            <div class="kracht pix"><div class="kracht-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2a3 3 0 01-5.2 2L14 14h-4l-1.8 2A3 3 0 013 14v-2a4 4 0 014-4z"/><path d="M8 11v3M6.5 12.5h3"/></svg></div><b>GAMEN</b><span>Vooral Minecraft en ARK. Vandaar ook deze site.</span></div>
+        </div>
+        <div class="knop-rij" style="margin-top:36px">
+            <a class="knop" href="projecten.html">Bekijk mijn missies</a>
+            <a class="knop knop-tweede" href="mijn-reis.html">Bekijk de levelmap</a>
         </div>
     </div>
 </section>
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="wrap">
         <span>© 2026 Quinten Löb</span>
-        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+        <span>Zelf gebouwd met HTML, CSS en JS</span>
     </div>
 </footer>
 

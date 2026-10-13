@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn reis, Quinten Löb</title>
+    <title>Levelmap, Quinten Löb</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAVIGATIE -->
+<!-- MENU -->
 <header class="site-nav">
     <div class="wrap">
-        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <a href="index.html" class="nav-brand">QUINTEN.EXE</a>
         <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="projecten.html">Projecten</a>
-            <a href="mijn-reis.html" class="active" aria-current="page">Mijn reis</a>
+            <a href="index.html">Speler</a>
+            <a href="projecten.html">Missies</a>
+            <a href="mijn-reis.html" class="active" aria-current="page">Levels</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
@@ -25,74 +25,78 @@
 <main>
 <section class="page-head">
     <div class="wrap">
-        <h1>Mijn reis</h1>
+        <span class="label">Wereld 1</span>
+        <h1>LEVELMAP</h1>
         <p>Van mijn eerste dag Software Development tot de stage die ik nu zoek.</p>
+        <div class="voortgang">
+            <span class="pixel"><b>8</b> VAN DE 10 LEVELS GEHAALD</span>
+            <div class="balk" style="margin-top:10px"><i data-breedte="80%"></i></div>
+        </div>
     </div>
 </section>
 
-<section class="sectie omhoog">
+<section class="sectie">
     <div class="wrap">
-        <div class="reis-kaart">
-            <div class="journey-path-wrap reis-groot">
-                <svg class="journey-svg" viewBox="0 0 400 940" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
-                    <path class="journey-line" d="M 130,60 L 290,150 L 130,240 L 290,330 L 130,420 L 290,510 L 130,600 L 290,690 L 130,780 L 290,870" />
+        <div class="wereld pix">
+            <div class="levelpad">
+                <svg viewBox="0 0 400 940" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+                    <path class="pad-lijn" d="M 130,60 L 290,150 L 130,240 L 290,330 L 130,420 L 290,510 L 130,600 L 290,690 L 130,780 L 290,870" />
                 </svg>
-            <div class="journey-node" style="left:32.5%; top:6.4%;">
-                <div class="journey-dot done">1</div>
-                <div class="journey-label">Start opleiding<br>Software Development</div>
+            <div class="level " style="left:32.5%; top:6.4%;">
+                <div class="level-blok">1</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Start opleiding Software Development</div>
             </div>
-            <div class="journey-node" style="left:72.5%; top:16%;">
-                <div class="journey-dot done">2</div>
-                <div class="journey-label">Eerste portfolio<br>online</div>
+            <div class="level " style="left:72.5%; top:16%;">
+                <div class="level-blok">2</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Eerste portfolio online</div>
             </div>
-            <div class="journey-node" style="left:32.5%; top:25.5%;">
-                <div class="journey-dot done">3</div>
-                <div class="journey-label">Bootstrap<br>bestelformulier</div>
+            <div class="level " style="left:32.5%; top:25.5%;">
+                <div class="level-blok">3</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Bootstrap bestelformulier</div>
             </div>
-            <div class="journey-node" style="left:72.5%; top:35.1%;">
-                <div class="journey-dot done">4</div>
-                <div class="journey-label">Bedrijfssafari bij<br>W.T. International</div>
+            <div class="level " style="left:72.5%; top:35.1%;">
+                <div class="level-blok">4</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Bedrijfssafari bij W.T. International</div>
             </div>
-            <div class="journey-node" style="left:32.5%; top:44.7%;">
-                <div class="journey-dot done">5</div>
-                <div class="journey-label">WK 2026<br>website</div>
+            <div class="level " style="left:32.5%; top:44.7%;">
+                <div class="level-blok">5</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">WK 2026 website</div>
             </div>
-            <div class="journey-node" style="left:72.5%; top:54.3%;">
-                <div class="journey-dot done">6</div>
-                <div class="journey-label">Quizzie<br>(groepsproject)</div>
+            <div class="level " style="left:72.5%; top:54.3%;">
+                <div class="level-blok">6</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Quizzie (co-op)</div>
             </div>
-            <div class="journey-node" style="left:32.5%; top:63.8%;">
-                <div class="journey-dot done">7</div>
-                <div class="journey-label">Door naar<br>jaar 2</div>
+            <div class="level " style="left:32.5%; top:63.8%;">
+                <div class="level-blok">7</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">Door naar jaar 2</div>
             </div>
-            <div class="journey-node" style="left:72.5%; top:73.4%;">
-                <div class="journey-dot done">8</div>
-                <div class="journey-label">PHP CRUD<br>met MySQL</div>
+            <div class="level " style="left:72.5%; top:73.4%;">
+                <div class="level-blok">8</div><span class="ster" aria-hidden="true">★★★</span>
+                <div class="level-naam">PHP CRUD met MySQL</div>
             </div>
-            <div class="journey-node" style="left:32.5%; top:83%;">
-                <div class="journey-dot next">9</div>
-                <div class="journey-label">Stage</div>
+            <div class="level nu" style="left:32.5%; top:83%;">
+                <div class="level-blok">9</div>
+                <div class="level-naam">STAGE</div>
             </div>
-            <div class="journey-node" style="left:72.5%; top:92.5%;">
-                <div class="journey-dot todo">10</div>
-                <div class="journey-label">Software<br>developer</div>
+            <div class="level baas" style="left:72.5%; top:92.5%;">
+                <div class="level-blok">?</div>
+                <div class="level-naam">Software developer</div>
             </div>
             </div>
-            <div class="reis-uitleg">
-                <p><span class="stip done"></span> Gedaan</p>
-                <p><span class="stip next"></span> Hier ben ik nu naar op zoek</p>
-                <p><span class="stip todo"></span> Mijn doel</p>
+            <div class="legenda">
+                <p><i class="l-gehaald"></i> Gehaald</p>
+                <p><i class="l-nu"></i> Hier ben ik nu: stage zoeken</p>
+                <p><i class="l-baas"></i> Eindbaas: software developer worden</p>
             </div>
         </div>
     </div>
 </section>
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="wrap">
         <span>© 2026 Quinten Löb</span>
-        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+        <span>Zelf gebouwd met HTML, CSS en JS</span>
     </div>
 </footer>
 

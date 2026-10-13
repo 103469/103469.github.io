@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projecten, Quinten Löb</title>
+    <title>Missies, Quinten Löb</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAVIGATIE -->
+<!-- MENU -->
 <header class="site-nav">
     <div class="wrap">
-        <a href="index.html" class="nav-brand">Quinten Löb</a>
+        <a href="index.html" class="nav-brand">QUINTEN.EXE</a>
         <nav class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="projecten.html" class="active" aria-current="page">Projecten</a>
-            <a href="mijn-reis.html">Mijn reis</a>
+            <a href="index.html">Speler</a>
+            <a href="projecten.html" class="active" aria-current="page">Missies</a>
+            <a href="mijn-reis.html">Levels</a>
             <a href="contact.html">Contact</a>
         </nav>
     </div>
@@ -25,78 +25,97 @@
 <main>
 <section class="page-head">
     <div class="wrap">
-        <h1>Projecten</h1>
-        <p>Dingen die ik heb gebouwd. Bij elk project kun je de site zelf bekijken en de code op GitHub.</p>
+        <span class="label">Missielog</span>
+        <h1>MISSIES</h1>
+        <p>Projecten die ik heb gehaald. Speel ze zelf of bekijk de code op GitHub.</p>
     </div>
 </section>
 
-<section class="sectie omhoog">
-    <div class="wrap">
-        <div class="projecten">
-        <article class="project project-lang">
-            <img class="project-foto" src="img/wk2026.jpg" alt="Homepage van de WK 2026-website" loading="lazy">
-            <div class="project-body">
+<section class="sectie">
+    <div class="wrap missies">
+        <article class="missie pix">
+            <div class="missie-foto">
+                <img src="img/wk2026.jpg" alt="Illustratie van de WK 2026-website" loading="lazy">
+                <span class="voltooid">VOLTOOID ✓</span>
+            </div>
+            <div class="missie-body">
+                <span class="label">Missie 1</span>
                 <h3>WK 2026</h3>
-                <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
-                <div class="tags"><span>PHP</span><span>SQLite</span><span>Tailwind CSS</span></div>
-                <ul class="punten">
+                <div class="sterren" aria-label="3 sterren">★★★</div>
+                <p>Een website over het WK 2026 met alle 48 landen. Zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
+                <ul class="doelen">
                     <li>Database ontworpen met landen, groepen en wedstrijden</li>
                     <li>Code opgesplitst in PHP-bestanden en aparte views</li>
                     <li>Puntentelling geprogrammeerd voor de groepsstanden</li>
-                    <li>Online gezet op een Plesk-server</li>
+                    <li>Zelf online gezet op een Plesk-server</li>
                 </ul>
+                <div class="beloning">
+                    <span class="pixel">BELONING</span>
+                    <div class="items"><span>PHP</span><span>SQLITE</span><span>TAILWIND</span><span>PLESK</span></div>
+                </div>
                 <div class="knop-rij">
-                    <a class="knop knop-vol" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk het project</a>
-                    <a class="knop knop-rand" href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Bekijk de code</a>
+                    <a class="knop" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Speel het project</a>
+                    <a class="knop knop-tweede" href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Bekijk de code</a>
                 </div>
             </div>
         </article>
-        <article class="project project-lang">
-            <img class="project-foto" src="img/quizzie.jpg" alt="Homepage van Quizzie" loading="lazy">
-            <div class="project-body">
-                <h3>Quizzie</h3>
+        <article class="missie pix">
+            <div class="missie-foto">
+                <img src="img/quizzie.jpg" alt="Illustratie van Quizzie" loading="lazy">
+                <span class="voltooid">VOLTOOID ✓</span>
+            </div>
+            <div class="missie-body">
+                <span class="label">Missie 2</span>
+                <h3>QUIZZIE</h3>
+                <div class="sterren" aria-label="3 sterren">★★★</div>
                 <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten. Ik maakte de Fitness Quiz en de code die meteen laat zien of je antwoord goed of fout is.</p>
-                <p class="groep"><strong>Groepsproject</strong> met Destiny en Kaïn</p>
-                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                <ul class="punten">
+                <p class="groep"><b>Co-op missie</b> met Destiny en Kaïn</p>
+                <ul class="doelen">
                     <li>De Fitness Quiz gebouwd, met open vragen en meerkeuzevragen</li>
                     <li>Antwoordknoppen die groen of rood kleuren, gebruikt in alle drie de quizzen</li>
                     <li>Een infopagina met uitleg en een video voor de quiz begint</li>
                     <li>Samengewerkt in een team van drie</li>
                 </ul>
+                <div class="beloning">
+                    <span class="pixel">BELONING</span>
+                    <div class="items"><span>HTML</span><span>CSS</span><span>JAVASCRIPT</span><span>TEAMWORK</span></div>
+                </div>
                 <div class="knop-rij">
-                    <a class="knop knop-vol" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk het project</a>
-                    <a class="knop knop-rand" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Bekijk de code</a>
+                    <a class="knop" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Speel het project</a>
+                    <a class="knop knop-tweede" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Bekijk de code</a>
                 </div>
             </div>
         </article>
+        <div class="op-slot pix">
+            <div class="slot" aria-hidden="true">🔒</div>
+            <b>MISSIE 3: OP SLOT</b>
+            <span>Ik werk nu met mijn groepje aan een nieuw project. Als het af is, speel je het hier vrij.</span>
         </div>
     </div>
 </section>
 
 <section class="sectie" style="padding-top:8px">
     <div class="wrap">
-        <h2>Wat ik kan</h2>
-        <p class="sectie-intro" style="margin-bottom:24px">Per onderdeel zie je waar ik het echt heb gebruikt.</p>
-        <div class="skills">
-            <div class="skill"><b>HTML en CSS</b><span>Gebruikt in Quizzie, WK 2026 en dit portfolio</span></div>
-            <div class="skill"><b>PHP</b><span>Gebruikt in WK 2026 en mijn sportquiz</span></div>
-            <div class="skill"><b>SQL</b><span>SQLite in WK 2026, MySQL in mijn sportquiz</span></div>
-            <div class="skill"><b>Tailwind CSS</b><span>Gebruikt in WK 2026</span></div>
-            <div class="skill"><b>JavaScript</b><span>De quizlogica van Quizzie en dit portfolio</span></div>
-            <div class="skill"><b>Git en GitHub</b><span>Al mijn projecten staan erop</span></div>
-            <div class="skill"><b>Plesk</b><span>WK 2026 zelf online gezet</span></div>
+        <h2 class="sectie-titel">Inventory</h2>
+        <p>De skills die ik heb verzameld, en waar ik ze heb gebruikt. Rood = net nieuw erbij dit jaar.</p>
+        <div class="inventory">
+            <div class="item pix"><div class="item-icoon">HTML</div><b>HTML EN CSS</b><span>Quizzie, WK 2026 en deze site</span></div>
+            <div class="item pix nieuw"><div class="item-icoon">PHP</div><b>PHP</b><span>WK 2026 en mijn sportquiz</span></div>
+            <div class="item pix nieuw"><div class="item-icoon">SQL</div><b>SQL</b><span>SQLite en MySQL</span></div>
+            <div class="item pix"><div class="item-icoon">TW</div><b>TAILWIND</b><span>WK 2026</span></div>
+            <div class="item pix"><div class="item-icoon">JS</div><b>JAVASCRIPT</b><span>Quizzie en deze site</span></div>
+            <div class="item pix nieuw"><div class="item-icoon">GIT</div><b>GIT EN GITHUB</b><span>Al mijn projecten</span></div>
+            <div class="item pix"><div class="item-icoon">WWW</div><b>PLESK</b><span>WK 2026 online gezet</span></div>
         </div>
-        <p class="nu-bezig"><b>Nu mee bezig:</b> beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
+        <p class="bezig pix"><b>NU AAN HET TRAINEN:</b> beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
     </div>
 </section>
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
     <div class="wrap">
         <span>© 2026 Quinten Löb</span>
-        <span>Zelf gebouwd met HTML, CSS en JavaScript</span>
+        <span>Zelf gebouwd met HTML, CSS en JS</span>
     </div>
 </footer>
 
