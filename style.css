@@ -243,9 +243,12 @@ main, .site-footer { position: relative; z-index: 4; }
 
 /* ─── PROFESSIONELER: inhoud voorop, het bos als sfeer ───────── */
 /* bovenaan: status, korte uitleg en twee knoppen */
-.status { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 16px; padding: 6px 14px 6px 12px; border-radius: 999px;
-    font-weight: 600; font-size: 0.88rem; color: var(--vuur); background: rgba(7,14,20,0.6); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px var(--rand); }
-.status i { width: 8px; height: 8px; border-radius: 50%; background: #7CF29A; box-shadow: 0 0 10px 2px rgba(124,242,154,0.7); animation: knipper 2s ease-in-out infinite; }
+.status { display: inline-flex; align-items: center; gap: 11px; margin-bottom: 18px; padding: 10px 20px 10px 16px; border-radius: 999px;
+    font-weight: 600; font-size: 1.05rem; color: #DFFFE6; background: rgba(20,60,38,0.72); backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1.5px rgba(124,242,154,0.75), 0 0 30px 2px rgba(124,242,154,0.22); }
+.status b { color: #7CF29A; font-weight: 800; }
+.status i { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #7CF29A; box-shadow: 0 0 0 4px rgba(124,242,154,0.18), 0 0 12px 3px rgba(124,242,154,0.8); animation: knipper 2s ease-in-out infinite; }
+@media (max-width: 860px) { .status { font-size: 0.92rem; padding: 9px 16px 9px 13px; text-align: left; } }
 .binnenkomst .ondertitel { font-size: 1.2rem; line-height: 1.5; max-width: 34em; text-shadow: 0 1px 14px rgba(7,14,20,0.95); }
 .binnenkomst .knop-rij { justify-content: center; margin-top: 24px; }
 
@@ -270,4 +273,15 @@ main, .site-footer { position: relative; z-index: 4; }
     .kaart-foto { width: calc(100% + 44px); margin: -24px -22px 20px; }
     .stuk-kort { min-height: 86vh; }
     .contact-kaarten { grid-template-columns: 1fr; }
+}
+
+/* CV: altijd te vinden, in het menu en bovenaan */
+.menu a.menu-cv { color: var(--vuur); box-shadow: inset 0 0 0 1.5px rgba(233,242,122,0.55); margin-left: 4px; display: inline-flex; align-items: center; gap: 6px; }
+.menu a.menu-cv:hover { color: var(--nacht); background: var(--vuur); }
+.menu-cv::before, .knop-cv::before { content: ''; width: 9px; height: 11px; background: currentColor; flex: none;
+    clip-path: polygon(35% 0, 65% 0, 65% 50%, 92% 50%, 50% 100%, 8% 50%, 35% 50%); }
+.knop-cv { display: inline-flex; align-items: center; gap: 9px; }
+@media (max-width: 860px) {
+    .menu a { padding: 6px 8px; font-size: 0.76rem; }
+    .menu a.menu-cv { display: none; }   /* op de telefoon staat de CV-knop groot bovenaan */
 }

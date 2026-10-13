@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#070E14">
     <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070E14'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23E9F27A' opacity='.25'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23E9F27A'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.css?v=pro1">
+    <link rel="stylesheet" href="style.css?v=pro2">
 </head>
 <body>
 
@@ -32,8 +32,8 @@
 <!-- Voortgang: een lampje per stuk van de pagina -->
 <nav class="voortgang" aria-label="Voortgang">
     <a href="#top" title="Begin"><span class="sr-only">Begin</span></a>
-    <a href="#projecten" title="Projecten"><span class="sr-only">Projecten</span></a>
     <a href="#over" title="Over mij"><span class="sr-only">Over mij</span></a>
+    <a href="#projecten" title="Projecten"><span class="sr-only">Projecten</span></a>
     <a href="#skills" title="Skills"><span class="sr-only">Skills</span></a>
     <a href="#reis" title="Mijn reis"><span class="sr-only">Mijn reis</span></a>
     <a href="#contact" title="Contact"><span class="sr-only">Contact</span></a>
@@ -45,11 +45,12 @@
         <a href="#top" class="merk">Quinten Löb</a>
         <div class="nav-rechts">
         <nav class="menu" aria-label="Hoofdmenu">
-            <a href="#projecten">Projecten</a>
             <a href="#over">Over mij</a>
+            <a href="#projecten">Projecten</a>
             <a href="#skills">Skills</a>
             <a href="#reis">Mijn reis</a>
             <a href="#contact">Contact</a>
+            <a href="cv/Quinten-Lob-CV.pdf" class="menu-cv" download>CV</a>
         </nav>
         <!-- knop: rustige versie (zonder 3D) of 3D-versie -->
         <button class="wissel" type="button" hidden>Rustige versie</button>
@@ -61,16 +62,66 @@
     <!-- 1. BINNENKOMST: de vuurvliegjes vormen mijn naam -->
     <section class="binnenkomst" id="top" data-vorm="naam" data-menu="top">
         <h1>Quinten Löb</h1>
-        <p class="status"><i aria-hidden="true"></i>Op zoek naar een stage</p>
+        <p class="status"><i aria-hidden="true"></i><span>Beschikbaar voor een <b>stage</b> in software development</span></p>
         <p class="ondertitel"><b>Software Development-student</b> (mbo 4) uit Rotterdam. <br>Ik bouw websites met PHP, JavaScript en databases.</p>
         <div class="knop-rij">
-            <a class="knop" href="#projecten">Bekijk mijn projecten</a>
-            <a class="knop knop-rand" href="#contact">Neem contact op</a>
+            <a class="knop" href="#over">Leer me kennen</a>
+            <a class="knop knop-rand knop-cv" href="cv/Quinten-Lob-CV.pdf" download>Download mijn CV</a>
         </div>
         <p class="muis-tip">Tip: houd je muis ingedrukt om de vuurvliegjes te roepen</p>
     </section>
 
-    <!-- 2. PROJECTEN: een wereldbol voor WK 2026, een vraagteken voor Quizzie -->
+    <!-- 2. OVER MIJ -->
+    <div id="over" data-menu="over">
+    <section class="stuk over" data-vorm="vrij">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Over mij</span>
+                <h2>Hoi, ik ben Quinten.</h2>
+                <p>Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
+                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
+                <p><strong>Ik zoek een stageplek</strong> waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
+                <div class="over-foto">
+                    <img src="img/quinten.jpg" alt="Foto van Quinten Löb">
+                    <span><b>Quinten Löb</b>Software Development, jaar 2</span>
+                </div>
+                <div class="knop-rij">
+                    <a class="knop" href="cv/Quinten-Lob-CV.pdf" download>Download mijn CV</a>
+                    <a class="knop knop-rand" href="#contact">Stuur me een mail</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. NAAST SCHOOL: de vuurvliegjes vormen een bal, een halter en een controller -->
+    <section class="stuk stuk-kort" data-vorm="bal">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <span class="label">Naast school</span>
+                <h2>Keepen</h2>
+                <p>Ik sta op doel en train meerdere keren per week. Ballen tegenhouden is mijn ding.</p>
+            </div>
+        </div>
+    </section>
+    <section class="stuk stuk-kort" data-vorm="halter">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <h2>Fitness</h2>
+                <p>Ik sport veel in de gym. Goed voor mijn conditie en mijn hoofd.</p>
+            </div>
+        </div>
+    </section>
+    <section class="stuk stuk-kort" data-vorm="controller">
+        <div class="wrap">
+            <div class="kolom verschijn">
+                <h2>Gamen</h2>
+                <p>Vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- 4. PROJECTEN: een wereldbol voor WK 2026, een vraagteken voor Quizzie -->
     <div id="projecten" data-menu="projecten">
     <section class="stuk" data-vorm="wereld">
         <div class="wrap">
@@ -111,56 +162,6 @@
                     <a class="knop" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk het project</a>
                     <a class="knop knop-rand" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Bekijk de code</a>
                 </div>
-            </div>
-        </div>
-    </section>
-    </div>
-
-    <!-- 3. OVER MIJ -->
-    <div id="over" data-menu="over">
-    <section class="stuk over" data-vorm="vrij">
-        <div class="wrap">
-            <div class="kolom verschijn">
-                <span class="label">Over mij</span>
-                <h2>Hoi, ik ben Quinten.</h2>
-                <p>Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
-                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
-                <p><strong>Ik zoek een stageplek</strong> waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
-                <div class="over-foto">
-                    <img src="img/quinten.jpg" alt="Foto van Quinten Löb">
-                    <span><b>Quinten Löb</b>Software Development, jaar 2</span>
-                </div>
-                <div class="knop-rij">
-                    <a class="knop" href="cv/Quinten-Lob-CV.pdf" download>Download mijn CV</a>
-                    <a class="knop knop-rand" href="#contact">Stuur me een mail</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. NAAST SCHOOL: de vuurvliegjes vormen een bal, een halter en een controller -->
-    <section class="stuk stuk-kort" data-vorm="bal">
-        <div class="wrap">
-            <div class="kolom verschijn">
-                <span class="label">Naast school</span>
-                <h2>Keepen</h2>
-                <p>Ik sta op doel en train meerdere keren per week. Ballen tegenhouden is mijn ding.</p>
-            </div>
-        </div>
-    </section>
-    <section class="stuk stuk-kort" data-vorm="halter">
-        <div class="wrap">
-            <div class="kolom verschijn">
-                <h2>Fitness</h2>
-                <p>Ik sport veel in de gym. Goed voor mijn conditie en mijn hoofd.</p>
-            </div>
-        </div>
-    </section>
-    <section class="stuk stuk-kort" data-vorm="controller">
-        <div class="wrap">
-            <div class="kolom verschijn">
-                <h2>Gamen</h2>
-                <p>Vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
             </div>
         </div>
     </section>
@@ -244,6 +245,6 @@
     // vangnet: na 6 seconden verdwijnt het laadscherm altijd
     setTimeout(function () { document.documentElement.classList.add('geladen'); }, 6000);
 </script>
-<script type="module" src="js/bos.js?v=pro1"></script>
+<script type="module" src="js/bos.js?v=pro2"></script>
 </body>
 </html>
