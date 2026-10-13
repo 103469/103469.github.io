@@ -303,3 +303,181 @@ a { color: inherit; }
     .reis-groot .journey-label { font-size: 0.8rem; }
     .reis-uitleg { position: static; display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ALBUM-STIJL: alles is een plaatje dat in een voetbalalbum is geplakt
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+    --geel: #F2CF4A;        /* één warm accent: het "goud" van een glimplaatje */
+    --schaduw-donker: #0B2A1E;
+    --schaduw-licht: #C3DACB;
+}
+
+/* Veldlijnen op de donkere vlakken */
+.hero, .page-head { position: relative; overflow: hidden; }
+.hero::before {
+    content: ''; position: absolute; pointer-events: none;
+    right: -4px; top: 50%; transform: translateY(-50%);
+    width: min(46vw, 560px); height: 520px;
+    border: 4px solid rgba(184,230,200,0.12); border-right: 0;
+    border-radius: 0;
+}
+.hero::after {
+    content: ''; position: absolute; pointer-events: none;
+    right: min(46vw, 560px); top: 50%; transform: translate(50%, -50%);
+    width: 180px; height: 180px; border-radius: 50%;
+    border: 4px solid rgba(184,230,200,0.12);
+    clip-path: inset(0 50% 0 0);
+}
+.hero .wrap { position: relative; z-index: 1; }
+
+/* Album-pagina: het lichte deel heeft zachte strepen zoals gemaaid gras */
+body {
+    background-color: var(--pagina);
+    background-image: repeating-linear-gradient(180deg, transparent 0 120px, rgba(18,58,43,0.018) 120px 240px);
+}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero { padding: 40px 0 96px; }
+.hero-grid { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: center; }
+.hallo { color: var(--mint); font-weight: 600; font-size: 1.4rem; }
+.hero .naam {
+    font-size: clamp(5rem, 14vw, 10.5rem);
+    font-weight: 800; line-height: 0.82; letter-spacing: -0.05em;
+    color: var(--wit);
+    margin: 4px 0 26px -6px;
+    text-shadow: 7px 7px 0 var(--fles-2);
+}
+.hero-tekst { margin-top: 0; }
+
+/* Spelerskaart (je foto als plaatje) */
+.spelerskaart {
+    position: relative;
+    background: var(--wit);
+    padding: 12px 12px 0;
+    border-radius: 16px;
+    transform: rotate(4deg);
+    box-shadow: 10px 12px 0 var(--schaduw-donker);
+    transition: transform 0.25s ease;
+}
+.spelerskaart:hover { transform: rotate(1deg) scale(1.02); }
+.spelerskaart img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 8px; }
+.spelerskaart figcaption { padding: 12px 6px 14px; color: var(--inkt); }
+.spelerskaart figcaption b { display: block; font-size: 1.35rem; font-weight: 800; line-height: 1.1; }
+.spelerskaart figcaption span { color: var(--grijs); font-size: 0.95rem; }
+.rugnummer {
+    position: absolute; right: -18px; top: -18px; z-index: 2;
+    width: 74px; height: 74px; border-radius: 50%;
+    background: var(--geel); color: var(--fles);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.6rem; font-weight: 800;
+    transform: rotate(-10deg);
+    box-shadow: 4px 5px 0 var(--schaduw-donker);
+}
+.tape {
+    position: absolute; left: 50%; top: -14px; z-index: 2;
+    width: 110px; height: 30px; margin-left: -55px;
+    background: rgba(184, 230, 200, 0.75);
+    transform: rotate(-6deg);
+}
+
+/* ─── PLAATJES OP DE LICHTE PAGINA ───────────────────────────── */
+.vrije-tijd, .project, .skill, .contact-kaart, .reis-kaart {
+    border: 0;
+    box-shadow: 7px 8px 0 var(--schaduw-licht);
+}
+.over > :nth-child(1) { transform: rotate(-1.2deg); }
+.over > :nth-child(2) { transform: rotate(1.6deg); }
+
+.project { transition: transform 0.2s ease; }
+.projecten > .project:nth-child(odd)  { transform: rotate(-0.8deg); }
+.projecten > .project:nth-child(even) { transform: rotate(0.8deg); }
+.projecten > .project:hover { transform: rotate(0) translateY(-4px); }
+
+/* Skills als losse plaatjes, steeds een tikje anders gedraaid */
+.skills { gap: 22px; }
+.skill { position: relative; }
+.skill:nth-child(3n+1) { transform: rotate(-2deg); }
+.skill:nth-child(3n+2) { transform: rotate(1.5deg); }
+.skill:nth-child(3n)   { transform: rotate(-0.5deg); }
+.skill::before {
+    content: ''; position: absolute; top: -10px; left: 22px;
+    width: 54px; height: 18px; background: rgba(184, 230, 200, 0.85);
+    transform: rotate(-4deg);
+}
+.nu-bezig { border-left: 0; background: var(--fles); color: var(--mint); box-shadow: 7px 8px 0 var(--schaduw-licht); }
+.nu-bezig b { color: var(--geel); }
+
+/* Kopjes met een markeerstreep eronder */
+.sectie h2 { display: inline-block; position: relative; z-index: 0; }
+.sectie h2::after {
+    content: ''; position: absolute; left: -4px; right: -8px; bottom: 4px; height: 14px;
+    background: var(--mint); z-index: -1; transform: rotate(-1deg);
+}
+
+/* Paginakop: grote titel net als de naam op home */
+.page-head { padding: 36px 0 72px; }
+.page-head h1 { font-size: clamp(3.4rem, 9vw, 6.5rem); line-height: 0.9; letter-spacing: -0.04em; text-shadow: 5px 5px 0 var(--fles-2); }
+
+/* Reis: bolletjes als ronde plaatjes */
+.journey-dot.done { box-shadow: 3px 4px 0 var(--schaduw-licht); }
+.journey-dot.next { background: var(--geel); border-color: var(--fles); box-shadow: 3px 4px 0 var(--schaduw-licht); }
+.stip.next { background: var(--geel); }
+
+.contact-kaarten > :nth-child(1) { transform: rotate(-1.5deg); }
+.contact-kaarten > :nth-child(2) { transform: rotate(1.2deg); }
+
+@media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .spelerskaart { width: min(280px, 80%); margin: 0 auto 0 8px; order: -1; }
+    .hero .naam { font-size: clamp(4.2rem, 22vw, 7rem); }
+    .hero::before, .hero::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .spelerskaart, .projecten > .project { transition: none; }
+}
+
+/* ─── GLIMPLAATJE: de kaart glanst mee met je muis ───────────── */
+.spelerskaart { --x: 50%; --y: 50%; --rx: 0deg; --ry: 0deg; transform-style: preserve-3d; }
+.spelerskaart.beweegt { transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) rotate(2deg); transition: transform 0.08s linear; }
+.glans {
+    position: absolute; inset: 12px 12px auto 12px; aspect-ratio: 4 / 5; border-radius: 8px;
+    pointer-events: none; z-index: 1;
+    background:
+        radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.55), transparent 42%),
+        linear-gradient(115deg, transparent 20%, rgba(242,207,74,0.35) 35%, rgba(184,230,200,0.45) 50%, rgba(120,200,255,0.30) 62%, transparent 78%);
+    background-size: 100% 100%, 220% 220%;
+    background-position: center, var(--x) var(--y);
+    mix-blend-mode: overlay;
+    opacity: 0.75;
+}
+
+/* ─── ALBUMNUMMERS ───────────────────────────────────────────── */
+.project { position: relative; overflow: hidden; }
+.project-lang .project-foto { border-radius: var(--radius) 0 0 var(--radius); }
+.album-nr {
+    position: absolute; top: 14px; right: 16px; z-index: 2;
+    background: var(--geel); color: var(--fles);
+    font-weight: 800; font-size: 0.9rem;
+    padding: 4px 12px; border-radius: 999px;
+    transform: rotate(3deg);
+    box-shadow: 3px 3px 0 var(--schaduw-licht);
+}
+
+/* ─── LEGE PLEK IN HET ALBUM ─────────────────────────────────── */
+.leeg-plaatje {
+    grid-column: 1 / -1; position: relative;
+    border: 3px dashed #A9C9B5; border-radius: var(--radius);
+    padding: 42px 28px; text-align: center;
+    color: var(--grijs);
+    background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(18,58,43,0.03) 14px 28px);
+}
+.leeg-plaatje b { display: block; color: var(--inkt); font-size: 1.3rem; font-weight: 800; }
+.leeg-plaatje span:not(.album-nr) { display: block; margin-top: 4px; }
+.leeg-plaatje .album-nr { top: -14px; background: var(--wit); color: var(--grijs); box-shadow: none; border: 2px dashed #A9C9B5; }
+
+/* ─── VERZAMELTELLER (Mijn reis) ─────────────────────────────── */
+.verzameld { margin-top: 22px; max-width: 360px; color: var(--op-donker); }
+.verzameld b { color: var(--geel); font-size: 1.3rem; }
+.verzameld-balk { margin-top: 8px; height: 12px; border-radius: 999px; background: var(--fles-2); overflow: hidden; }
+.verzameld-balk i { display: block; height: 100%; background: var(--geel); border-radius: 999px; }

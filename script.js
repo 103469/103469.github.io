@@ -24,3 +24,25 @@ if (journeyBtn && journeyOverlay) {
         if (e.key === 'Escape') closeJourney();
     });
 }
+
+// ── GLIMPLAATJE: kaart kantelt en glanst mee met de muis ───────
+const kaart = document.querySelector('.spelerskaart');
+const rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (kaart && !rustig) {
+    kaart.addEventListener('mousemove', (e) => {
+        const r = kaart.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;   // 0 tot 1
+        const y = (e.clientY - r.top) / r.height;   // 0 tot 1
+        kaart.style.setProperty('--x', (x * 100) + '%');
+        kaart.style.setProperty('--y', (y * 100) + '%');
+        kaart.style.setProperty('--ry', ((x - 0.5) * 16) + 'deg');
+        kaart.style.setProperty('--rx', ((0.5 - y) * 16) + 'deg');
+        kaart.classList.add('beweegt');
+    });
+    kaart.addEventListener('mouseleave', () => {
+        kaart.classList.remove('beweegt');
+        kaart.style.setProperty('--x', '50%');
+        kaart.style.setProperty('--y', '50%');
+    });
+}
