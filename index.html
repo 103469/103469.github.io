@@ -3,157 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinten Löb, portfolio</title>
+    <title>Quinten Löb</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam. Op zoek naar een stage.">
-    <meta name="theme-color" content="#0A0F0C">
-    <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0F0C'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='15' fill='%2339E27D'%3EQL%3C/text%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.css?v=stad3">
+    <meta name="theme-color" content="#101312">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101312'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='16' fill='%2346D17E'%3EQ%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
-<!-- Achtergrondfoto: Rotterdam, blijft staan terwijl je scrollt -->
-<div class="foto" aria-hidden="true"></div>
-
-<!-- MENU -->
 <header class="nav">
     <div class="wrap nav-binnen">
-        <a href="#top" class="merk"><span>QL</span>Quinten Löb</a>
+        <a href="#top" class="merk">Quinten Löb</a>
         <button class="menu-knop" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
         <nav class="menu" id="menu" aria-label="Hoofdmenu">
             <a href="#over">Over mij</a>
             <a href="#projecten">Projecten</a>
             <a href="#skills">Skills</a>
             <a href="#reis">Mijn reis</a>
-            <a href="#contact" class="menu-cta">Contact</a>
+            <a href="#contact">Contact</a>
         </nav>
     </div>
 </header>
 
 <main>
-    <!-- 1. BINNENKOMST -->
     <section class="hero" id="top">
         <div class="wrap">
-            <p class="status"><i aria-hidden="true"></i>Op zoek naar een stage in software development</p>
-            <h1>Quinten<br><span>Löb</span></h1>
-            <p class="hero-tekst">Software Development-student (mbo 4) uit Rotterdam.<br>Ik bouw <span class="typ" data-woorden="websites|databases|quizzen|webapps">websites</span><span class="cursor" aria-hidden="true"></span></p>
+            <p class="hoi">Hoi, ik ben</p>
+            <h1>Quinten Löb</h1>
+            <p class="intro">Ik zit in mijn tweede jaar Software Development op het Grafisch Lyceum Rotterdam. Ik bouw websites met PHP, JavaScript en databases, en ik zoek een stage.</p>
             <div class="knoppen">
-                <a class="knop" href="#projecten">Bekijk mijn projecten</a>
-                <a class="knop knop-licht" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>Vraag mijn CV aan</a>
-            </div>
-        </div>
-        <div class="wrap hero-feiten">
-            <div><b>Mbo 4</b><span>Software Development</span></div>
-            <div><b>Jaar 2</b><span>Grafisch Lyceum Rotterdam</span></div>
-            <div><b>Stage</b><span>Beschikbaar</span></div>
-        </div>
-    </section>
-
-    <!-- 2. OVER MIJ -->
-    <section class="blok" id="over">
-        <div class="wrap paneel over">
-            <figure class="over-foto">
-                <img src="img/quinten.jpg" alt="Foto van Quinten Löb" width="600" height="595">
-                <figcaption>Quinten Löb, 17</figcaption>
-            </figure>
-            <div class="over-tekst">
-                <span class="label">Over mij</span>
-                <h2>Hoi, ik ben Quinten.</h2>
-                <p>Ik ben 17 jaar, kom uit Rotterdam en zit in het tweede jaar Software Development op het Grafisch Lyceum Rotterdam.</p>
-                <p>Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
-                <p class="nadruk">Ik zoek een stageplek waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
-
-                <h3>Naast school</h3>
-                <ul class="hobby">
-                    <li><b>Keepen</b><span>Ik sta op doel en train meerdere keren per week.</span></li>
-                    <li><b>Fitness</b><span>Goed voor mijn conditie en mijn hoofd.</span></li>
-                    <li><b>Gamen</b><span>Minecraft en ARK. Daar komt mijn interesse in software vandaan.</span></li>
-                </ul>
+                <a class="knop" href="#projecten">Mijn projecten</a>
+                <a class="link" href="#contact">Neem contact op</a>
             </div>
         </div>
     </section>
 
-    <!-- 3. PROJECTEN -->
-    <section class="blok" id="projecten">
+    <section class="sectie" id="over">
+        <div class="wrap over">
+            <img class="over-foto" src="img/quinten.jpg" alt="Foto van Quinten Löb" width="600" height="595">
+            <div>
+                <h2>Over mij</h2>
+                <p>Ik ben 17 jaar en woon in Rotterdam. Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
+                <p>Voor mijn stage zoek ik een plek waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
+                <p>Naast school sta ik op doel als keeper en train ik meerdere keren per week. Verder zit ik veel in de gym en game ik graag, vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="sectie" id="projecten">
         <div class="wrap">
-            <div class="kop kop-los">
-                <span class="label">Projecten</span>
-                <h2>Wat ik heb gebouwd</h2>
-            </div>
+            <h2>Projecten</h2>
 
             <article class="project">
-                <a class="project-foto" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">
-                    <img src="img/wk2026-site.jpg" alt="Screenshot van de WK 2026-site: de pagina met alle landen, een zoekbalk en een filter per groep" loading="lazy" width="1040" height="685">
+                <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">
+                    <img src="img/wk2026-site.jpg" alt="Screenshot van de WK 2026-site met alle landen, een zoekbalk en een filter per groep" loading="lazy" width="1040" height="685">
                 </a>
                 <div class="project-tekst">
-                    <span class="nummer">01 · Alleen gemaakt</span>
                     <h3>WK 2026</h3>
+                    <p class="info">Alleen gemaakt · PHP, SQLite, Tailwind CSS</p>
                     <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
-                    <ul class="gedaan">
-                        <li>Database ontworpen met landen, groepen en wedstrijden</li>
-                        <li>Code opgesplitst in PHP-bestanden en aparte views</li>
-                        <li>Puntentelling geprogrammeerd voor de groepsstanden</li>
-                        <li>Zelf online gezet op een Plesk-server</li>
-                    </ul>
-                    <div class="tags"><span>PHP</span><span>SQLite</span><span>Tailwind CSS</span></div>
-                    <div class="knoppen">
-                        <a class="knop" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Live project</a>
-                        <a class="knop knop-rand" href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code</a>
-                    </div>
+                    <p>Ik heb de database ontworpen, de code opgesplitst in PHP-bestanden en views, de puntentelling geprogrammeerd en de site zelf online gezet op een Plesk-server.</p>
+                    <p class="links">
+                        <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk de site →</a>
+                        <a href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code op GitHub →</a>
+                    </p>
                 </div>
             </article>
 
-            <article class="project project-om">
-                <a class="project-foto" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">
-                    <img src="img/quizzie-site.jpg" alt="Screenshot van Quizzie: de homepagina met de Drugs Quiz en de Fitness Quiz" loading="lazy" width="1040" height="685">
+            <article class="project">
+                <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">
+                    <img src="img/quizzie-site.jpg" alt="Screenshot van Quizzie met de Drugs Quiz en de Fitness Quiz" loading="lazy" width="1040" height="685">
                 </a>
                 <div class="project-tekst">
-                    <span class="nummer">02 · Groepsproject met Destiny en Kaïn</span>
                     <h3>Quizzie</h3>
-                    <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten. Ik maakte de Fitness Quiz en de code die meteen laat zien of je antwoord goed of fout is.</p>
-                    <ul class="gedaan">
-                        <li>De Fitness Quiz gebouwd, met open vragen en meerkeuzevragen</li>
-                        <li>Antwoordknoppen die groen of rood kleuren, gebruikt in alle drie de quizzen</li>
-                        <li>Een infopagina met uitleg en een video voor de quiz begint</li>
-                    </ul>
-                    <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                    <div class="knoppen">
-                        <a class="knop" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Live project</a>
-                        <a class="knop knop-rand" href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code</a>
-                    </div>
+                    <p class="info">Met Destiny en Kaïn · HTML, CSS, JavaScript</p>
+                    <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten.</p>
+                    <p>Ik maakte de Fitness Quiz met open vragen en meerkeuzevragen, en de code die meteen laat zien of je antwoord goed of fout is. Die gebruiken we in alle drie de quizzen.</p>
+                    <p class="links">
+                        <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk de site →</a>
+                        <a href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code op GitHub →</a>
+                    </p>
                 </div>
             </article>
         </div>
     </section>
 
-    <!-- 4. SKILLS -->
-    <section class="blok" id="skills">
-        <div class="wrap paneel">
-            <div class="kop">
-                <span class="label">Skills</span>
-                <h2>Wat ik kan</h2>
-                <p>Per skill zie je waar ik hem echt heb gebruikt.</p>
-            </div>
-            <ul class="skills">
-                <li><b>HTML &amp; CSS</b><span>Quizzie, WK 2026 en deze site</span></li>
-                <li><b>PHP</b><span>WK 2026 en mijn sportquiz</span></li>
-                <li><b>SQL</b><span>SQLite in WK 2026, MySQL in mijn sportquiz</span></li>
-                <li><b>JavaScript</b><span>De quizlogica van Quizzie en deze site</span></li>
-                <li><b>Tailwind CSS</b><span>WK 2026</span></li>
-                <li><b>Git &amp; GitHub</b><span>Al mijn projecten staan erop</span></li>
-                <li><b>Plesk</b><span>WK 2026 zelf online gezet</span></li>
-                <li class="skill-nu"><b>Nu mee bezig</b><span>PHP met MySQL, en samenwerken met Git in een team</span></li>
-            </ul>
+    <section class="sectie" id="skills">
+        <div class="wrap smal">
+            <h2>Skills</h2>
+            <dl class="skills">
+                <div><dt>HTML en CSS</dt><dd>Quizzie, WK 2026 en deze site</dd></div>
+                <div><dt>PHP</dt><dd>WK 2026 en mijn sportquiz</dd></div>
+                <div><dt>SQL</dt><dd>SQLite in WK 2026, MySQL in mijn sportquiz</dd></div>
+                <div><dt>JavaScript</dt><dd>De quizlogica van Quizzie en deze site</dd></div>
+                <div><dt>Tailwind CSS</dt><dd>WK 2026</dd></div>
+                <div><dt>Git en GitHub</dt><dd>Al mijn projecten staan erop</dd></div>
+                <div><dt>Plesk</dt><dd>WK 2026 zelf online gezet</dd></div>
+            </dl>
+            <p class="nu-bezig">Nu mee bezig: beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
         </div>
     </section>
 
-    <!-- 5. MIJN REIS -->
-    <section class="blok" id="reis">
-        <div class="wrap paneel">
-            <div class="kop">
-                <span class="label">Mijn reis</span>
-                <h2>Het pad tot nu toe</h2>
-            </div>
+    <section class="sectie" id="reis">
+        <div class="wrap smal">
+            <h2>Mijn reis</h2>
             <ol class="reis">
                 <li>Start opleiding Software Development</li>
                 <li>Eerste portfolio online</li>
@@ -163,49 +116,42 @@
                 <li>Quizzie, met mijn groepje</li>
                 <li>Door naar jaar 2</li>
                 <li>PHP CRUD met MySQL</li>
-                <li class="nu">Stage <em>hier ben ik nu</em></li>
+                <li class="nu">Stage zoeken, hier ben ik nu</li>
                 <li class="nog">Software developer</li>
             </ol>
         </div>
     </section>
 
-    <!-- 6. CONTACT: de foto komt terug -->
     <section class="contact" id="contact">
         <div class="wrap">
-            <span class="label">Contact</span>
-            <h2>Zullen we <em>kennismaken?</em></h2>
-            <p>Ik zoek een stageplek in software development. Heb je een plek of een vraag? Stuur me een mail, ik reageer altijd.</p>
-            <div class="contact-kaarten">
-                <a href="mailto:quintenlob6@gmail.com" class="contact-kaart"><span>E-mail</span><strong>quintenlob6@gmail.com</strong></a>
-                <a href="https://github.com/103469" class="contact-kaart" target="_blank" rel="noopener"><span>GitHub</span><strong>github.com/103469</strong></a>
-                <a href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" class="contact-kaart" data-cv><span>CV</span><strong>Op aanvraag</strong></a>
-            </div>
+            <h2>Contact</h2>
+            <p>Heb je een stageplek of een vraag? Stuur me een mail.</p>
+            <a class="mail" href="mailto:quintenlob6@gmail.com">quintenlob6@gmail.com</a>
+            <p class="links">
+                <a href="https://github.com/103469" target="_blank" rel="noopener">GitHub →</a>
+                <a href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>CV aanvragen →</a>
+            </p>
         </div>
     </section>
 </main>
 
 <footer class="footer">
-    <div class="wrap">
-        <span>© 2026 Quinten Löb</span>
-        <span>Gebouwd met HTML, CSS en JavaScript · Foto: ClickerHappy via Pexels</span>
-    </div>
+    <div class="wrap">© 2026 Quinten Löb</div>
 </footer>
 
-<!-- CV AANVRAGEN: een venster met knoppen voor Gmail, Outlook en kopiëren -->
 <dialog class="cv-venster" aria-labelledby="cv-titel">
     <button class="cv-sluit" type="button" aria-label="Sluiten">×</button>
-    <span class="label">CV aanvragen</span>
     <h2 id="cv-titel">Wil je mijn CV?</h2>
     <p>Stuur me een mail, dan stuur ik je mijn CV zo snel mogelijk toe.</p>
     <div class="cv-adres"><strong>quintenlob6@gmail.com</strong><button class="cv-kopieer" type="button">Kopieer</button></div>
     <div class="cv-knoppen">
-        <a class="knop" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=quintenlob6@gmail.com&amp;su=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Open in Gmail</a>
-        <a class="knop knop-rand" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=quintenlob6@gmail.com&amp;subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Open in Outlook</a>
+        <a class="knop" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=quintenlob6@gmail.com&amp;su=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Gmail</a>
+        <a class="knop knop-rand" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=quintenlob6@gmail.com&amp;subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Outlook</a>
         <a class="knop knop-rand" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Mail-app</a>
     </div>
 </dialog>
 
-<script src="js/cv.js?v=stad3"></script>
-<script src="js/site.js?v=stad3"></script>
+<script src="js/cv.js?v=4"></script>
+<script src="js/site.js?v=4"></script>
 </body>
 </html>
