@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quinten Löb, portfolio</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam. Op zoek naar een stage.">
-    <meta name="theme-color" content="#0E1116">
+    <meta name="theme-color" content="#0A0F0C">
     <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1116'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='15' fill='%23FF6B3D'%3EQL%3C/text%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.css?v=stad1">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0F0C'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='15' fill='%2339E27D'%3EQL%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css?v=stad2">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
         <div class="wrap">
             <p class="status"><i aria-hidden="true"></i>Op zoek naar een stage in software development</p>
             <h1>Quinten<br><span>Löb</span></h1>
-            <p class="hero-tekst">Software Development-student (mbo 4) uit Rotterdam. Ik bouw websites met PHP, JavaScript en databases.</p>
+            <p class="hero-tekst">Software Development-student (mbo 4) uit Rotterdam.<br>Ik bouw <span class="typ" data-woorden="websites|databases|quizzen|webapps">websites</span><span class="cursor" aria-hidden="true"></span></p>
             <div class="knoppen">
                 <a class="knop" href="#projecten">Bekijk mijn projecten</a>
                 <a class="knop knop-licht" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>Vraag mijn CV aan</a>
@@ -49,9 +49,15 @@
         </div>
     </section>
 
+    <!-- Bewegende band met skills -->
+    <div class="band" aria-hidden="true"><div class="band-rol">
+        <span>PHP</span><span>JavaScript</span><span>SQL</span><span>HTML &amp; CSS</span><span>Tailwind</span><span>Git</span><span>Plesk</span>
+        <span>PHP</span><span>JavaScript</span><span>SQL</span><span>HTML &amp; CSS</span><span>Tailwind</span><span>Git</span><span>Plesk</span>
+    </div></div>
+
     <!-- 2. OVER MIJ -->
     <section class="blok" id="over">
-        <div class="wrap over">
+        <div class="wrap paneel over">
             <figure class="over-foto">
                 <img src="img/quinten.jpg" alt="Foto van Quinten Löb" width="600" height="595">
                 <figcaption>Quinten Löb, 17</figcaption>
@@ -74,9 +80,9 @@
     </section>
 
     <!-- 3. PROJECTEN -->
-    <section class="blok blok-grijs" id="projecten">
+    <section class="blok" id="projecten">
         <div class="wrap">
-            <div class="kop">
+            <div class="kop kop-los">
                 <span class="label">Projecten</span>
                 <h2>Wat ik heb gebouwd</h2>
             </div>
@@ -128,7 +134,7 @@
 
     <!-- 4. SKILLS -->
     <section class="blok" id="skills">
-        <div class="wrap">
+        <div class="wrap paneel">
             <div class="kop">
                 <span class="label">Skills</span>
                 <h2>Wat ik kan</h2>
@@ -148,8 +154,8 @@
     </section>
 
     <!-- 5. MIJN REIS -->
-    <section class="blok blok-grijs" id="reis">
-        <div class="wrap">
+    <section class="blok" id="reis">
+        <div class="wrap paneel">
             <div class="kop">
                 <span class="label">Mijn reis</span>
                 <h2>Het pad tot nu toe</h2>
@@ -173,7 +179,7 @@
     <section class="contact" id="contact">
         <div class="wrap">
             <span class="label">Contact</span>
-            <h2>Zullen we kennismaken?</h2>
+            <h2>Zullen we <em>kennismaken?</em></h2>
             <p>Ik zoek een stageplek in software development. Heb je een plek of een vraag? Stuur me een mail, ik reageer altijd.</p>
             <div class="contact-kaarten">
                 <a href="mailto:quintenlob6@gmail.com" class="contact-kaart"><span>E-mail</span><strong>quintenlob6@gmail.com</strong></a>
@@ -205,7 +211,7 @@
     </div>
 </dialog>
 
-<script src="js/cv.js?v=stad1"></script>
-<script src="js/site.js?v=stad1"></script>
+<script src="js/cv.js?v=stad2"></script>
+<script src="js/site.js?v=stad2"></script>
 </body>
 </html>

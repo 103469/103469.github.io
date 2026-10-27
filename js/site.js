@@ -33,6 +33,26 @@
 
     // verschijnen bij scrollen (alleen als de bezoeker beweging oké vindt)
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // typ-effect in de hero: "Ik bouw websites / databases / ..."
+    const typ = document.querySelector('.typ');
+    if (typ) {
+        const woorden = typ.dataset.woorden.split('|');
+        let w = 0, letters = woorden[0].length, weg = true;
+        const stap = () => {
+            const woord = woorden[w];
+            if (weg) {
+                letters--;
+                if (letters === 0) { weg = false; w = (w + 1) % woorden.length; }
+            } else {
+                letters++;
+                if (letters === woorden[w].length) { weg = true; typ.textContent = woorden[w]; return setTimeout(stap, 1800); }
+            }
+            typ.textContent = woorden[w].slice(0, letters) || '​';
+            setTimeout(stap, weg ? 45 : 90);
+        };
+        setTimeout(stap, 2200);
+    }
     const dingen = document.querySelectorAll('.kop, .over-foto, .over-tekst, .project, .skills li, .reis li, .contact .wrap > *');
     dingen.forEach((el) => el.classList.add('verschijn'));
     const zichtbaar = new IntersectionObserver((items) => {
