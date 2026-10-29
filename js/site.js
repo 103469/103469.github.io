@@ -56,13 +56,3 @@ kopieer.addEventListener('click', async () => {
     clearTimeout(kopieer.wacht);
     kopieer.wacht = setTimeout(() => { melding.textContent = ''; }, 2500);
 });
-
-// Stippen rechts: de stap in het midden van het scherm is actief
-const stippen = document.querySelectorAll('.stippen a');
-const stippenKijker = new IntersectionObserver((items) => {
-    items.forEach((item) => {
-        if (!item.isIntersecting) return;
-        stippen.forEach((s) => s.classList.toggle('actief', s.dataset.naar === item.target.dataset.stap));
-    });
-}, { rootMargin: '-50% 0px -50% 0px' });
-document.querySelectorAll('[data-stap]').forEach((stap) => stippenKijker.observe(stap));

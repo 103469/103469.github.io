@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quinten Löb · Software Development student</title>
     <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam. Op zoek naar een stage in back-end, databases en AI.">
-    <meta name="theme-color" content="#0B1A13">
+    <meta name="theme-color" content="#12291D">
     <meta name="color-scheme" content="dark">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B1A13'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='16' fill='%2346D17E'%3EQ%3C/text%3E%3C/svg%3E">
-    <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312291D'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-size='19' fill='%23F1ECE1'%3EQ%3C/text%3E%3C/svg%3E">
+    <link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="style.css?v=20">
+    <link rel="stylesheet" href="style.css?v=22">
     <script>document.documentElement.classList.add('js');</script>
     <script type="importmap">
     {
@@ -40,14 +40,6 @@
     </nav>
 </header>
 
-<nav class="stippen" aria-label="Secties">
-    <a href="#top" data-naar="start"><span class="vh">Begin</span></a>
-    <a href="#over" data-naar="over"><span class="vh">Over mij</span></a>
-    <a href="#projecten" data-naar="wk"><span class="vh">WK 2026</span></a>
-    <a href="#p-quiz-sectie" data-naar="quiz"><span class="vh">Quizzie</span></a>
-    <a href="#skills" data-naar="skills"><span class="vh">Skills</span></a>
-    <a href="#contact" data-naar="contact"><span class="vh">Contact</span></a>
-</nav>
 
 <main id="main">
 
@@ -59,7 +51,7 @@
                 <a class="knop" href="#projecten">Mijn projecten</a>
                 <a class="link" href="#contact">Neem contact op</a>
             </div>
-            <p class="status" data-op><span class="puls" aria-hidden="true"></span>Beschikbaar voor een stage</p>
+            <p class="status" data-op>Rotterdam · op zoek naar een stage</p>
         </div>
     </section>
 
@@ -68,7 +60,7 @@
             <h2 class="woord" id="over-titel" data-op>Over mij</h2>
             <div class="over-kop" data-op>
                 <img class="over-foto" src="img/quinten.jpg" alt="Portret van Quinten Löb" width="600" height="595" loading="lazy">
-                <p>Ik ben 17 jaar en woon in Rotterdam. Ik leer het meest door dingen te bouwen. Een site die echt werkt, <mark>met een database erachter</mark>, vind ik veel leuker dan alleen theorie lezen.</p>
+                <p>Ik ben 17 jaar en woon in Rotterdam. Ik leer het meest door dingen te bouwen. Een site die echt werkt, <em>met een database erachter</em>, vind ik veel leuker dan alleen theorie lezen.</p>
             </div>
             <p data-op>Voor mijn stage zoek ik een plek waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
             <p data-op>Naast school sta ik op doel als keeper en train ik meerdere keren per week. Verder zit ik veel in de gym en game ik graag, vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
@@ -79,13 +71,13 @@
         <section class="stap links lang" data-stap="wk" aria-labelledby="p-wk">
             <article class="blok">
                 <h2 class="woord" id="p-wk" data-op>WK 2026</h2>
-                <p class="info" data-op>Alleen gemaakt · PHP, SQLite, Tailwind CSS</p>
+                <dl class="feiten" data-op><dt>Team</dt><dd>Alleen gemaakt</dd><dt>Gemaakt met</dt><dd>PHP, SQLite, Tailwind CSS</dd></dl>
                 <a class="kaart" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener" data-op>
                     <img src="img/scherm/wk-home.jpg" alt="Voorpagina van de WK 2026-site met 48 landen, 12 groepen en 104 wedstrijden" width="2080" height="1300" loading="lazy">
                 </a>
                 <p data-op>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
                 <p data-op>Ik heb de database ontworpen, de code opgesplitst in PHP-bestanden en views, de puntentelling geprogrammeerd en de site zelf online gezet op een Plesk-server.</p>
-                <p class="op-scherm" data-op><span class="puls" aria-hidden="true"></span>Op het scherm: <span data-scherm-tekst="wk">de voorpagina</span></p>
+                <p class="op-scherm" data-op>Op het scherm: <span data-scherm-tekst="wk">de voorpagina</span></p>
                 <p class="links" data-op>
                     <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk de site →</a>
                     <a href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code op GitHub →</a>
@@ -96,13 +88,13 @@
         <section class="stap rechts lang" id="p-quiz-sectie" data-stap="quiz" aria-labelledby="p-quiz">
             <article class="blok">
                 <h2 class="woord" id="p-quiz" data-op>Quizzie</h2>
-                <p class="info" data-op>Met Destiny en Kaïn · HTML, CSS, JavaScript</p>
+                <dl class="feiten" data-op><dt>Team</dt><dd>Met Destiny en Kaïn</dd><dt>Gemaakt met</dt><dd>HTML, CSS, JavaScript</dd></dl>
                 <a class="kaart" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener" data-op>
                     <img src="img/scherm/quiz-home.jpg" alt="Voorpagina van Quizzie met de Drugs Quiz en de Fitness Quiz" width="2048" height="1280" loading="lazy">
                 </a>
                 <p data-op>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten.</p>
                 <p data-op>Ik maakte de Fitness Quiz met open vragen en meerkeuzevragen, en de code die meteen laat zien of je antwoord goed of fout is. Die gebruiken we in alle drie de quizzen.</p>
-                <p class="op-scherm" data-op><span class="puls" aria-hidden="true"></span>Op het scherm: <span data-scherm-tekst="quiz">de voorpagina</span></p>
+                <p class="op-scherm" data-op>Op het scherm: <span data-scherm-tekst="quiz">de voorpagina</span></p>
                 <p class="links" data-op>
                     <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk de site →</a>
                     <a href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code op GitHub →</a>
@@ -154,7 +146,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="js/site.js?v=20" defer></script>
-<script type="module" src="js/laptop.js?v=20"></script>
+<script src="js/site.js?v=22" defer></script>
+<script type="module" src="js/laptop.js?v=22"></script>
 </body>
 </html>

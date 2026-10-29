@@ -5,10 +5,6 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import { Reflector } from 'three/addons/objects/Reflector.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const html = document.documentElement;
 const canvas = document.querySelector('.buhne');
@@ -76,35 +72,6 @@ const vasthouden = (stappen) => (p) => {
     return (i + f * f * (3 - 2 * f)) / stappen;
 };
 
-// Achtergrond: een donkergroene spotlight achter de laptop, met fijne korrel
-const ACHTERGROND = {
-    uniforms: {
-        uMidden: { value: new THREE.Vector2(0.7, 0.5) },
-        uAspect: { value: 1 },
-        uTijd: { value: 0 },
-        uLicht: { value: new THREE.Color('#1d5a3c') },
-        uRand: { value: new THREE.Color('#07130d') },
-    },
-    vertexShader: /* glsl */`
-        varying vec2 vUv;
-        void main() { vUv = uv; gl_Position = vec4(position.xy, 0.9999, 1.0); }`,
-    fragmentShader: /* glsl */`
-        uniform vec2 uMidden; uniform float uAspect; uniform float uTijd;
-        uniform vec3 uLicht; uniform vec3 uRand;
-        varying vec2 vUv;
-        float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
-        void main() {
-            vec2 p = vUv - uMidden;
-            p.x *= uAspect;
-            float d = length(p);
-            float spot = exp(-d * d * 3.2);
-            vec3 kleur = mix(uRand, uLicht, spot);
-            float korrel = hash(gl_FragCoord.xy + floor(uTijd * 24.0)) - 0.5;
-            kleur += korrel * 0.018;
-            gl_FragColor = vec4(kleur, 1.0);
-        }`,
-};
-
 // Vloer-reflectie die naar de randen toe wegvalt
 const VLOER = {
     uniforms: { color: { value: null }, tDiffuse: { value: null }, textureMatrix: { value: null }, uSterkte: { value: 0.1 } },
@@ -134,25 +101,20 @@ async function start() {
     const klein = isKlein();
     let kwaliteit = klein ? 1.25 : 1.6;
 
-    // Renderer: ACES, schaduwen; scherpte via multisampling in de composer
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+    // Renderer: doorzichtig, zodat de egale achtergrond van de pagina erachter staat
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.05;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.VSMShadowMap;
     RectAreaLightUniformsLib.init();
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 0.1, 100);
-
-    // Achtergrond als vlak over het hele beeld, achter alles
-    const achtergrond = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ ...ACHTERGROND, depthWrite: false, depthTest: false }));
-    achtergrond.frustumCulled = false;
-    achtergrond.renderOrder = -10;
-    scene.add(achtergrond);
 
     // Omgeving: studio-HDRI op groot scherm, een lichtere studio op de telefoon
     const pmrem = new THREE.PMREMGenerator(renderer);
@@ -166,7 +128,7 @@ async function start() {
     pmrem.dispose();
     scene.environmentIntensity = 0.85;
 
-    // Studiolicht: key light met zachte schaduw, een fill en een groene rim langs de randen
+    // Studiolicht: key light met zachte schaduw, een fill en twee koele strijklichten langs de randen
     const key = new THREE.DirectionalLight(0xfff6ec, 2.4);
     key.castShadow = true;
     key.shadow.mapSize.set(klein ? 1024 : 2048, klein ? 1024 : 2048);
@@ -179,10 +141,10 @@ async function start() {
     const fill = new THREE.DirectionalLight(0xdfeee6, 0.5);
     fill.position.set(-5, 2, 3);
     scene.add(fill);
-    const rim = new THREE.DirectionalLight(0x46d17e, 3.2);
+    const rim = new THREE.DirectionalLight(0xeef3ff, 1.6);
     rim.position.set(-3, 2.5, -5);
     scene.add(rim);
-    const rim2 = new THREE.DirectionalLight(0x46d17e, 1.6);
+    const rim2 = new THREE.DirectionalLight(0xeef3ff, 0.8);
     rim2.position.set(4, 1.5, -4);
     scene.add(rim2);
 
@@ -234,7 +196,7 @@ async function start() {
         o.castShadow = true;
         o.receiveShadow = true;
         if (!schermMesh && /screen|display|lcd|monitor|scherm/i.test(o.name)) schermMesh = o;
-        // Geborsteld aluminium; de toetsen krijgen een groene achtergrondverlichting
+        // Geborsteld aluminium; de toetsen krijgen een zachte groene achtergrondverlichting
         if (/frame/i.test(o.name)) {
             const m = o.material;
             m.color.setRGB(1.3, 1.32, 1.36);
@@ -243,35 +205,22 @@ async function start() {
             m.roughnessMap = geborsteld();
             m.envMapIntensity = 1.3;
             if (m.emissiveMap) m.emissiveMap = toetsenMasker(m.emissiveMap, m.map);
-            m.emissive = new THREE.Color(0x46d17e);
+            m.emissive = new THREE.Color(0xc4dfa0);
             m.emissiveIntensity = 0;
             behuizing.push(m);
         }
     });
 
     // Het scherm
-    await document.fonts.ready;
+    await Promise.all(['500 64px Newsreader', '400 34px Schibsted', '500 30px Schibsted'].map((f) => document.fonts.load(f)));
     const scherm = await maakScherm(schermMesh, renderer);
-
-    // Postprocessing: subtiele bloom, zodat het scherm en de rim zacht gloeien maar alles scherp blijft
-    const doel = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 });
-    const composer = new EffectComposer(renderer, doel);
-    composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.18, 0.5, 0.92);
-    bloom.enabled = !klein;
-    composer.addPass(bloom);
-    composer.addPass(new OutputPass());
 
     function maatZetten() {
         const b = window.innerWidth, h = window.innerHeight;
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
         renderer.setSize(b, h, false);
-        composer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
-        composer.setSize(b, h);
-        bloom.resolution.set(b / 2, h / 2);
         camera.aspect = b / h;
         camera.updateProjectionMatrix();
-        achtergrond.material.uniforms.uAspect.value = b / h;
     }
     maatZetten();
     window.addEventListener('resize', maatZetten);
@@ -302,8 +251,6 @@ async function start() {
     let vorigeTekst = -1;
 
     const kijkPunt = new THREE.Vector3();
-    const spotPunt = new THREE.Vector3();
-    const spotDoel = new THREE.Vector2(0.7, 0.5);
     const klok = new THREE.Clock();
     let vorigScherm = -1;
     let frames = 0, gemeten = 0;
@@ -356,15 +303,7 @@ async function start() {
             }
         }
 
-        // Spotlight achter de laptop volgt hem over het beeld
-        laptop.updateMatrixWorld();
-        spotPunt.set(0, 0.7, 0).project(camera);
-        spotDoel.set(spotPunt.x * 0.5 + 0.5, spotPunt.y * 0.5 + 0.5);
-        const u = achtergrond.material.uniforms;
-        u.uMidden.value.lerp(spotDoel, Math.min(1, dt * 4));
-        u.uTijd.value = t;
-
-        composer.render(dt);
+        renderer.render(scene, camera);
 
         // Loopt het niet soepel? Dan een stap lager in kwaliteit
         frames++;
@@ -372,7 +311,6 @@ async function start() {
         if (frames === 90) {
             if (gemeten / frames > 1 / 40 && kwaliteit > 1) {
                 kwaliteit = 1;
-                bloom.enabled = false;
                 if (spiegel) spiegel.visible = false;
                 maatZetten();
             }
@@ -422,8 +360,8 @@ function geborsteld() {
     x.fillStyle = 'rgb(84,84,84)';
     x.fillRect(0, 0, 512, 512);
     for (let i = 0; i < 1400; i++) {
-        const g = 60 + Math.random() * 50;
-        x.fillStyle = `rgba(${g},${g},${g},0.5)`;
+        const g = 74 + Math.random() * 20;
+        x.fillStyle = `rgba(${g},${g},${g},0.35)`;
         x.fillRect(Math.random() * 512 - 100, Math.random() * 512, 80 + Math.random() * 300, 1);
     }
     const t = new THREE.CanvasTexture(c);
@@ -586,23 +524,18 @@ async function maakScherm(mesh, renderer) {
     };
 }
 
-// Opstartscherm: naam en wat ik doe, rustig op donkergroen
+// Opstartscherm: naam en wat ik doe, rustig op flessengroen
 function tekenStart(x) {
-    x.fillStyle = '#071510';
+    x.fillStyle = '#1B3A2A';
     x.fillRect(0, 0, 1600, 1000);
-    x.fillStyle = '#46D17E';
-    x.fillRect(740, 330, 120, 120);
-    x.fillStyle = '#071510';
-    x.font = '800 96px Bricolage, Arial, sans-serif';
     x.textAlign = 'center';
     x.textBaseline = 'middle';
-    x.fillText('Q', 800, 396);
-    x.fillStyle = '#ECF2EE';
-    x.font = '800 64px Bricolage, Arial, sans-serif';
-    x.fillText('Quinten Löb', 800, 560);
-    x.fillStyle = '#A6B8AE';
-    x.font = '400 34px Bricolage, Arial, sans-serif';
-    x.fillText('Software Development · Rotterdam', 800, 630);
+    x.fillStyle = '#F1ECE1';
+    x.font = '500 120px Newsreader, Georgia, serif';
+    x.fillText('Quinten Löb', 800, 470);
+    x.fillStyle = '#B7BDAC';
+    x.font = '400 34px Schibsted, Arial, sans-serif';
+    x.fillText('Software Development · Rotterdam', 800, 580);
 }
 
 // Code-editor met het echte stuk puntentelling uit bracket.php van mijn WK-site
@@ -614,8 +547,8 @@ function tekenCode(x) {
     x.fillStyle = '#10251B';
     x.fillRect(0, 0, 1600, 64);
     [['#ff5f57', 36], ['#febc2e', 66], ['#28c840', 96]].forEach(([k, px]) => { x.fillStyle = k; x.beginPath(); x.arc(px, 32, 9, 0, 7); x.fill(); });
-    x.fillStyle = '#A6B8AE';
-    x.font = '400 24px Bricolage, Arial, sans-serif';
+    x.fillStyle = '#B7BDAC';
+    x.font = '400 24px Schibsted, Arial, sans-serif';
     x.textAlign = 'center';
     x.textBaseline = 'middle';
     x.fillText('wk2026 — bracket.php', 800, 33);
@@ -623,15 +556,15 @@ function tekenCode(x) {
     x.fillStyle = '#0d1d15';
     x.fillRect(0, 64, 330, 936);
     x.textAlign = 'left';
-    x.font = '600 22px Bricolage, Arial, sans-serif';
-    x.fillStyle = '#A6B8AE';
+    x.font = '500 22px Schibsted, Arial, sans-serif';
+    x.fillStyle = '#B7BDAC';
     x.fillText('WK2026', 32, 112);
     const bestanden = ['bracket.php', 'config.php', 'land.php', 'landen.php', 'views/', 'wk2026.db', 'package.json'];
-    x.font = '400 24px Bricolage, Arial, sans-serif';
+    x.font = '400 24px Schibsted, Arial, sans-serif';
     bestanden.forEach((b, i) => {
         const y = 164 + i * 50;
         if (i === 0) { x.fillStyle = '#173223'; x.fillRect(0, y - 24, 330, 48); }
-        x.fillStyle = b.endsWith('.db') ? '#46D17E' : i === 0 ? '#ECF2EE' : '#A6B8AE';
+        x.fillStyle = b.endsWith('.db') ? '#C4DFA0' : i === 0 ? '#F1ECE1' : '#B7BDAC';
         x.fillText(b, 48, y);
     });
     // code
@@ -655,7 +588,7 @@ function tekenCode(x) {
         [['c', '// Sorteren op punten (hoog naar laag)']],
         [['f', 'arsort'], ['p', '('], ['v', '$punten'], ['p', ');']],
     ];
-    const kleur = { c: '#6b8f7a', k: '#46D17E', v: '#9fd8ff', s: '#e8e3a3', n: '#f2a8ff', f: '#ECF2EE', p: '#c9d6cf' };
+    const kleur = { c: '#6b8f7a', k: '#C4DFA0', v: '#9fd8ff', s: '#e8e3a3', n: '#f2a8ff', f: '#F1ECE1', p: '#c9d6cf' };
     x.font = `400 25px ${mono}`;
     regels.forEach((regel, i) => {
         const y = 118 + i * 46;
@@ -674,7 +607,7 @@ function tekenCode(x) {
 
 // Een mailprogramma met een nieuw bericht aan mij, met een knipperende cursor
 function tekenMail(x, cursor) {
-    const letter = (gewicht, maat) => `${gewicht} ${maat}px Bricolage, Arial, sans-serif`;
+    const letter = (gewicht, maat) => `${gewicht} ${maat}px Schibsted, Arial, sans-serif`;
     x.fillStyle = '#0a1510';
     x.fillRect(0, 0, 1600, 1000);
     // mappen links
@@ -682,24 +615,24 @@ function tekenMail(x, cursor) {
     x.fillRect(0, 0, 300, 1000);
     x.textAlign = 'left';
     x.textBaseline = 'middle';
-    x.fillStyle = '#46D17E';
+    x.fillStyle = '#C4DFA0';
     x.fillRect(32, 40, 236, 64);
     x.fillStyle = '#08130D';
-    x.font = letter(600, 28);
-    x.fillText('+ Nieuw bericht', 56, 73);
+    x.font = letter(500, 24);
+    x.fillText('+ Nieuw bericht', 52, 73);
     ['Inbox', 'Met ster', 'Verzonden', 'Concepten'].forEach((map, i) => {
         const y = 170 + i * 58;
         if (i === 3) { x.fillStyle = '#173223'; x.fillRect(16, y - 26, 268, 52); }
-        x.fillStyle = i === 3 ? '#ECF2EE' : '#A6B8AE';
+        x.fillStyle = i === 3 ? '#F1ECE1' : '#B7BDAC';
         x.font = letter(i === 3 ? 600 : 400, 27);
         x.fillText(map, 48, y);
     });
     // het bericht
-    x.fillStyle = '#ECF2EE';
+    x.fillStyle = '#F1ECE1';
     x.fillRect(360, 60, 1180, 880);
     x.fillStyle = '#10251B';
     x.fillRect(360, 60, 1180, 80);
-    x.fillStyle = '#ECF2EE';
+    x.fillStyle = '#F1ECE1';
     x.font = letter(600, 30);
     x.fillText('Nieuw bericht', 400, 100);
     const veld = (label, waarde, y) => {
@@ -717,10 +650,10 @@ function tekenMail(x, cursor) {
     x.fillStyle = '#0B1A13';
     x.font = letter(400, 30);
     x.fillText('Hoi Quinten,', 400, 370);
-    if (cursor) { x.fillStyle = '#46D17E'; x.fillRect(400, 408, 4, 40); }
+    if (cursor) { x.fillStyle = '#C4DFA0'; x.fillRect(400, 408, 4, 40); }
     x.fillStyle = '#6f8379';
     ['Wij hebben een stageplek voor iemand die graag', 'bouwt met PHP, databases en AI.'].forEach((r, i) => x.fillText(r, 420, 430 + i * 46));
-    x.fillStyle = '#46D17E';
+    x.fillStyle = '#C4DFA0';
     x.fillRect(1260, 840, 240, 70);
     x.fillStyle = '#08130D';
     x.font = letter(600, 28);
