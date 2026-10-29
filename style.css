@@ -83,7 +83,8 @@ em { font-family: var(--serif); font-style: italic; font-size: 1.12em; line-heig
 .feiten { display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; padding: 14px 0; margin-bottom: 22px; border-block: 1px solid var(--lijn); font-size: var(--klein); }
 .feiten dt { color: var(--zacht); }
 .op-scherm { margin-top: 22px; font-size: var(--klein); color: var(--zacht); }
-.op-scherm [data-scherm-tekst] { color: var(--inkt); }
+.op-scherm [data-scherm-tekst] { color: var(--inkt); transition: opacity 0.2s ease; }
+.op-scherm [data-scherm-tekst].wissel { opacity: 0; }
 .geen-3d .op-scherm { display: none; }
 
 /* over mij */

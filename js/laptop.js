@@ -68,7 +68,7 @@ const zonderTot = ({ tot, ...rest }) => rest;
 const vasthouden = (stappen) => (p) => {
     const deel = Math.min(p * stappen, stappen - 1e-6);
     const i = Math.floor(deel);
-    const f = Math.min(1, Math.max(0, (deel - i - 0.38) / 0.24));
+    const f = Math.min(1, Math.max(0, (deel - i - 0.3) / 0.4));
     return (i + f * f * (3 - 2 * f)) / stappen;
 };
 
@@ -298,7 +298,13 @@ async function start() {
             const nr = Math.round(staat.scherm);
             if (nr !== vorigeTekst) {
                 const [voor, tekst] = SCHERMEN[nr].tekst || [];
-                if (voor && schermTeksten[voor]) schermTeksten[voor].textContent = tekst;
+                const el = voor && schermTeksten[voor];
+                // Tekst even laten wegvagen, dan de nieuwe laten opkomen
+                if (el && el.textContent !== tekst) {
+                    el.classList.add('wissel');
+                    clearTimeout(el.wacht);
+                    el.wacht = setTimeout(() => { el.textContent = tekst; el.classList.remove('wissel'); }, 200);
+                }
                 vorigeTekst = nr;
             }
         }
@@ -437,10 +443,11 @@ async function maakScherm(mesh, renderer) {
     const nieuwDoek = () => { const c = document.createElement('canvas'); c.width = B; c.height = H; return c; };
 
     // Elk scherm één keer klaarzetten
+    // Foto's worden direct gebruikt (geen tussenstap via een canvas), zodat ze scherp blijven
     const lagen = await Promise.all(SCHERMEN.map(async (s) => {
+        if (s.soort === 'foto') return laad(s.src);
         const c = nieuwDoek();
         const x = c.getContext('2d');
-        if (s.soort === 'foto') { x.drawImage(await laad(s.src), 0, 0, B, H); return c; }
         x.scale(B / 1600, H / 1000);
         if (s.soort === 'start') tekenStart(x);
         if (s.soort === 'code') tekenCode(x);
@@ -457,14 +464,41 @@ async function maakScherm(mesh, renderer) {
         return new THREE.Color().setRGB(r / 255, g / 255, b / 255, THREE.SRGBColorSpace).lerp(new THREE.Color(1, 1, 1), 0.3);
     });
 
-    const doek = nieuwDoek();
-    const ctx = doek.getContext('2d');
-    const texture = new THREE.CanvasTexture(doek);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    // Elk scherm krijgt een eigen textuur die één keer naar de videokaart gaat;
+    // bij het wisselen mengt de shader twee texturen, dus er hoeft niets opnieuw getekend te worden
+    const texturen = lagen.map((laag) => {
+        const t = laag instanceof HTMLCanvasElement ? new THREE.CanvasTexture(laag) : new THREE.Texture(laag);
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        t.minFilter = THREE.LinearMipmapLinearFilter;
+        t.needsUpdate = true;
+        renderer.initTexture(t);
+        return t;
+    });
 
-    // Het beeld zelf in echte kleuren, met daarvoor een dunne glasplaat die de studio weerspiegelt
-    const beeld = new THREE.MeshBasicMaterial({ map: texture, color: 0x000000, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2 });
+    // Het beeld zelf in echte kleuren, met daarvoor een dunne glasplaat die de studio weerspiegelt.
+    // Het nieuwe scherm zoomt heel licht in terwijl het oude wegvloeit.
+    const beeld = new THREE.ShaderMaterial({
+        uniforms: { uA: { value: texturen[0] }, uB: { value: texturen[0] }, uMix: { value: 0 }, uHelder: { value: 0 } },
+        vertexShader: /* glsl */`
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }`,
+        fragmentShader: /* glsl */`
+            uniform sampler2D uA, uB; uniform float uMix, uHelder;
+            varying vec2 vUv;
+            void main() {
+                vec2 uvB = (vUv - 0.5) * (1.0 - 0.025 * (1.0 - uMix)) + 0.5;
+                // negatieve bias: een iets scherpere mipmap, zodat kleine tekst leesbaar blijft
+                vec3 a = texture2D(uA, vUv, -0.6).rgb;
+                vec3 b = texture2D(uB, uvB, -0.6).rgb;
+                gl_FragColor = vec4(mix(a, b, uMix) * uHelder, 1.0);
+                #include <colorspace_fragment>
+            }`,
+        toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2,
+    });
     const paneel = new THREE.Mesh(new THREE.PlaneGeometry(PANEEL.breed, PANEEL.hoog), beeld);
     paneel.position.set(0, PANEEL.midY, PANEEL.z);
     paneel.rotation.y = Math.PI;
@@ -500,25 +534,21 @@ async function maakScherm(mesh, renderer) {
             if (aan === cursorAan) return false;
             cursorAan = aan;
             tekenMail(lagen[MAIL].getContext('2d'), aan);
+            texturen[MAIL].needsUpdate = true;
             return true;
         },
         toon(waarde) {
             waardeNu = waarde;
             const i = Math.max(0, Math.min(lagen.length - 1, Math.floor(waarde)));
+            const j = Math.min(lagen.length - 1, i + 1);
             const f = waarde - i;
-            ctx.globalAlpha = 1;
-            ctx.drawImage(lagen[i], 0, 0);
-            if (f > 0.001 && lagen[i + 1]) {
-                ctx.globalAlpha = f;
-                ctx.drawImage(lagen[i + 1], 0, 0);
-                ctx.globalAlpha = 1;
-            }
-            texture.needsUpdate = true;
-            const j = Math.min(kleuren.length - 1, i + 1);
+            beeld.uniforms.uA.value = texturen[i];
+            beeld.uniforms.uB.value = texturen[j];
+            beeld.uniforms.uMix.value = f;
             schermLicht.color.copy(kleuren[i]).lerp(kleuren[j], f);
         },
         helderheid(aan) {
-            beeld.color.setScalar(0.92 * aan);
+            beeld.uniforms.uHelder.value = 0.92 * aan;
             schermLicht.intensity = (waardeNu < 0.5 ? 2.5 : 5) * aan;
         },
     };
