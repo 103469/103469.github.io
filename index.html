@@ -3,155 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quinten Löb</title>
-    <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam. Op zoek naar een stage.">
+    <title>Quinten Löb · Software Development student</title>
+    <meta name="description" content="Portfolio van Quinten Löb, student Software Development aan het Grafisch Lyceum Rotterdam. Op zoek naar een stage in back-end, databases en AI.">
     <meta name="theme-color" content="#101312">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101312'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='16' fill='%2346D17E'%3EQ%3C/text%3E%3C/svg%3E">
-    <link rel="stylesheet" href="style.css?v=4">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23101312'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='700' font-size='16' fill='%2346D17E'%3EQ%3C/text%3E%3C/svg%3E">
+    <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css?v=5">
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
+<a class="sla-over" href="#main">Naar de inhoud</a>
+
 <header class="nav">
-    <div class="wrap nav-binnen">
-        <a href="#top" class="merk">Quinten Löb</a>
-        <button class="menu-knop" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
-        <nav class="menu" id="menu" aria-label="Hoofdmenu">
+    <a href="#top" class="merk" translate="no">Quinten Löb</a>
+    <button class="menu-knop" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Hoofdmenu">
+        <a href="#over">Over mij</a>
+        <a href="#projecten">Projecten</a>
+        <a href="#skills">Skills</a>
+        <a href="#reis">Mijn reis</a>
+        <a class="menu-actie" href="#contact">Contact</a>
+    </nav>
+</header>
+
+<main id="main">
+
+    <!-- Bovenkant: links de tekst, rechts een vaste foto van Rotterdam -->
+    <div class="podium-split">
+        <div class="kolom">
+            <section class="hero" id="top" data-beeld="0">
+                <h1 data-op>Quinten Löb</h1>
+                <p class="intro" data-op>Hoi, ik ben Quinten. Ik zit in mijn tweede jaar Software Development op het Grafisch Lyceum Rotterdam. Ik bouw websites met PHP, JavaScript en databases, en ik zoek een stage.</p>
+                <div class="knoppen" data-op>
+                    <a class="knop" href="#projecten">Mijn projecten</a>
+                    <a class="link" href="#contact">Neem contact op</a>
+                </div>
+            </section>
+
+            <section class="over" id="over" data-beeld="1" aria-labelledby="over-titel">
+                <img class="over-foto" src="img/quinten.jpg" alt="Portret van Quinten Löb" width="600" height="595" data-op>
+                <h2 id="over-titel" data-op>Over mij</h2>
+                <div class="brief" data-op>
+                    <p>Ik ben 17 jaar en woon in Rotterdam. Ik leer het meest door dingen te bouwen. Een site die echt werkt, <mark>met een database erachter</mark>, vind ik veel leuker dan alleen theorie lezen.</p>
+                    <p>Voor mijn stage zoek ik een plek waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
+                    <p>Naast school sta ik op doel als keeper en train ik meerdere keren per week. Verder zit ik veel in de gym en game ik graag, vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
+                </div>
+                <p class="ondertekening" data-op>Quinten Löb<span>Student Software Development, Grafisch Lyceum Rotterdam</span></p>
+            </section>
+        </div>
+
+        <div class="podium" aria-hidden="true">
+            <div class="podium-beelden">
+                <img class="actief" src="img/erasmusbrug.jpg" alt="" width="1920" height="2880" fetchpriority="high">
+                <img src="img/kop-van-zuid.jpg" alt="" width="1920" height="1169" loading="lazy">
+            </div>
+            <p class="podium-balk"><span data-bijschrift>Erasmusbrug, Rotterdam</span><span>Op zoek naar een stage</span></p>
+        </div>
+    </div>
+
+    <!-- Projecten: over de volle breedte -->
+    <section class="projecten" id="projecten" aria-labelledby="projecten-titel">
+        <h2 id="projecten-titel" class="sectie-kop" data-op>Projecten</h2>
+
+        <article class="project" aria-labelledby="p-wk">
+            <div class="project-tekst">
+                <h3 id="p-wk" data-op>WK 2026</h3>
+                <p class="info" data-op>Alleen gemaakt · PHP, SQLite, Tailwind CSS</p>
+                <div data-op>
+                    <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
+                    <p>Ik heb de database ontworpen, de code opgesplitst in PHP-bestanden en views, de puntentelling geprogrammeerd en de site zelf online gezet op een Plesk-server.</p>
+                </div>
+                <p class="links" data-op>
+                    <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk de site →</a>
+                    <a href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code op GitHub →</a>
+                </p>
+            </div>
+            <a class="project-beeld" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener" data-op>
+                <img src="img/wk2026-site.jpg" alt="Screenshot van de WK 2026-site met alle landen, een zoekbalk en een filter per groep" loading="lazy" width="1040" height="685">
+            </a>
+        </article>
+
+        <!-- Groepsstand: dezelfde puntentelling als bracket.php -->
+        <div class="stand" aria-labelledby="stand-titel">
+            <div class="stand-kop">
+                <h3 id="stand-titel" data-op>Groep F, zelf uitgerekend</h3>
+                <p data-op>Deze uitslagen komen uit de database van mijn WK-site. Verander een score en de stand rekent opnieuw, met dezelfde regels als mijn PHP-code: 3 punten voor winst, 1 voor gelijk.</p>
+            </div>
+
+            <form class="duels" data-op aria-label="Uitslagen van groep F">
+                <fieldset class="duel"><legend class="vh">Nederland tegen Japan</legend>
+                    <label for="d1a">Nederland</label><input id="d1a" name="d1a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="3" data-team="Nederland">
+                    <input id="d1b" name="d1b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="0" data-team="Japan" aria-label="Japan"><span>Japan</span>
+                </fieldset>
+                <fieldset class="duel"><legend class="vh">Zweden tegen Tunesië</legend>
+                    <label for="d2a">Zweden</label><input id="d2a" name="d2a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="2" data-team="Zweden">
+                    <input id="d2b" name="d2b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="1" data-team="Tunesië" aria-label="Tunesië"><span>Tunesië</span>
+                </fieldset>
+                <fieldset class="duel"><legend class="vh">Nederland tegen Zweden</legend>
+                    <label for="d3a">Nederland</label><input id="d3a" name="d3a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="1" data-team="Nederland">
+                    <input id="d3b" name="d3b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="1" data-team="Zweden" aria-label="Zweden"><span>Zweden</span>
+                </fieldset>
+                <fieldset class="duel"><legend class="vh">Tunesië tegen Japan</legend>
+                    <label for="d4a">Tunesië</label><input id="d4a" name="d4a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="3" data-team="Tunesië">
+                    <input id="d4b" name="d4b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="2" data-team="Japan" aria-label="Japan"><span>Japan</span>
+                </fieldset>
+                <fieldset class="duel"><legend class="vh">Tunesië tegen Nederland</legend>
+                    <label for="d5a">Tunesië</label><input id="d5a" name="d5a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="1" data-team="Tunesië">
+                    <input id="d5b" name="d5b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="1" data-team="Nederland" aria-label="Nederland"><span>Nederland</span>
+                </fieldset>
+                <fieldset class="duel"><legend class="vh">Japan tegen Zweden</legend>
+                    <label for="d6a">Japan</label><input id="d6a" name="d6a" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="3" data-team="Japan">
+                    <input id="d6b" name="d6b" type="number" autocomplete="off" inputmode="numeric" min="0" max="20" value="4" data-team="Zweden" aria-label="Zweden"><span>Zweden</span>
+                </fieldset>
+                <button class="knop-tekst" type="reset">Terug naar de echte uitslagen</button>
+            </form>
+
+            <div class="stand-tabel" data-op>
+                <table>
+                    <caption class="vh">Stand van groep F</caption>
+                    <thead>
+                        <tr><th scope="col">Land</th><th scope="col"><abbr title="Gespeeld">Gs</abbr></th><th scope="col"><abbr title="Winst">W</abbr></th><th scope="col"><abbr title="Gelijk">G</abbr></th><th scope="col"><abbr title="Verlies">V</abbr></th><th scope="col">Doelsaldo</th><th scope="col">Punten</th></tr>
+                    </thead>
+                    <tbody aria-live="polite">
+                        <tr data-land="Zweden"><th scope="row"><img src="img/vlaggen/se.png" alt="" width="20" height="13">Zweden</th><td>3</td><td>2</td><td>1</td><td>0</td><td>7–5</td><td>7</td></tr>
+                        <tr data-land="Nederland"><th scope="row"><img src="img/vlaggen/nl.png" alt="" width="20" height="13">Nederland</th><td>3</td><td>1</td><td>2</td><td>0</td><td>5–2</td><td>5</td></tr>
+                        <tr data-land="Tunesië"><th scope="row"><img src="img/vlaggen/tn.png" alt="" width="20" height="13">Tunesië</th><td>3</td><td>1</td><td>1</td><td>1</td><td>5–5</td><td>4</td></tr>
+                        <tr data-land="Japan"><th scope="row"><img src="img/vlaggen/jp.png" alt="" width="20" height="13">Japan</th><td>3</td><td>0</td><td>0</td><td>3</td><td>5–10</td><td>0</td></tr>
+                    </tbody>
+                </table>
+                <p class="stand-noot">Uit bracket.php, de code die de stand op de site uitrekent:</p>
+<pre translate="no"><code>if ($duel['doelpunten1'] > $duel['doelpunten2']) {
+    $punten[$team1] = $punten[$team1] + 3;
+} elseif ($duel['doelpunten2'] > $duel['doelpunten1']) {
+    $punten[$team2] = $punten[$team2] + 3;
+} else {
+    $punten[$team1] = $punten[$team1] + 1;
+    $punten[$team2] = $punten[$team2] + 1;
+}</code></pre>
+            </div>
+        </div>
+
+        <article class="project project-om" aria-labelledby="p-quiz">
+            <div class="project-tekst">
+                <h3 id="p-quiz" data-op>Quizzie</h3>
+                <p class="info" data-op>Met Destiny en Kaïn · HTML, CSS, JavaScript</p>
+                <div data-op>
+                    <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten.</p>
+                    <p>Ik maakte de Fitness Quiz met open vragen en meerkeuzevragen, en de code die meteen laat zien of je antwoord goed of fout is. Die gebruiken we in alle drie de quizzen.</p>
+                </div>
+                <p class="links" data-op>
+                    <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk de site →</a>
+                    <a href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code op GitHub →</a>
+                </p>
+            </div>
+            <a class="project-beeld" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener" data-op>
+                <img src="img/quizzie-site.jpg" alt="Screenshot van Quizzie met de Drugs Quiz en de Fitness Quiz" loading="lazy" width="1040" height="685">
+            </a>
+        </article>
+    </section>
+
+    <!-- Skills: links een vast beeld van het project, rechts de lijst -->
+    <section class="skills" id="skills" aria-labelledby="skills-titel">
+        <div class="skills-beeld" aria-hidden="true">
+            <img class="actief" src="img/quizzie.jpg" alt="" width="1040" height="650" loading="lazy">
+            <img src="img/wk2026.jpg" alt="" width="1040" height="650" loading="lazy">
+            <img src="img/wk2026-site.jpg" alt="" width="1040" height="685" loading="lazy">
+            <img src="img/quizzie-site.jpg" alt="" width="1040" height="685" loading="lazy">
+        </div>
+        <div class="skills-lijst">
+            <h2 id="skills-titel" data-op>Skills</h2>
+            <dl>
+                <div data-beeld="0" class="actief" data-op><dt>HTML en CSS</dt><dd>Quizzie, WK 2026 en deze site</dd></div>
+                <div data-beeld="1" data-op><dt>PHP</dt><dd>WK 2026 en mijn sportquiz</dd></div>
+                <div data-beeld="2" data-op><dt>SQL</dt><dd>SQLite in WK 2026, MySQL in mijn sportquiz</dd></div>
+                <div data-beeld="3" data-op><dt>JavaScript</dt><dd>De quizlogica van Quizzie en deze site</dd></div>
+                <div data-beeld="1" data-op><dt>Tailwind CSS</dt><dd>WK 2026</dd></div>
+                <div data-beeld="0" data-op><dt>Git en GitHub</dt><dd>Al mijn projecten staan erop</dd></div>
+                <div data-beeld="2" data-op><dt>Plesk</dt><dd>WK 2026 zelf online gezet</dd></div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Mijn reis -->
+    <section class="reis" id="reis" aria-labelledby="reis-titel">
+        <div class="reis-lijst">
+            <h2 id="reis-titel" data-op>Mijn reis</h2>
+            <h3 class="reis-groep" data-op>Jaar 1</h3>
+            <ol>
+                <li data-op><span>Start opleiding Software Development</span><span>opleiding</span></li>
+                <li data-op><span>Eerste portfolio online</span><span>project</span></li>
+                <li data-op><span>Bootstrap bestelformulier</span><span>project</span></li>
+                <li data-op><span>Bedrijfssafari bij W.T. International</span><span>bedrijf</span></li>
+                <li data-op><span>WK 2026 website</span><span>project</span></li>
+                <li data-op><span>Quizzie, met mijn groepje</span><span>groepsproject</span></li>
+                <li data-op><span>Door naar jaar 2</span><span>opleiding</span></li>
+            </ol>
+            <h3 class="reis-groep" data-op>Jaar 2</h3>
+            <ol start="8">
+                <li data-op><span>PHP CRUD met MySQL</span><span>project</span></li>
+                <li class="nu" data-op><span>Stage zoeken, hier ben ik nu</span><span>nu</span></li>
+            </ol>
+            <h3 class="reis-groep" data-op>Straks</h3>
+            <ol start="10">
+                <li class="nog" data-op><span>Software developer</span><span>het doel</span></li>
+            </ol>
+        </div>
+        <p class="nu-bezig" data-op>Nu mee bezig: beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
+    </section>
+</main>
+
+<!-- Contact en afsluiting: foto links, contact en menu rechts -->
+<footer class="slot">
+    <div class="slot-foto">
+        <picture>
+            <source media="(max-width: 900px)" srcset="img/kop-van-zuid.jpg" width="1920" height="1169">
+            <img src="img/erasmusbrug.jpg" alt="De Erasmusbrug in Rotterdam" width="1920" height="2880" loading="lazy">
+        </picture>
+    </div>
+    <div class="slot-tekst">
+        <section id="contact" aria-labelledby="contact-titel">
+            <h2 id="contact-titel" data-op>Contact</h2>
+            <p class="contact-vraag" data-op><span>Heb je een stageplek of een vraag?</span> Stuur me een mail.</p>
+            <a class="mail" href="mailto:quintenlob6@gmail.com" data-op>
+                <span>quintenlob6@gmail.com</span><span class="mail-pijl" aria-hidden="true">→</span>
+            </a>
+            <p class="links" data-op><a href="https://github.com/103469" target="_blank" rel="noopener">GitHub →</a></p>
+        </section>
+
+        <nav class="slot-menu" aria-label="Menu onderaan">
             <a href="#over">Over mij</a>
             <a href="#projecten">Projecten</a>
             <a href="#skills">Skills</a>
             <a href="#reis">Mijn reis</a>
-            <a href="#contact">Contact</a>
         </nav>
+
+        <div class="slot-voet">
+            <p>© 2026 Quinten Löb</p>
+            <p>Foto's van Wikimedia Commons, CC BY-SA 4.0: <a href="https://commons.wikimedia.org/wiki/File:Erasmusbrug_-_Detail_of_Pylon,_September_2019.jpg" target="_blank" rel="noopener">Erasmusbrug</a> door Martin Falbisoner, <a href="https://commons.wikimedia.org/wiki/File:Rotterdam,_de_Erasmusbrug_en_de_Kop_van_Zuid_IMG_0684_2022-03-27_20.24.jpg" target="_blank" rel="noopener">Kop van Zuid</a> door Michielverbeek.</p>
+        </div>
     </div>
-</header>
-
-<main>
-    <section class="hero" id="top">
-        <div class="wrap">
-            <p class="hoi">Hoi, ik ben</p>
-            <h1>Quinten Löb</h1>
-            <p class="intro">Ik zit in mijn tweede jaar Software Development op het Grafisch Lyceum Rotterdam. Ik bouw websites met PHP, JavaScript en databases, en ik zoek een stage.</p>
-            <div class="knoppen">
-                <a class="knop" href="#projecten">Mijn projecten</a>
-                <a class="link" href="#contact">Neem contact op</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="sectie" id="over">
-        <div class="wrap over">
-            <img class="over-foto" src="img/quinten.jpg" alt="Foto van Quinten Löb" width="600" height="595">
-            <div>
-                <h2>Over mij</h2>
-                <p>Ik ben 17 jaar en woon in Rotterdam. Ik leer het meest door dingen te bouwen. Een site die echt werkt, met een database erachter, vind ik veel leuker dan alleen theorie lezen.</p>
-                <p>Voor mijn stage zoek ik een plek waar ik mee kan draaien in een team en kan leren van mensen die verder zijn dan ik.</p>
-                <p>Naast school sta ik op doel als keeper en train ik meerdere keren per week. Verder zit ik veel in de gym en game ik graag, vooral Minecraft en ARK. Daar komt ook mijn interesse in hoe software werkt vandaan.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="sectie" id="projecten">
-        <div class="wrap">
-            <h2>Projecten</h2>
-
-            <article class="project">
-                <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">
-                    <img src="img/wk2026-site.jpg" alt="Screenshot van de WK 2026-site met alle landen, een zoekbalk en een filter per groep" loading="lazy" width="1040" height="685">
-                </a>
-                <div class="project-tekst">
-                    <h3>WK 2026</h3>
-                    <p class="info">Alleen gemaakt · PHP, SQLite, Tailwind CSS</p>
-                    <p>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
-                    <p>Ik heb de database ontworpen, de code opgesplitst in PHP-bestanden en views, de puntentelling geprogrammeerd en de site zelf online gezet op een Plesk-server.</p>
-                    <p class="links">
-                        <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk de site →</a>
-                        <a href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code op GitHub →</a>
-                    </p>
-                </div>
-            </article>
-
-            <article class="project">
-                <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">
-                    <img src="img/quizzie-site.jpg" alt="Screenshot van Quizzie met de Drugs Quiz en de Fitness Quiz" loading="lazy" width="1040" height="685">
-                </a>
-                <div class="project-tekst">
-                    <h3>Quizzie</h3>
-                    <p class="info">Met Destiny en Kaïn · HTML, CSS, JavaScript</p>
-                    <p>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten.</p>
-                    <p>Ik maakte de Fitness Quiz met open vragen en meerkeuzevragen, en de code die meteen laat zien of je antwoord goed of fout is. Die gebruiken we in alle drie de quizzen.</p>
-                    <p class="links">
-                        <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk de site →</a>
-                        <a href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code op GitHub →</a>
-                    </p>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section class="sectie" id="skills">
-        <div class="wrap smal">
-            <h2>Skills</h2>
-            <dl class="skills">
-                <div><dt>HTML en CSS</dt><dd>Quizzie, WK 2026 en deze site</dd></div>
-                <div><dt>PHP</dt><dd>WK 2026 en mijn sportquiz</dd></div>
-                <div><dt>SQL</dt><dd>SQLite in WK 2026, MySQL in mijn sportquiz</dd></div>
-                <div><dt>JavaScript</dt><dd>De quizlogica van Quizzie en deze site</dd></div>
-                <div><dt>Tailwind CSS</dt><dd>WK 2026</dd></div>
-                <div><dt>Git en GitHub</dt><dd>Al mijn projecten staan erop</dd></div>
-                <div><dt>Plesk</dt><dd>WK 2026 zelf online gezet</dd></div>
-            </dl>
-            <p class="nu-bezig">Nu mee bezig: beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
-        </div>
-    </section>
-
-    <section class="sectie" id="reis">
-        <div class="wrap smal">
-            <h2>Mijn reis</h2>
-            <ol class="reis">
-                <li>Start opleiding Software Development</li>
-                <li>Eerste portfolio online</li>
-                <li>Bootstrap bestelformulier</li>
-                <li>Bedrijfssafari bij W.T. International</li>
-                <li>WK 2026 website</li>
-                <li>Quizzie, met mijn groepje</li>
-                <li>Door naar jaar 2</li>
-                <li>PHP CRUD met MySQL</li>
-                <li class="nu">Stage zoeken, hier ben ik nu</li>
-                <li class="nog">Software developer</li>
-            </ol>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="wrap">
-            <h2>Contact</h2>
-            <p>Heb je een stageplek of een vraag? Stuur me een mail.</p>
-            <a class="mail" href="mailto:quintenlob6@gmail.com">quintenlob6@gmail.com</a>
-            <p class="links">
-                <a href="https://github.com/103469" target="_blank" rel="noopener">GitHub →</a>
-                <a href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b" data-cv>CV aanvragen →</a>
-            </p>
-        </div>
-    </section>
-</main>
-
-<footer class="footer">
-    <div class="wrap">© 2026 Quinten Löb</div>
 </footer>
 
-<dialog class="cv-venster" aria-labelledby="cv-titel">
-    <button class="cv-sluit" type="button" aria-label="Sluiten">×</button>
-    <h2 id="cv-titel">Wil je mijn CV?</h2>
-    <p>Stuur me een mail, dan stuur ik je mijn CV zo snel mogelijk toe.</p>
-    <div class="cv-adres"><strong>quintenlob6@gmail.com</strong><button class="cv-kopieer" type="button">Kopieer</button></div>
-    <div class="cv-knoppen">
-        <a class="knop" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=quintenlob6@gmail.com&amp;su=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Gmail</a>
-        <a class="knop knop-rand" target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/deeplink/compose?to=quintenlob6@gmail.com&amp;subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Outlook</a>
-        <a class="knop knop-rand" href="mailto:quintenlob6@gmail.com?subject=Aanvraag%20CV%20Quinten%20L%C3%B6b&amp;body=Hoi%20Quinten%2C%0A%0AIk%20wil%20graag%20je%20CV%20ontvangen.%0A%0AGroeten%2C">Mail-app</a>
-    </div>
-</dialog>
-
-<script src="js/cv.js?v=4"></script>
-<script src="js/site.js?v=4"></script>
+<script src="js/site.js?v=5"></script>
 </body>
 </html>
