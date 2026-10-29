@@ -49,20 +49,20 @@ const SCHERMEN = [
 // draai: draai van de laptop, scherm en tot: welk scherm aan begin en eind, licht: gloed van het toetsenbord
 const SHOTS = {
     groot: {
-        start:   { kant:  1, afstand: 7.0, hoogte: 1.5, kijk: 0.55, hoek:  0.00, draai: -0.48, scherm: 0, tot: 0, licht: 0.10 },
-        over:    { kant: -1, afstand: 7.6, hoogte: 1.9, kijk: 0.50, hoek:  0.10, draai:  0.55, scherm: 0, tot: 0, licht: 0.10 },
-        wk:      { kant:  1, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek: -0.04, draai: -0.12, scherm: 1, tot: 3, licht: 0.25 },
-        quiz:    { kant: -1, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek:  0.04, draai:  0.12, scherm: 4, tot: 5, licht: 0.25 },
-        skills:  { kant:  1, afstand: 6.9, hoogte: 3.0, kijk: 0.45, hoek: -0.10, draai: -0.55, scherm: 6, tot: 6, licht: 1.60 },
-        contact: { kant: -1, afstand: 6.4, hoogte: 1.3, kijk: 0.65, hoek:  0.06, draai:  0.08, scherm: 7, tot: 7, licht: 0.50 },
+        start:   { kant:  1, hoog: 0, afstand: 7.0, hoogte: 1.5, kijk: 0.55, hoek:  0.00, draai: -0.48, scherm: 0, tot: 0, licht: 0.10 },
+        over:    { kant: -1, hoog: 0, afstand: 7.6, hoogte: 1.9, kijk: 0.50, hoek:  0.10, draai:  0.55, scherm: 0, tot: 0, licht: 0.10 },
+        wk:      { kant:  1, hoog: 0, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek: -0.04, draai: -0.12, scherm: 1, tot: 3, licht: 0.25 },
+        quiz:    { kant: -1, hoog: 0, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek:  0.04, draai:  0.12, scherm: 4, tot: 5, licht: 0.25 },
+        skills:  { kant:  0, hoog: 0.2, afstand: 9.6, hoogte: 4.6, kijk: 0.45, hoek:  0.00, draai: -0.35, scherm: 6, tot: 6, licht: 2.40 },
+        contact: { kant: -1, hoog: 0, afstand: 6.4, hoogte: 1.3, kijk: 0.65, hoek:  0.06, draai:  0.08, scherm: 7, tot: 7, licht: 0.50 },
     },
     klein: {
-        start:   { kant: 0, afstand: 7.0, hoogte: 1.6, kijk: 0.55, hoek:  0.00, draai: -0.30, scherm: 0, tot: 0, licht: 0.10 },
-        over:    { kant: 0, afstand: 7.0, hoogte: 1.9, kijk: 0.55, hoek:  0.06, draai:  0.30, scherm: 0, tot: 0, licht: 0.10 },
-        wk:      { kant: 0, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai: -0.06, scherm: 1, tot: 3, licht: 0.25 },
-        quiz:    { kant: 0, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai:  0.06, scherm: 4, tot: 5, licht: 0.25 },
-        skills:  { kant: 0, afstand: 6.6, hoogte: 3.0, kijk: 0.35, hoek: -0.06, draai: -0.30, scherm: 6, tot: 6, licht: 1.60 },
-        contact: { kant: 0, afstand: 6.6, hoogte: 1.4, kijk: 0.60, hoek:  0.00, draai:  0.05, scherm: 7, tot: 7, licht: 0.50 },
+        start:   { kant: 0, hoog: 0.24, afstand: 7.0, hoogte: 1.6, kijk: 0.55, hoek:  0.00, draai: -0.30, scherm: 0, tot: 0, licht: 0.10 },
+        over:    { kant: 0, hoog: 0.24, afstand: 7.0, hoogte: 1.9, kijk: 0.55, hoek:  0.06, draai:  0.30, scherm: 0, tot: 0, licht: 0.10 },
+        wk:      { kant: 0, hoog: 0.24, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai: -0.06, scherm: 1, tot: 3, licht: 0.25 },
+        quiz:    { kant: 0, hoog: 0.24, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai:  0.06, scherm: 4, tot: 5, licht: 0.25 },
+        skills:  { kant: 0, hoog: 0.24, afstand: 6.6, hoogte: 3.0, kijk: 0.35, hoek: -0.06, draai: -0.30, scherm: 6, tot: 6, licht: 1.60 },
+        contact: { kant: 0, hoog: 0.24, afstand: 6.6, hoogte: 1.4, kijk: 0.60, hoek:  0.00, draai:  0.05, scherm: 7, tot: 7, licht: 0.50 },
     },
 };
 const STAPPEN = ['start', 'over', 'wk', 'quiz', 'skills', 'contact'];
@@ -217,13 +217,15 @@ async function start() {
     laptop.add(vloer);
 
     // Subtiele spiegeling in de vloer
-    const spiegel = new Reflector(new THREE.PlaneGeometry(7, 7), {
+    const spiegel = klein ? null : new Reflector(new THREE.PlaneGeometry(7, 7), {
         shader: VLOER, textureWidth: klein ? 256 : 512, textureHeight: klein ? 256 : 512, multisample: 0, clipBias: 0.003,
     });
-    spiegel.material.transparent = true;
-    spiegel.material.depthWrite = false;
-    spiegel.rotation.x = -Math.PI / 2;
-    laptop.add(spiegel);
+    if (spiegel) {
+        spiegel.material.transparent = true;
+        spiegel.material.depthWrite = false;
+        spiegel.rotation.x = -Math.PI / 2;
+        laptop.add(spiegel);
+    }
 
     let schermMesh = null;
     const behuizing = [];
@@ -235,9 +237,12 @@ async function start() {
         // Geborsteld aluminium; de toetsen krijgen een groene achtergrondverlichting
         if (/frame/i.test(o.name)) {
             const m = o.material;
+            m.color.setRGB(1.3, 1.32, 1.36);
             m.metalness = 0.9;
-            m.roughness = 0.3;
-            m.envMapIntensity = 1.2;
+            m.roughness = 1;
+            m.roughnessMap = geborsteld();
+            m.envMapIntensity = 1.3;
+            if (m.emissiveMap) m.emissiveMap = toetsenMasker(m.emissiveMap, m.map);
             m.emissive = new THREE.Color(0x46d17e);
             m.emissiveIntensity = 0;
             behuizing.push(m);
@@ -316,7 +321,7 @@ async function start() {
         if (camera.aspect < 1) {
             // Telefoon: zo ver terug dat de hele laptop met wat ruimte in beeld past
             const breedtePerAfstand = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect;
-            afstand = Math.max(afstand, 2.9 / breedtePerAfstand);
+            afstand = Math.max(afstand, 2.65 / breedtePerAfstand);
         }
         const hoek = staat.hoek + muis.x * 0.05;
         camera.position.set(Math.sin(hoek) * afstand, staat.hoogte * (afstand / staat.afstand) - muis.y * 0.08, Math.cos(hoek) * afstand);
@@ -324,7 +329,7 @@ async function start() {
         camera.lookAt(kijkPunt);
         // Laptop naar links of rechts in beeld; op de telefoon bovenin
         const opzij = -staat.kant * 0.23 * b;
-        const omhoog = camera.aspect < 1 ? 0.26 * h : 0;
+        const omhoog = staat.hoog * h;
         camera.setViewOffset(b, h, opzij, omhoog, b, h);
 
         laptop.position.y = Math.sin(t * 0.8) * 0.025;
@@ -334,7 +339,7 @@ async function start() {
         schermMesh.rotation.x = DICHT * (1 - deksel.open);
         const aan = Math.max(0, (deksel.open - 0.55) / 0.45);
 
-        const gloed = Math.min(1.8, staat.licht + extraLicht) * (0.88 + Math.sin(t * 2) * 0.12) * aan;
+        const gloed = Math.min(2.6, staat.licht + extraLicht) * (0.88 + Math.sin(t * 2) * 0.12) * aan;
         behuizing.forEach((m) => { m.emissiveIntensity = gloed; });
 
         if (scherm) {
@@ -368,6 +373,7 @@ async function start() {
             if (gemeten / frames > 1 / 40 && kwaliteit > 1) {
                 kwaliteit = 1;
                 bloom.enabled = false;
+                if (spiegel) spiegel.visible = false;
                 maatZetten();
             }
         }
@@ -408,6 +414,54 @@ async function start() {
     gsap.to(deksel, { open: 1, duration: 2.2, delay: 0.35, ease: 'power3.inOut' });
 }
 
+// Fijne streepjes zoals bij geborsteld aluminium (ruwheid wisselt per lijn)
+function geborsteld() {
+    const c = document.createElement('canvas');
+    c.width = 512; c.height = 512;
+    const x = c.getContext('2d');
+    x.fillStyle = 'rgb(84,84,84)';
+    x.fillRect(0, 0, 512, 512);
+    for (let i = 0; i < 1400; i++) {
+        const g = 60 + Math.random() * 50;
+        x.fillStyle = `rgba(${g},${g},${g},0.5)`;
+        x.fillRect(Math.random() * 512 - 100, Math.random() * 512, 80 + Math.random() * 300, 1);
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.repeat.set(3, 3);
+    t.flipY = false;
+    return t;
+}
+
+// De gloed van het model zit ook op randen van de behuizing; houd alleen de letters op de toetsen
+// en de openingen rond de toetsen over (gebieden in de textuur van het model)
+function toetsenMasker(gloed, kleur) {
+    const S = 1024;
+    const c = document.createElement('canvas');
+    c.width = c.height = S;
+    const x = c.getContext('2d');
+    x.drawImage(gloed.image, 0, 0, S, S);
+    x.fillStyle = '#000';
+    x.fillRect(0, 0, S, Math.round(S * 0.73));
+    // openingen rond de toetsen: donkere vlakken in het toetsenbordgebied
+    const k = document.createElement('canvas');
+    k.width = k.height = S;
+    const kx = k.getContext('2d');
+    kx.drawImage(kleur.image, 0, 0, S, S);
+    const [x0, y0, x1, y1] = [0.2, 0.06, 0.42, 0.655].map((v) => Math.round(v * S));
+    const bron = kx.getImageData(x0, y0, x1 - x0, y1 - y0);
+    const doel = x.getImageData(x0, y0, x1 - x0, y1 - y0);
+    for (let i = 0; i < bron.data.length; i += 4) {
+        const v = bron.data[i] < 40 ? 255 : 0;
+        doel.data[i] = doel.data[i + 1] = doel.data[i + 2] = v;
+    }
+    x.putImageData(doel, x0, y0);
+    const t = new THREE.CanvasTexture(c);
+    t.flipY = false;
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+}
+
 // Zachte donkere vlek onder de laptop, waar hij de vloer raakt
 function contactSchaduw() {
     const c = document.createElement('canvas');
@@ -441,14 +495,15 @@ async function maakScherm(mesh, renderer) {
         img.src = src;
     });
 
-    const B = 1600, H = 1000;
+    const B = 2048, H = 1280;
     const nieuwDoek = () => { const c = document.createElement('canvas'); c.width = B; c.height = H; return c; };
 
     // Elk scherm één keer klaarzetten
     const lagen = await Promise.all(SCHERMEN.map(async (s) => {
         const c = nieuwDoek();
         const x = c.getContext('2d');
-        if (s.soort === 'foto') x.drawImage(await laad(s.src), 0, 0, B, H);
+        if (s.soort === 'foto') { x.drawImage(await laad(s.src), 0, 0, B, H); return c; }
+        x.scale(B / 1600, H / 1000);
         if (s.soort === 'start') tekenStart(x);
         if (s.soort === 'code') tekenCode(x);
         if (s.soort === 'mail') tekenMail(x, false);
@@ -617,39 +672,58 @@ function tekenCode(x) {
     });
 }
 
-// Een nieuw mailtje aan mij, met een knipperende cursor
+// Een mailprogramma met een nieuw bericht aan mij, met een knipperende cursor
 function tekenMail(x, cursor) {
+    const letter = (gewicht, maat) => `${gewicht} ${maat}px Bricolage, Arial, sans-serif`;
     x.fillStyle = '#0a1510';
     x.fillRect(0, 0, 1600, 1000);
-    x.fillStyle = '#ECF2EE';
-    x.fillRect(200, 110, 1200, 780);
-    x.fillStyle = '#10251B';
-    x.fillRect(200, 110, 1200, 80);
-    x.fillStyle = '#ECF2EE';
-    x.font = '600 32px Bricolage, Arial, sans-serif';
+    // mappen links
+    x.fillStyle = '#0d1d15';
+    x.fillRect(0, 0, 300, 1000);
     x.textAlign = 'left';
     x.textBaseline = 'middle';
-    x.fillText('Nieuw bericht', 240, 150);
+    x.fillStyle = '#46D17E';
+    x.fillRect(32, 40, 236, 64);
+    x.fillStyle = '#08130D';
+    x.font = letter(600, 28);
+    x.fillText('+ Nieuw bericht', 56, 73);
+    ['Inbox', 'Met ster', 'Verzonden', 'Concepten'].forEach((map, i) => {
+        const y = 170 + i * 58;
+        if (i === 3) { x.fillStyle = '#173223'; x.fillRect(16, y - 26, 268, 52); }
+        x.fillStyle = i === 3 ? '#ECF2EE' : '#A6B8AE';
+        x.font = letter(i === 3 ? 600 : 400, 27);
+        x.fillText(map, 48, y);
+    });
+    // het bericht
+    x.fillStyle = '#ECF2EE';
+    x.fillRect(360, 60, 1180, 880);
+    x.fillStyle = '#10251B';
+    x.fillRect(360, 60, 1180, 80);
+    x.fillStyle = '#ECF2EE';
+    x.font = letter(600, 30);
+    x.fillText('Nieuw bericht', 400, 100);
     const veld = (label, waarde, y) => {
         x.fillStyle = '#5d7368';
-        x.font = '400 30px Bricolage, Arial, sans-serif';
-        x.fillText(label, 240, y);
+        x.font = letter(400, 28);
+        x.fillText(label, 400, y);
         x.fillStyle = '#0B1A13';
-        x.font = '600 30px Bricolage, Arial, sans-serif';
-        x.fillText(waarde, 420, y);
+        x.font = letter(600, 28);
+        x.fillText(waarde, 570, y);
         x.fillStyle = '#d5ded9';
-        x.fillRect(240, y + 34, 1120, 3);
+        x.fillRect(400, y + 32, 1100, 3);
     };
-    veld('Aan', 'quintenlob6@gmail.com', 250);
-    veld('Onderwerp', 'Stageplek', 330);
+    veld('Aan', 'quintenlob6@gmail.com', 200);
+    veld('Onderwerp', 'Stageplek', 276);
     x.fillStyle = '#0B1A13';
-    x.font = '400 32px Bricolage, Arial, sans-serif';
-    x.fillText('Hoi Quinten,', 240, 430);
-    if (cursor) { x.fillStyle = '#46D17E'; x.fillRect(240, 470, 4, 40); }
+    x.font = letter(400, 30);
+    x.fillText('Hoi Quinten,', 400, 370);
+    if (cursor) { x.fillStyle = '#46D17E'; x.fillRect(400, 408, 4, 40); }
+    x.fillStyle = '#6f8379';
+    ['Wij hebben een stageplek voor iemand die graag', 'bouwt met PHP, databases en AI.'].forEach((r, i) => x.fillText(r, 420, 430 + i * 46));
     x.fillStyle = '#46D17E';
-    x.fillRect(1120, 790, 240, 70);
+    x.fillRect(1260, 840, 240, 70);
     x.fillStyle = '#08130D';
-    x.font = '600 30px Bricolage, Arial, sans-serif';
+    x.font = letter(600, 28);
     x.textAlign = 'center';
-    x.fillText('Versturen', 1240, 826);
+    x.fillText('Versturen', 1380, 876);
 }

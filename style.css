@@ -78,7 +78,7 @@ main { position: relative; z-index: 1; }
 .info { color: var(--zacht); font-size: var(--klein); margin-bottom: 16px; }
 
 /* lange stappen: de tekst blijft staan terwijl het scherm wisselt */
-.stap.lang { min-height: 190vh; align-items: flex-start; }
+.stap.lang { min-height: 165vh; align-items: flex-start; }
 .stap.lang .blok { position: sticky; top: max(96px, calc(50vh - 260px)); }
 
 /* klein levend puntje */
@@ -112,12 +112,24 @@ mark { background: var(--groen); color: var(--groen-inkt); padding: 0 3px; }
 .skills div { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 9px 12px; background: var(--vlak); }
 .skills dt { font-weight: 600; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
 .logos { display: inline-flex; gap: 4px; }
-.logos img, .logos svg { width: 24px; height: 24px; padding: 3px; background: var(--inkt); transition: transform var(--snel) var(--uit); }
+.logos img, .logos svg { width: 24px; height: 24px; transition: transform var(--snel) var(--uit); }
+.logos img[src*="github"] { filter: invert(1); }
+.logos img[src*="mysql"] { filter: brightness(2.4) saturate(0.8); }
 .skills div:hover .logos img, .skills div:hover .logos svg { transform: translateY(-2px) rotate(-6deg); }
 .skills div { transition: background-color var(--snel); }
 .skills div:hover { background: var(--vlak-2); }
 .skills dd { color: var(--zacht); font-size: var(--klein); text-align: right; }
 .nu-bezig { margin-top: 20px; font-weight: 600; }
+
+/* skills op groot scherm: laptop in het midden bovenin, de lijst breed eronder */
+@media (min-width: 768px) {
+    .js:not(.geen-3d) #skills { min-height: 120vh; align-items: flex-end; padding-bottom: 10vh; }
+    .js:not(.geen-3d) #skills .woord { margin-bottom: 16px; }
+    .js:not(.geen-3d) #skills .blok { width: min(100%, 1000px); margin-inline: auto; }
+    .js:not(.geen-3d) #skills .skills { grid-template-columns: 1fr 1fr; }
+    .js:not(.geen-3d) #skills .woord { text-align: center; }
+    .js:not(.geen-3d) #skills .nu-bezig { text-align: center; }
+}
 
 /* contact */
 .contact-kaart { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
@@ -171,7 +183,7 @@ mark { background: var(--groen); color: var(--groen-inkt); padding: 0 3px; }
 
 /* telefoon: laptop bovenin, tekst eronder op een vlak */
 @media (max-width: 767px) {
-    .stap, .hero { min-height: 100svh; align-items: flex-end; padding: 46svh var(--marge) 32px; }
+    .stap, .hero { min-height: 100svh; align-items: flex-end; padding: 42svh var(--marge) 32px; }
     .blok, .rechts .blok { width: 100%; margin: 0; padding: 20px; background: rgba(11, 26, 19, 0.92); }
     .woord { white-space: normal; margin-bottom: 16px; }
     .stap.lang { min-height: 150svh; align-items: flex-end; }
