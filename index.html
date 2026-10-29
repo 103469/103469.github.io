@@ -11,7 +11,7 @@
     <link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=13">
     <script>document.documentElement.classList.add('js');</script>
     <script type="importmap">
     {
@@ -40,6 +40,15 @@
     </nav>
 </header>
 
+<nav class="stippen" aria-label="Secties">
+    <a href="#top" data-naar="start"><span class="vh">Begin</span></a>
+    <a href="#over" data-naar="over"><span class="vh">Over mij</span></a>
+    <a href="#projecten" data-naar="wk"><span class="vh">WK 2026</span></a>
+    <a href="#p-quiz-sectie" data-naar="quiz"><span class="vh">Quizzie</span></a>
+    <a href="#skills" data-naar="skills"><span class="vh">Skills</span></a>
+    <a href="#contact" data-naar="contact"><span class="vh">Contact</span></a>
+</nav>
+
 <main id="main">
 
     <section class="stap hero links" id="top" data-stap="start">
@@ -50,6 +59,7 @@
                 <a class="knop" href="#projecten">Mijn projecten</a>
                 <a class="link" href="#contact">Neem contact op</a>
             </div>
+            <p class="status" data-op><span class="puls" aria-hidden="true"></span>Beschikbaar voor een stage</p>
         </div>
     </section>
 
@@ -66,15 +76,16 @@
     </section>
 
     <div id="projecten">
-        <section class="stap links" data-stap="wk" aria-labelledby="p-wk">
+        <section class="stap links lang" data-stap="wk" aria-labelledby="p-wk">
             <article class="blok">
                 <h2 class="woord" id="p-wk" data-op>WK 2026</h2>
                 <p class="info" data-op>Alleen gemaakt · PHP, SQLite, Tailwind CSS</p>
                 <a class="kaart" href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener" data-op>
-                    <img src="img/wk2026-site.jpg" alt="Screenshot van de WK 2026-site met alle landen, een zoekbalk en een filter per groep" width="1040" height="685" loading="lazy">
+                    <img src="img/scherm/wk-home.jpg" alt="Voorpagina van de WK 2026-site met 48 landen, 12 groepen en 104 wedstrijden" width="1440" height="900" loading="lazy">
                 </a>
                 <p data-op>Een website over het WK 2026 met alle 48 landen. Je kunt zoeken, filteren per groep en per land de wedstrijden bekijken. De groepsstanden rekent de site zelf uit op basis van de uitslagen in de database.</p>
                 <p data-op>Ik heb de database ontworpen, de code opgesplitst in PHP-bestanden en views, de puntentelling geprogrammeerd en de site zelf online gezet op een Plesk-server.</p>
+                <p class="op-scherm" data-op><span class="puls" aria-hidden="true"></span>Op het scherm: <span data-scherm-tekst="wk">de voorpagina</span></p>
                 <p class="links" data-op>
                     <a href="https://103469.stu.sd-lab.nl/wk2026/" target="_blank" rel="noopener">Bekijk de site →</a>
                     <a href="https://github.com/103469/wk2026" target="_blank" rel="noopener">Code op GitHub →</a>
@@ -82,15 +93,16 @@
             </article>
         </section>
 
-        <section class="stap rechts" data-stap="quiz" aria-labelledby="p-quiz">
+        <section class="stap rechts lang" id="p-quiz-sectie" data-stap="quiz" aria-labelledby="p-quiz">
             <article class="blok">
                 <h2 class="woord" id="p-quiz" data-op>Quizzie</h2>
                 <p class="info" data-op>Met Destiny en Kaïn · HTML, CSS, JavaScript</p>
                 <a class="kaart" href="https://103469.github.io/quizzie/" target="_blank" rel="noopener" data-op>
-                    <img src="img/quizzie-site.jpg" alt="Screenshot van Quizzie met de Drugs Quiz en de Fitness Quiz" width="1040" height="685" loading="lazy">
+                    <img src="img/scherm/quiz-home.jpg" alt="Voorpagina van Quizzie met de Drugs Quiz en de Fitness Quiz" width="1440" height="900" loading="lazy">
                 </a>
                 <p data-op>Een quizsite over een gezonde leefstijl, met drie quizzen over drugs, fitness en eten.</p>
                 <p data-op>Ik maakte de Fitness Quiz met open vragen en meerkeuzevragen, en de code die meteen laat zien of je antwoord goed of fout is. Die gebruiken we in alle drie de quizzen.</p>
+                <p class="op-scherm" data-op><span class="puls" aria-hidden="true"></span>Op het scherm: <span data-scherm-tekst="quiz">de voorpagina</span></p>
                 <p class="links" data-op>
                     <a href="https://103469.github.io/quizzie/" target="_blank" rel="noopener">Bekijk de site →</a>
                     <a href="https://github.com/103469/quizzi" target="_blank" rel="noopener">Code op GitHub →</a>
@@ -103,13 +115,13 @@
         <div class="blok">
             <h2 class="woord" id="skills-titel" data-op>Skills</h2>
             <dl class="skills">
-                <div data-op><dt>HTML en CSS</dt><dd>Quizzie, WK 2026 en deze site</dd></div>
-                <div data-op><dt>PHP</dt><dd>WK 2026 en mijn sportquiz</dd></div>
-                <div data-op><dt>SQL</dt><dd>SQLite in WK 2026, MySQL in mijn sportquiz</dd></div>
-                <div data-op><dt>JavaScript</dt><dd>De quizlogica van Quizzie en deze site</dd></div>
-                <div data-op><dt>Tailwind CSS</dt><dd>WK 2026</dd></div>
-                <div data-op><dt>Git en GitHub</dt><dd>Al mijn projecten staan erop</dd></div>
-                <div data-op><dt>Plesk</dt><dd>WK 2026 zelf online gezet</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/html5-original.svg" alt="" width="24" height="24"><img src="img/logos/css3-original.svg" alt="" width="24" height="24"></span>HTML en CSS</dt><dd>Quizzie, WK 2026 en deze site</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/php-original.svg" alt="" width="24" height="24"></span>PHP</dt><dd>WK 2026 en mijn sportquiz</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/sqlite-original.svg" alt="" width="24" height="24"><img src="img/logos/mysql-original.svg" alt="" width="24" height="24"></span>SQL</dt><dd>SQLite in WK 2026, MySQL in mijn sportquiz</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/javascript-original.svg" alt="" width="24" height="24"></span>JavaScript</dt><dd>De quizlogica van Quizzie en deze site</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/tailwindcss-original.svg" alt="" width="24" height="24"></span>Tailwind CSS</dt><dd>WK 2026</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><img src="img/logos/git-original.svg" alt="" width="24" height="24"><img src="img/logos/github-original.svg" alt="" width="24" height="24"></span>Git en GitHub</dt><dd>Al mijn projecten staan erop</dd></div>
+                <div data-op><dt><span class="logos" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="3" width="18" height="7" rx="1.5" fill="#52BBE6"/><rect x="3" y="14" width="18" height="7" rx="1.5" fill="#52BBE6"/><circle cx="7" cy="6.5" r="1.3" fill="#0B1A13"/><circle cx="7" cy="17.5" r="1.3" fill="#0B1A13"/></svg></span>Plesk</dt><dd>WK 2026 zelf online gezet</dd></div>
             </dl>
             <p class="nu-bezig" data-op>Nu mee bezig: beter worden in PHP met MySQL, en samenwerken met Git in een team.</p>
         </div>
@@ -118,23 +130,31 @@
     <section class="stap rechts" id="contact" data-stap="contact" aria-labelledby="contact-titel">
         <div class="blok">
             <h2 class="woord" id="contact-titel" data-op>Contact</h2>
+            <div class="contact-kaart" data-op>
+                <img src="img/quinten.jpg" alt="Portret van Quinten Löb" width="600" height="595" loading="lazy">
+                <p><strong>Quinten Löb</strong>Student Software Development<br>Grafisch Lyceum Rotterdam</p>
+            </div>
             <p class="contact-vraag" data-op>Heb je een stageplek of een vraag? Stuur me een mail.</p>
             <a class="mail" href="mailto:quintenlob6@gmail.com" data-op>
                 <span>quintenlob6@gmail.com</span><span class="mail-pijl" aria-hidden="true">→</span>
             </a>
-            <p class="links" data-op><a href="https://github.com/103469" target="_blank" rel="noopener">GitHub →</a></p>
+            <p class="links contact-links" data-op>
+                <button class="kopieer" type="button" data-adres="quintenlob6@gmail.com">Kopieer adres</button>
+                <a href="https://github.com/103469" target="_blank" rel="noopener">GitHub →</a>
+                <span class="kopieer-melding" role="status" aria-live="polite"></span>
+            </p>
         </div>
     </section>
 </main>
 
 <footer class="voet">
     <p>© 2026 Quinten Löb</p>
-    <p>3D-model: <a href="https://sketchfab.com/3d-models/laptop-7d870e900889481395b4a575b9fa8c3e" target="_blank" rel="noopener">“Laptop”</a> door Aullwen, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Belichting: Studio Small 09 van Poly Haven (CC0).</p>
+    <p>3D-model: <a href="https://sketchfab.com/3d-models/laptop-7d870e900889481395b4a575b9fa8c3e" target="_blank" rel="noopener">“Laptop”</a> door Aullwen, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Belichting: Studio Small 09 van Poly Haven (CC0). Logo's: Devicon (MIT). Gebouwd met Three.js en GSAP.</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="js/site.js?v=9" defer></script>
-<script type="module" src="js/laptop.js?v=9"></script>
+<script src="js/site.js?v=13" defer></script>
+<script type="module" src="js/laptop.js?v=13"></script>
 </body>
 </html>

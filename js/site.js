@@ -32,3 +32,27 @@ const binnen = new IntersectionObserver((items) => {
     });
 }, { threshold: 0.15 });
 document.querySelectorAll('.stap').forEach((stap) => binnen.observe(stap));
+
+// E-mailadres kopiëren
+const kopieer = document.querySelector('.kopieer');
+const melding = document.querySelector('.kopieer-melding');
+kopieer.addEventListener('click', async () => {
+    try {
+        await navigator.clipboard.writeText(kopieer.dataset.adres);
+        melding.textContent = 'Gekopieerd!';
+    } catch (e) {
+        melding.textContent = kopieer.dataset.adres;
+    }
+    clearTimeout(kopieer.wacht);
+    kopieer.wacht = setTimeout(() => { melding.textContent = ''; }, 2500);
+});
+
+// Stippen rechts: de stap in het midden van het scherm is actief
+const stippen = document.querySelectorAll('.stippen a');
+const stippenKijker = new IntersectionObserver((items) => {
+    items.forEach((item) => {
+        if (!item.isIntersecting) return;
+        stippen.forEach((s) => s.classList.toggle('actief', s.dataset.naar === item.target.dataset.stap));
+    });
+}, { rootMargin: '-50% 0px -50% 0px' });
+document.querySelectorAll('[data-stap]').forEach((stap) => stippenKijker.observe(stap));
