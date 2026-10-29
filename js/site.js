@@ -20,6 +20,16 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Grote koppen in woorden splitsen, zodat ze een voor een binnenkomen
+if (!rustig) {
+    document.querySelectorAll('.woord').forEach((kop) => {
+        kop.setAttribute('aria-label', kop.textContent);
+        kop.innerHTML = kop.textContent.trim().split(/\s+/)
+            .map((w, i) => `<span class="w" aria-hidden="true"><span style="--i:${i}">${w}</span></span>`).join(' ');
+        kop.classList.add('gesplitst');
+    });
+}
+
 // Onderdelen komen een voor een binnen als hun stap in beeld komt
 const binnen = new IntersectionObserver((items) => {
     items.forEach((item) => {

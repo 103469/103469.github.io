@@ -1,8 +1,14 @@
-// laptop.js — één 3D-laptop die meedraait met het scrollen; op het scherm verschijnen de projecten
+// laptop.js — één 3D-laptop in een fotostudio die meebeweegt met het scrollen; op het scherm verschijnen de projecten
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import { Reflector } from 'three/addons/objects/Reflector.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const html = document.documentElement;
 const canvas = document.querySelector('.buhne');
@@ -37,25 +43,26 @@ const SCHERMEN = [
     { soort: 'mail' },
 ];
 
-// Houdingen per stap. x en y zijn een deel van de zichtbare breedte en hoogte,
-// draai is in radialen, scherm en tot: welk scherm aan het begin en eind van de stap,
-// licht: gloed van het toetsenbord
-const HOUDINGEN = {
+// Shots per stap, zoals een camera in een studio.
+// kant: waar de laptop in beeld staat (-1 links, 1 rechts, 0 midden), afstand en hoogte van de camera,
+// kijk: hoogte waar de camera naar kijkt, hoek: camera iets om de laptop heen,
+// draai: draai van de laptop, scherm en tot: welk scherm aan begin en eind, licht: gloed van het toetsenbord
+const SHOTS = {
     groot: {
-        start:   { x:  0.22, y: -0.08, draaiY: -0.55, draaiX: 0.18, schaal: 1.00, scherm: 0, tot: 0, licht: 0.0 },
-        over:    { x: -0.22, y: -0.08, draaiY:  0.62, draaiX: 0.12, schaal: 0.95, scherm: 0, tot: 0, licht: 0.0 },
-        wk:      { x:  0.19, y: -0.04, draaiY: -0.16, draaiX: 0.06, schaal: 1.15, scherm: 1, tot: 3, licht: 0.2 },
-        quiz:    { x: -0.19, y: -0.04, draaiY:  0.18, draaiX: 0.06, schaal: 1.15, scherm: 4, tot: 5, licht: 0.2 },
-        skills:  { x:  0.20, y: -0.08, draaiY: -0.62, draaiX: 0.20, schaal: 1.00, scherm: 6, tot: 6, licht: 1.0 },
-        contact: { x: -0.20, y: -0.06, draaiY:  0.10, draaiX: 0.08, schaal: 1.05, scherm: 7, tot: 7, licht: 0.6 },
+        start:   { kant:  1, afstand: 7.0, hoogte: 1.5, kijk: 0.55, hoek:  0.00, draai: -0.48, scherm: 0, tot: 0, licht: 0.10 },
+        over:    { kant: -1, afstand: 7.6, hoogte: 1.9, kijk: 0.50, hoek:  0.10, draai:  0.55, scherm: 0, tot: 0, licht: 0.10 },
+        wk:      { kant:  1, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek: -0.04, draai: -0.12, scherm: 1, tot: 3, licht: 0.25 },
+        quiz:    { kant: -1, afstand: 6.5, hoogte: 1.15, kijk: 0.78, hoek:  0.04, draai:  0.12, scherm: 4, tot: 5, licht: 0.25 },
+        skills:  { kant:  1, afstand: 6.9, hoogte: 3.0, kijk: 0.45, hoek: -0.10, draai: -0.55, scherm: 6, tot: 6, licht: 1.60 },
+        contact: { kant: -1, afstand: 6.4, hoogte: 1.3, kijk: 0.65, hoek:  0.06, draai:  0.08, scherm: 7, tot: 7, licht: 0.50 },
     },
     klein: {
-        start:   { x: 0, y: 0.20, draaiY: -0.45, draaiX: 0.22, schaal: 1.00, scherm: 0, tot: 0, licht: 0.0 },
-        over:    { x: 0, y: 0.20, draaiY:  0.45, draaiX: 0.18, schaal: 0.95, scherm: 0, tot: 0, licht: 0.0 },
-        wk:      { x: 0, y: 0.21, draaiY: -0.10, draaiX: 0.10, schaal: 1.10, scherm: 1, tot: 3, licht: 0.2 },
-        quiz:    { x: 0, y: 0.21, draaiY:  0.12, draaiX: 0.10, schaal: 1.10, scherm: 4, tot: 5, licht: 0.2 },
-        skills:  { x: 0, y: 0.20, draaiY: -0.55, draaiX: 0.22, schaal: 1.00, scherm: 6, tot: 6, licht: 1.0 },
-        contact: { x: 0, y: 0.20, draaiY:  0.08, draaiX: 0.12, schaal: 1.05, scherm: 7, tot: 7, licht: 0.6 },
+        start:   { kant: 0, afstand: 7.0, hoogte: 1.6, kijk: 0.55, hoek:  0.00, draai: -0.30, scherm: 0, tot: 0, licht: 0.10 },
+        over:    { kant: 0, afstand: 7.0, hoogte: 1.9, kijk: 0.55, hoek:  0.06, draai:  0.30, scherm: 0, tot: 0, licht: 0.10 },
+        wk:      { kant: 0, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai: -0.06, scherm: 1, tot: 3, licht: 0.25 },
+        quiz:    { kant: 0, afstand: 6.0, hoogte: 1.2, kijk: 0.70, hoek:  0.00, draai:  0.06, scherm: 4, tot: 5, licht: 0.25 },
+        skills:  { kant: 0, afstand: 6.6, hoogte: 3.0, kijk: 0.35, hoek: -0.06, draai: -0.30, scherm: 6, tot: 6, licht: 1.60 },
+        contact: { kant: 0, afstand: 6.6, hoogte: 1.4, kijk: 0.60, hoek:  0.00, draai:  0.05, scherm: 7, tot: 7, licht: 0.50 },
     },
 };
 const STAPPEN = ['start', 'over', 'wk', 'quiz', 'skills', 'contact'];
@@ -69,27 +76,83 @@ const vasthouden = (stappen) => (p) => {
     return (i + f * f * (3 - 2 * f)) / stappen;
 };
 
+// Achtergrond: een donkergroene spotlight achter de laptop, met fijne korrel
+const ACHTERGROND = {
+    uniforms: {
+        uMidden: { value: new THREE.Vector2(0.7, 0.5) },
+        uAspect: { value: 1 },
+        uTijd: { value: 0 },
+        uLicht: { value: new THREE.Color('#1d5a3c') },
+        uRand: { value: new THREE.Color('#07130d') },
+    },
+    vertexShader: /* glsl */`
+        varying vec2 vUv;
+        void main() { vUv = uv; gl_Position = vec4(position.xy, 0.9999, 1.0); }`,
+    fragmentShader: /* glsl */`
+        uniform vec2 uMidden; uniform float uAspect; uniform float uTijd;
+        uniform vec3 uLicht; uniform vec3 uRand;
+        varying vec2 vUv;
+        float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+        void main() {
+            vec2 p = vUv - uMidden;
+            p.x *= uAspect;
+            float d = length(p);
+            float spot = exp(-d * d * 3.2);
+            vec3 kleur = mix(uRand, uLicht, spot);
+            float korrel = hash(gl_FragCoord.xy + floor(uTijd * 24.0)) - 0.5;
+            kleur += korrel * 0.018;
+            gl_FragColor = vec4(kleur, 1.0);
+        }`,
+};
+
+// Vloer-reflectie die naar de randen toe wegvalt
+const VLOER = {
+    uniforms: { color: { value: null }, tDiffuse: { value: null }, textureMatrix: { value: null }, uSterkte: { value: 0.1 } },
+    vertexShader: /* glsl */`
+        uniform mat4 textureMatrix;
+        varying vec4 vSpiegel; varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            vSpiegel = textureMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }`,
+    fragmentShader: /* glsl */`
+        uniform sampler2D tDiffuse; uniform float uSterkte;
+        varying vec4 vSpiegel; varying vec2 vUv;
+        void main() {
+            vec4 spiegel = texture2DProj(tDiffuse, vSpiegel);
+            float weg = 1.0 - smoothstep(0.04, 0.3, distance(vUv, vec2(0.5)));
+            gl_FragColor = vec4(spiegel.rgb, weg * uSterkte);
+        }`,
+};
+
 if (rustig) zonder3d('minder beweging gevraagd');
 else if (!webglWerkt()) zonder3d('geen WebGL2');
 else start().catch((fout) => zonder3d(fout.message || fout));
 
 async function start() {
     const klein = isKlein();
+    let kwaliteit = klein ? 1.25 : 1.6;
 
-    // Renderer: scherp, ACES, schaduwen
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, klein ? 1.5 : 2));
+    // Renderer: ACES, schaduwen; scherpte via multisampling in de composer
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.25;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = klein ? THREE.PCFSoftShadowMap : THREE.VSMShadowMap;
+    renderer.shadowMap.type = THREE.VSMShadowMap;
+    RectAreaLightUniformsLib.init();
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.1, 7.2);
-    camera.lookAt(0, 0.35, 0);
+    const camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 0.1, 100);
+
+    // Achtergrond als vlak over het hele beeld, achter alles
+    const achtergrond = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ ...ACHTERGROND, depthWrite: false, depthTest: false }));
+    achtergrond.frustumCulled = false;
+    achtergrond.renderOrder = -10;
+    scene.add(achtergrond);
 
     // Omgeving: studio-HDRI op groot scherm, een lichtere studio op de telefoon
     const pmrem = new THREE.PMREMGenerator(renderer);
@@ -101,22 +164,27 @@ async function start() {
         hdr.dispose();
     }
     pmrem.dispose();
-    scene.environmentIntensity = 0.9;
+    scene.environmentIntensity = 0.85;
 
-    // Hoofdlicht met zachte schaduw, plus een groen randlicht
-    const licht = new THREE.DirectionalLight(0xffffff, 1.6);
-    licht.castShadow = true;
-    licht.shadow.mapSize.set(klein ? 1024 : 2048, klein ? 1024 : 2048);
-    licht.shadow.camera.left = -3; licht.shadow.camera.right = 3;
-    licht.shadow.camera.top = 3; licht.shadow.camera.bottom = -3;
-    licht.shadow.camera.near = 0.5; licht.shadow.camera.far = 20;
-    licht.shadow.radius = 10;
-    licht.shadow.blurSamples = 20;
-    licht.shadow.bias = -0.0004;
-    scene.add(licht, licht.target);
-    const rand = new THREE.DirectionalLight(0x46d17e, 0.9);
-    rand.position.set(-4, 2, -3);
-    scene.add(rand);
+    // Studiolicht: key light met zachte schaduw, een fill en een groene rim langs de randen
+    const key = new THREE.DirectionalLight(0xfff6ec, 2.4);
+    key.castShadow = true;
+    key.shadow.mapSize.set(klein ? 1024 : 2048, klein ? 1024 : 2048);
+    Object.assign(key.shadow.camera, { left: -3, right: 3, top: 3, bottom: -3, near: 0.5, far: 20 });
+    key.shadow.radius = 14;
+    key.shadow.blurSamples = 16;
+    key.shadow.bias = -0.0005;
+    key.position.set(3, 6, 4);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xdfeee6, 0.5);
+    fill.position.set(-5, 2, 3);
+    scene.add(fill);
+    const rim = new THREE.DirectionalLight(0x46d17e, 3.2);
+    rim.position.set(-3, 2.5, -5);
+    scene.add(rim);
+    const rim2 = new THREE.DirectionalLight(0x46d17e, 1.6);
+    rim2.position.set(4, 1.5, -4);
+    scene.add(rim2);
 
     // Het model
     const gltf = await new GLTFLoader().loadAsync('models/laptop.glb');
@@ -134,16 +202,28 @@ async function start() {
     laptop.add(model);
     scene.add(laptop);
 
-    // Schaduw op een onzichtbare vloer onder de laptop
-    const vloer = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.ShadowMaterial({ opacity: 0.45 }));
+    // Zachte contactschaduw (vlak onder de laptop) plus de schaduw van het key light
+    const contact = new THREE.Mesh(
+        new THREE.PlaneGeometry(3.0, 2.2),
+        new THREE.MeshBasicMaterial({ map: contactSchaduw(), transparent: true, depthWrite: false, opacity: 0.85, toneMapped: false }),
+    );
+    contact.rotation.x = -Math.PI / 2;
+    contact.position.y = 0.003;
+    laptop.add(contact);
+    const vloer = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.ShadowMaterial({ opacity: 0.35 }));
     vloer.rotation.x = -Math.PI / 2;
+    vloer.position.y = 0.002;
     vloer.receiveShadow = true;
     laptop.add(vloer);
 
-    // Licht van het scherm dat op het toetsenbord valt, in de kleur van wat er op het scherm staat
-    const schermLicht = new THREE.PointLight(0xffffff, 0, 2.6, 2);
-    schermLicht.position.set(0, 0.55, -0.1);
-    laptop.add(schermLicht);
+    // Subtiele spiegeling in de vloer
+    const spiegel = new Reflector(new THREE.PlaneGeometry(7, 7), {
+        shader: VLOER, textureWidth: klein ? 256 : 512, textureHeight: klein ? 256 : 512, multisample: 0, clipBias: 0.003,
+    });
+    spiegel.material.transparent = true;
+    spiegel.material.depthWrite = false;
+    spiegel.rotation.x = -Math.PI / 2;
+    laptop.add(spiegel);
 
     let schermMesh = null;
     const behuizing = [];
@@ -151,13 +231,16 @@ async function start() {
         if (!o.isMesh) return;
         o.castShadow = true;
         o.receiveShadow = true;
-        const materialen = Array.isArray(o.material) ? o.material : [o.material];
-        materialen.forEach((m) => { if (m.envMapIntensity !== undefined) m.envMapIntensity = 1; });
         if (!schermMesh && /screen|display|lcd|monitor|scherm/i.test(o.name)) schermMesh = o;
-        // De behuizing is in het model mat; als geborsteld aluminium oogt hij echter
+        // Geborsteld aluminium; de toetsen krijgen een groene achtergrondverlichting
         if (/frame/i.test(o.name)) {
-            materialen.forEach((m) => { m.metalness = 0.75; m.roughness = 0.38; m.emissive = new THREE.Color(0x46d17e); });
-            behuizing.push(...materialen);
+            const m = o.material;
+            m.metalness = 0.9;
+            m.roughness = 0.3;
+            m.envMapIntensity = 1.2;
+            m.emissive = new THREE.Color(0x46d17e);
+            m.emissiveIntensity = 0;
+            behuizing.push(m);
         }
     });
 
@@ -165,17 +248,33 @@ async function start() {
     await document.fonts.ready;
     const scherm = await maakScherm(schermMesh, renderer);
 
-    // Houding toepassen
-    const staat = zonderTot(HOUDINGEN[klein ? 'klein' : 'groot'].start);
-    // zicht: zichtbare breedte en hoogte; pas: kleiner maken als het scherm smal is (telefoon)
-    const zicht = { b: 1, h: 1, pas: 1 };
-    function meetZicht() {
-        const afstand = camera.position.distanceTo(new THREE.Vector3(0, 0.35, 0));
-        zicht.h = 2 * afstand * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-        zicht.b = zicht.h * camera.aspect;
-        zicht.pas = Math.min(1, (0.66 * zicht.b) / 2.2);
+    // Postprocessing: subtiele bloom, zodat het scherm en de rim zacht gloeien maar alles scherp blijft
+    const doel = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 });
+    const composer = new EffectComposer(renderer, doel);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.18, 0.5, 0.92);
+    bloom.enabled = !klein;
+    composer.addPass(bloom);
+    composer.addPass(new OutputPass());
+
+    function maatZetten() {
+        const b = window.innerWidth, h = window.innerHeight;
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
+        renderer.setSize(b, h, false);
+        composer.setPixelRatio(Math.min(window.devicePixelRatio, kwaliteit));
+        composer.setSize(b, h);
+        bloom.resolution.set(b / 2, h / 2);
+        camera.aspect = b / h;
+        camera.updateProjectionMatrix();
+        achtergrond.material.uniforms.uAspect.value = b / h;
     }
-    meetZicht();
+    maatZetten();
+    window.addEventListener('resize', maatZetten);
+
+    // Huidige shot; het deksel gaat bij het laden open
+    const staat = zonderTot(SHOTS[klein ? 'klein' : 'groot'].start);
+    const deksel = { open: 0 };
+    const DICHT = -1.62;
 
     // Muis: de laptop kijkt een klein beetje mee
     const muis = { x: 0, y: 0, doelX: 0, doelY: 0 };
@@ -189,7 +288,7 @@ async function start() {
     // Toetsenbord licht even op als je over een knop of link gaat
     let extraLicht = 0;
     document.querySelectorAll('a, button').forEach((el) => {
-        el.addEventListener('pointerenter', () => { extraLicht = 0.8; });
+        el.addEventListener('pointerenter', () => { extraLicht = 0.7; });
     });
 
     // Tekst "Op het scherm" bij de projecten
@@ -197,21 +296,45 @@ async function start() {
     document.querySelectorAll('[data-scherm-tekst]').forEach((el) => { schermTeksten[el.dataset.schermTekst] = el; });
     let vorigeTekst = -1;
 
+    const kijkPunt = new THREE.Vector3();
+    const spotPunt = new THREE.Vector3();
+    const spotDoel = new THREE.Vector2(0.7, 0.5);
     const klok = new THREE.Clock();
     let vorigScherm = -1;
+    let frames = 0, gemeten = 0;
+
     renderer.setAnimationLoop(() => {
-        const t = klok.getElapsedTime();
+        const dt = Math.min(klok.getDelta(), 0.1);
+        const t = klok.elapsedTime;
         muis.x += (muis.doelX - muis.x) * 0.05;
         muis.y += (muis.doelY - muis.y) * 0.05;
         extraLicht *= 0.94;
 
-        laptop.position.set(staat.x * zicht.b, staat.y * zicht.h + Math.sin(t * 0.8) * 0.03, 0);
-        laptop.rotation.set(staat.draaiX + muis.y * 0.05, staat.draaiY + Math.sin(t * 0.5) * 0.025 + muis.x * 0.12, 0);
-        laptop.scale.setScalar(staat.schaal * zicht.pas);
-        licht.position.set(laptop.position.x + 2.5, 6, 4);
-        licht.target.position.copy(laptop.position);
+        // Camera: dolly, hoogte en een klein beetje om de laptop heen
+        const b = window.innerWidth, h = window.innerHeight;
+        let afstand = staat.afstand;
+        if (camera.aspect < 1) {
+            // Telefoon: zo ver terug dat de hele laptop met wat ruimte in beeld past
+            const breedtePerAfstand = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect;
+            afstand = Math.max(afstand, 2.9 / breedtePerAfstand);
+        }
+        const hoek = staat.hoek + muis.x * 0.05;
+        camera.position.set(Math.sin(hoek) * afstand, staat.hoogte * (afstand / staat.afstand) - muis.y * 0.08, Math.cos(hoek) * afstand);
+        kijkPunt.set(0, staat.kijk, 0);
+        camera.lookAt(kijkPunt);
+        // Laptop naar links of rechts in beeld; op de telefoon bovenin
+        const opzij = -staat.kant * 0.23 * b;
+        const omhoog = camera.aspect < 1 ? 0.26 * h : 0;
+        camera.setViewOffset(b, h, opzij, omhoog, b, h);
 
-        const gloed = Math.min(1.4, staat.licht + extraLicht) * (0.85 + Math.sin(t * 2) * 0.15);
+        laptop.position.y = Math.sin(t * 0.8) * 0.025;
+        laptop.rotation.y = staat.draai + Math.sin(t * 0.5) * 0.02;
+
+        // Deksel open of dicht, het scherm licht op als het opengaat
+        schermMesh.rotation.x = DICHT * (1 - deksel.open);
+        const aan = Math.max(0, (deksel.open - 0.55) / 0.45);
+
+        const gloed = Math.min(1.8, staat.licht + extraLicht) * (0.88 + Math.sin(t * 2) * 0.12) * aan;
         behuizing.forEach((m) => { m.emissiveIntensity = gloed; });
 
         if (scherm) {
@@ -219,9 +342,7 @@ async function start() {
                 scherm.toon(staat.scherm);
                 vorigScherm = staat.scherm;
             }
-            schermLicht.color.copy(scherm.kleur(staat.scherm));
-            schermLicht.intensity = staat.scherm < 0.5 ? staat.scherm * 2.4 : 1.2;
-
+            scherm.helderheid(aan);
             const nr = Math.round(staat.scherm);
             if (nr !== vorigeTekst) {
                 const [voor, tekst] = SCHERMEN[nr].tekst || [];
@@ -229,32 +350,45 @@ async function start() {
                 vorigeTekst = nr;
             }
         }
-        renderer.render(scene, camera);
+
+        // Spotlight achter de laptop volgt hem over het beeld
+        laptop.updateMatrixWorld();
+        spotPunt.set(0, 0.7, 0).project(camera);
+        spotDoel.set(spotPunt.x * 0.5 + 0.5, spotPunt.y * 0.5 + 0.5);
+        const u = achtergrond.material.uniforms;
+        u.uMidden.value.lerp(spotDoel, Math.min(1, dt * 4));
+        u.uTijd.value = t;
+
+        composer.render(dt);
+
+        // Loopt het niet soepel? Dan een stap lager in kwaliteit
+        frames++;
+        gemeten += dt;
+        if (frames === 90) {
+            if (gemeten / frames > 1 / 40 && kwaliteit > 1) {
+                kwaliteit = 1;
+                bloom.enabled = false;
+                maatZetten();
+            }
+        }
     });
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight, false);
-        meetZicht();
-    });
-
-    // Scrollen stuurt de houding: van de vorige stap naar de volgende,
+    // Scrollen stuurt het shot: van de vorige stap naar de volgende,
     // en binnen een project van het ene scherm naar het volgende
     const { gsap, ScrollTrigger } = window;
     gsap.registerPlugin(ScrollTrigger);
     const mm = gsap.matchMedia();
     mm.add({ groot: '(min-width: 768px)', klein: '(max-width: 767px)' }, (ctx) => {
-        const set = HOUDINGEN[ctx.conditions.klein ? 'klein' : 'groot'];
+        const set = SHOTS[ctx.conditions.klein ? 'klein' : 'groot'];
         Object.assign(staat, zonderTot(set.start));
         STAPPEN.slice(1).forEach((stap, i) => {
             const sectie = document.querySelector(`[data-stap="${stap}"]`);
             const vorige = set[STAPPEN[i]];
             gsap.fromTo(staat, { ...zonderTot(vorige), scherm: vorige.tot }, {
                 ...zonderTot(set[stap]),
-                ease: 'power2.inOut',
+                ease: 'power3.inOut',
                 immediateRender: false,
-                scrollTrigger: { trigger: sectie, start: 'top bottom', end: 'top 25%', scrub: 1.2 },
+                scrollTrigger: { trigger: sectie, start: 'top bottom', end: 'top 20%', scrub: 1.6 },
             });
             if (set[stap].tot > set[stap].scherm) {
                 gsap.fromTo(staat, { scherm: set[stap].scherm }, {
@@ -268,10 +402,30 @@ async function start() {
     });
     ScrollTrigger.refresh();
 
-    requestAnimationFrame(() => canvas.classList.add('klaar'));
+    // Binnenkomst: het beeld komt op en de laptop klapt open
+    canvas.classList.add('klaar');
+    html.classList.add('laptop-klaar');
+    gsap.to(deksel, { open: 1, duration: 2.2, delay: 0.35, ease: 'power3.inOut' });
 }
 
-// Legt een vlak op de voorkant van het deksel en tekent daarop de schermen.
+// Zachte donkere vlek onder de laptop, waar hij de vloer raakt
+function contactSchaduw() {
+    const c = document.createElement('canvas');
+    c.width = 256; c.height = 192;
+    const x = c.getContext('2d');
+    const g = x.createRadialGradient(128, 96, 10, 128, 96, 120);
+    g.addColorStop(0, 'rgba(0,0,0,0.75)');
+    g.addColorStop(0.55, 'rgba(0,0,0,0.35)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    x.fillStyle = g;
+    x.scale(1, 0.8);
+    x.fillRect(0, 0, 256, 240);
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+}
+
+// Legt een lichtgevend, glanzend vlak op de voorkant van het deksel en tekent daarop de schermen.
 // Maten in de eigen ruimte van het scherm-onderdeel: 0,304 breed, 0,2 hoog, de voorkant ligt aan de -z kant.
 const PANEEL = { breed: 0.298, hoog: 0.188, midY: 0.0985, z: -0.0058 };
 
@@ -301,13 +455,13 @@ async function maakScherm(mesh, renderer) {
         return c;
     }));
 
-    // Gemiddelde kleur per scherm, voor het licht op het toetsenbord
+    // Gemiddelde kleur per scherm, voor het licht dat het scherm geeft
     const kleuren = lagen.map((c) => {
         const k = document.createElement('canvas'); k.width = k.height = 1;
         const kx = k.getContext('2d');
         kx.drawImage(c, 0, 0, 1, 1);
         const [r, g, b] = kx.getImageData(0, 0, 1, 1).data;
-        return new THREE.Color(r / 255, g / 255, b / 255).lerp(new THREE.Color(1, 1, 1), 0.25);
+        return new THREE.Color().setRGB(r / 255, g / 255, b / 255, THREE.SRGBColorSpace).lerp(new THREE.Color(1, 1, 1), 0.3);
     });
 
     const doek = nieuwDoek();
@@ -315,24 +469,35 @@ async function maakScherm(mesh, renderer) {
     const texture = new THREE.CanvasTexture(doek);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    texture.generateMipmaps = true;
-    texture.minFilter = THREE.LinearMipmapLinearFilter;
 
-    const paneel = new THREE.Mesh(
-        new THREE.PlaneGeometry(PANEEL.breed, PANEEL.hoog),
-        new THREE.MeshBasicMaterial({ map: texture, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2 }),
-    );
+    // Het beeld zelf in echte kleuren, met daarvoor een dunne glasplaat die de studio weerspiegelt
+    const beeld = new THREE.MeshBasicMaterial({ map: texture, color: 0x000000, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2 });
+    const paneel = new THREE.Mesh(new THREE.PlaneGeometry(PANEEL.breed, PANEEL.hoog), beeld);
     paneel.position.set(0, PANEEL.midY, PANEEL.z);
     paneel.rotation.y = Math.PI;
     mesh.add(paneel);
+    const glas = new THREE.Mesh(paneel.geometry, new THREE.MeshPhysicalMaterial({
+        color: 0x000000, roughness: 0.06, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.03,
+        transparent: true, opacity: 0.14, envMapIntensity: 1.4, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4,
+    }));
+    glas.position.copy(paneel.position);
+    glas.rotation.y = Math.PI;
+    mesh.add(glas);
 
-    // Deksel: aluminium achterkant, glanzende rand
-    mesh.material.metalness = 0.6;
-    mesh.material.roughness = 0.4;
+    // Het scherm geeft licht op het toetsenbord en de vloer
+    const schermLicht = new THREE.RectAreaLight(0xffffff, 0, 2.1, 1.3);
+    schermLicht.position.set(0, PANEEL.midY, PANEEL.z - 0.002);
+    schermLicht.rotation.y = Math.PI;
+    mesh.add(schermLicht);
+
+    // Deksel: aluminium achterkant, zwarte glanzende rand
+    mesh.material.metalness = 0.85;
+    mesh.material.roughness = 0.32;
+    mesh.material.envMapIntensity = 1.2;
 
     const MAIL = SCHERMEN.findIndex((s) => s.soort === 'mail');
     let cursorAan = null;
-    const mengKleur = new THREE.Color();
+    let waardeNu = 0;
 
     return {
         // Het mailscherm heeft een knipperende cursor
@@ -345,6 +510,7 @@ async function maakScherm(mesh, renderer) {
             return true;
         },
         toon(waarde) {
+            waardeNu = waarde;
             const i = Math.max(0, Math.min(lagen.length - 1, Math.floor(waarde)));
             const f = waarde - i;
             ctx.globalAlpha = 1;
@@ -355,22 +521,23 @@ async function maakScherm(mesh, renderer) {
                 ctx.globalAlpha = 1;
             }
             texture.needsUpdate = true;
-        },
-        kleur(waarde) {
-            const i = Math.max(0, Math.min(kleuren.length - 1, Math.floor(waarde)));
             const j = Math.min(kleuren.length - 1, i + 1);
-            return mengKleur.copy(kleuren[i]).lerp(kleuren[j], waarde - i);
+            schermLicht.color.copy(kleuren[i]).lerp(kleuren[j], f);
+        },
+        helderheid(aan) {
+            beeld.color.setScalar(0.92 * aan);
+            schermLicht.intensity = (waardeNu < 0.5 ? 2.5 : 5) * aan;
         },
     };
 }
 
 // Opstartscherm: naam en wat ik doe, rustig op donkergroen
 function tekenStart(x) {
-    x.fillStyle = '#06100b';
+    x.fillStyle = '#071510';
     x.fillRect(0, 0, 1600, 1000);
     x.fillStyle = '#46D17E';
     x.fillRect(740, 330, 120, 120);
-    x.fillStyle = '#06100b';
+    x.fillStyle = '#071510';
     x.font = '800 96px Bricolage, Arial, sans-serif';
     x.textAlign = 'center';
     x.textBaseline = 'middle';

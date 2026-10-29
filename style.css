@@ -29,7 +29,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 16px; }
-body { font-family: 'Bricolage', Arial, sans-serif; background: var(--grond); color: var(--inkt); font-size: var(--tekst); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Bricolage', Arial, sans-serif; background: radial-gradient(ellipse 70% 60% at 70% 40%, #17402b, var(--grond) 70%) fixed var(--grond); color: var(--inkt); font-size: var(--tekst); line-height: 1.55; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgba(70, 209, 126, 0.25); }
@@ -146,6 +146,12 @@ mark { background: var(--groen); color: var(--groen-inkt); padding: 0 3px; }
 .stippen a:hover::before { background: var(--zacht); }
 .stippen a.actief::before { background: var(--groen); transform: scale(1.4); }
 
+/* grote koppen komen woord voor woord omhoog */
+.woord .w { display: inline-block; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; vertical-align: top; }
+.woord .w > span { display: inline-block; transform: translateY(105%); transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i, 0) * 90ms); }
+.js .woord.gesplitst[data-op] { opacity: 1; transform: none; }
+.woord.zichtbaar .w > span { transform: none; }
+
 /* binnenkomen: stuk voor stuk, alleen als er JavaScript is */
 .js [data-op] { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--uit), transform 0.6s var(--uit); }
 .js [data-op].zichtbaar { opacity: 1; transform: none; }
@@ -153,6 +159,7 @@ mark { background: var(--groen); color: var(--groen-inkt); padding: 0 3px; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js [data-op] { transform: none; transition: opacity 0.3s linear; }
+    .woord .w > span { transform: none; transition: none; }
     .knop:hover, .mail:hover .mail-pijl, .kaart:hover img { transform: none; }
     .puls { animation: none; }
 }
@@ -164,8 +171,8 @@ mark { background: var(--groen); color: var(--groen-inkt); padding: 0 3px; }
 
 /* telefoon: laptop bovenin, tekst eronder op een vlak */
 @media (max-width: 767px) {
-    .stap, .hero { min-height: 100svh; align-items: flex-end; padding: 52svh var(--marge) 32px; }
-    .blok, .rechts .blok { width: 100%; margin: 0; padding: 20px; background: var(--grond); }
+    .stap, .hero { min-height: 100svh; align-items: flex-end; padding: 46svh var(--marge) 32px; }
+    .blok, .rechts .blok { width: 100%; margin: 0; padding: 20px; background: rgba(11, 26, 19, 0.92); }
     .woord { white-space: normal; margin-bottom: 16px; }
     .stap.lang { min-height: 150svh; align-items: flex-end; }
     .stap.lang .blok { position: static; }
