@@ -32,15 +32,29 @@
 html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 /* Laadscherm */
 .lader { display: none; }
-.js .lader { display: grid; place-content: center; justify-items: center; gap: 20px; position: fixed; inset: 0; z-index: 100; background: var(--grond); transition: opacity 0.7s ease, visibility 0s linear 0.7s; }
-.js:not(.laden) .lader { opacity: 0; visibility: hidden; }
+.js .lader { display: block; position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.js:not(.laden) .lader { display: none; }
 .laden body { overflow: hidden; }
-.lader-naam { font-family: var(--serif); font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem); line-height: 1; animation: lader-adem 2.4s ease-in-out infinite; }
-.lader-balk { width: min(220px, 60vw); height: 2px; background: var(--lijn); border-radius: 2px; overflow: hidden; }
-.lader-vulling { display: block; height: 100%; width: 100%; background: var(--groen); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-.lader-tekst { color: var(--zacht); font-size: var(--klein); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
-@keyframes lader-adem { 50% { opacity: 0.55; } }
-@media (prefers-reduced-motion: reduce) { .lader-naam { animation: none; } }
+.laden .lader { pointer-events: auto; }
+.lader-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.lader-vlak { fill: var(--grond); }
+.lader-gat { visibility: hidden; }
+.lader.door .lader-gat { visibility: visible; }
+.lader-spoor { fill: none; stroke: var(--lijn); stroke-width: 0.6; }
+.lader-ring { fill: none; stroke: var(--inkt); stroke-width: 3.2; stroke-linecap: round; }
+.lader-staart { stroke: var(--groen); stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 13; stroke-dashoffset: 13; transition: stroke-dashoffset 0.35s cubic-bezier(.3,.7,.2,1); }
+.lader.vol .lader-staart { stroke-dashoffset: 0; }
+.lader.door .lader-q { visibility: hidden; }
+
+.lader-naam, .lader-tekst { position: absolute; left: 0; right: 0; text-align: center; transition: opacity 0.4s ease, transform 0.6s cubic-bezier(.5,0,.75,0); }
+.lader-naam { top: calc(50% + 17vmin); font-family: var(--serif); font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); line-height: 1; }
+.lader-naam span { display: inline-block; opacity: 0; transform: translateY(0.4em); animation: lader-letter 0.7s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * 45ms + 150ms); }
+.lader-tekst { top: calc(50% + 17vmin + 3rem); color: var(--zacht); font-size: var(--klein); font-variant-numeric: tabular-nums; letter-spacing: 0.08em; }
+.lader.door .lader-naam, .lader.door .lader-tekst { opacity: 0; transform: translateY(24px); }
+@keyframes lader-letter { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+    .lader-naam span { animation: none; opacity: 1; transform: none; }
+}
 
 body { font-family: var(--schreefloos); background: var(--grond); color: var(--inkt); font-size: var(--tekst); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }

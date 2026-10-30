@@ -11,12 +11,8 @@
     <link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="style.css?v=24">
-    <script>
-        document.documentElement.classList.add('js', 'laden');
-        // Vangnet: na 10 seconden gaat het laadscherm altijd weg
-        setTimeout(() => document.documentElement.classList.remove('laden'), 10000);
-    </script>
+    <link rel="stylesheet" href="style.css?v=25">
+    <script>document.documentElement.classList.add('js', 'laden');</script>
     <script type="importmap">
     {
         "imports": {
@@ -28,12 +24,29 @@
 </head>
 <body>
 
-<!-- Laadscherm: blijft staan tot de 3D-laptop klaar is -->
+<!-- Laadscherm: de ring van de Q loopt vol, daarna vlieg je door de ring de site in -->
 <div class="lader" role="status" aria-label="Pagina laden">
-    <p class="lader-naam" translate="no">Quinten Löb</p>
-    <div class="lader-balk"><span class="lader-vulling"></span></div>
-    <p class="lader-tekst"><span class="lader-getal">0</span>%</p>
+    <svg class="lader-svg" viewBox="-50 -50 100 100" aria-hidden="true">
+        <defs>
+            <mask id="lader-gat" maskUnits="userSpaceOnUse" x="-2000" y="-2000" width="4000" height="4000">
+                <rect x="-2000" y="-2000" width="4000" height="4000" fill="#fff"/>
+                <g class="lader-gat">
+                    <circle cx="0" cy="-6" r="14" fill="none" stroke="#000" stroke-width="3.2"/>
+                    <line x1="8" y1="2" x2="17" y2="11" stroke="#000" stroke-width="3.2" stroke-linecap="round"/>
+                </g>
+            </mask>
+        </defs>
+        <rect class="lader-vlak" x="-2000" y="-2000" width="4000" height="4000" mask="url(#lader-gat)"/>
+        <g class="lader-q">
+            <circle class="lader-spoor" cx="0" cy="-6" r="14"/>
+            <circle class="lader-ring" cx="0" cy="-6" r="14" transform="rotate(-90 0 -6)"/>
+            <line class="lader-staart" x1="8" y1="2" x2="17" y2="11"/>
+        </g>
+    </svg>
+    <p class="lader-naam" translate="no" aria-hidden="true"></p>
+    <p class="lader-tekst" aria-hidden="true"><span class="lader-getal">0</span>%</p>
 </div>
+<script src="js/lader.js?v=25"></script>
 
 <a class="sla-over" href="#main">Naar de inhoud</a>
 
@@ -157,7 +170,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="js/site.js?v=24" defer></script>
-<script type="module" src="js/laptop.js?v=24"></script>
+<script src="js/site.js?v=25" defer></script>
+<script type="module" src="js/laptop.js?v=25"></script>
 </body>
 </html>

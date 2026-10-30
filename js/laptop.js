@@ -13,17 +13,10 @@ const isKlein = () => window.matchMedia('(max-width: 767px)').matches;
 const fijneMuis = window.matchMedia('(pointer: fine)').matches;
 
 // Laadscherm: toont hoeveel van de laptop, de belichting en de schermen binnen is
-const vulling = document.querySelector('.lader-vulling');
-const getal = document.querySelector('.lader-getal');
-function voortgang(deel) {
-    const p = Math.max(0, Math.min(1, deel));
-    if (vulling) vulling.style.transform = `scaleX(${p})`;
-    if (getal) getal.textContent = Math.round(p * 100);
-}
-THREE.DefaultLoadingManager.onProgress = (_url, geladen, totaal) => voortgang((geladen / totaal) * 0.95);
+THREE.DefaultLoadingManager.onProgress = (_url, geladen, totaal) => window.lader?.voortgang((geladen / totaal) * 0.92);
 function laderWeg() {
-    voortgang(1);
-    setTimeout(() => html.classList.remove('laden'), 250);
+    if (window.lader) window.lader.klaar();
+    else html.classList.remove('laden');
 }
 
 // Zonder 3D: de screenshots verschijnen als kleine kaartjes bij de projecten
