@@ -11,8 +11,12 @@
     <link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="style.css?v=23">
-    <script>document.documentElement.classList.add('js');</script>
+    <link rel="stylesheet" href="style.css?v=24">
+    <script>
+        document.documentElement.classList.add('js', 'laden');
+        // Vangnet: na 10 seconden gaat het laadscherm altijd weg
+        setTimeout(() => document.documentElement.classList.remove('laden'), 10000);
+    </script>
     <script type="importmap">
     {
         "imports": {
@@ -23,6 +27,13 @@
     </script>
 </head>
 <body>
+
+<!-- Laadscherm: blijft staan tot de 3D-laptop klaar is -->
+<div class="lader" role="status" aria-label="Pagina laden">
+    <p class="lader-naam" translate="no">Quinten Löb</p>
+    <div class="lader-balk"><span class="lader-vulling"></span></div>
+    <p class="lader-tekst"><span class="lader-getal">0</span>%</p>
+</div>
 
 <a class="sla-over" href="#main">Naar de inhoud</a>
 
@@ -146,7 +157,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="js/site.js?v=23" defer></script>
-<script type="module" src="js/laptop.js?v=23"></script>
+<script src="js/site.js?v=24" defer></script>
+<script type="module" src="js/laptop.js?v=24"></script>
 </body>
 </html>

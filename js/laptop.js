@@ -12,9 +12,24 @@ const rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isKlein = () => window.matchMedia('(max-width: 767px)').matches;
 const fijneMuis = window.matchMedia('(pointer: fine)').matches;
 
+// Laadscherm: toont hoeveel van de laptop, de belichting en de schermen binnen is
+const vulling = document.querySelector('.lader-vulling');
+const getal = document.querySelector('.lader-getal');
+function voortgang(deel) {
+    const p = Math.max(0, Math.min(1, deel));
+    if (vulling) vulling.style.transform = `scaleX(${p})`;
+    if (getal) getal.textContent = Math.round(p * 100);
+}
+THREE.DefaultLoadingManager.onProgress = (_url, geladen, totaal) => voortgang((geladen / totaal) * 0.95);
+function laderWeg() {
+    voortgang(1);
+    setTimeout(() => html.classList.remove('laden'), 250);
+}
+
 // Zonder 3D: de screenshots verschijnen als kleine kaartjes bij de projecten
 function zonder3d(reden) {
     html.classList.add('geen-3d');
+    laderWeg();
     console.info('3D staat uit:', reden);
 }
 
@@ -353,9 +368,13 @@ async function start() {
     ScrollTrigger.refresh();
 
     // Binnenkomst: het beeld komt op en de laptop klapt open
+    // Eerst één beeld tekenen, dan het laadscherm weg, zodat je nooit een halve scène ziet
+    renderer.render(scene, camera);
+    await new Promise((klaar) => requestAnimationFrame(() => requestAnimationFrame(klaar)));
+    laderWeg();
     canvas.classList.add('klaar');
     html.classList.add('laptop-klaar');
-    gsap.to(deksel, { open: 1, duration: 2.2, delay: 0.35, ease: 'power3.inOut' });
+    gsap.to(deksel, { open: 1, duration: 2.2, delay: 0.7, ease: 'power3.inOut' });
 }
 
 // Fijne streepjes zoals bij geborsteld aluminium (ruwheid wisselt per lijn)
