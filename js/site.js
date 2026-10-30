@@ -56,3 +56,26 @@ kopieer.addEventListener('click', async () => {
     clearTimeout(kopieer.wacht);
     kopieer.wacht = setTimeout(() => { melding.textContent = ''; }, 2500);
 });
+
+// Kleur per sectie: bij elk project kleurt de achtergrond mee met de kleuren van die site
+const KLEUREN = {
+    wk:   { vak: '#14213F', accent: '#AFC6FF' },   // marineblauw, zoals de WK 2026-site
+    quiz: { vak: '#0F3340', accent: '#92E2E8' },   // diep petrol, zoals Quizzie
+};
+const wortel = document.documentElement;
+const themaKleur = document.querySelector('meta[name="theme-color"]');
+const kleurWissel = new IntersectionObserver((items) => {
+    items.forEach((item) => {
+        if (!item.isIntersecting) return;
+        const k = KLEUREN[item.target.dataset.stap];
+        if (k) {
+            wortel.style.setProperty('--vak', k.vak);
+            wortel.style.setProperty('--groen', k.accent);
+        } else {
+            wortel.style.removeProperty('--vak');
+            wortel.style.removeProperty('--groen');
+        }
+        themaKleur?.setAttribute('content', k ? k.vak : '#12291D');
+    });
+}, { rootMargin: '-45% 0px -45% 0px' });
+document.querySelectorAll('[data-stap]').forEach((stap) => kleurWissel.observe(stap));
