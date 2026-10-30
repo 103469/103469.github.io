@@ -59,10 +59,10 @@ kopieer.addEventListener('click', async () => {
 
 // Kleur per sectie: de achtergrond vloeit tijdens het scrollen geleidelijk over
 // van de ene kleur naar de andere (groen → WK-blauw → Quizzie-petrol → groen)
-const BASIS = { vak: '#12291D', accent: '#C4DFA0' };
+const BASIS = { vak: '#17331F', accent: '#C4DFA0' };
 const KLEUREN = {
-    wk:   { vak: '#14213F', accent: '#AFC6FF' },   // marineblauw, zoals de WK 2026-site
-    quiz: { vak: '#0F3340', accent: '#92E2E8' },   // diep petrol, zoals Quizzie
+    wk:   { vak: '#182748', accent: '#AFC6FF' },   // marineblauw, zoals de WK 2026-site
+    quiz: { vak: '#123B48', accent: '#92E2E8' },   // diep petrol, zoals Quizzie
 };
 const wortel = document.documentElement;
 const themaKleur = document.querySelector('meta[name="theme-color"]');

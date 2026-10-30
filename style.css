@@ -8,8 +8,8 @@
 @font-face { font-family: 'Schibsted'; font-weight: 700; font-display: swap; src: url(fonts/schibsted-grotesk-latin-700-normal.woff2) format('woff2'); }
 
 :root {
-    --grond: #12291D;     /* flessengroen */
-    --vlak: #183527;
+    --grond: #17331F;     /* flessengroen */
+    --vlak: #1D3D29;
     --inkt: #F1ECE1;      /* crème */
     --zacht: #B7BDAC;
     --lijn: rgba(241, 236, 225, 0.18);
