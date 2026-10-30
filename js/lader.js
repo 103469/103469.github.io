@@ -45,7 +45,7 @@
     const q = lader.querySelector('.lader-q');
     function zoom() {
         const m = { x: 0, y: -6 };
-        const duur = 1600;
+        const duur = 3000;
         const start = performance.now();
         lader.classList.add('door');
         (function stap(nu) {
