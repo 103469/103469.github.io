@@ -57,25 +57,55 @@ kopieer.addEventListener('click', async () => {
     kopieer.wacht = setTimeout(() => { melding.textContent = ''; }, 2500);
 });
 
-// Kleur per sectie: bij elk project kleurt de achtergrond mee met de kleuren van die site
+// Kleur per sectie: de achtergrond vloeit tijdens het scrollen geleidelijk over
+// van de ene kleur naar de andere (groen → WK-blauw → Quizzie-petrol → groen)
+const BASIS = { vak: '#12291D', accent: '#C4DFA0' };
 const KLEUREN = {
     wk:   { vak: '#14213F', accent: '#AFC6FF' },   // marineblauw, zoals de WK 2026-site
     quiz: { vak: '#0F3340', accent: '#92E2E8' },   // diep petrol, zoals Quizzie
 };
 const wortel = document.documentElement;
 const themaKleur = document.querySelector('meta[name="theme-color"]');
-const kleurWissel = new IntersectionObserver((items) => {
-    items.forEach((item) => {
-        if (!item.isIntersecting) return;
-        const k = KLEUREN[item.target.dataset.stap];
-        if (k) {
-            wortel.style.setProperty('--vak', k.vak);
-            wortel.style.setProperty('--groen', k.accent);
-        } else {
-            wortel.style.removeProperty('--vak');
-            wortel.style.removeProperty('--groen');
-        }
-        themaKleur?.setAttribute('content', k ? k.vak : '#12291D');
+const naarRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const meng = (a, b, t) => {
+    const x = naarRgb(a), y = naarRgb(b);
+    return `rgb(${x.map((v, i) => Math.round(v + (y[i] - v) * t)).join(',')})`;
+};
+const zacht = (t) => t * t * (3 - 2 * t);
+const stappen = [...document.querySelectorAll('[data-stap]')];
+
+// Per sectie twee ankerpunten: in het middelste deel blijft de kleur staan,
+// daartussen vloeit hij over
+let ankers = [];
+function meet() {
+    ankers = [];
+    stappen.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const top = r.top + window.scrollY;
+        const k = KLEUREN[el.dataset.stap] || BASIS;
+        ankers.push({ y: top + r.height * 0.3, k }, { y: top + r.height * 0.7, k });
     });
-}, { rootMargin: '-45% 0px -45% 0px' });
-document.querySelectorAll('[data-stap]').forEach((stap) => kleurWissel.observe(stap));
+    kleur();
+}
+let bezig = false;
+function kleur() {
+    bezig = false;
+    if (!ankers.length) return;
+    const y = window.scrollY + window.innerHeight / 2;
+    let a = ankers[0], b = ankers[0];
+    for (let i = 0; i < ankers.length; i++) {
+        if (ankers[i].y <= y) a = ankers[i];
+        if (ankers[i].y >= y) { b = ankers[i]; break; }
+        b = ankers[i];
+    }
+    const t = b.y === a.y ? 0 : zacht(Math.min(1, Math.max(0, (y - a.y) / (b.y - a.y))));
+    const vak = meng(a.k.vak, b.k.vak, t);
+    wortel.style.setProperty('--vak', vak);
+    wortel.style.setProperty('--groen', meng(a.k.accent, b.k.accent, t));
+    themaKleur?.setAttribute('content', vak);
+}
+window.addEventListener('scroll', () => { if (!bezig) { bezig = true; requestAnimationFrame(kleur); } }, { passive: true });
+window.addEventListener('resize', meet);
+window.addEventListener('load', meet);
+new ResizeObserver(meet).observe(document.body);
+meet();

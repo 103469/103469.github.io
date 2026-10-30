@@ -56,7 +56,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 16px; }
     .lader-naam span { animation: none; opacity: 1; transform: none; }
 }
 
-body { font-family: var(--schreefloos); background: var(--vak, var(--grond)); transition: background-color 0.9s ease; color: var(--inkt); font-size: var(--tekst); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--schreefloos); background: var(--vak, var(--grond)); color: var(--inkt); font-size: var(--tekst); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgba(196, 223, 160, 0.25); }
@@ -163,7 +163,7 @@ em { font-family: var(--serif); font-style: italic; font-size: 1.12em; line-heig
 .kopieer:hover { color: var(--groen); text-decoration-color: currentColor; }
 .kopieer-melding { color: var(--groen); font-size: var(--klein); }
 
-.voet { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 24px; padding: 28px var(--marge) 32px; background: var(--vak, var(--grond)); transition: background-color 0.9s ease; border-top: 1px solid var(--lijn); color: var(--zacht); font-size: var(--klein); }
+.voet { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 24px; padding: 28px var(--marge) 32px; background: var(--vak, var(--grond)); border-top: 1px solid var(--lijn); color: var(--zacht); font-size: var(--klein); }
 .voet p:last-child { max-width: 62ch; text-align: right; }
 .voet a { text-underline-offset: 3px; }
 
@@ -189,7 +189,7 @@ em { font-family: var(--serif); font-style: italic; font-size: 1.12em; line-heig
 /* telefoon: laptop bovenin, tekst eronder */
 @media (max-width: 767px) {
     .stap, .hero { min-height: 100svh; align-items: flex-end; padding: 42svh var(--marge) 32px; }
-    .blok, .rechts .blok { width: 100%; margin: 0; padding: 24px 0 8px; background: var(--vak, var(--grond)); box-shadow: 0 0 0 var(--marge) var(--vak, var(--grond)); transition: background-color 0.9s ease, box-shadow 0.9s ease; }
+    .blok, .rechts .blok { width: 100%; margin: 0; padding: 24px 0 8px; background: var(--vak, var(--grond)); box-shadow: 0 0 0 var(--marge) var(--vak, var(--grond)); }
     .woord { white-space: normal; margin-bottom: 20px; }
     .stap.lang { min-height: 150svh; align-items: flex-end; }
     .stap.lang .blok { position: static; }
