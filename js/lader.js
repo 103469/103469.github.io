@@ -23,6 +23,9 @@
     ring.style.strokeDasharray = omtrek;
     ring.style.strokeDashoffset = omtrek;
 
+    // De ring doet er minstens zo lang over, ook als alles al binnen is
+    const MINIMAAL = 3000;
+    const begin = performance.now();
     let huidig = 0;
     let doel = 0;
     let weg = false;
@@ -30,7 +33,8 @@
     // De ring loopt soepel naar het doel toe in plaats van te springen
     (function loop() {
         if (weg) return;
-        huidig += (doel - huidig) * 0.12;
+        const max = Math.min(doel, (performance.now() - begin) / MINIMAAL);
+        huidig += (max - huidig) * 0.1;
         ring.style.strokeDashoffset = omtrek * (1 - huidig);
         getal.textContent = Math.round(huidig * 100);
         requestAnimationFrame(loop);
