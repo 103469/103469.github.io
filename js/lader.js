@@ -40,17 +40,23 @@
         doel = Math.max(doel, Math.min(1, deel));
     }
 
-    // Door de linkerkant van de ring heen zoomen
+    // Recht door het midden van de Q vliegen: de binnenkant is een raam naar de site,
+    // de ring en de staart vliegen langs je heen naar buiten
+    const q = lader.querySelector('.lader-q');
     function zoom() {
-        const p = { x: -14, y: -6 };
-        const duur = 1150;
+        const m = { x: 0, y: -6 };
+        const duur = 1600;
         const start = performance.now();
         lader.classList.add('door');
         (function stap(nu) {
             const t = Math.min(1, (nu - start) / duur);
-            const e = t * t * t;                       // langzaam beginnen, steeds sneller
-            const s = 1 + e * 110;
-            gat.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${s}) translate(${-p.x} ${-p.y})`);
+            // eerst heel even terugveren, dan steeds harder vooruit
+            const e = t < 0.15 ? -0.04 * Math.sin((t / 0.15) * Math.PI) : Math.pow((t - 0.15) / 0.85, 2.6);
+            const s = Math.max(0.9, 1 + e * 14);
+            const tf = `translate(${m.x} ${m.y}) scale(${s}) translate(${-m.x} ${-m.y})`;
+            gat.setAttribute('transform', tf);
+            q.setAttribute('transform', tf);
+            q.style.opacity = t > 0.75 ? 1 - (t - 0.75) / 0.25 : 1;
             if (t < 1) requestAnimationFrame(stap);
             else html.classList.remove('laden');
         })(start);

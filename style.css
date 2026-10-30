@@ -44,7 +44,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 .lader-ring { fill: none; stroke: var(--inkt); stroke-width: 3.2; stroke-linecap: round; }
 .lader-staart { stroke: var(--groen); stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 13; stroke-dashoffset: 13; transition: stroke-dashoffset 0.35s cubic-bezier(.3,.7,.2,1); }
 .lader.vol .lader-staart { stroke-dashoffset: 0; }
-.lader.door .lader-q { visibility: hidden; }
+.lader.door .lader-staart { transition: none; }
 
 .lader-naam, .lader-tekst { position: absolute; left: 0; right: 0; text-align: center; transition: opacity 0.4s ease, transform 0.6s cubic-bezier(.5,0,.75,0); }
 .lader-naam { top: calc(50% + 17vmin); font-family: var(--serif); font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); line-height: 1; }
