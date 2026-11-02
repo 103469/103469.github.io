@@ -78,6 +78,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem; color: var(--on-deep); }
 .logo { display: inline-flex; align-items: center; gap: .55rem; font: 900 1.35rem/1 var(--f-display); text-decoration: none; letter-spacing: -0.01em; }
 .logo__mark { width: 26px; height: 26px; fill: var(--signal); }
+.wordmark { display: inline-flex; align-items: center; font: 900 1.45rem/1 var(--f-display); letter-spacing: -0.01em; }
+.wordmark__o { width: .98em; height: .98em; margin: 0 .04em; fill: var(--signal); transform: translateY(.02em); }
 .nav { display: flex; align-items: center; gap: 1.4rem; font-weight: 500; }
 .nav a:not(.btn) { text-decoration: none; color: var(--on-deep-muted); }
 .nav a:not(.btn):hover { color: var(--on-deep); }
