@@ -19,6 +19,17 @@
   const status = document.getElementById('c-status');
   const button = form.querySelector('button[type="submit"]');
 
+  // Nog geen formulieradres: meteen laten zien, niet pas nadat iemand alles heeft ingevuld
+  if (!cfg.formEndpoint) {
+    const note = document.createElement('p');
+    note.className = 'form__privacy';
+    const tag = document.createElement('span');
+    tag.className = 'todo';
+    tag.textContent = 'Dit formulier werkt nog niet: de site is nog in opbouw.';
+    note.appendChild(tag);
+    form.prepend(note);
+  }
+
   function setStatus(text, kind) {
     status.textContent = text;
     status.className = 'form__status ' + (kind || '');

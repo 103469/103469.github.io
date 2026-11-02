@@ -19,7 +19,9 @@
     if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
     try {
       const u = new URL(v);
-      if (!u.hostname.includes('.')) return null;
+      // Alleen gewone domeinnamen (ook IDN als xn--). Chrome laat spaties (%20) en tekens als " ' = ( )
+      // anders gewoon toe in de hostnaam, en die komt later in de HTML terecht.
+      if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(u.hostname)) return null;
       return u;
     } catch (e) {
       return null;
@@ -35,6 +37,11 @@
     if (score >= 90) return { cls: 'ok', color: '#3CC48A' };
     if (score >= 50) return { cls: 'warn', color: '#E3A23A' };
     return { cls: 'bad', color: '#EC6A55' };
+  }
+
+  // Tekst veilig in HTML zetten (de hostnaam komt uit de invoer of uit het Google-antwoord)
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
   function seconds(ms) {
@@ -61,8 +68,8 @@
       <div class="check__after">
         <p>${perf !== null && perf >= 90 ? 'Je site is snel. Wil je ook beter gevonden worden in Google Maps? Daar help ik graag mee.' : 'Hier valt winst te halen. Laat je gegevens achter, dan laat ik je gratis zien wat ik zou verbeteren.'}</p>
         <div class="check__cta">
-          <a class="btn" href="#contact" data-prefill="${host}">Laat me terugbellen</a>
-          ${wa ? `<a class="btn btn--wa" href="${wa}" target="_blank" rel="noopener">Stuur via WhatsApp</a>` : ''}
+          <a class="btn" href="#contact" data-prefill="${esc(host)}">Laat me terugbellen</a>
+          ${wa ? `<a class="btn btn--wa" href="${esc(wa)}" target="_blank" rel="noopener">Stuur via WhatsApp</a>` : ''}
         </div>
       </div>`;
   }
@@ -75,7 +82,8 @@
     const perf = Math.round(perfRaw * 100);
     const seo = seoRaw == null ? null : Math.round(seoRaw * 100);
     const lcp = lh.audits?.['largest-contentful-paint']?.numericValue;
-    const viewportScore = lh.audits?.['viewport']?.score;
+    // Lighthouse 12: audit 'viewport'. Lighthouse 13 (PageSpeed sinds okt 2025): vervangen door 'viewport-insight'.
+    const viewportScore = lh.audits?.['viewport']?.score ?? lh.audits?.['viewport-insight']?.score;
     const https = finalUrl.startsWith('https://');
     const lv = level(perf);
 
@@ -109,7 +117,7 @@
     const host = u.hostname.replace(/^www\./, '');
     result.innerHTML = `
       <div class="check__after">
-        <p><strong>Dit is een profiel op ${host}, geen eigen website.</strong> Daar heb je zelf weinig invloed op, en in Google kom je er minder goed mee naar voren. Een eigen site van €495 lost dat op.</p>
+        <p><strong>Dit is een profiel op ${esc(host)}, geen eigen website.</strong> Daar heb je zelf weinig invloed op, en in Google kom je er minder goed mee naar voren. Een eigen site van €495 lost dat op.</p>
       </div>` + nextStep(host, null);
   }
 

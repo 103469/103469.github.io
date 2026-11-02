@@ -19,10 +19,10 @@
   --on-deep-muted: #B9D3C6;
   --signal: #3DDC84;      /* felgroen */
   --signal-ink: #03190E;
-  --accent-text: #138A4E; /* groen dat leesbaar is op wit */
-  --good: #1F8A5B;
+  --accent-text: #118048; /* groen dat leesbaar is op wit (5,0:1 op wit, 4,6:1 op tint; was #138A4E = 4,4:1) */
+  --good: #1A7F52;        /* was #1F8A5B = 4,3:1 op wit */
   --warn: #C27C0E;
-  --bad: #D24B36;
+  --bad: #C4412C;         /* was #D24B36 = 4,4:1 op wit */
 
   --f-display: "Archivo", "Segoe UI", system-ui, sans-serif;
   --f-body: "Archivo", "Segoe UI", system-ui, sans-serif;
@@ -50,7 +50,7 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 4.5rem); } /* ankers niet onder de sticky header */
 body { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--step-0)/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--f-display); line-height: 1.05; margin: 0; text-wrap: balance; }
 h1 { font-size: var(--step-4); font-weight: 900; letter-spacing: -0.035em; }
@@ -286,6 +286,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 @media (max-width: 900px) { .contact { grid-template-columns: 1fr; } }
 @media (max-width: 620px) { .form__row { grid-template-columns: 1fr; } }
+@media (max-width: 360px) { .page-hero h1 { font-size: 1.9rem; } } /* "Privacyverklaring" paste niet op 320px */
 
 /* Versie 4: preview-melding en demo-link op branchepagina's */
 .preview { margin: 0; padding: .55rem 1rem; background: #FFE58A; color: #3A2E00; text-align: center; font: 500 .85rem/1.4 var(--f-body); }

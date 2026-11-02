@@ -243,6 +243,8 @@
       e.preventDefault();
       const problem = valid(step);
       if (problem) { err.textContent = problem; return; }
+      // Enter (of "Ga" op een telefoon) in stap 1 of 2: naar de volgende stap, niet al versturen
+      if (step < sets.length - 1) { show(step + 1); return; }
       of.hidden = true;
       document.querySelector('[data-progress-wrap]').hidden = true;
       done.hidden = false;
