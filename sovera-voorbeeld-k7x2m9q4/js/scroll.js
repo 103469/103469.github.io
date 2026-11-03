@@ -75,7 +75,7 @@
     }
     if (story && !reduce) {
       const r = story.getBoundingClientRect();
-      const p = clamp((-r.top + h * 0.15) / Math.max(1, r.height - h * 0.8));
+      const p = clamp((h - r.top) / Math.max(1, h * 0.55 + r.height * 0.6));
       const lit = p * (words.length + 4);
       words.forEach((w, i) => w.classList.toggle('on', i < lit));
     }
