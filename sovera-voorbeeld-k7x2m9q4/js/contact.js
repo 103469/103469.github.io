@@ -58,14 +58,21 @@
     button.disabled = true;
     setStatus('Bezig met versturen...');
     try {
+      const data = Object.fromEntries(new FormData(form).entries());
+      if (data._honey) return; // spam-val: echte bezoekers vullen dit niet in
+      delete data._honey;
+      data._subject = 'Nieuwe aanvraag via de Sovera-site' + (data.zaak ? ': ' + data.zaak : '');
+      data._template = 'table';
+      data._captcha = 'false';
       const res = await fetch(cfg.formEndpoint, {
         method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(form),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error();
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || String(out.success) === 'false') throw new Error(out.message || '');
       form.reset();
-      setStatus('Verstuurd. Je hoort binnen een paar werkdagen van me.', 'ok');
+      setStatus('Verstuurd. Je hoort binnen een paar werkdagen van ons.', 'ok');
     } catch (err) {
       setStatus('Versturen lukte niet. Probeer het later opnieuw' + (cfg.email ? ' of mail naar ' + cfg.email + '.' : '.'), 'err');
     } finally {

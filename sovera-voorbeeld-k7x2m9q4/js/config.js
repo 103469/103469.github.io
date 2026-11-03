@@ -8,7 +8,7 @@ window.SOVERA = {
   whatsapp: '31630743596',
 
   // Adres waar het contactformulier naartoe gaat, bijv. een Formspree-link 'https://formspree.io/f/xxxx'
-  formEndpoint: '',
+  formEndpoint: 'https://formsubmit.co/ajax/soverawebdesign@gmail.com',
 
   // Google PageSpeed API-sleutel (met referrer-beperking op soverastudio.nl). Leeg = zonder sleutel, met weinig checks per dag.
   pagespeedKey: ''
