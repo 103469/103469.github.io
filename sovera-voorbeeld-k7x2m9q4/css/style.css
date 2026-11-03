@@ -667,3 +667,7 @@ main > .night::before { background-image: radial-gradient(520px circle at var(--
 .section__head { margin-bottom: clamp(1.5rem, 3vw, 2.4rem); }
 .show__head { margin-bottom: 1.6rem; }
 @media (min-width: 900px) { .devc { max-width: 290px; } }
+
+/* 6.10: alleen een smalle onderbalk */
+.foot { padding-block: 1.4rem; }
+.foot__legal { border-top: 0; padding-top: 0; }
