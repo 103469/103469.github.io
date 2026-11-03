@@ -648,3 +648,22 @@ main > .night::before { background-image: radial-gradient(520px circle at var(--
 .phone__screen--video { display: block; background: #0B0D10; }
 .phone__screen--video video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 @media (prefers-reduced-motion: reduce) { .js .hero .reveal { animation: none; } }
+
+/* 6.9: kortere homepage */
+.conf__more { color: var(--on-night-muted); font-size: .95rem; max-width: 46ch; }
+.conf__more a { color: var(--on-night); text-decoration: underline; text-decoration-color: var(--lime); text-underline-offset: 3px; }
+.conf__more a:hover { color: var(--lime); }
+
+/* 6.9: voorbeelden licht, zodat er geen twee donkere blokken achter elkaar staan */
+.show { background: var(--surface); color: var(--ink); }
+.show__head .label { color: var(--accent-text); }
+.show__head .sub { color: var(--muted); }
+.devc__cap p:not(.demo__note) { color: var(--muted); }
+.devc__cap .demo__note { color: var(--accent-text); }
+.devc__phone { box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 40px 70px -30px rgba(13,15,18,.45); }
+.section { padding-block: clamp(3rem, 6vw, 5rem); }
+.show { padding-block: clamp(3rem, 6vw, 5rem); }
+.conf { padding-block: clamp(3rem, 6vw, 5rem); }
+.section__head { margin-bottom: clamp(1.5rem, 3vw, 2.4rem); }
+.show__head { margin-bottom: 1.6rem; }
+@media (min-width: 900px) { .devc { max-width: 290px; } }
