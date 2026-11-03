@@ -40,6 +40,12 @@
     return ok;
   }
 
+  if (location.hash === '#bedankt') {
+    setStatus('Verstuurd. Je hoort binnen een paar werkdagen van ons.', 'ok');
+    const sec = document.getElementById('contact');
+    if (sec) sec.scrollIntoView();
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = form.elements['naam'];
@@ -55,28 +61,22 @@
       setStatus('Het formulier is nog niet gekoppeld. Deze site is nog in opbouw.', 'err');
       return;
     }
+    // Gewoon versturen via FormSubmit: de browser gaat even naar FormSubmit en komt daarna terug met #bedankt
+    if (form.querySelector('[name="_honey"]') && form.querySelector('[name="_honey"]').value) return;
+    const add = (name, value) => {
+      let el = form.querySelector('input[name="' + name + '"]');
+      if (!el) { el = document.createElement('input'); el.type = 'hidden'; el.name = name; form.appendChild(el); }
+      el.value = value;
+    };
+    const zaak = form.elements['zaak'] ? form.elements['zaak'].value.trim() : '';
+    add('_subject', 'Nieuwe aanvraag via de Sovera-site' + (zaak ? ': ' + zaak : ''));
+    add('_template', 'table');
+    add('_captcha', 'false');
+    add('_next', location.href.split('#')[0] + '#bedankt');
+    form.action = cfg.formEndpoint;
+    form.method = 'POST';
     button.disabled = true;
     setStatus('Bezig met versturen...');
-    try {
-      const data = Object.fromEntries(new FormData(form).entries());
-      if (data._honey) return; // spam-val: echte bezoekers vullen dit niet in
-      delete data._honey;
-      data._subject = 'Nieuwe aanvraag via de Sovera-site' + (data.zaak ? ': ' + data.zaak : '');
-      data._template = 'table';
-      data._captcha = 'false';
-      const res = await fetch(cfg.formEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const out = await res.json().catch(() => ({}));
-      if (!res.ok || String(out.success) === 'false') throw new Error(out.message || '');
-      form.reset();
-      setStatus('Verstuurd. Je hoort binnen een paar werkdagen van ons.', 'ok');
-    } catch (err) {
-      setStatus('Versturen lukte niet. Probeer het later opnieuw' + (cfg.email ? ' of mail naar ' + cfg.email + '.' : '.'), 'err');
-    } finally {
-      button.disabled = false;
-    }
+    HTMLFormElement.prototype.submit.call(form);
   });
 })();
