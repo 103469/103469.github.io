@@ -5,7 +5,7 @@ window.SOVERA = {
   email: 'soverawebdesign@gmail.com',
 
   // WhatsApp-nummer in internationaal formaat zonder + of spaties, bijv. '31612345678'
-  whatsapp: '',
+  whatsapp: '31630743596',
 
   // Adres waar het contactformulier naartoe gaat, bijv. een Formspree-link 'https://formspree.io/f/xxxx'
   formEndpoint: '',
