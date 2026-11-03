@@ -2,7 +2,7 @@
 // Vul dit in voordat de site live gaat. Leeg laten = dat onderdeel blijft verborgen.
 window.SOVERA = {
   // E-mailadres voor klanten, bijv. 'hallo@soverastudio.nl' (pas na het regelen van het domein)
-  email: '',
+  email: 'soverawebdesign@gmail.com',
 
   // WhatsApp-nummer in internationaal formaat zonder + of spaties, bijv. '31612345678'
   whatsapp: '',
