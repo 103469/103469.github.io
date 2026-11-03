@@ -466,3 +466,5 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .about__contact { font-size: var(--step-0) !important; }
 .about__contact a { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 900px) { .about--duo { grid-template-columns: 1fr; } .about .duo { max-width: 480px; } }
+
+.plan__price .was { font-size: .5em; font-weight: 700; letter-spacing: -.02em; margin-right: .35rem; opacity: .55; text-decoration-thickness: 2px; }

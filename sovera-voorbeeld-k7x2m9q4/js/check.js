@@ -117,7 +117,7 @@
     const host = u.hostname.replace(/^www\./, '');
     result.innerHTML = `
       <div class="check__after">
-        <p><strong>Dit is een profiel op ${esc(host)}, geen eigen website.</strong> Daar heb je zelf weinig invloed op, en in Google kom je er minder goed mee naar voren. Een eigen site van €495 lost dat op.</p>
+        <p><strong>Dit is een profiel op ${esc(host)}, geen eigen website.</strong> Daar heb je zelf weinig invloed op, en in Google kom je er minder goed mee naar voren. Een eigen site vanaf €299 lost dat op.</p>
       </div>` + nextStep(host, null);
   }
 
