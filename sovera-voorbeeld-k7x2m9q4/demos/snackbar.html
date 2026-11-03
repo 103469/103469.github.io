@@ -9,7 +9,8 @@
 <meta name="theme-color" content="#D3261C">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="demo.css?v=6.0">
+<link rel="stylesheet" href="demo.css?v=6.2">
+<link rel="stylesheet" href="demo-fx.css?v=6.2">
 <style>
 @font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
 @font-face { font-family: "Rubik"; src: url("../fonts/rubik-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
@@ -110,9 +111,26 @@ section { padding-block: clamp(56px, 9vw, 100px); }
 .reviews b { color: var(--ink); }
 .foot { background: var(--ink); color: #E9D9C4; padding-block: 26px; font-size: .9rem; }
 .foot .w { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+
+/* v6.2 upgrade */
+.hero { position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; right: -8%; top: -30%; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(244,180,0,.45), transparent 68%); }
+.hero .w { position: relative; }
+.fries { filter: drop-shadow(10px 14px 0 rgba(43,27,16,.18)); animation: bob 5s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes bob { 50% { transform: rotate(2.2deg) translateY(-8px); } }
+.hero h1 { font-size: clamp(3.2rem, 9vw, 6.6rem); }
+.ticker { --tk-bg: var(--ink); --tk-fg: var(--mustard); --tk-line: var(--ink); --tk-font: var(--f-head); }
+.strip { padding-block: clamp(32px, 5vw, 52px); background: var(--mustard); border-bottom: 3px solid var(--ink); }
+.stats b { font-family: var(--f-head); color: var(--ink); letter-spacing: -.02em; }
+.stats span { color: var(--ink); opacity: .8; }
+.item { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.item:hover { transform: translate(-2px, -3px) rotate(-.4deg); box-shadow: 5px 6px 0 var(--ink); border-color: var(--ink); }
+@media (max-width: 760px) { .fries { max-height: 230px; margin-inline: auto; } }
+.dock { --dk-bg: #FFF5E1; --dk-line: #2B1B10; --dk-fg: #2B1B10; --dk-main: #C8231A; --dk-main-fg: #fff; --dk-r: 14px; --dk-font: var(--f-head); }
+
 </style>
 </head>
-<body>
+<body data-dock='[["Menu","#menu","main"],["Bellen","#","","Op een echte site belt deze knop meteen de snackbar."],["Route","#","","Op een echte site opent deze knop de route in Google Maps."]]'>
 <div class="demo-bar"><div class="demo-bar__inner">
   <p class="demo-bar__msg"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg><span><b>Demo van Sovera</b> · verzonnen bedrijf<span class="demo-bar__long">, geen echte zaak</span></span></p>
   <a href="../index.html#voorbeelden">Terug naar Sovera</a>
@@ -165,6 +183,14 @@ section { padding-block: clamp(56px, 9vw, 100px); }
     </svg>
   </div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker__track"><span>Elke dag vers</span><span>Friet · Snacks · Burgers</span><span>Kapsalon van het huis</span><span>Afhalen of bezorgen</span><span>Open tot 23:00</span><span>Elke dag vers</span><span>Friet · Snacks · Burgers</span><span>Kapsalon van het huis</span><span>Afhalen of bezorgen</span><span>Open tot 23:00</span></div></div>
+<section class="strip"><div class="w"><div class="stats">
+  <div><b>Dagvers</b><span>Aardappels, elke ochtend gesneden</span></div>
+  <div><b>10 min</b><span>Gemiddeld klaar bij afhalen</span></div>
+  <div><b>20</b><span>Gerechten, ook vegetarisch</span></div>
+  <div><b>7 dagen</b><span>Per week open</span></div>
+</div></div></section>
 
 <section id="menu" class="menu-sec">
   <div class="w">
@@ -275,6 +301,7 @@ section { padding-block: clamp(56px, 9vw, 100px); }
   <p>Dit is een voorbeeld. Jouw site krijgt jouw naam, menu, kleuren en foto's, voor een vaste prijs.</p>
   <a href="../index.html#contact">Wil jij zo'n site?</a>
 </div></div>
-<script src="demo.js?v=6.0"></script>
+<script src="demo-fx.js?v=6.2"></script>
+<script src="demo.js?v=6.2"></script>
 </body>
 </html>
