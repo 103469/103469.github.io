@@ -61,12 +61,12 @@
   // Na de check: altijd een duidelijke volgende stap
   function nextStep(host, perf) {
     const msg = perf === null
-      ? 'Hoi Quinten, ik heb de websitecheck gedaan voor ' + host + '. Kun je meekijken?'
+      ? 'Hoi Jayden, ik heb de websitecheck gedaan voor ' + host + '. Kun je meekijken?'
       : 'Hoi Quinten, mijn site ' + host + ' scoorde ' + perf + '/100 in de websitecheck. Kun je meekijken?';
     const wa = waLink(msg);
     return `
       <div class="check__after">
-        <p>${perf !== null && perf >= 90 ? 'Je site is snel. Wil je ook beter gevonden worden in Google Maps? Daar help ik graag mee.' : 'Hier valt winst te halen. Laat je gegevens achter, dan laat ik je gratis zien wat ik zou verbeteren.'}</p>
+        <p>${perf !== null && perf >= 90 ? 'Je site is snel. Wil je ook beter gevonden worden in Google Maps? Daar helpen wij graag mee.' : 'Hier valt winst te halen. Laat je gegevens achter, dan laten wij je gratis zien wat wij zouden verbeteren.'}</p>
         <div class="check__cta">
           <a class="btn" href="#contact" data-prefill="${esc(host)}">Laat me terugbellen</a>
           ${wa ? `<a class="btn btn--wa" href="${esc(wa)}" target="_blank" rel="noopener">Stuur via WhatsApp</a>` : ''}

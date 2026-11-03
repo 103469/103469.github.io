@@ -35,6 +35,21 @@
       f.style.height = Math.round((ph.clientHeight - 18) / sc) + 'px';
     });
   }
+  // Live demo's alleen op grotere schermen laden; op telefoons blijft het een lichte schermafbeelding
+  const liveMq = matchMedia('(min-width: 900px)');
+  function goLive() {
+    if (!liveMq.matches) return;
+    document.querySelectorAll('.devc__phone iframe[data-src]').forEach((f) => {
+      const ph = f.closest('.devc__phone');
+      const load = () => { f.src = f.dataset.src; f.removeAttribute('data-src'); f.addEventListener('load', () => ph.classList.add('is-live'), { once: true }); };
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '300px' });
+        io.observe(ph);
+      } else load();
+    });
+  }
+  goLive();
+  liveMq.addEventListener && liveMq.addEventListener('change', goLive);
   fitPhones();
   addEventListener('resize', fitPhones);
   addEventListener('load', fitPhones);
