@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="nl" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -11,13 +11,14 @@
 <meta property="og:description" content="Website voor je kapsalon of barbershop in Rotterdam. Vaste prijs vanaf €495 en een gratis websitecheck.">
 <meta property="og:url" content="https://soverastudio.nl/branches/kappers.html">
 <meta property="og:locale" content="nl_NL">
-<meta name="theme-color" content="#0B3D2C">
+<meta name="theme-color" content="#0B0D10">
 <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../img/icon-180.png">
 <link rel="manifest" href="../manifest.webmanifest">
 <meta name="apple-mobile-web-app-title" content="Sovera">
-<link rel="preload" href="../fonts/archivo-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../css/style.css?v=5.1">
+<link rel="preload" href="../fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css?v=6.0">
 <meta name="robots" content="noindex">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Ik gebruik al een boekingssysteem. Kan dat erin?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. De knop op je site stuurt klanten naar het systeem dat je nu al gebruikt."}}, {"@type": "Question", "name": "Kan ik zelf mijn prijzen aanpassen?", "acceptedAnswer": {"@type": "Answer", "text": "Met het onderhoudspakket stuur je een berichtje en pas ik het aan, meestal binnen 5 werkdagen."}}, {"@type": "Question", "name": "Wat kost het?", "acceptedAnswer": {"@type": "Answer", "text": "Website Start kost €495 voor de eerste 3 klanten, daarna €695. Onderhoud is €29 per maand en maandelijks opzegbaar. De domeinnaam komt op jouw naam."}}]}</script>
 </head>
@@ -27,41 +28,45 @@
 <header class="top">
   <div class="wrap top__inner">
     <a class="logo" href="../index.html" aria-label="Sovera, naar de homepage"><span class="wordmark" aria-hidden="true">S<svg class="wordmark__o" viewBox="0 0 32 32"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg>vera</span></a>
-    <nav class="nav" aria-label="Hoofdmenu">
+    <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="hoofdmenu"><span></span></button>
+    <nav class="nav" id="hoofdmenu" aria-label="Hoofdmenu">
+      <a href="../index.html#aanbod">Wat je krijgt</a>
       <a href="../index.html#branches">Voor wie</a>
       <a href="../index.html#voorbeelden">Voorbeelden</a>
-      <a class="nav__keep" href="../index.html#prijzen">Prijzen</a>
-      <a class="btn btn--small" href="../index.html#check">Gratis check</a>
+      <a href="../index.html#prijzen">Prijzen</a>
+      <a class="btn btn--small" href="../index.html#check">Gratis check <span class="arrow" aria-hidden="true">→</span></a>
     </nav>
   </div>
 </header>
 
 <main id="inhoud">
-<section class="page-hero deep">
+<section class="page-hero night">
+  <svg class="citymap" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path class="street" d="M-104 -40 L56 760"/><path class="street" d="M-52 -40 L108 760"/><path class="street" d="M0 -40 L160 760"/><path class="street" d="M52 -40 L212 760"/><path class="street" d="M104 -40 L264 760"/><path class="street" d="M156 -40 L316 760"/><path class="street" d="M208 -40 L368 760"/><path class="street" d="M260 -40 L420 760"/><path class="street" d="M312 -40 L472 760"/><path class="street" d="M364 -40 L524 760"/><path class="street" d="M416 -40 L576 760"/><path class="street" d="M468 -40 L628 760"/><path class="street" d="M520 -40 L680 760"/><path class="street" d="M572 -40 L732 760"/><path class="street" d="M624 -40 L784 760"/><path class="street" d="M676 -40 L836 760"/><path class="street" d="M728 -40 L888 760"/><path class="street" d="M780 -40 L940 760"/><path class="street" d="M832 -40 L992 760"/><path class="street" d="M884 -40 L1044 760"/><path class="street" d="M936 -40 L1096 760"/><path class="street" d="M988 -40 L1148 760"/><path class="street" d="M1040 -40 L1200 760"/><path class="street" d="M1092 -40 L1252 760"/><path class="street" d="M1144 -40 L1304 760"/><path class="street" d="M1196 -40 L1356 760"/><path class="street" d="M1248 -40 L1408 760"/><path class="street" d="M1300 -40 L1460 760"/><path class="street" d="M-40 -52 L1240 -172"/><path class="street" d="M-40 0 L1240 -120"/><path class="street" d="M-40 52 L1240 -68"/><path class="street" d="M-40 104 L1240 -16"/><path class="street" d="M-40 156 L1240 36"/><path class="street" d="M-40 208 L1240 88"/><path class="street" d="M-40 260 L1240 140"/><path class="street" d="M-40 312 L1240 192"/><path class="street" d="M-40 364 L1240 244"/><path class="street" d="M-40 416 L1240 296"/><path class="street" d="M-40 468 L1240 348"/><path class="street" d="M-40 520 L1240 400"/><path class="street" d="M-40 572 L1240 452"/><path class="street" d="M-40 624 L1240 504"/><path class="street" d="M-40 676 L1240 556"/><path class="street" d="M-40 728 L1240 608"/><path class="street" d="M-40 780 L1240 660"/><path class="river" d="M-60 560 C 180 500, 320 640, 520 580 S 860 420, 1000 470 S 1180 560, 1280 520"/></svg>
   <div class="wrap">
     <p class="crumbs"><a href="../index.html">Sovera</a> / Kappers en beauty</p>
     <h1>Website voor je kapsalon of barbershop <span class="hl">in Rotterdam</span></h1>
     <p>Klanten zoeken op hun telefoon naar een kapper in de buurt. Laat ze meteen zien wat je doet, wat het kost en hoe ze een afspraak maken.</p>
-    <div class="hero__cta"><a class="btn" href="#check">Doe de gratis websitecheck</a><a class="btn btn--ghost" href="../index.html#prijzen">Bekijk prijzen</a></div>
+    <div class="hero__cta"><a class="btn" href="#check">Doe de gratis websitecheck <span class="arrow" aria-hidden="true">→</span></a><a class="btn btn--ghost" href="../index.html#prijzen">Bekijk prijzen</a></div>
   </div>
 </section>
 <section class="section">
   <div class="wrap">
-    <h2>Gevonden worden als kapper in Rotterdam</h2>
-    <div class="prose"><p>Wie in Rotterdam zoekt naar een kapper of barber, kiest meestal uit de eerste drie zaken die Google Maps laat zien. Daar sta je alleen als je Google-profiel compleet is en je website snel laadt op een telefoon.</p><p>Een goede site voor een kapsalon is kort: je behandelingen met prijzen, een paar foto's van je werk, je openingstijden en één knop om een afspraak te maken. Gebruik je al een boekingssysteem, dan koppel ik de knop daaraan.</p></div>
-    <div class="needs"><div class="need"><h3>Prijslijst per behandeling</h3><p>Knippen, kleuren, baard: overzichtelijk, zodat klanten niet hoeven te bellen.</p></div><div class="need"><h3>Afspraak maken met één tik</h3><p>Via WhatsApp, bellen of het boekingssysteem dat je al gebruikt.</p></div><div class="need"><h3>Foto's van je werk</h3><p>Laat zien wat je kunt. Je eigen foto's werken het best.</p></div><div class="need"><h3>Gevonden worden op Google Maps</h3><p>Je Google-profiel compleet, met openingstijden en reviews.</p></div></div>
+    <div class="section__head reveal"><p class="label">Kappers en beauty</p><h2>Gevonden worden als kapper in Rotterdam</h2></div>
+    <div class="prose reveal"><p>Wie in Rotterdam zoekt naar een kapper of barber, kiest meestal uit de eerste drie zaken die Google Maps laat zien. Daar sta je alleen als je Google-profiel compleet is en je website snel laadt op een telefoon.</p><p>Een goede site voor een kapsalon is kort: je behandelingen met prijzen, een paar foto's van je werk, je openingstijden en één knop om een afspraak te maken. Gebruik je al een boekingssysteem, dan koppel ik de knop daaraan.</p></div>
+    <div class="needs"><div class="need reveal"><h3>Prijslijst per behandeling</h3><p>Knippen, kleuren, baard: overzichtelijk, zodat klanten niet hoeven te bellen.</p></div><div class="need reveal"><h3>Afspraak maken met één tik</h3><p>Via WhatsApp, bellen of het boekingssysteem dat je al gebruikt.</p></div><div class="need reveal"><h3>Foto's van je werk</h3><p>Laat zien wat je kunt. Je eigen foto's werken het best.</p></div><div class="need reveal"><h3>Gevonden worden op Google Maps</h3><p>Je Google-profiel compleet, met openingstijden en reviews.</p></div></div>
     <a class="demo-link" href="../demos/barbershop.html"><span class="label">Voorbeeld</span><strong>Bekijk de demo van Barbershop De Kade</strong><span>Een verzonnen zaak, zodat je kunt zien en uitproberen hoe het werkt.</span></a>
   </div>
 </section>
 <section class="section section--tint">
   <div class="wrap">
-    <h2>Veelgestelde vragen</h2>
+    <div class="section__head section__head--center"><p class="label">FAQ</p><h2>Veelgestelde vragen</h2></div>
     <div class="faq"><details><summary>Ik gebruik al een boekingssysteem. Kan dat erin?</summary><p>Ja. De knop op je site stuurt klanten naar het systeem dat je nu al gebruikt.</p></details><details><summary>Kan ik zelf mijn prijzen aanpassen?</summary><p>Met het onderhoudspakket stuur je een berichtje en pas ik het aan, meestal binnen 5 werkdagen.</p></details><details><summary>Wat kost het?</summary><p>Website Start kost €495 voor de eerste 3 klanten, daarna €695. Onderhoud is €29 per maand en maandelijks opzegbaar. De domeinnaam komt op jouw naam.</p></details></div>
   </div>
 </section>
-<section id="check" class="section section--tint">
-  <div class="wrap check">
+<section id="check" class="section">
+  <div class="wrap"><div class="check reveal">
     <div class="check__text">
+      <p class="label" style="color:var(--lime)">Gratis websitecheck</p>
       <h2>Hoe scoort jouw website?</h2>
       <p>Vul je website in. Je ziet hoe snel hij is op mobiel en hoe goed Google hem kan lezen. Gratis en zonder verplichtingen.</p>
       <p class="check__note">De check gebruikt Google PageSpeed. Het adres dat je invult gaat naar Google; ik bewaar niets.</p>
@@ -78,12 +83,13 @@
       <div class="check__result" id="check-result" tabindex="-1" aria-live="polite"></div>
       <p class="check__alt">Nog geen eigen website? <a href="#contact">Laat je bedrijfsnaam achter</a>, dan check ik je Google-profiel gratis.</p>
     </div>
-  </div>
+  </div></div>
 </section>
 
 <section id="contact" class="section section--tint">
   <div class="wrap contact">
-    <div class="contact__text">
+    <div class="contact__text reveal">
+      <p class="label">Contact</p>
       <h2>Even kennismaken?</h2>
       <p>Laat je gegevens achter. Ik neem contact op om te kijken wat jouw zaak nodig heeft. Een gesprek kan telefonisch of op afspraak in Rotterdam.</p>
       <div class="contact__direct">
@@ -91,7 +97,7 @@
         <p class="foot__contact" data-email hidden></p>
       </div>
     </div>
-    <form class="form" id="contact-form" novalidate>
+    <form class="form reveal" id="contact-form" novalidate>
       <div class="form__row">
         <div class="field"><label for="c-naam">Je naam</label><input id="c-naam" name="naam" autocomplete="name"></div>
         <div class="field"><label for="c-zaak">Naam van je zaak</label><input id="c-zaak" name="zaak" autocomplete="organization"></div>
@@ -100,7 +106,7 @@
       <div class="field"><label for="c-site">Je website (als je die hebt)</label><input id="c-site" name="website" inputmode="url" placeholder="jouwzaak.nl"></div>
       <div class="field"><label for="c-bericht">Waar kan ik mee helpen?</label><textarea id="c-bericht" name="bericht" placeholder="Bijvoorbeeld: ik heb nog geen site, of mijn site is verouderd."></textarea></div>
       <p class="form__privacy">Ik gebruik je gegevens alleen om contact met je op te nemen. Lees de <a href="../privacy.html">privacyverklaring</a>.</p>
-      <div><button class="btn" type="submit">Verstuur</button></div>
+      <div><button class="btn btn--dark" type="submit">Verstuur <span class="arrow" aria-hidden="true">→</span></button></div>
       <p class="form__status" id="c-status" aria-live="polite"></p>
     </form>
   </div>
@@ -108,20 +114,27 @@
 
 </main>
 <footer class="foot">
-  <div class="wrap foot__inner">
-    <div class="logo logo--foot" role="img" aria-label="Sovera"><span class="wordmark" aria-hidden="true">S<svg class="wordmark__o" viewBox="0 0 32 32"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg>vera</span></div>
-    <nav class="foot__links" aria-label="Branches"><a href="../branches/kappers.html">Kappers en beauty</a><a href="../branches/horeca.html">Horeca</a><a href="../branches/winkels.html">Winkels</a><a href="../branches/bouw.html">Bouw en installatie</a><a href="../branches/zzp.html">Zzp'ers</a></nav>
-    <p class="foot__contact" data-email hidden></p>
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__cta">
+        <h2>Klaar om gevonden te worden?</h2>
+        <div class="hero__cta"><a class="btn" href="../index.html#check">Doe de gratis check <span class="arrow" aria-hidden="true">→</span></a><a class="btn btn--ghost" href="../index.html#contact">Kennismaken</a></div>
+        <p class="foot__contact" data-email hidden></p>
+      </div>
+      <nav class="foot__links" aria-label="Branches"><a href="../branches/kappers.html">Kappers en beauty</a><a href="../branches/horeca.html">Horeca</a><a href="../branches/winkels.html">Winkels</a><a href="../branches/bouw.html">Bouw en installatie</a><a href="../branches/zzp.html">Zzp'ers</a><a href="../index.html#prijzen">Prijzen</a><a href="../index.html#voorbeelden">Voorbeelden</a></nav>
+    </div>
+    <div class="foot__big" aria-hidden="true">S<svg viewBox="0 0 32 32"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg>vera</div>
     <div class="foot__legal">
-      <span>Sovera, Rotterdam</span>
+      <span>© Sovera, Rotterdam</span>
       <span><span class="todo">KvK-nummer volgt</span></span>
       <a href="../privacy.html">Privacy</a>
       <a href="../voorwaarden.html">Voorwaarden</a>
     </div>
   </div>
 </footer>
-<script src="../js/config.js?v=5.1"></script>
-<script src="../js/contact.js?v=5.1"></script>
-<script src="../js/check.js?v=5.1"></script>
+<script src="../js/config.js?v=6.0"></script>
+<script src="../js/contact.js?v=6.0"></script>
+<script src="../js/check.js?v=6.0"></script>
+<script src="../js/ui.js?v=6.0"></script>
 </body>
 </html>
