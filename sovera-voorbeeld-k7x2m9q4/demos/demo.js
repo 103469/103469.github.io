@@ -1,3 +1,5 @@
+// Versie 7: in een iframe (telefoon-preview op de homepage) de terugknop verbergen
+try { if (window.self !== window.top) document.documentElement.classList.add("in-frame"); } catch (e) { document.documentElement.classList.add("in-frame"); }
 // Sovera demo's: gedeelde interactie. Elke functie draait alleen als het onderdeel op de pagina staat.
 (function () {
   const DAGEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];

@@ -41,7 +41,7 @@
   }
 
   if (location.hash === '#bedankt') {
-    setStatus('Verstuurd. Je hoort binnen een paar werkdagen van ons.', 'ok');
+    setStatus('Bedankt, je bericht is binnen! Jayden neemt binnen 2 werkdagen contact met je op. Liever sneller? Bel of app 06 30743596.', 'ok');
     const sec = document.getElementById('contact');
     if (sec) sec.scrollIntoView();
   }
@@ -69,7 +69,12 @@
       el.value = value;
     };
     const zaak = form.elements['zaak'] ? form.elements['zaak'].value.trim() : '';
-    add('_subject', 'Nieuwe aanvraag via de Sovera-site' + (zaak ? ': ' + zaak : ''));
+    // Versie 7: aangevinkte interesses samenvoegen tot één veld (FormSubmit neemt anders alleen de laatste mee)
+    const boxes = Array.from(form.querySelectorAll('input[name="interesse"]'));
+    const picked = boxes.filter((b) => b.checked).map((b) => b.value);
+    add('Interesse', picked.length ? picked.join(', ') : 'Niet aangegeven');
+    boxes.forEach((b) => { b.disabled = true; });
+    add('_subject', 'Nieuwe aanvraag via de Sovera-site' + (zaak ? ': ' + zaak : '') + (picked.length ? ' (' + picked.join(', ') + ')' : ''));
     add('_template', 'table');
     add('_captcha', 'false');
     add('_next', location.href.split('#')[0] + '#bedankt');
