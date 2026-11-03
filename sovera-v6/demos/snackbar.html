@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Snackbar Het Hoekje (demo) | Sovera</title>
+<meta name="description" content="Demosite van Sovera: een verzonnen snackbar in Rotterdam met menukaart, QR-code voor op tafel en openingstijden.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#D3261C">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="demo.css">
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Rubik"; src: url("../fonts/rubik-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Rubik"; src: url("../fonts/rubik-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root {
+  --paper: #FFF5E1; --paper-2: #FCE9C4; --card: #FFFFFF; --ink: #2B1B10; --muted: #6E5646; --line: #EBD6AE;
+  --red: #C8231A; --red-2: #A51C14; --mustard: #F4B400; --green: #2E7A34;
+  --f-head: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --f-body: "Rubik", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+body { background: var(--paper); color: var(--ink); font: 400 17px/1.55 var(--f-body); }
+.w { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--f-head); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+h2 { font-size: clamp(2.1rem, 5.4vw, 3.4rem); }
+.tag { display: inline-block; font: 500 .82rem/1 var(--f-body); color: var(--red); text-transform: uppercase; letter-spacing: .12em; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 22px; border-radius: 14px; border: 3px solid var(--ink); background: var(--red); color: #fff; font: 800 1.05rem/1 var(--f-head); text-decoration: none; cursor: pointer; box-shadow: 4px 4px 0 var(--ink); transition: transform .12s ease, box-shadow .12s ease; }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.btn--y { background: var(--mustard); color: var(--ink); }
+.btn--w { background: #fff; color: var(--ink); }
+section { padding-block: clamp(56px, 9vw, 100px); }
+
+/* Kop */
+.top { background: var(--red); color: #fff; }
+.top .w { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 70px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+.brand__badge { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--mustard); color: var(--ink); font: 800 1.15rem/1 var(--f-head); border: 3px solid var(--ink); transform: rotate(-8deg); }
+.brand b { font: 800 1.45rem/1 var(--f-head); letter-spacing: -.02em; }
+.menu { display: flex; gap: 20px; align-items: center; }
+.menu a:not(.btn) { color: #fff; text-decoration: none; font-weight: 500; }
+.menu .btn { min-height: 42px; padding: 0 16px; font-size: .95rem; box-shadow: 3px 3px 0 var(--ink); }
+@media (max-width: 720px) { .menu a:not(.btn) { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(40px, 7vw, 80px) clamp(56px, 8vw, 96px); background: radial-gradient(circle at 85% 20%, var(--paper-2), transparent 55%), var(--paper); }
+.hero .w { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.hero h1 { font-size: clamp(3rem, 8.5vw, 6.2rem); }
+.hero h1 span { color: var(--red); }
+.hero__lead { margin-top: 18px; font-size: 1.15rem; color: var(--muted); max-width: 42ch; }
+.hero__cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; }
+.open { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; padding: 9px 14px; border-radius: 999px; background: var(--card); border: 2px solid var(--ink); font-weight: 500; }
+.open::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #A08F80; }
+.open.is-open::before { background: #24A148; box-shadow: 0 0 0 4px rgba(36,161,72,.2); }
+.fries { width: 100%; max-width: 440px; justify-self: center; }
+@media (max-width: 820px) { .hero .w { grid-template-columns: 1fr; } .fries { max-width: 300px; order: -1; } }
+
+/* Menu */
+.menu-sec { background: var(--card); border-block: 3px solid var(--ink); }
+.menu-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 18px; }
+.menu-head p { margin-top: 10px; color: var(--muted); }
+.filters { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { min-height: 42px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--ink); background: #fff; font: 500 .95rem/1 var(--f-body); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.count { font-size: .9rem; color: var(--muted); }
+.items { margin-top: 26px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-content: start; padding: 18px; border: 2px solid var(--line); border-radius: 16px; background: var(--paper); }
+.item h3 { font-size: 1.25rem; letter-spacing: -.01em; }
+.item .p { font: 800 1.2rem/1 var(--f-head); color: var(--red-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.item p { grid-column: 1 / -1; color: var(--muted); font-size: .93rem; }
+.item .chips { grid-column: 1 / -1; display: flex; gap: 6px; margin-top: 6px; }
+.item .chips span { font-size: .75rem; font-weight: 500; padding: 3px 8px; border-radius: 999px; background: var(--paper-2); }
+.item .chips .v { background: #DDF0DC; color: var(--green); }
+.item--star { background: var(--mustard); border-color: var(--ink); }
+.item--star p, .item--star .p { color: var(--ink); }
+.sauce { margin-top: 18px; padding: 16px 18px; border-radius: 16px; background: var(--paper-2); font-size: .95rem; }
+.allergy { margin-top: 10px; font-size: .88rem; color: var(--muted); }
+@media (max-width: 900px) { .items { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .items { grid-template-columns: 1fr; } }
+
+/* QR en bestellen */
+.duo .w { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.panel { padding: clamp(22px, 4vw, 36px); border-radius: 22px; border: 3px solid var(--ink); background: var(--card); display: grid; gap: 14px; align-content: start; }
+.panel--red { background: var(--red); color: #fff; }
+.panel.panel--red p { color: #FFE3DD; }
+.panel h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+.panel p { color: var(--muted); }
+.qr { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.qr img { width: 160px; height: 160px; padding: 10px; background: #fff; border: 2px solid var(--ink); border-radius: 12px; }
+.qr small { display: block; color: var(--muted); font-size: .85rem; max-width: 30ch; }
+.order { display: grid; gap: 10px; }
+.order .btn { justify-content: space-between; box-shadow: 4px 4px 0 #5C0E09; border-color: #5C0E09; }
+.order .btn small { font: 500 .85rem/1 var(--f-body); opacity: .8; }
+@media (max-width: 820px) { .duo .w { grid-template-columns: 1fr; } }
+
+/* Tijden */
+.times .w { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(24px, 5vw, 64px); align-items: start; }
+.hours { display: grid; gap: 8px; }
+.hours li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: 12px; background: var(--card); border: 2px solid var(--line); font-variant-numeric: tabular-nums; }
+.hours li.is-today { border-color: var(--ink); background: var(--mustard); font-weight: 500; }
+.where { display: grid; gap: 12px; }
+.where p { color: var(--muted); }
+@media (max-width: 820px) { .times .w { grid-template-columns: 1fr; } }
+
+.reviews .reviews-slot { margin-top: 24px; background: var(--card); color: var(--muted); border-color: var(--line); }
+.reviews .reviews-slot__stars { color: var(--mustard); }
+.reviews b { color: var(--ink); }
+.foot { background: var(--ink); color: #E9D9C4; padding-block: 26px; font-size: .9rem; }
+.foot .w { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+</style>
+</head>
+<body>
+<div class="demo-bar"><div class="demo-bar__inner">
+  <p class="demo-bar__msg"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg><span><b>Demo van Sovera</b> · verzonnen bedrijf<span class="demo-bar__long">, geen echte zaak</span></span></p>
+  <a href="../index.html#voorbeelden">Terug naar Sovera</a>
+</div></div>
+
+<header class="top">
+  <div class="w">
+    <a class="brand" href="#top"><span class="brand__badge" aria-hidden="true">H</span><b>Het Hoekje</b></a>
+    <nav class="menu" aria-label="Menu">
+      <a href="#menu">Menu</a>
+      <a href="#tijden">Tijden</a>
+      <a class="btn btn--y" href="#bestellen">Bestellen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="w">
+    <div>
+      <p class="tag">Snackbar · Rotterdam-Noord</p>
+      <h1>Verse friet, <span>op de hoek.</span></h1>
+      <p class="hero__lead">Elke dag vers gesneden friet, snacks en burgers. Afhalen of laten bezorgen.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#menu">Bekijk het menu</a>
+        <a class="btn btn--w" href="#bestellen">Bestellen</a>
+      </div>
+      <p class="open" data-open-status>Openingstijden laden</p>
+    </div>
+    <svg class="fries" viewBox="0 0 400 420" role="img" aria-label="Tekening van een bakje friet met mayonaise">
+      <circle cx="318" cy="86" r="62" fill="#F4B400" stroke="#2B1B10" stroke-width="4"/>
+      <text x="318" y="78" text-anchor="middle" font-family="Bricolage Grotesque, Arial Black, sans-serif" font-weight="800" font-size="19" fill="#2B1B10">ELKE DAG</text>
+      <text x="318" y="102" text-anchor="middle" font-family="Bricolage Grotesque, Arial Black, sans-serif" font-weight="800" font-size="19" fill="#2B1B10">VERS</text>
+      <g fill="#F7C548" stroke="#2B1B10" stroke-width="4" stroke-linejoin="round">
+        <rect x="128" y="96" width="26" height="150" rx="6" transform="rotate(-12 141 171)"/>
+        <rect x="160" y="70" width="26" height="170" rx="6" transform="rotate(-5 173 155)"/>
+        <rect x="192" y="60" width="26" height="180" rx="6" transform="rotate(2 205 150)"/>
+        <rect x="222" y="78" width="26" height="165" rx="6" transform="rotate(8 235 160)"/>
+        <rect x="252" y="104" width="26" height="140" rx="6" transform="rotate(14 265 174)"/>
+        <rect x="176" y="112" width="24" height="130" rx="6" transform="rotate(-18 188 177)"/>
+        <rect x="236" y="124" width="24" height="120" rx="6" transform="rotate(20 248 184)"/>
+      </g>
+      <path d="M150 196 C 162 166, 198 176, 206 160 C 214 148, 244 156, 250 174 C 268 172, 282 190, 268 204 Z" fill="#FFF6DC" stroke="#2B1B10" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M86 200 H314 L284 404 H116 Z" fill="#C8231A" stroke="#2B1B10" stroke-width="4" stroke-linejoin="round"/>
+      <g stroke="#FFF5E1" stroke-width="12" opacity=".9">
+        <path d="M128 214 L144 392"/><path d="M178 214 L184 392"/><path d="M222 214 L216 392"/><path d="M272 214 L256 392"/>
+      </g>
+      <path d="M86 200 H314 L284 404 H116 Z" fill="none" stroke="#2B1B10" stroke-width="4" stroke-linejoin="round"/>
+      <rect x="78" y="192" width="244" height="22" rx="6" fill="#A51C14" stroke="#2B1B10" stroke-width="4"/>
+    </svg>
+  </div>
+</section>
+
+<section id="menu" class="menu-sec">
+  <div class="w">
+    <div class="menu-head">
+      <div><p class="tag">Menukaart</p><h2>Wat wil je eten?</h2><p>Alle prijzen in euro's, inclusief btw.</p></div>
+      <p class="count" data-filter-count="items" aria-live="polite">20 gerechten</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter het menu" data-filter-group="items">
+      <button type="button" data-filter="alles" aria-pressed="true">Alles</button>
+      <button type="button" data-filter="friet" aria-pressed="false">Friet</button>
+      <button type="button" data-filter="snacks" aria-pressed="false">Snacks</button>
+      <button type="button" data-filter="burgers" aria-pressed="false">Burgers</button>
+      <button type="button" data-filter="kapsalon" aria-pressed="false">Kapsalon</button>
+      <button type="button" data-filter="drinken" aria-pressed="false">Drinken</button>
+      <button type="button" data-filter="vega" aria-pressed="false">Vega</button>
+    </div>
+    <ul class="items" id="items">
+      <li class="item" data-cat="friet vega"><h3>Friet klein</h3><span class="p">€3,20</span><p>Vers gesneden, twee keer gebakken.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="friet vega"><h3>Friet middel</h3><span class="p">€3,90</span><p>De meest bestelde.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="friet vega"><h3>Friet groot</h3><span class="p">€4,70</span><p>Voor de echte trek, of om te delen.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="friet vega"><h3>Patatje oorlog</h3><span class="p">€5,40</span><p>Met mayonaise, satésaus en rauwe uitjes.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="friet vega"><h3>Friet speciaal</h3><span class="p">€4,80</span><p>Mayonaise, curry en uitjes.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="snacks"><h3>Frikandel</h3><span class="p">€2,40</span><p>Ook speciaal te bestellen, +€0,60.</p></li>
+      <li class="item" data-cat="snacks"><h3>Kroket</h3><span class="p">€2,80</span><p>Rundvleeskroket, ook lekker op brood.</p></li>
+      <li class="item" data-cat="snacks vega"><h3>Kaassoufflé</h3><span class="p">€2,60</span><p>Krokant met gesmolten kaas.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="snacks vega"><h3>Vegakroket</h3><span class="p">€2,90</span><p>Plantaardige ragout.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="snacks"><h3>Bamischijf</h3><span class="p">€2,70</span><p>Licht pittig.</p><div class="chips"><span>pittig</span></div></li>
+      <li class="item" data-cat="snacks"><h3>Kipcorn</h3><span class="p">€3,20</span><p>Kip in een krokant jasje.</p></li>
+      <li class="item" data-cat="snacks"><h3>Bitterballen</h3><span class="p">€6,50</span><p>8 stuks met mosterd.</p></li>
+      <li class="item" data-cat="burgers"><h3>Hoekje-burger</h3><span class="p">€8,50</span><p>Rundvlees, cheddar, augurk en huissaus.</p></li>
+      <li class="item" data-cat="burgers"><h3>Kipburger</h3><span class="p">€7,90</span><p>Krokante kip, sla en knoflooksaus.</p></li>
+      <li class="item" data-cat="burgers vega"><h3>Vegaburger</h3><span class="p">€8,20</span><p>Plantaardig, tomaat en rode ui.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item item--star" data-cat="kapsalon"><h3>Kapsalon</h3><span class="p">€9,90</span><p>Friet, shoarma, kaas, salade en knoflooksaus. Een Rotterdamse uitvinding.</p></li>
+      <li class="item item--star" data-cat="kapsalon vega"><h3>Kapsalon vega</h3><span class="p">€9,50</span><p>Met falafel in plaats van shoarma.</p><div class="chips"><span class="v">vega</span></div></li>
+      <li class="item" data-cat="drinken vega"><h3>Blikje fris</h3><span class="p">€2,50</span><p>Cola, cola zero, sinas of 7up.</p></li>
+      <li class="item" data-cat="drinken vega"><h3>Fristi of Chocomel</h3><span class="p">€2,50</span><p>Koud uit de koeling.</p></li>
+      <li class="item" data-cat="drinken vega"><h3>Water</h3><span class="p">€2,00</span><p>Met of zonder bubbels.</p></li>
+    </ul>
+    <p class="sauce"><b>Saus erbij, €0,60:</b> mayonaise, curry, ketchup, satésaus, knoflook of samurai.</p>
+    <p class="allergy">Allergieën? Vraag het aan de balie. Op een echte site komt hier ook de allergenenlijst.</p>
+  </div>
+</section>
+
+<section id="bestellen" class="duo">
+  <div class="w">
+    <div class="panel panel--red">
+      <p class="tag" style="color:#FFE3DD">Bestellen</p>
+      <h2>Afhalen of bezorgen</h2>
+      <p>Bel of app je bestelling en haal hem warm op. Of laat bezorgen via een platform.</p>
+      <div class="order">
+        <a class="btn btn--y" href="#" data-demo="Op een echte site belt deze knop meteen de snackbar.">Bel je bestelling door <small>afhalen</small></a>
+        <a class="btn btn--w" href="#" data-demo="Op een echte site opent deze knop WhatsApp met een kant-en-klaar bericht.">Stuur een WhatsApp <small>afhalen</small></a>
+        <a class="btn btn--w" href="#" data-demo="Op een echte site gaat deze knop naar je pagina op het bezorgplatform.">Laat bezorgen <small>via platform</small></a>
+      </div>
+    </div>
+    <div class="panel">
+      <p class="tag">Op tafel</p>
+      <h2>Scan voor het menu</h2>
+      <div class="qr">
+        <img src="img/qr-hoekje.svg" width="160" height="160" alt="QR-code die deze menukaart opent">
+        <p>Deze QR-code opent het menu op je telefoon. Print hem voor op tafel of naast de kassa.<small>Probeer maar: scan hem met je camera.</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tijden" class="times">
+  <div class="w">
+    <div>
+      <p class="tag">Openingstijden</p>
+      <h2>Wanneer zijn we open?</h2>
+      <ul class="hours" style="margin-top:24px" data-hours='[["15:00","22:00"],null,["16:00","22:00"],["16:00","22:00"],["16:00","22:00"],["12:00","23:00"],["12:00","23:00"]]'>
+        <li data-day="1"><span>Maandag</span><span>Gesloten</span></li>
+        <li data-day="2"><span>Dinsdag</span><span>16:00 – 22:00</span></li>
+        <li data-day="3"><span>Woensdag</span><span>16:00 – 22:00</span></li>
+        <li data-day="4"><span>Donderdag</span><span>16:00 – 22:00</span></li>
+        <li data-day="5"><span>Vrijdag</span><span>12:00 – 23:00</span></li>
+        <li data-day="6"><span>Zaterdag</span><span>12:00 – 23:00</span></li>
+        <li data-day="0"><span>Zondag</span><span>15:00 – 22:00</span></li>
+      </ul>
+    </div>
+    <div class="where">
+      <p class="tag">Adres</p>
+      <h2>Hier vind je ons</h2>
+      <p style="font-size:1.15rem;color:var(--ink)">Voorbeeldstraat 21<br>Rotterdam-Noord</p>
+      <p>Dit adres is verzonnen, net als de zaak.</p>
+      <div><a class="btn btn--w" href="#" data-demo="Op een echte site opent deze knop de route in Google Maps.">Route</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="w">
+    <p class="tag">Reviews</p>
+    <h2>Wat klanten zeggen</h2>
+    <div class="reviews-slot">
+      <span class="reviews-slot__stars" aria-hidden="true">★★★★★</span>
+      <p><b>Hier komen je echte Google-reviews.</b> Sovera verzint geen reviews. Op je site tonen we alleen wat je klanten zelf schreven.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="w"><span>Snackbar Het Hoekje · verzonnen bedrijf</span><span>Demo gemaakt door Sovera</span></div>
+</footer>
+<div class="demo-end"><div class="demo-end__inner">
+  <p>Dit is een voorbeeld. Jouw site krijgt jouw naam, menu, kleuren en foto's, voor een vaste prijs.</p>
+  <a href="../index.html#contact">Wil jij zo'n site?</a>
+</div></div>
+<script src="demo.js"></script>
+</body>
+</html>
