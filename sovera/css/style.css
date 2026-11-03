@@ -456,3 +456,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .js .reveal { opacity: 1; transform: none; }
   .phone { transform: none; }
 }
+
+/* Over ons: twee personen */
+.about--duo { grid-template-columns: minmax(0, 480px) 1fr; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; min-width: 0; }
+.duo .photo { margin: 0; }
+.duo .photo__tag { left: .6rem; right: .6rem; bottom: .6rem; font-size: .76rem; padding: .45rem .6rem; }
+.duo .photo__placeholder svg { width: 44px; height: 44px; }
+.about__contact { font-size: var(--step-0) !important; }
+.about__contact a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 900px) { .about--duo { grid-template-columns: 1fr; } .about .duo { max-width: 480px; } }
