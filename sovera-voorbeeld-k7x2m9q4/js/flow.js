@@ -39,6 +39,7 @@
     bento.querySelectorAll(':scope > .card').forEach((c, i) => c.style.setProperty('--n', i));
   }
   const stackMobile = matchMedia('(max-width: 620px)');
+  const phone = matchMedia('(max-width: 640px)');
 
   function stack(cards) {
     // Hoe ver de volgende kaartjes over dit kaartje heen liggen → klein beetje kleiner en donkerder
@@ -59,6 +60,7 @@
     ticking = true;
     requestAnimationFrame(() => {
       ticking = false;
+      if (phone.matches) return;
       if (flow) stack(flow.querySelectorAll('li'));
       if (bento && stackMobile.matches) stack(bento.querySelectorAll(':scope > .card'));
     });

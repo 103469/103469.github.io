@@ -65,3 +65,11 @@
 @media (prefers-reduced-motion: reduce) {
   .flow--stack li, .bento--stack > .card { position: relative; top: auto; scale: 1; }
 }
+
+/* Telefoon: geen stapelende kaartjes, alles normaal onder elkaar (staat bewust als laatste, zodat dit wint) */
+@media (max-width: 640px) {
+  .flow--stack li, .bento--stack > .card { position: relative !important; top: auto !important; scale: 1 !important; transform: none; min-height: 0; will-change: auto; }
+  .flow--stack li::after, .bento--stack > .card::after { display: none !important; }
+  .flow--stack { padding-bottom: 0; }
+  .bento--stack { padding-bottom: 0; }
+}
