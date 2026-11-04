@@ -42,13 +42,13 @@
       const month = q('[data-calc-onderhoud]').checked ? 29 : 0;
       q('[data-calc-pages]').textContent = pages;
       q('[data-calc-min]').disabled = pages <= 1;
-      q('[data-calc-plus]').disabled = pages >= 8;
+      q('[data-calc-plus]').disabled = pages >= 4;
       q('[data-calc-once]').textContent = euro(once);
       q('[data-calc-month]').textContent = month ? euro(month) : 'geen';
       q('[data-calc-year]').textContent = euro(once + month * 12);
     }
     q('[data-calc-min]').addEventListener('click', (e) => { e.preventDefault(); pages = Math.max(1, pages - 1); update(); });
-    q('[data-calc-plus]').addEventListener('click', (e) => { e.preventDefault(); pages = Math.min(8, pages + 1); update(); });
+    q('[data-calc-plus]').addEventListener('click', (e) => { e.preventDefault(); pages = Math.min(4, pages + 1); update(); });
     q('[data-calc-onderhoud]').addEventListener('change', update);
     q('[data-calc-start]').addEventListener('change', update);
     update();
