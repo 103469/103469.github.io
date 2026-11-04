@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kraan &amp; Ketel (demo) | Sovera</title>
+<meta name="description" content="Demosite van Sovera: een verzonnen installatiebedrijf in Rotterdam met werkgebiedcheck, diensten en offerte aanvragen.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F2B46">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="demo.css?v=7.0">
+<link rel="stylesheet" href="demo-fx.css?v=7.0">
+<style>
+@font-face { font-family: "IBM Plex Sans"; src: url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "IBM Plex Sans"; src: url("../fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "IBM Plex Sans"; src: url("../fonts/ibm-plex-sans-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+:root {
+  --bg: #F4F7FA; --white: #FFFFFF; --navy: #0F2B46; --navy-2: #183D60; --text: #13283D; --muted: #4E6176; --line: #D6DFE8;
+  --orange: #C64A16; --orange-2: #A93D10; --sky: #DDEBF8; --ok: #1D7A46; --no: #9A3B12;
+  --f: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+body { background: var(--bg); color: var(--text); font: 400 17px/1.6 var(--f); }
+.w { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-weight: 700; line-height: 1.12; letter-spacing: -.015em; }
+h2 { font-size: clamp(1.8rem, 4.2vw, 2.6rem); }
+.eyebrow { font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 8px; border: 2px solid var(--orange); background: var(--orange); color: #fff; font: 600 1rem/1 var(--f); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--orange-2); border-color: var(--orange-2); }
+.btn--line { background: transparent; color: inherit; border-color: currentColor; }
+.btn--line:hover { background: rgba(255,255,255,.08); border-color: currentColor; }
+.btn svg { width: 18px; height: 18px; }
+section { padding-block: clamp(56px, 8vw, 96px); }
+
+/* Kop */
+.top { background: var(--white); border-bottom: 1px solid var(--line); }
+.top .w { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 72px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--navy); text-decoration: none; }
+.brand svg { width: 40px; height: 40px; flex: none; }
+.brand b { display: block; font-size: 1.2rem; line-height: 1.1; }
+.brand small { display: block; font-size: .74rem; color: var(--muted); letter-spacing: .04em; }
+.menu { display: flex; gap: 22px; align-items: center; }
+.menu a:not(.btn) { color: var(--text); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.menu .btn { min-height: 42px; padding: 0 14px; font-size: .92rem; }
+@media (max-width: 860px) { .menu a:not(.btn) { display: none; } }
+@media (max-width: 420px) { .brand small { display: none; } }
+
+/* Hero */
+.hero { background: var(--navy); color: #fff; padding-block: clamp(44px, 7vw, 88px); }
+.hero .w { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.hero h1 { font-size: clamp(2.3rem, 5.6vw, 3.9rem); }
+.hero h1 span { color: #FFB089; }
+.hero__lead { margin-top: 18px; color: #C8D6E5; font-size: 1.12rem; max-width: 46ch; }
+.hero__cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+.trust { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px 22px; color: #C8D6E5; font-size: .95rem; }
+.trust li { display: flex; align-items: center; gap: 8px; }
+.trust li::before { content: ""; width: 18px; height: 18px; border-radius: 50%; background: #2E8B57 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; flex: none; }
+.status { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-size: .95rem; color: #C8D6E5; }
+.status::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #8DA0B3; }
+.status.is-open { color: #fff; }
+.status.is-open::before { background: #4ADE80; box-shadow: 0 0 0 4px rgba(74,222,128,.2); }
+
+.pc { background: var(--white); color: var(--text); border-radius: 14px; padding: clamp(22px, 3.5vw, 32px); display: grid; gap: 14px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.pc h2 { font-size: 1.5rem; }
+.pc p { color: var(--muted); font-size: .95rem; }
+.pc__row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pc input { flex: 1 1 160px; min-width: 0; min-height: 50px; padding: 0 14px; border: 2px solid var(--line); border-radius: 8px; background: var(--white); font-size: 1.05rem; text-transform: uppercase; }
+.pc input:focus { border-color: var(--navy); outline: none; }
+.pc__out { min-height: 1.5em; font-weight: 600; font-size: .98rem; }
+.pc__out.is-ok { color: var(--ok); }
+.pc__out.is-no, .pc__out.is-err { color: var(--no); }
+.pc__note { font-size: .82rem !important; }
+@media (max-width: 860px) { .hero .w { grid-template-columns: 1fr; } }
+
+/* Diensten */
+.head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
+.head p { color: var(--muted); max-width: 48ch; margin-top: 10px; }
+.services { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.svc { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+.svc svg { width: 40px; height: 40px; color: var(--navy); }
+.svc h3 { font-size: 1.15rem; }
+.svc p { color: var(--muted); font-size: .95rem; }
+.svc .from { font-weight: 600; color: var(--text); font-size: .95rem; }
+@media (max-width: 900px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .services { grid-template-columns: 1fr; } }
+
+/* Werkwijze */
+.how { background: var(--white); border-block: 1px solid var(--line); }
+.steps { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+.steps li { counter-increment: s; padding: 22px; border-radius: 12px; background: var(--bg); display: grid; gap: 8px; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; }
+.steps p { color: var(--muted); font-size: .95rem; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+/* Voor en na */
+.projects .w { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(24px, 5vw, 56px); align-items: center; }
+.projects p { color: var(--muted); margin-top: 12px; }
+.ba { --pos: 50%; position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 16 / 10; max-width: 100%; border: 1px solid var(--line); background: #ddd; }
+.ba svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ba .after { clip-path: inset(0 0 0 var(--pos)); }
+.ba__line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 3px; margin-left: -1.5px; background: #fff; pointer-events: none; }
+.ba__line::after { content: "‹ ›"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--navy); display: grid; place-items: center; font-weight: 700; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+.ba__tag { position: absolute; top: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(15,43,70,.85); color: #fff; font-size: .8rem; font-weight: 600; pointer-events: none; }
+.ba__tag--l { left: 12px; } .ba__tag--r { right: 12px; }
+.ba input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.ba:focus-within { outline: 3px solid #3DDC84; outline-offset: 3px; }
+.ba-cap { margin-top: 10px; font-size: .88rem; color: var(--muted); }
+@media (max-width: 860px) { .projects .w { grid-template-columns: 1fr; } }
+
+/* Offerte */
+.quote { background: var(--navy); color: #fff; }
+.quote .w { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(24px, 5vw, 64px); align-items: start; }
+.quote .lead { color: #C8D6E5; margin-top: 12px; }
+.quote .side { margin-top: 24px; display: grid; gap: 10px; color: #C8D6E5; font-size: .95rem; }
+.quote .side li { display: flex; align-items: center; gap: 8px; }
+.quote .side li::before { content: "✓"; color: #FFB089; font-weight: 700; }
+.card { background: var(--white); color: var(--text); border-radius: 14px; padding: clamp(20px, 3.5vw, 32px); }
+.prog { display: grid; gap: 8px; margin-bottom: 20px; }
+.prog span { font-size: .85rem; font-weight: 600; color: var(--muted); }
+.prog i { --p: 33%; display: block; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--orange) var(--p), var(--line) var(--p)); }
+fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 14px; min-width: 0; }
+legend { font-size: 1.25rem; font-weight: 700; padding: 0; margin-bottom: 14px; }
+.opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.opt span { display: grid; gap: 2px; height: 100%; padding: 14px; border: 2px solid var(--line); border-radius: 10px; font-weight: 600; }
+.opt small { font-weight: 400; color: var(--muted); font-size: .85rem; }
+.opt input:checked + span { border-color: var(--orange); background: #FFF3EC; }
+.opt input:focus-visible + span { outline: 3px solid #3DDC84; outline-offset: 2px; }
+.f { display: grid; gap: 6px; }
+.f label { font-weight: 600; font-size: .95rem; }
+.f input, .f textarea, .f select { width: 100%; min-height: 48px; padding: 10px 12px; border: 2px solid var(--line); border-radius: 8px; background: var(--white); }
+.f textarea { min-height: 100px; resize: vertical; }
+.f input[aria-invalid="true"] { border-color: var(--no); }
+.f small { color: var(--muted); font-size: .82rem; }
+.nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+.nav .btn--back { background: transparent; color: var(--text); border-color: var(--line); }
+.err { color: var(--no); font-weight: 600; min-height: 1.5em; margin-top: 12px; font-size: .95rem; }
+.done { display: grid; gap: 12px; }
+.done h3 { font-size: 1.4rem; }
+.done p { color: var(--muted); }
+@media (max-width: 860px) { .quote .w { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .opts { grid-template-columns: 1fr; } }
+
+/* Vertrouwen en FAQ */
+.facts .w { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 56px); }
+.kv { margin-top: 22px; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.kv li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.kv li span:first-child { color: var(--muted); }
+.kv li.is-today { font-weight: 600; }
+.kv li.is-today span:first-child { color: var(--text); }
+.reviews-slot { margin-top: 22px; background: var(--white); color: var(--muted); border-color: var(--line); }
+.reviews-slot__stars { color: #E2A33B; }
+.reviews-slot b { color: var(--text); }
+details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+summary { cursor: pointer; font-weight: 600; }
+details p { color: var(--muted); margin-top: 8px; }
+.faq { margin-top: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .facts .w { grid-template-columns: 1fr; } }
+
+.foot { background: var(--white); border-top: 1px solid var(--line); padding-block: 24px; color: var(--muted); font-size: .9rem; }
+.foot .w { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+
+/* v6.2 upgrade */
+.hero { position: relative; overflow: hidden; background: radial-gradient(60% 80% at 90% 0%, rgba(24,61,96,.9), transparent 70%), var(--navy); }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(180deg, #000, transparent 90%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 90%); pointer-events: none; }
+.hero .w { position: relative; }
+.hero h1 { font-size: clamp(2.3rem, 5vw, 3.7rem); }
+.strip { padding-block: clamp(30px, 5vw, 50px); background: var(--white); border-bottom: 1px solid var(--line); }
+.stats b { color: var(--navy); font-weight: 700; letter-spacing: -.02em; }
+.stats span { color: var(--muted); opacity: 1; }
+.svc { transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .25s ease; }
+.svc:hover { transform: translateY(-5px); border-color: var(--navy); box-shadow: 0 22px 40px -24px rgba(15,43,70,.45); }
+.svc:hover svg { color: var(--orange); }
+.btn { transition: transform .15s ease, background .2s ease; }
+.btn:hover { transform: translateY(-2px); }
+.dock { --dk-bg: #0F2B46; --dk-line: rgba(255,255,255,.25); --dk-fg: #fff; --dk-main: #C64A16; --dk-main-fg: #fff; --dk-r: 10px; }
+
+</style>
+</head>
+<body data-dock='[["Offerte","#offerte","main"],["Spoed? Bel","#","","Op een echte site belt deze knop direct het spoednummer."]]'>
+<div class="demo-bar"><div class="demo-bar__inner">
+  <p class="demo-bar__msg"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg><span><b>Demo van Sovera</b> · verzonnen bedrijf<span class="demo-bar__long">, geen echte zaak</span></span></p>
+  <a class="demo-back" href="../index.html#voorbeelden"><span aria-hidden="true">←</span> Terug naar Sovera</a>
+</div></div>
+
+<header class="top">
+  <div class="w">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#0F2B46"/><path d="M20 8c4.6 6 7.5 10.2 7.5 14.2A7.5 7.5 0 0 1 12.5 22.2C12.5 18.2 15.4 14 20 8z" fill="#fff"/><circle cx="20" cy="22.5" r="3.2" fill="#C64A16"/></svg>
+      <span><b>Kraan &amp; Ketel</b><small>Installatietechniek · Rotterdam</small></span>
+    </a>
+    <nav class="menu" aria-label="Menu">
+      <a href="#diensten">Diensten</a>
+      <a href="#projecten">Projecten</a>
+      <a href="#offerte">Offerte</a>
+      <a class="btn" href="#" data-demo="Op een echte site belt deze knop direct het spoednummer.">Spoed? Bel</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="w">
+    <div>
+      <p class="eyebrow" style="color:#FFB089">Rotterdam en omgeving</p>
+      <h1>Lekkage, cv-ketel of nieuwe badkamer? <span>Vaak dezelfde week geregeld.</span></h1>
+      <p class="hero__lead">Je installateur in de regio. Je krijgt vooraf een vaste prijs, zonder verrassingen achteraf.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#offerte">Vraag een offerte aan</a>
+        <a class="btn btn--line" href="#" data-demo="Op een echte site belt deze knop direct het spoednummer.">Spoed? Bel direct</a>
+      </div>
+      <ul class="trust">
+        <li>Vaste prijs vooraf</li>
+        <li>Ma t/m za bereikbaar</li>
+        <li>KvK-gegevens op de site</li>
+      </ul>
+      <p class="status" data-open-status>Bereikbaarheid laden</p>
+    </div>
+    <form class="pc" id="pc-form" novalidate>
+      <h2>Komen wij bij jou?</h2>
+      <p>Vul je postcode in en zie meteen of je in ons werkgebied woont.</p>
+      <div class="pc__row">
+        <label class="sr" for="pc-input" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Postcode</label>
+        <input id="pc-input" name="postcode" placeholder="3011 AB" autocomplete="postal-code" inputmode="text" maxlength="7">
+        <button class="btn" type="submit">Check</button>
+      </div>
+      <p class="pc__out" id="pc-out" aria-live="polite"></p>
+      <p class="pc__note">Werkgebied: Rotterdam, Schiedam, Vlaardingen, Capelle, Krimpen, Barendrecht en Ridderkerk.</p>
+    </form>
+  </div>
+</section>
+
+<section class="strip"><div class="w"><div class="stats">
+  <div><b>Sinds 1998</b><span>Familiebedrijf in de regio</span></div>
+  <div><b>&lt; 24 uur</b><span>Reactie op je aanvraag</span></div>
+  <div><b>2 jaar</b><span>Garantie op ons werk</span></div>
+  <div><b>Vaste prijs</b><span>Vooraf, geen verrassingen</span></div>
+</div></div></section>
+
+<section id="diensten">
+  <div class="w">
+    <div class="head">
+      <div><p class="eyebrow">Diensten</p><h2>Waar kunnen we mee helpen?</h2><p>Van een druppende kraan tot een complete badkamer. Indicatieprijzen, de exacte prijs hoor je vooraf.</p></div>
+    </div>
+    <ul class="services">
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 5c6 7.6 9.5 12.8 9.5 17.6a9.5 9.5 0 0 1-19 0C10.5 17.8 14 12.6 20 5z"/><path d="M15.5 23.5a4.5 4.5 0 0 0 4.5 4.5"/></svg><h3>Lekkage en verstopping</h3><p>Lekkende kraan, natte plek of verstopte afvoer. Snel opgelost.</p><p class="from">Vanaf €85</p></li>
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="22" r="12"/><path d="M20 22l6-6"/><path d="M12 30h16"/><path d="M20 6v4"/></svg><h3>Cv-ketel onderhoud</h3><p>Jaarlijkse beurt, zodat je ketel veilig en zuinig blijft.</p><p class="from">€99 per beurt</p></li>
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="5" width="20" height="26" rx="3"/><path d="M15 31v4M25 31v4"/><path d="M20 12c2.4 3 3.6 5 3.6 6.8a3.6 3.6 0 0 1-7.2 0c0-1.8 1.2-3.8 3.6-6.8z"/></svg><h3>Nieuwe cv-ketel</h3><p>Advies, levering en montage. De oude ketel nemen we mee.</p><p class="from">Vanaf €2.150</p></li>
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 35V10a5 5 0 0 1 10 0"/><path d="M17 15h10"/><path d="M19 20v2M23 20v3M27 20v2M21 26v2M25 26v2"/></svg><h3>Badkamer en toilet</h3><p>Renovatie van begin tot eind, of alleen het sanitair.</p><p class="from">Op offerte</p></li>
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="9" width="30" height="22" rx="3"/><circle cx="17" cy="20" r="6"/><path d="M17 14v12M11 20h12M13 16l8 8M21 16l-8 8"/><path d="M28 15v10"/></svg><h3>Hybride warmtepomp</h3><p>Eerlijk advies of het bij jouw huis past, en installatie.</p><p class="from">Op offerte</p></li>
+      <li class="svc"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 14h12a4 4 0 0 1 4 4v4a4 4 0 0 0 4 4h10"/><path d="M5 10v8M35 22v8"/><path d="M14 11v6"/></svg><h3>Leidingwerk</h3><p>Water- en gasleidingen verleggen of vervangen.</p><p class="from">Op offerte</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="how">
+  <div class="w">
+    <p class="eyebrow">Werkwijze</p>
+    <h2>Zo gaat het</h2>
+    <ol class="steps">
+      <li><h3>Aanvraag</h3><p>Vul het formulier in of bel. Een foto van het probleem helpt.</p></li>
+      <li><h3>Vaste prijs</h3><p>Je krijgt vooraf een prijs. Pas als je akkoord bent, plannen we in.</p></li>
+      <li><h3>Klus klaar</h3><p>We werken netjes en ruimen op. Je betaalt pas als het werkt.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="projecten" class="projects">
+  <div class="w">
+    <div>
+      <p class="eyebrow">Projecten</p>
+      <h2>Voor en na</h2>
+      <p>Sleep de schuif om het verschil te zien. Op een echte site staan hier foto's van je eigen projecten.</p>
+    </div>
+    <div>
+      <div class="ba">
+        <svg viewBox="0 0 800 500" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="oud" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#8E7D5D"/><rect x="2" y="2" width="36" height="36" fill="#CDB98F"/><rect x="2" y="2" width="36" height="8" fill="#D8C69E"/></pattern></defs>
+          <rect width="800" height="500" fill="url(#oud)"/>
+          <rect x="0" y="390" width="800" height="110" fill="#7A5F48"/>
+          <rect x="70" y="300" width="380" height="120" rx="18" fill="#E7C7C2" stroke="#9B7E78" stroke-width="6"/>
+          <rect x="90" y="300" width="340" height="24" rx="10" fill="#F3DAD5"/>
+          <path d="M120 300v-120h40" fill="none" stroke="#A7A7A7" stroke-width="10" stroke-linecap="round"/>
+          <rect x="540" y="110" width="150" height="120" rx="8" fill="#B9C7CC" stroke="#8A7656" stroke-width="10"/>
+          <rect x="560" y="270" width="110" height="130" rx="10" fill="#E9E1D2" stroke="#9B8A70" stroke-width="6"/>
+        </svg>
+        <svg class="after" viewBox="0 0 800 500" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="nieuw" width="200" height="100" patternUnits="userSpaceOnUse"><rect width="200" height="100" fill="#D3D9DE"/><rect x="1.5" y="1.5" width="197" height="97" fill="#ECEFF1"/></pattern></defs>
+          <rect width="800" height="500" fill="url(#nieuw)"/>
+          <rect x="0" y="400" width="800" height="100" fill="#55595E"/>
+          <rect x="60" y="60" width="300" height="340" fill="#BFD9EA" opacity=".35" stroke="#1F2328" stroke-width="6"/>
+          <path d="M210 60v40" stroke="#1F2328" stroke-width="8"/>
+          <rect x="160" y="100" width="100" height="12" rx="6" fill="#1F2328"/>
+          <g stroke="#9CC3DD" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M175 125v40M195 125v55M215 125v45M235 125v60M250 125v35"/></g>
+          <rect x="500" y="250" width="240" height="70" rx="6" fill="#A57A52"/>
+          <rect x="560" y="236" width="120" height="20" rx="10" fill="#FFFFFF" stroke="#C9CED3" stroke-width="3"/>
+          <path d="M620 236v-40h22" fill="none" stroke="#1F2328" stroke-width="7" stroke-linecap="round"/>
+          <rect x="545" y="70" width="150" height="130" rx="65" fill="#DCE8EF" stroke="#1F2328" stroke-width="5"/>
+        </svg>
+        <span class="ba__line" aria-hidden="true"></span>
+        <span class="ba__tag ba__tag--l">Voor</span><span class="ba__tag ba__tag--r">Na</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Schuif om voor en na te vergelijken">
+      </div>
+      <p class="ba-cap">Badkamer, voorbeeldproject (tekening, geen echte foto).</p>
+    </div>
+  </div>
+</section>
+
+<section id="offerte" class="quote">
+  <div class="w">
+    <div>
+      <p class="eyebrow" style="color:#FFB089">Offerte</p>
+      <h2>Vraag een vaste prijs aan</h2>
+      <p class="lead">Drie korte stappen. Je hoort binnen 1 werkdag van ons.</p>
+      <ul class="side">
+        <li>Geen verplichtingen</li>
+        <li>Prijs vooraf, inclusief voorrijden</li>
+        <li>Spoed? Bel liever direct</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="prog" data-progress-wrap><span data-progress-label>Stap 1 van 3</span><i data-progress></i></div>
+      <form id="offerte-form" novalidate>
+        <fieldset data-step>
+          <legend>Wat is de klus?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="klus" value="lekkage"><span>Lekkage of verstopping<small>Kraan, afvoer, natte plek</small></span></label>
+            <label class="opt"><input type="radio" name="klus" value="ketel"><span>Cv-ketel<small>Storing, onderhoud of nieuw</small></span></label>
+            <label class="opt"><input type="radio" name="klus" value="badkamer"><span>Badkamer of toilet<small>Renovatie of sanitair</small></span></label>
+            <label class="opt"><input type="radio" name="klus" value="anders"><span>Iets anders<small>Leg het in de volgende stap uit</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset data-step hidden>
+          <legend>Waar en wat?</legend>
+          <div class="f"><label for="o-postcode">Postcode</label><input id="o-postcode" name="postcode" autocomplete="postal-code" placeholder="3011 AB" maxlength="7"></div>
+          <div class="f"><label for="o-wanneer">Wanneer?</label><select id="o-wanneer" name="wanneer"><option>Zo snel mogelijk</option><option>Binnen 2 weken</option><option>Geen haast</option></select></div>
+          <div class="f"><label for="o-wat">Omschrijving</label><textarea id="o-wat" name="omschrijving" placeholder="Bijvoorbeeld: de kraan in de keuken blijft druppen."></textarea><small>Een foto kun je later via WhatsApp sturen.</small></div>
+        </fieldset>
+        <fieldset data-step hidden>
+          <legend>Hoe bereiken we je?</legend>
+          <div class="f"><label for="o-naam">Naam</label><input id="o-naam" name="naam" autocomplete="name"></div>
+          <div class="f"><label for="o-tel">Telefoonnummer</label><input id="o-tel" name="telefoon" type="tel" autocomplete="tel" placeholder="06 12345678"></div>
+          <div class="f"><label for="o-mail">E-mail (mag leeg)</label><input id="o-mail" name="email" type="email" autocomplete="email"></div>
+        </fieldset>
+        <p class="err" data-err aria-live="polite"></p>
+        <div class="nav">
+          <button class="btn btn--back" type="button" data-nav="terug">Terug</button>
+          <button class="btn" type="button" data-nav="verder" data-next>Volgende stap</button>
+          <button class="btn" type="submit" data-send hidden>Verstuur aanvraag</button>
+        </div>
+      </form>
+      <div class="done" id="offerte-done" hidden tabindex="-1">
+        <h3>Gelukt, in de demo.</h3>
+        <p>Er is niets echt verstuurd. Op een echte site komt deze aanvraag direct binnen bij het bedrijf, per mail of WhatsApp, en krijg jij een bevestiging.</p>
+        <div><button class="btn" type="button">Opnieuw proberen</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="facts">
+  <div class="w">
+    <div>
+      <p class="eyebrow">Gegevens</p>
+      <h2>Wie zijn wij?</h2>
+      <ul class="kv" data-hours='[null,["07:30","18:00"],["07:30","18:00"],["07:30","18:00"],["07:30","18:00"],["07:30","18:00"],["09:00","14:00"]]' data-open-word="bereikbaar">
+        <li><span>KvK-nummer</span><span>00000000 (demo)</span></li>
+        <li><span>Adres</span><span>Voorbeeldweg 3, Rotterdam (verzonnen)</span></li>
+        <li data-day="1 2 3 4 5"><span>Maandag t/m vrijdag</span><span>07:30 – 18:00</span></li>
+        <li data-day="6"><span>Zaterdag</span><span>09:00 – 14:00</span></li>
+        <li data-day="0"><span>Zondag</span><span>Alleen spoed</span></li>
+      </ul>
+      <div class="reviews-slot">
+        <span class="reviews-slot__stars" aria-hidden="true">★★★★★</span>
+        <p><b>Hier komen je echte Google-reviews.</b> Sovera verzint geen reviews. Op je site tonen we alleen wat je klanten zelf schreven.</p>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Vragen</p>
+      <h2>Veelgestelde vragen</h2>
+      <div class="faq">
+        <details><summary>Wat kost voorrijden?</summary><p>Voorrijden zit in de prijs die je vooraf krijgt. Je betaalt dus nooit los voor de rit.</p></details>
+        <details><summary>Komen jullie ook in het weekend?</summary><p>Op zaterdag tot 14:00. Bij spoed, zoals een flinke lekkage, ook op zondag.</p></details>
+        <details><summary>Krijg ik garantie?</summary><p>Ja. Op ons werk krijg je garantie, op onderdelen geldt de garantie van de fabrikant.</p></details>
+        <details><summary>Kan ik met pin betalen?</summary><p>Ja, met pin op locatie of via een betaallink na de klus.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="w"><span>Kraan &amp; Ketel · verzonnen bedrijf</span><span>Demo gemaakt door Sovera</span></div>
+</footer>
+<div class="demo-end"><div class="demo-end__inner">
+  <p>Dit is een voorbeeld. Jouw site krijgt jouw naam, werkgebied, diensten en foto's, voor een vaste prijs.</p>
+  <a href="../index.html#contact">Wil jij zo'n site?</a>
+</div></div>
+<script src="demo-fx.js?v=7.0"></script>
+<script src="demo.js?v=7.0"></script>
+</body>
+</html>

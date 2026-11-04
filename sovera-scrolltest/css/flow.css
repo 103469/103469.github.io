@@ -1,0 +1,67 @@
+/* Sovera scrolltest: stapelende kaartjes + zachtere fades */
+
+/* Fades iets rustiger en overal gelijk */
+.js .reveal { transform: translateY(32px); transition-duration: 1s, 1s; }
+
+/* ---------- Werkwijze: kaartjes die over elkaar schuiven ---------- */
+.flow--stack {
+  grid-template-columns: 1fr !important;
+  gap: 1.4rem;
+  max-width: 860px;
+  margin-inline: auto;
+  padding-bottom: 2rem;
+}
+.flow--stack li {
+  position: sticky;
+  top: calc(96px + var(--n, 0) * 18px);
+  grid-template-columns: auto 1fr;
+  column-gap: 1.6rem;
+  align-items: center;
+  min-height: 190px;
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+  border-radius: 26px;
+  transform-origin: 50% 0;
+  scale: var(--s, 1);
+  will-change: scale;
+}
+.flow--stack li::after {
+  /* donkerder waas als er een kaartje overheen ligt */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: var(--night); opacity: calc(var(--d, 0) * .35);
+}
+.flow--stack .flow__n {
+  grid-row: span 2;
+  width: clamp(56px, 8vw, 84px); height: clamp(56px, 8vw, 84px);
+  font-size: clamp(1.4rem, 3vw, 2.2rem); margin: 0;
+}
+.flow--stack h3 { font-size: clamp(1.25rem, 2.4vw, 1.7rem); align-self: end; }
+.flow--stack p { font-size: 1.02rem; max-width: 52ch; align-self: start; }
+/* laatste kaartje: donker, als afsluiter */
+.flow--stack li:last-child { background: var(--night); color: var(--on-night); box-shadow: none; }
+.flow--stack li:last-child p { color: var(--on-night-muted); }
+.flow--stack li:last-child .flow__n { background: var(--lime); color: var(--night); }
+
+@media (max-width: 520px) {
+  .flow--stack li { top: calc(84px + var(--n, 0) * 12px); min-height: 0; column-gap: 1rem; }
+}
+
+/* ---------- Wat je krijgt: stapelen alleen op telefoon ---------- */
+@media (max-width: 620px) {
+  .bento--stack { gap: 1.1rem; padding-bottom: 1rem; }
+  .bento--stack > .card {
+    position: sticky;
+    top: calc(84px + var(--n, 0) * 12px);
+    transform-origin: 50% 0;
+    scale: var(--s, 1);
+    will-change: scale;
+  }
+  .bento--stack > .card::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: var(--night); opacity: calc(var(--d, 0) * .35);
+  }
+  .bento--stack > .card:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow--stack li, .bento--stack > .card { position: relative; top: auto; scale: 1; }
+}
