@@ -843,3 +843,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .who__row p { color: var(--ink-2); font-size: 1.08rem; line-height: 1.7; max-width: 58ch; }
 @media (max-width: 860px) { .who { grid-template-columns: 1fr; gap: 1.4rem; } .who__head { position: static; } .who__head h2 { max-width: none; } }
 @media (max-width: 640px) { .who__row { padding: 1.1rem 0; } .who__row p { font-size: 1rem; } }
+
+.who__row--photo { grid-template-columns: 120px minmax(0, 1fr); gap: 1.4rem; align-items: start; }
+.who__txt { display: grid; gap: .5rem; min-width: 0; }
+.who__photo { margin: 0; aspect-ratio: 4/5; border-radius: 14px; overflow: hidden; background: var(--line); display: grid; place-items: center; }
+.who__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.who__photo span { font: 600 2.4rem/1 var(--f-display, inherit); color: var(--muted); }
+@media (max-width: 640px) { .who__row--photo { grid-template-columns: 84px minmax(0, 1fr); gap: 1rem; } .who__photo span { font-size: 1.8rem; } }
