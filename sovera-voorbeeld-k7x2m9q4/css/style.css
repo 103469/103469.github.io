@@ -831,22 +831,21 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .foot__top { gap: 1.4rem; }
 }
 
-/* ===== Wie zijn wij (7.14): rustig, tekst voorop ===== */
-.who { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-.who__head { position: sticky; top: 110px; display: grid; gap: 1.1rem; }
-.who__head h2 { max-width: 14ch; }
-.who__contact { margin: .6rem 0 0; color: var(--ink-2); line-height: 1.8; }
-.who__contact a { color: var(--ink); text-decoration-color: var(--accent-text); text-underline-offset: 3px; }
-.who__row { display: grid; gap: .5rem; padding: 1.6rem 0; border-top: 1px solid var(--line); }
-.who__row:last-child { border-bottom: 1px solid var(--line); }
-.who__row h3 { font-size: 1.15rem; }
-.who__row p { color: var(--ink-2); font-size: 1.08rem; line-height: 1.7; max-width: 58ch; }
-@media (max-width: 860px) { .who { grid-template-columns: 1fr; gap: 1.4rem; } .who__head { position: static; } .who__head h2 { max-width: none; } }
-@media (max-width: 640px) { .who__row { padding: 1.1rem 0; } .who__row p { font-size: 1rem; } }
-
-.who__row--photo { grid-template-columns: 120px minmax(0, 1fr); gap: 1.4rem; align-items: start; }
-.who__txt { display: grid; gap: .5rem; min-width: 0; }
-.who__photo { margin: 0; aspect-ratio: 4/5; border-radius: 14px; overflow: hidden; background: var(--line); display: grid; place-items: center; }
-.who__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.who__photo span { font: 600 2.4rem/1 var(--f-display, inherit); color: var(--muted); }
-@media (max-width: 640px) { .who__row--photo { grid-template-columns: 84px minmax(0, 1fr); gap: 1rem; } .who__photo span { font-size: 1.8rem; } }
+/* ===== Wie zijn wij (7.16): donker, met foto's groot ===== */
+.about-night .section__head h2 { color: var(--on-night); max-width: 20ch; margin-inline: auto; }
+.about-night .label { color: var(--lime); }
+.crew { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; max-width: 980px; margin: 2.4rem auto 0; }
+.crew__card { display: grid; gap: 1.2rem; padding: 1rem 1rem 1.6rem; border-radius: 28px; background: rgba(255,255,255,.04); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); align-content: start; }
+.crew__photo { margin: 0; aspect-ratio: 4/3.4; border-radius: 20px; overflow: hidden; display: grid; place-items: center; background: radial-gradient(120% 90% at 50% 0%, rgba(74,222,128,.28), rgba(74,222,128,.04) 60%), #12171d; }
+.crew__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.crew__photo span { font: 700 clamp(3.4rem, 8vw, 5.5rem)/1 var(--f-display, inherit); color: var(--lime); opacity: .85; }
+.crew__txt { display: grid; gap: .5rem; padding: 0 .7rem; }
+.crew__role { margin: 0; font: 500 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--lime); }
+.crew__txt h3 { font-size: 1.9rem; color: var(--on-night); }
+.crew__txt p:not(.crew__role) { color: var(--on-night-muted); line-height: 1.7; }
+.crew__story { max-width: 760px; margin: 2.6rem auto 0; text-align: center; display: grid; gap: .9rem; justify-items: center; }
+.crew__story > p:not(.label):not(.crew__contact) { color: var(--on-night); font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.6; }
+.crew__contact { margin: .6rem 0 0; color: var(--on-night-muted); font-size: .98rem; }
+.crew__contact a { color: var(--on-night); text-underline-offset: 3px; text-decoration-color: var(--lime); }
+@media (max-width: 760px) { .crew { grid-template-columns: 1fr; } .crew__photo { aspect-ratio: 4/3; } }
+@media (max-width: 640px) { .crew__card { border-radius: 20px; padding: .7rem .7rem 1.2rem; } .crew__txt h3 { font-size: 1.5rem; } }
