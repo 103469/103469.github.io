@@ -39,7 +39,7 @@
     function update() {
       const base = q('[data-calc-start]').checked ? 299 : 499;
       const once = base + (pages - 1) * 149;
-      const month = q('[data-calc-onderhoud]').checked ? 29 : 0;
+      const month = Number(q('[data-calc-onderhoud]').value);
       q('[data-calc-pages]').textContent = pages;
       q('[data-calc-min]').disabled = pages <= 1;
       q('[data-calc-plus]').disabled = pages >= 5;
