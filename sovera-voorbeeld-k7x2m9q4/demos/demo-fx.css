@@ -19,7 +19,7 @@
 @media (max-width: 760px) {
   .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 55; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); background: var(--dk-bg, #111); border-top: 1px solid var(--dk-line, rgba(255,255,255,.15)); box-shadow: 0 -12px 30px -16px rgba(0,0,0,.5); }
   .dock a { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: var(--dk-r, 10px); border: 1px solid var(--dk-line, rgba(255,255,255,.2)); color: var(--dk-fg, #fff); text-decoration: none; font: 700 .95rem/1 var(--dk-font, inherit); letter-spacing: .04em; text-transform: var(--dk-tt, none); }
-  .dock a.is-main { background: var(--dk-main, #C6F25A); border-color: var(--dk-main, #C6F25A); color: var(--dk-main-fg, #11180A); }
+  .dock a.is-main { background: var(--dk-main, #4ADE80); border-color: var(--dk-main, #4ADE80); color: var(--dk-main-fg, #11180A); }
   body.has-dock { padding-bottom: 76px; }
   body.has-dock .demo-toast { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
 }

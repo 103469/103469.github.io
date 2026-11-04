@@ -23,7 +23,7 @@
       stoer: { f: '"Oswald", "Arial Narrow", Impact, sans-serif', w: 700, up: 'uppercase', ls: '.02em' },
       klassiek: { f: 'Georgia, "Iowan Old Style", "Times New Roman", serif', w: 700, up: 'none', ls: '-.01em' }
     };
-    const st = { name: 'Jouw Zaak', type: 'kapper', color: '#C6F25A', font: 'modern' };
+    const st = { name: 'Jouw Zaak', type: 'kapper', color: '#4ADE80', font: 'modern' };
     const $ = (sel) => cs.querySelector(sel);
     function lum(hex) {
       const n = parseInt(hex.slice(1), 16), c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });

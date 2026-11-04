@@ -11,22 +11,22 @@ h1, h2, h3, p, ul, ol, figure { margin: 0; }
 h1, h2, h3 { text-wrap: balance; overflow-wrap: break-word; }
 ul, ol { padding: 0; list-style: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid #C6F25A; outline-offset: 3px; }
+:focus-visible { outline: 3px solid #4ADE80; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 
 /* Demobalk bovenaan: altijd zichtbaar, zodat niemand denkt dat dit een echte zaak is */
 .demo-bar { position: sticky; top: 0; z-index: 60; background: #0B0D10; color: #F3F4EF; font: 500 13px/1.35 "Archivo", system-ui, sans-serif; padding-block: 9px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .demo-bar__inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; }
 .demo-bar__msg { display: flex; align-items: center; gap: 8px; }
-.demo-bar__msg svg { width: 15px; height: 15px; fill: #C6F25A; flex: none; }
-.demo-bar b { font-weight: 700; color: #C6F25A; }
+.demo-bar__msg svg { width: 15px; height: 15px; fill: #4ADE80; flex: none; }
+.demo-bar b { font-weight: 700; color: #4ADE80; }
 .demo-bar a { color: #F3F4EF; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 @media (max-width: 560px) { .demo-bar__long { display: none; } }
 
 /* Melding na een klik op een demoknop */
-.demo-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 80; width: min(460px, calc(100% - 32px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: #0B0D10; color: #F3F4EF; border: 1px solid #C6F25A; border-radius: 12px; padding: 12px 16px; font: 500 14px/1.45 "Archivo", system-ui, sans-serif; box-shadow: 0 18px 40px -18px rgba(0,0,0,.55); transition: opacity .2s ease, transform .2s ease; }
+.demo-toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 80; width: min(460px, calc(100% - 32px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: #0B0D10; color: #F3F4EF; border: 1px solid #4ADE80; border-radius: 12px; padding: 12px 16px; font: 500 14px/1.45 "Archivo", system-ui, sans-serif; box-shadow: 0 18px 40px -18px rgba(0,0,0,.55); transition: opacity .2s ease, transform .2s ease; }
 .demo-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
-.demo-toast::before { content: "Demo · "; color: #C6F25A; font-weight: 700; }
+.demo-toast::before { content: "Demo · "; color: #4ADE80; font-weight: 700; }
 
 /* Plek waar later echte reviews komen */
 .reviews-slot { display: grid; gap: 8px; padding: 22px; border: 2px dashed currentColor; border-radius: 14px; opacity: .9; }
@@ -36,12 +36,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .demo-end { background: #0B0D10; color: #F3F4EF; font: 500 15px/1.5 "Archivo", system-ui, sans-serif; padding-block: 28px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .demo-end__inner { max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; }
 .demo-end p { max-width: 60ch; }
-.demo-end a { display: inline-flex; align-items: center; padding: 12px 18px; border-radius: 999px; background: #C6F25A; color: #11180A; font-weight: 700; text-decoration: none; }
+.demo-end a { display: inline-flex; align-items: center; padding: 12px 18px; border-radius: 999px; background: #4ADE80; color: #11180A; font-weight: 700; text-decoration: none; }
 
 /* Versie 7: duidelijke terugknop naar Sovera */
-.demo-bar a.demo-back { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: #C6F25A; color: #11180A; font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 0 0 3px rgba(198,242,90,.25); transition: transform .15s ease, box-shadow .15s ease; }
+.demo-bar a.demo-back { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: #4ADE80; color: #11180A; font-weight: 700; font-size: 14px; text-decoration: none; box-shadow: 0 0 0 3px rgba(74,222,128,.25); transition: transform .15s ease, box-shadow .15s ease; }
 .demo-bar a.demo-back span { font-size: 17px; line-height: 1; }
-.demo-bar a.demo-back:hover { transform: translateX(-2px); box-shadow: 0 0 0 5px rgba(198,242,90,.3); }
+.demo-bar a.demo-back:hover { transform: translateX(-2px); box-shadow: 0 0 0 5px rgba(74,222,128,.3); }
 .demo-bar__inner { flex-wrap: nowrap; }
 @media (max-width: 560px) { .demo-bar { padding-block: 7px; } .demo-bar__msg span span, .demo-bar__msg > span { font-size: 12px; } .demo-bar a.demo-back { padding: 8px 12px; font-size: 13px; } }
 /* In de telefoon-preview op de homepage geen terugknop tonen */
