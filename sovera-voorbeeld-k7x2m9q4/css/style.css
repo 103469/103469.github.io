@@ -849,3 +849,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .crew__contact a { color: var(--on-night); text-underline-offset: 3px; text-decoration-color: var(--lime); }
 @media (max-width: 760px) { .crew { grid-template-columns: 1fr; } .crew__photo { aspect-ratio: 4/3; } }
 @media (max-width: 640px) { .crew__card { border-radius: 20px; padding: .7rem .7rem 1.2rem; } .crew__txt h3 { font-size: 1.5rem; } }
+
+.crew__photo img { object-position: 50% 22%; }
+.crew__photo { aspect-ratio: 1 / 1; }
+.crew__photo img { object-position: 50% 12%; }
+@media (max-width: 760px) { .crew__photo { aspect-ratio: 1 / 1; } }
