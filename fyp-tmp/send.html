@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><title>sending</title><body style="background:#111;color:#fff;font:16px sans-serif">Sending thumbnails...
+<script>
+(async () => {
+  const names = ["t1.jpg", "t2.jpg", "t3.jpg", "t4.jpg"];
+  const files = [];
+  for (const n of names) {
+    const r = await fetch(n, { cache: "no-store" });
+    files.push({ name: n, type: "image/jpeg", buf: await r.arrayBuffer() });
+  }
+  const target = window.opener;
+  if (target) {
+    target.postMessage({ fyp: true, files }, "https://create.roblox.com");
+    document.body.textContent = "Sent " + files.length + " thumbnails. You can close this tab.";
+  } else {
+    document.body.textContent = "No opener window.";
+  }
+})();
+</script>
