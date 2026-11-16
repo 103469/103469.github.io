@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Snackbar Het Hoekje · demo van Sovera</title>
+<meta name="description" content="Demo van Sovera: website voor een snackbar met menu, filter, bestelling en QR-code voor op tafel. Verzonnen zaak.">
+<style>
+@font-face{font-family:Fraunces;font-weight:900;src:url(../fonts/fraunces-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Fraunces;font-weight:700;src:url(../fonts/fraunces-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:400;src:url(../fonts/dm-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:500;src:url(../fonts/dm-sans-latin-500-normal.woff2) format("woff2")}
+:root{--cream:#fff4d9;--paper:#fffaf0;--red:#d8261b;--yel:#ffc21a;--brown:#2a1a0f;--line:#ecd9ac;--mut:#6b5740;--green:#2f8a4c}
+*{box-sizing:border-box;margin:0}body{background:var(--cream);color:var(--brown);font:17px/1.5 DM,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit}.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.demo{background:var(--brown);color:#f6e7c6;font-size:13.5px;text-align:center;padding:8px 14px}.demo a{font-weight:500}
+header{background:var(--red);color:#fff;border-bottom:4px solid var(--brown)}header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font:900 28px Fraunces;text-decoration:none;letter-spacing:-.01em}.logo span{color:var(--yel)}
+nav{display:flex;gap:22px;align-items:center;font-weight:500;font-size:15px}nav a{text-decoration:none}
+.btn{display:inline-block;font:700 17px DM;font-weight:500;padding:14px 22px;background:var(--yel);color:var(--brown);text-decoration:none;border:3px solid var(--brown);border-radius:999px;cursor:pointer;min-height:48px;box-shadow:0 4px 0 var(--brown)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brown)}.btn.w{background:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.hero{background:radial-gradient(circle,#e9c97a55 2px,transparent 2.5px) 0 0/22px 22px;position:relative}.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding-top:44px;padding-bottom:70px}
+.chip{display:inline-flex;gap:9px;align-items:center;background:var(--paper);border:2px solid var(--brown);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500;margin-bottom:20px}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--green)}.chip.closed i{background:var(--red)}
+h1{font:900 clamp(52px,8.4vw,112px)/.94 Fraunces;letter-spacing:-.035em}h1 em{font-style:normal;color:var(--red)}
+.lead{font-size:20px;max-width:30ch;margin:22px 0 30px;color:var(--mut)}.ctas{display:flex;gap:14px;flex-wrap:wrap}
+.art{justify-self:center;position:relative;width:min(420px,100%)}.art svg{width:100%;height:auto;display:block}
+.stk{position:absolute;right:-6px;top:6px;background:var(--yel);border:3px solid var(--brown);border-radius:50%;width:116px;height:116px;display:grid;place-items:center;text-align:center;font:900 19px/1.05 Fraunces;transform:rotate(10deg)}
+.band{background:var(--brown);color:var(--yel);overflow:hidden;white-space:nowrap;font:900 20px Fraunces;padding:14px 0;letter-spacing:.02em}.band span{margin:0 22px}
+section{padding:64px 0}h2{font:900 clamp(38px,5vw,64px)/.98 Fraunces;letter-spacing:-.03em;margin-bottom:10px}
+.sub{color:var(--mut);font-size:18px;margin-bottom:26px;max-width:46ch}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}.fc{font:500 16px DM;border:3px solid var(--brown);background:var(--paper);border-radius:999px;padding:10px 18px;cursor:pointer;min-height:46px}.fc[aria-pressed=true]{background:var(--brown);color:var(--yel)}
+#menu{background:#fff;border-top:4px solid var(--brown);border-bottom:4px solid var(--brown)}.items{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.menu{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+.it{display:grid;grid-template-columns:64px 1fr;grid-template-rows:auto auto;gap:4px 14px;align-items:center;padding:16px;background:var(--paper);border:3px solid var(--brown);border-radius:20px;box-shadow:5px 5px 0 var(--brown);position:relative}.it .ic{grid-row:1/3;width:64px;height:64px;border-radius:50%;background:var(--yel);border:3px solid var(--brown);display:grid;place-items:center;padding:8px}.it .ic svg{width:100%;height:100%}.it .bt{display:flex;justify-content:space-between;align-items:center;gap:10px;grid-column:2}.it[data-c=vega] .ic{background:#bfe6c9}.it[data-c=drank] .ic{background:#cfe6f7}.it[data-c=snack] .ic{background:#f6d6a8}
+.it h3{font:700 21px Fraunces;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.it p{color:var(--mut);font-size:15px}.vega{font:500 11px DM;letter-spacing:.08em;background:var(--green);color:#fff;border-radius:4px;padding:2px 7px}
+.it b{font:900 22px Fraunces}.add{width:46px;height:46px;border-radius:50%;border:3px solid var(--brown);background:var(--yel);font:900 26px/1 Fraunces;cursor:pointer;box-shadow:0 3px 0 var(--brown)}.add:active{transform:translateY(2px);box-shadow:none}
+.cart{position:sticky;top:18px;background:var(--paper);border:3px solid var(--brown);border-radius:22px;padding:22px;box-shadow:8px 8px 0 var(--brown)}
+.cart h3{font:900 26px Fraunces}.cart ul{list-style:none;padding:0;margin:14px 0}.cart li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:16px}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:44px;height:44px;border-radius:50%;border:2px solid var(--brown);background:#fff;font-weight:700;cursor:pointer}
+.tot{display:flex;justify-content:space-between;font:900 24px Fraunces;margin:14px 0}.emp{color:var(--mut);font-size:15px}
+.note{margin-top:14px;font-size:14px;background:#fff;border:2px solid var(--brown);border-radius:12px;padding:12px;white-space:pre-wrap}
+.qr{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;background:var(--red);color:#fff;border:4px solid var(--brown);border-radius:28px;padding:34px;box-shadow:10px 10px 0 var(--brown)}
+.qr .code{background:#fff;padding:16px;border-radius:16px;width:190px}.qr .code svg{width:100%;height:auto;display:block}.qr h2{margin-bottom:8px}.qr p{font-size:18px;max-width:36ch}
+.hrs{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px;max-width:640px}.hrs div{display:flex;justify-content:space-between;padding:11px 0;border-bottom:2px dashed var(--line)}.hrs .today{font-weight:500;color:var(--red)}
+footer{background:var(--brown);color:#e9d8b3;padding:30px 0 100px;font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.bar{display:none}
+@media(max-width:860px){.items{grid-template-columns:1fr}nav a:not(.btn){display:none}.hero .wrap,.menu{grid-template-columns:1fr}.hero .wrap{padding-bottom:40px}.cart{position:static}.qr{grid-template-columns:1fr;padding:24px}.hrs{grid-template-columns:1fr}.art{order:-1;width:260px;justify-self:start}.stk{width:92px;height:92px;font-size:15px}
+.bar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:6}.bar .btn{width:100%;display:flex;justify-content:space-between}}
+</style></head><body>
+<div class="demo">Dit is een <strong>demo van Sovera</strong>: een verzonnen zaak, geen echte klant. Er wordt niets verstuurd. <a href="../index.html">Terug naar Sovera</a></div>
+<header><div class="wrap"><a class="logo" href="#">Het <span>Hoekje</span></a><nav><a href="#menu">Menu</a><a href="#tafel">QR op tafel</a><a href="#tijden">Tijden</a><a class="btn w" href="#menu" style="padding:8px 16px;min-height:42px;box-shadow:none">Bestellen</a></nav></div></header>
+<main>
+<div class="hero"><div class="wrap"><div>
+<div class="chip" id="chip"><i></i><span id="chipt">Even checken…</span></div>
+<h1>Verse friet,<br><em>op de hoek.</em></h1>
+<p class="lead">Elke dag vers gesneden friet, snacks en burgers. Afhalen of lekker op de bank.</p>
+<div class="ctas"><a class="btn" href="#menu">Bekijk het menu</a><a class="btn w" href="#tijden">Openingstijden</a></div></div>
+<div class="art" aria-hidden="true"><svg viewBox="0 0 400 440"><g stroke="#2a1a0f" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+<g fill="#ffc21a"><rect x="108" y="60" width="26" height="170" rx="6" transform="rotate(-14 121 145)"/><rect x="148" y="30" width="26" height="190" rx="6" transform="rotate(-6 161 125)"/><rect x="188" y="20" width="26" height="200" rx="6"/><rect x="228" y="34" width="26" height="188" rx="6" transform="rotate(7 241 128)"/><rect x="268" y="62" width="26" height="168" rx="6" transform="rotate(15 281 146)"/></g>
+<path d="M92 200 H308 L282 410 Q280 422 268 422 H132 Q120 422 118 410Z" fill="#d8261b"/>
+<path d="M104 262 H296 M110 318 H290" stroke="#fff4d9" stroke-width="22" fill="none" opacity=".92"/></g></svg><div class="stk">Elke dag<br>vers</div></div></div></div>
+<div class="band" aria-hidden="true"><span>FRIET</span><span>★</span><span>KROKET</span><span>★</span><span>FRIKANDEL</span><span>★</span><span>KAPSALON</span><span>★</span><span>VEGA</span><span>★</span><span>MILKSHAKE</span><span>★</span><span>FRIET</span><span>★</span><span>KROKET</span></div>
+
+<section id="menu"><div class="wrap"><h2>Het menu.</h2><p class="sub">Filter op wat je zin hebt. Tik op de plus om je bestelling samen te stellen.</p>
+<div class="chips" id="chips" role="group" aria-label="Filter menu"></div>
+<div class="menu"><div class="items" id="list"></div>
+<aside class="cart" aria-live="polite"><h3>Jouw bestelling</h3><div id="cart"><p class="emp">Nog niks gekozen.</p></div></aside></div></div></section>
+
+<section id="tafel"><div class="wrap"><div class="qr"><div class="code" id="qr" role="img" aria-label="QR-code naar het menu (demo)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#2b1b10" d="M2 2.5h7m3 0h1m7 0h3m2 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m2 0h2m1 0h1m2 0h2m1 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m4 0h6m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h5m2 0h2m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m1 0h1m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h3m3 0h1m1 0h1m1 0h7m-25 1h1m1 0h5m6 0h2m1 0h2m1 0h1m2 0h1m3 0h5m-31 1h1m3 0h2m1 0h1m1 0h2m2 0h2m1 0h4m1 0h3m2 0h2m1 0h2m1 0h1m-33 1h1m1 0h1m1 0h1m1 0h5m2 0h5m2 0h3m2 0h2m1 0h1m1 0h2m-32 1h2m1 0h2m2 0h1m1 0h1m1 0h3m2 0h7m3 0h1m1 0h4m-31 1h4m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m2 0h2m1 0h1m1 0h2m1 0h3m-28 1h1m1 0h2m1 0h4m2 0h1m1 0h1m1 0h2m2 0h1m1 0h2m1 0h2m2 0h3m-33 1h1m1 0h1m3 0h1m1 0h3m1 0h1m2 0h2m3 0h1m3 0h6m1 0h1m-32 1h1m6 0h1m5 0h3m2 0h1m2 0h2m2 0h3m1 0h2m-30 1h1m2 0h3m1 0h1m1 0h3m1 0h2m1 0h2m3 0h4m1 0h2m3 0h1m-33 1h1m1 0h2m1 0h1m1 0h2m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m1 0h3m1 0h2m1 0h1m-33 1h5m1 0h2m3 0h2m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h2m-31 1h1m8 0h4m1 0h2m4 0h1m1 0h1m3 0h4m1 0h1m-33 1h1m1 0h1m1 0h3m2 0h1m3 0h2m3 0h2m2 0h1m1 0h2m2 0h2m1 0h2m-33 1h4m4 0h1m1 0h1m3 0h4m2 0h4m1 0h2m5 0h1m-33 1h1m1 0h2m2 0h1m1 0h1m2 0h3m3 0h1m1 0h1m1 0h2m6 0h1m1 0h1m-32 1h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h3m1 0h1m2 0h3m3 0h3m1 0h2m-31 1h1m1 0h2m2 0h1m1 0h1m2 0h2m4 0h1m1 0h1m2 0h7m-21 1h7m1 0h9m3 0h1m1 0h1m1 0h1m-33 1h7m3 0h1m2 0h1m1 0h3m3 0h4m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h2m2 0h2m1 0h4m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m3 0h2m4 0h1m2 0h6m-30 1h1m1 0h3m1 0h1m1 0h2m5 0h1m2 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h3m4 0h3m2 0h2m-28 1h1m5 0h1m3 0h2m2 0h2m2 0h1m2 0h2m2 0h1m2 0h3m-31 1h7m1 0h4m2 0h2m1 0h1m4 0h3m2 0h1m3 0h1"/></svg></div><div><h2>Scan het menu op tafel.</h2><p>Zet deze QR-code op je tafels of bij de kassa. Gasten openen het menu direct op hun telefoon, ook als je het morgen aanpast.</p></div></div></div></section>
+
+<section id="tijden"><div class="wrap"><h2>Wanneer we open zijn.</h2><div class="hrs" id="hrs"></div><p class="sub" style="margin-top:22px">Demo-adres: Voorbeeldstraat 1, Rotterdam. Bellen: 010 000 00 00 (demo).</p></div></section>
+</main>
+<footer><div class="wrap"><span>© Snackbar Het Hoekje (demo)</span><span>Website door <a href="../index.html">Sovera Studio</a></span></div></footer>
+<div class="bar"><a class="btn" href="#menu"><span>Bestelling bekijken</span><span id="barn">€ 0,00</span></a></div>
+<script>
+const M=[["Friet klein","Vers gesneden, met zout","friet",3.00],["Friet groot","Voor twee, of voor jezelf","friet",4.00],["Friet speciaal","Mayo, ketchup en uitjes","friet",4.50],["Kroket","Rundvlees, krokant","snack",2.20],["Frikandel","Van de grill","snack",2.10],["Kipcorn","Mals en gepaneerd","snack",2.60],["Bamischijf","Pittig, met een knapperig randje","snack",2.30],["Vega-kroket","Groentenragout","vega",2.40],["Falafelburger","Met sla en knoflooksaus","vega",5.50],["Kapsalon","Friet, kebab, kaas en sla","snack",9.50],["Milkshake","Vanille, aardbei of chocola","drank",3.50],["Cola","Blikje 33 cl","drank",2.50]];
+const CAT={all:"Alles",friet:"Friet",snack:"Snacks",vega:"Vega",drank:"Drinken"};let f="all";const cart={};
+const eur=n=>"€ "+n.toFixed(2).replace(".",",");const $=id=>document.getElementById(id);
+const H={0:[12,22],1:[12,22],2:[12,22],3:[12,22],4:[12,22],5:[12,23],6:[12,23]};const DL=["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"];
+const p=new Intl.DateTimeFormat("en-US",{timeZone:"Europe/Amsterdam",weekday:"short",hour:"numeric",minute:"numeric",hourCycle:"h23"}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t).value;
+const wd=["sun","mon","tue","wed","thu","fri","sat"].indexOf(g("weekday").toLowerCase()),nh=+g("hour")+(+g("minute"))/60;
+const fm=h=>String(h).padStart(2,"0")+":00";
+(()=>{const t=H[wd],c=$("chip"),x=$("chipt");if(nh>=t[0]&&nh<t[1]){x.textContent="Nu open · tot "+fm(t[1])}else{c.classList.add("closed");x.textContent=nh<t[0]?"Nu gesloten · open vanaf "+fm(t[0]):"Nu gesloten · morgen open vanaf "+fm(12)}})();
+$("hrs").innerHTML=[1,2,3,4,5,6,0].map(d=>`<div class="${d===wd?"today":""}"><span>${DL[d][0].toUpperCase()+DL[d].slice(1)}</span><span>${fm(H[d][0])} – ${fm(H[d][1])}</span></div>`).join("");
+function chips(){$("chips").innerHTML=Object.keys(CAT).map(k=>{const n=k==="all"?M.length:M.filter(m=>m[2]===k).length;return `<button class="fc" data-k="${k}" aria-pressed="${f===k}">${CAT[k]} (${n})</button>`}).join("")}
+const IC={"friet": "<svg viewBox=\"0 0 64 64\"><g stroke=\"#2a1a0f\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g fill=\"#ffc21a\"><rect x=\"16\" y=\"6\" width=\"8\" height=\"30\" rx=\"3\" transform=\"rotate(-10 20 21)\"/><rect x=\"27\" y=\"4\" width=\"8\" height=\"32\" rx=\"3\"/><rect x=\"38\" y=\"6\" width=\"8\" height=\"30\" rx=\"3\" transform=\"rotate(10 42 21)\"/></g><path d=\"M12 32H52L48 58H16Z\" fill=\"#d8261b\"/></g></svg>", "snack": "<svg viewBox=\"0 0 64 64\"><g stroke=\"#2a1a0f\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"8\" y=\"22\" width=\"48\" height=\"20\" rx=\"10\" fill=\"#d98a2b\"/><path d=\"M20 28v8M30 28v8M40 28v8\" stroke=\"#fff4d9\" opacity=\".8\"/></g></svg>", "vega": "<svg viewBox=\"0 0 64 64\"><g stroke=\"#2a1a0f\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><path d=\"M10 54C10 24 28 10 54 10 54 38 40 54 10 54Z\" fill=\"#2f8a4c\"/><path d=\"M10 54L38 26\" fill=\"none\" stroke=\"#fff4d9\"/></g></svg>", "drank": "<svg viewBox=\"0 0 64 64\"><g stroke=\"#2a1a0f\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><path d=\"M16 18H48L44 58H20Z\" fill=\"#fff\"/><path d=\"M17 30H47L44 58H20Z\" fill=\"#d8261b\"/><path d=\"M34 18L40 4H48\" fill=\"none\"/></g></svg>"};
+function list(){$("list").innerHTML=M.map((m,i)=>({m,i})).filter(o=>f==="all"||o.m[2]===f).map(({m,i})=>`<div class="it" data-c="${m[2]}"><div class="ic" aria-hidden="true">${IC[m[2]]}</div><div><h3>${m[0]}${m[2]==="vega"?'<span class="vega">VEGA</span>':""}</h3><p>${m[1]}</p></div><div class="bt"><b>${eur(m[3])}</b><button class="add" data-i="${i}" aria-label="Voeg ${m[0]} toe">+</button></div></div>`).join("")}
+function render(){const ks=Object.keys(cart).filter(k=>cart[k]>0);let tot=0;
+ if(!ks.length){$("cart").innerHTML='<p class="emp">Nog niks gekozen.</p>';$("barn").textContent=eur(0);return}
+ const li=ks.map(k=>{const m=M[k];tot+=m[3]*cart[k];return `<li><span>${m[0]}</span><span class="qty"><button data-d="-1" data-i="${k}" aria-label="Minder">−</button>${cart[k]}<button data-d="1" data-i="${k}" aria-label="Meer">+</button></span></li>`}).join("");
+ $("cart").innerHTML=`<ul>${li}</ul><div class="tot"><span>Totaal</span><span>${eur(tot)}</span></div><button class="btn" id="order" style="width:100%">Bestelling doorsturen</button><div id="note"></div>`;$("barn").textContent=eur(tot);
+ $("order").onclick=()=>{const txt="Hoi Het Hoekje, ik wil graag bestellen:\n"+ks.map(k=>cart[k]+"x "+M[k][0]).join("\n")+"\nTotaal: "+eur(tot);
+  $("note").innerHTML='<div class="note"><strong>Demo:</strong> zo komt een bestelling binnen (per WhatsApp of mail). Er is niets verstuurd.<br><br>'+txt.replace(/\n/g,"<br>")+"</div>"}}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.k){f=b.dataset.k;chips();list()}
+ else if(b.classList.contains("add")){cart[b.dataset.i]=(cart[b.dataset.i]||0)+1;render()}
+ else if(b.dataset.d){cart[b.dataset.i]=Math.max(0,(cart[b.dataset.i]||0)+ +b.dataset.d);render()}});
+chips();list();render();
+</script></body></html>

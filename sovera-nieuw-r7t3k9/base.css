@@ -1,0 +1,15 @@
+@font-face{font-family:Archivo;font-weight:400;src:url(fonts/archivo-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:500;src:url(fonts/archivo-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:700;src:url(fonts/archivo-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:900;src:url(fonts/archivo-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Bricolage;font-weight:800;src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:500;src:url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:DM,system-ui,sans-serif;font-size:17px;line-height:1.55}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.star{width:1em;height:1em;fill:currentColor;vertical-align:-.12em}

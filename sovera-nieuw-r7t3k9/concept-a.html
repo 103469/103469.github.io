@@ -1,0 +1,75 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sovera · concept A Container</title><style>@font-face{font-family:Archivo;font-weight:400;src:url(fonts/archivo-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:500;src:url(fonts/archivo-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:700;src:url(fonts/archivo-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:900;src:url(fonts/archivo-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Bricolage;font-weight:800;src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:500;src:url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:DM,system-ui,sans-serif;font-size:17px;line-height:1.55}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.star{width:1em;height:1em;fill:currentColor;vertical-align:-.12em}
+
+:root{--ink:#15130f;--paper:#ece6d6;--rust:#c2441f;--blue:#1d3c5e;--yel:#f1b80c}
+body{background:var(--paper);color:var(--ink)}
+header{background:var(--ink);color:var(--paper)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.wm{font-family:Archivo;font-weight:900;font-size:26px;letter-spacing:-.02em}.wm-o{color:var(--yel)}
+nav{display:flex;gap:28px;align-items:center;font-size:15px}nav a{text-decoration:none;opacity:.85}
+.btn{display:inline-block;font-family:Archivo;font-weight:900;text-transform:uppercase;letter-spacing:.02em;font-size:15px;padding:15px 22px;background:var(--yel);color:var(--ink);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);text-decoration:none}
+header .btn{padding:10px 16px;font-size:13px;box-shadow:none;border-color:var(--yel)}
+.btn.ghost{background:transparent;box-shadow:none}
+.hero{padding:64px 0 88px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.plate{display:inline-block;font-family:Mono;font-size:13px;letter-spacing:.08em;border:2px solid var(--ink);padding:6px 10px;margin-bottom:24px;background:#fff8}
+h1{font-family:Archivo;font-weight:900;text-transform:uppercase;font-size:clamp(44px,6vw,88px);line-height:.92;letter-spacing:-.035em}
+h1 em{font-style:normal;color:var(--rust)}
+.lead{font-size:20px;max-width:34ch;margin:28px 0 32px;color:#3a352b}
+.ctas{display:flex;gap:16px;flex-wrap:wrap}
+.stack{display:grid;gap:14px}
+.box{position:relative;padding:26px 28px 30px;color:#fff;border:3px solid var(--ink);
+background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.16) 0 3px,transparent 3px 16px);box-shadow:8px 8px 0 var(--ink)}
+.box::before,.box::after{content:"";position:absolute;top:-3px;width:18px;height:18px;background:var(--ink)}
+.box::before{left:-3px}.box::after{right:-3px}
+.box b{display:block;font-family:Archivo;font-weight:900;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.03em}
+.box span{display:block;margin-top:8px;font-size:16px;max-width:26ch}
+.box i{position:absolute;right:16px;bottom:10px;font:500 11px Mono;letter-spacing:.12em;opacity:.7;font-style:normal}
+.b1{background-color:var(--rust);margin-right:56px}.b2{background-color:var(--blue);margin-left:56px}.b3{background-color:var(--yel);color:var(--ink);margin-right:20px}
+.tape{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;font:500 13px Mono;letter-spacing:.16em;padding:14px 0}
+.tape span{margin:0 22px}.tape .s{color:var(--yel)}
+.sec{background:var(--blue);color:#fff;padding:88px 0 96px;background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.14) 0 3px,transparent 3px 22px)}
+.sec .lab{font:500 13px Mono;letter-spacing:.14em;color:var(--yel)}
+h2{font-family:Archivo;font-weight:900;text-transform:uppercase;font-size:clamp(34px,5vw,64px);line-height:.95;letter-spacing:-.03em;margin:14px 0 18px;max-width:16ch}
+.sec p.in{max-width:52ch;opacity:.9;font-size:19px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.card{background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:8px 8px 0 #000}
+.card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-bottom:3px solid var(--ink)}
+.card div{padding:18px 20px 22px}.card small{font:500 12px Mono;letter-spacing:.1em;color:var(--rust)}
+.card h3{font-family:Archivo;font-weight:900;font-size:22px;line-height:1.1;margin:8px 0 8px;letter-spacing:-.02em}
+.card p{font-size:15.5px;color:#4a4436}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:40px}.cards{grid-template-columns:1fr}nav a{display:none}.b1,.b2,.b3{margin:0}.hero{padding:40px 0 56px}}
+</style></head><body>
+<header><div class="wrap"><span class="wm">S<svg class="star wm-o" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg>vera</span><nav><a href="#">Wat je krijgt</a><a href="#">Voor wie</a><a href="#">Voorbeelden</a><a href="#">Prijzen</a><a class="btn" href="#">Gratis check</a></nav></div></header>
+<section class="hero"><div class="wrap">
+<div><div class="plate">SVR · ROTTERDAM · VASTE PRIJS</div>
+<h1>Jouw zaak online. <em>Goed geregeld.</em></h1>
+<p class="lead">Een snelle website en een compleet Google-profiel voor een vaste prijs. Jij runt je zaak, wij zorgen dat klanten je vinden.</p>
+<div class="ctas"><a class="btn" href="#">Doe de gratis websitecheck</a><a class="btn ghost" href="#">Bekijk voorbeelden</a></div></div>
+<div class="stack">
+<div class="box b1"><b>€299</b><span>eenmalig, vaste prijs</span><i>SVRU 2990001</i></div>
+<div class="box b2"><b>2–3 weken</b><span>online nadat alles binnen is</span><i>SVRU 0230002</i></div>
+<div class="box b3"><b>€29/mnd</b><span>onderhoud, als je dat wilt. Opzegbaar.</span><i>SVRU 0290003</i></div>
+</div></div></section>
+<div class="tape"><span>KAPPERS</span><span class="s">■</span><span>BARBERSHOPS</span><span class="s">■</span><span>SNACKBARS</span><span class="s">■</span><span>RESTAURANTS</span><span class="s">■</span><span>INSTALLATEURS</span><span class="s">■</span><span>SCHILDERS</span><span class="s">■</span><span>WINKELS</span><span class="s">■</span><span>COACHES</span><span class="s">■</span><span>FOTOGRAFEN</span></div>
+<section class="sec"><div class="wrap"><div class="lab">VOORBEELDEN · 03 DEMO'S</div>
+<h2>Zo ziet jouw site eruit. Klik maar.</h2>
+<p class="in">Drie demo's van verzonnen zaken, geen echte klanten. Probeer ze uit: menu filteren, afspraak kiezen, offerte aanvragen. Jouw site krijgt jouw kleuren, foto's en teksten.</p>
+<div class="cards">
+<a class="card" href="#" style="text-decoration:none"><img src="img/demo-barbershop.jpg" alt="Demo barbershop"><div><small>DEMO · KAPPERS</small><h3>Afspraak maken met één tik</h3><p>Prijslijst per behandeling, live openingstijden en een afspraak kiezen in een paar tikken.</p></div></a>
+<a class="card" href="#" style="text-decoration:none"><img src="img/demo-snackbar.jpg" alt="Demo snackbar"><div><small>DEMO · HORECA</small><h3>Menu en openingstijden direct in beeld</h3><p>Menu filteren op friet, snacks of vega, plus een QR-code die je op tafel zet.</p></div></a>
+<a class="card" href="#" style="text-decoration:none"><img src="img/demo-installateur.jpg" alt="Demo installateur"><div><small>DEMO · BOUW EN INSTALLATIE</small><h3>Snel een offerte aanvragen</h3><p>Postcodecheck voor het werkgebied, voor-en-na-schuif en een offerte in 3 stappen.</p></div></a>
+</div></div></section></body></html>

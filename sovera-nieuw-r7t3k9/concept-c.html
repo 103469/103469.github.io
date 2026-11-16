@@ -1,0 +1,77 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sovera · concept C Gevonden</title><style>@font-face{font-family:Archivo;font-weight:400;src:url(fonts/archivo-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:500;src:url(fonts/archivo-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:700;src:url(fonts/archivo-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Archivo;font-weight:900;src:url(fonts/archivo-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:Bricolage;font-weight:800;src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:400;src:url(fonts/dm-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:500;src:url(fonts/dm-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:500;src:url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:DM,system-ui,sans-serif;font-size:17px;line-height:1.55}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.star{width:1em;height:1em;fill:currentColor;vertical-align:-.12em}
+
+:root{--ink:#12202b;--land:#e6eddc;--water:#b9d7e8;--park:#c8dfb4;--pin:#ff5a36;--lime:#c6f432}
+body{background:#fff;color:var(--ink)}
+.map{position:relative;background:var(--land);overflow:hidden}
+.map svg.bg{position:absolute;inset:0;width:100%;height:100%}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;position:relative;z-index:3}
+.wm{font-family:Bricolage;font-weight:800;font-size:28px;letter-spacing:-.03em}.wm-o{color:var(--pin)}
+nav{display:flex;gap:28px;align-items:center;font-size:15px}nav a{text-decoration:none}
+.btn{display:inline-block;font-family:Bricolage;font-weight:800;font-size:17px;padding:15px 24px;border-radius:14px;background:var(--ink);color:#fff;text-decoration:none}
+header .btn{padding:10px 18px;font-size:15px}.btn.ghost{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.hero{position:relative;z-index:2;padding:36px 0 90px}
+.hero .wrap{display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:start}
+h1{font-family:Bricolage;font-weight:800;font-size:clamp(46px,6.6vw,96px);line-height:.96;letter-spacing:-.045em}
+.lead{font-size:21px;max-width:34ch;margin:26px 0 32px}
+.ctas{display:flex;gap:14px;flex-wrap:wrap}
+.facts{display:flex;gap:12px;margin-top:36px}.facts div{background:#fffd;border-radius:14px;padding:12px 14px;flex:1}
+.facts b{font-family:Bricolage;font-weight:800;font-size:28px;display:block;line-height:1}.facts span{font-size:14px}
+.search{background:#fff;border-radius:999px;padding:14px 22px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px -10px rgba(18,32,43,.45);font-size:18px}
+.search svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:2.4}.search em{font-style:normal;border-right:2px solid var(--ink);padding-right:2px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{border-color:transparent}}
+.result{background:#fff;border-radius:24px;margin-top:16px;overflow:hidden;box-shadow:0 18px 40px -16px rgba(18,32,43,.5)}
+.result .top{background:#2a1c17;color:#fff;padding:20px 22px}
+.result .top small{font:500 12px Mono;letter-spacing:.1em;color:#f4b99b}.result .top h3{font-family:Bricolage;font-weight:800;font-size:28px;line-height:1.05;margin-top:6px}
+.open{display:inline-flex;gap:8px;align-items:center;font-size:14px;margin-top:10px}.open i{width:9px;height:9px;border-radius:50%;background:#43d67a}
+.result ul{list-style:none;padding:8px 22px 6px}.result li{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #eee;font-size:16px}.result li:last-child{border:0}
+.result .acts{display:flex;gap:8px;padding:6px 22px 20px}.result .acts span{flex:1;text-align:center;padding:11px;border-radius:12px;background:#eef2ee;font-weight:500;font-size:15px}.result .acts span:first-child{background:var(--pin);color:#fff}
+.pin{position:absolute;z-index:1;width:46px;height:46px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--pin);box-shadow:0 8px 14px -6px rgba(0,0,0,.4)}
+.pin::after{content:"";position:absolute;inset:14px;border-radius:50%;background:#fff}
+.pin.o{background:#8aa3b3}
+.sec{padding:96px 0}.sec h2{font-family:Bricolage;font-weight:800;font-size:clamp(34px,4.6vw,60px);line-height:1;letter-spacing:-.04em;max-width:18ch}
+.sec .in{max-width:52ch;font-size:19px;margin-top:16px;color:#43525e}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.card{border-radius:22px;border:1px solid #dfe6dd;overflow:hidden;text-decoration:none;background:#fff;box-shadow:0 12px 30px -20px rgba(18,32,43,.6)}
+.card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}.card div{padding:18px 20px 22px}
+.card small{font:500 12px Mono;letter-spacing:.1em;color:var(--pin)}.card h3{font-family:Bricolage;font-weight:800;font-size:23px;line-height:1.1;margin:8px 0}.card p{font-size:15.5px;color:#43525e}
+@media(max-width:900px){.facts{flex-direction:column}.hero .wrap{grid-template-columns:1fr}.cards{grid-template-columns:1fr}nav a{display:none}.hero{padding:20px 0 64px}.pin{display:none}}
+</style></head><body>
+<div class="map"><svg class="bg" viewBox="0 0 1240 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<rect width="1240" height="720" fill="#e6eddc"/>
+<path d="M-20 560 C220 480 360 640 640 560 C900 490 1040 600 1260 520 L1260 740 L-20 740Z" fill="#b9d7e8"/>
+<ellipse cx="260" cy="190" rx="150" ry="70" fill="#c8dfb4"/><ellipse cx="1000" cy="330" rx="130" ry="60" fill="#c8dfb4"/>
+<g stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-20 120 L420 90 L860 140 L1240 60" /><path d="M-20 300 L300 260 L700 330 L1240 250"/><path d="M120 -20 L160 260 L120 520 L200 720"/><path d="M520 -20 L560 260 L500 480 L600 720"/><path d="M900 -20 L860 220 L940 480 L880 720"/><path d="M-20 480 L400 520 L820 470 L1240 540"/></g>
+<g stroke="#f3f6ee" stroke-width="5" fill="none"><path d="M-20 200 L1240 190"/><path d="M340 -20 L330 720"/><path d="M730 -20 L760 720"/></g></svg>
+<div class="pin" style="left:6%;top:42%"></div><div class="pin o" style="left:44%;top:78%"></div><div class="pin o" style="left:52%;top:10%"></div><div class="pin" style="left:63%;top:62%"></div>
+<header><div class="wrap"><span class="wm">S<svg class="star wm-o" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.00,0.50 L18.30,10.46 L26.96,5.04 L21.54,13.70 L31.50,16.00 L21.54,18.30 L26.96,26.96 L18.30,21.54 L16.00,31.50 L13.70,21.54 L5.04,26.96 L10.46,18.30 L0.50,16.00 L10.46,13.70 L5.04,5.04 L13.70,10.46Z"/></svg>vera</span><nav><a href="#">Wat je krijgt</a><a href="#">Voor wie</a><a href="#">Voorbeelden</a><a href="#">Prijzen</a><a class="btn" href="#">Gratis check</a></nav></div></header>
+<section class="hero"><div class="wrap">
+<div><h1>Als ze zoeken, sta jij erbij.</h1>
+<p class="lead">Een snelle website en een compleet Google-profiel voor een vaste prijs. Jij runt je zaak, wij zorgen dat klanten je vinden.</p>
+<div class="ctas"><a class="btn" href="#">Doe de gratis websitecheck</a><a class="btn ghost" href="#">Bekijk voorbeelden</a></div>
+<div class="facts"><div><b>€299</b><span>eenmalig, vaste prijs</span></div><div><b>2–3 weken</b><span>online nadat alles binnen is</span></div><div><b>€29</b><span>per maand, als je onderhoud wilt</span></div></div></div>
+<div><div class="search"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg><span>kapper in de buurt<em></em></span></div>
+<div class="result"><div class="top"><small>KAPPERS · NOORD · DEMO</small><h3>Knippen zonder gedoe.</h3><div class="open"><i></i>Nu open · tot 18:00</div></div>
+<ul><li><span>Knippen heren</span><b>€ 25</b></li><li><span>Knippen dames</span><b>€ 35</b></li><li><span>Baard trimmen</span><b>€ 15</b></li></ul>
+<div class="acts"><span>Maak een afspraak</span><span>Bellen</span><span>Route</span></div></div></div>
+</div></section></div>
+<section class="sec"><div class="wrap"><h2>Zo ziet jouw site eruit. Klik maar.</h2>
+<p class="in">Drie demo's van verzonnen zaken, geen echte klanten. Probeer ze uit: menu filteren, afspraak kiezen, offerte aanvragen.</p>
+<div class="cards">
+<a class="card" href="#"><img src="img/demo-barbershop.jpg" alt="Demo barbershop"><div><small>DEMO · KAPPERS</small><h3>Afspraak maken met één tik</h3><p>Prijslijst per behandeling, live openingstijden en een afspraak kiezen in een paar tikken.</p></div></a>
+<a class="card" href="#"><img src="img/demo-snackbar.jpg" alt="Demo snackbar"><div><small>DEMO · HORECA</small><h3>Menu en openingstijden direct in beeld</h3><p>Menu filteren op friet, snacks of vega, plus een QR-code die je op tafel zet.</p></div></a>
+<a class="card" href="#"><img src="img/demo-installateur.jpg" alt="Demo installateur"><div><small>DEMO · BOUW EN INSTALLATIE</small><h3>Snel een offerte aanvragen</h3><p>Postcodecheck voor het werkgebied, voor-en-na-schuif en een offerte in 3 stappen.</p></div></a>
+</div></div></section></body></html>

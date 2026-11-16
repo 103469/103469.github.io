@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barbershop De Kade · demo van Sovera</title>
+<meta name="description" content="Demo van Sovera: website voor een barbershop met prijslijst, openingstijden en afspraak maken. Verzonnen zaak.">
+<style>
+@font-face{font-family:Bebas;font-weight:400;src:url(../fonts/bebas-neue-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:400;src:url(../fonts/dm-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:DM;font-weight:500;src:url(../fonts/dm-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Mono;font-weight:500;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+:root{--bg:#0d0c0a;--card:#171511;--line:#2b2720;--gold:#cfa84e;--cream:#f2e9d5;--mut:#a79d86;--red:#b9382a;--blue:#2c4f8a}
+*{box-sizing:border-box;margin:0}body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.09;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}header,main,footer,.demo{position:relative;z-index:1}main{overflow-x:clip}body{background:var(--bg);color:var(--cream);font:17px/1.55 DM,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit}.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+.demo{background:#e9e0c9;color:#2a2418;font-size:13.5px;text-align:center;padding:8px 14px}.demo a{font-weight:500}
+header{border-bottom:1px solid var(--line)}header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font:400 32px Bebas;letter-spacing:.06em;color:var(--gold);text-decoration:none}.logo small{font:500 11px Mono;letter-spacing:.2em;color:var(--mut);display:block;margin-top:-6px}
+nav{display:flex;gap:26px;align-items:center;font-size:15px}nav a{text-decoration:none;color:var(--mut)}nav a:hover{color:var(--cream)}
+.btn{display:inline-block;font:400 22px Bebas;letter-spacing:.08em;padding:13px 26px 11px;background:var(--gold);color:#17120a;text-decoration:none;border:0;cursor:pointer;min-height:48px}
+.btn.o{background:none;color:var(--cream);box-shadow:inset 0 0 0 2px var(--gold)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.hero{padding:64px 0 96px;position:relative;overflow:hidden;background:radial-gradient(60% 70% at 78% 45%,#cfa84e2e,transparent 70%)}.hero::after{content:"KADE";position:absolute;right:-30px;bottom:-70px;font:400 min(34vw,430px)/1 Bebas;color:transparent;-webkit-text-stroke:2px #cfa84e26;pointer-events:none}.hero .wrap{position:relative;z-index:1}.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+.chip{display:inline-flex;gap:9px;align-items:center;border:1px solid var(--line);background:var(--card);padding:7px 14px;font-size:14px;margin-bottom:22px}
+.chip i{width:9px;height:9px;border-radius:50%;background:#4cd37f}.chip.closed i{background:#e0604f}
+h1{font:400 clamp(60px,8.4vw,124px)/.9 Bebas;letter-spacing:.01em}h1 em{font-style:normal;color:var(--gold)}
+.lead{font-size:19px;color:var(--mut);max-width:36ch;margin:24px 0 32px}.ctas{display:flex;gap:14px;flex-wrap:wrap}
+.pole{justify-self:center;position:relative;width:170px;height:470px;box-shadow:0 0 90px #cfa84e44,0 30px 60px #000a;border:3px solid var(--gold);border-radius:80px 80px 24px 24px;padding:26px 24px;background:var(--card)}
+.pole b{display:block;width:100%;height:100%;border-radius:40px;border:3px solid #fff2;background:repeating-linear-gradient(135deg,var(--red) 0 22px,#f6f1e6 22px 44px,var(--blue) 44px 66px,#f6f1e6 66px 88px);background-size:100% 124px;animation:spin 3.2s linear infinite}
+@keyframes spin{to{background-position:0 124px}}
+.pole::before,.pole::after{content:"";position:absolute;left:50%;width:70px;height:22px;margin-left:-35px;background:var(--gold)}.pole::before{top:-14px;border-radius:12px 12px 2px 2px}.pole::after{bottom:-14px;border-radius:2px 2px 12px 12px}
+@media (prefers-reduced-motion:reduce){.pole b{animation:none}}
+.band{background:var(--gold);color:#17120a;overflow:hidden;white-space:nowrap;font:400 34px Bebas;letter-spacing:.1em;padding:12px 0 8px;transform:rotate(-1.2deg);margin:-14px -20px 0;position:relative;z-index:2}.band span,.band b{margin:0 22px;font-weight:400}.band b{font-size:26px}
+.pgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}.ticket{position:relative;border:2px solid var(--gold);background:linear-gradient(160deg,#241e12,#14110c);padding:38px 34px;text-align:center;box-shadow:12px 12px 0 #cfa84e33}.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:26px;height:26px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);margin-top:-13px}.ticket::before{left:-14px}.ticket::after{right:-14px}.ticket .sc{width:150px;margin:0 auto 6px;opacity:.9}.ticket .big{font:400 112px/1 Bebas;color:var(--gold)}.ticket .tt{font:400 34px Bebas;letter-spacing:.05em}.ticket p{color:var(--mut);margin:10px 0 22px;font-size:16px}
+section{padding:84px 0;border-top:1px solid var(--line);position:relative}
+.lab{font:500 12px Mono;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+h2{font:400 clamp(44px,6vw,76px)/.95 Bebas;letter-spacing:.02em;margin:10px 0 28px}
+.prices{max-width:720px}.pr{display:flex;align-items:baseline;gap:12px;padding:15px 0;border-bottom:1px solid var(--line)}
+.pr strong{font-weight:500;font-size:19px}.pr small{color:var(--mut);font-size:14px;margin-left:8px}.pr i{flex:1;border-bottom:2px dotted #4a4333;transform:translateY(-5px)}.pr b{font:400 32px Bebas;color:var(--gold);letter-spacing:.03em}
+.book{background:#12100c;border:1px solid var(--line);padding:34px;box-shadow:inset 0 0 0 6px #0d0c0a,inset 0 0 0 7px #cfa84e55;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:start}
+.step{margin-bottom:26px}.step h3{font:500 15px Mono;letter-spacing:.12em;color:var(--mut);text-transform:uppercase;margin-bottom:12px}.step h3 span{color:var(--gold)}
+.opts{display:flex;gap:10px;flex-wrap:wrap}.opt{font:inherit;color:var(--cream);background:var(--card);border:1px solid var(--line);padding:12px 16px;cursor:pointer;min-height:48px;text-align:left}
+.opt small{display:block;color:var(--mut);font-size:13px}.opt[aria-pressed=true]{border-color:var(--gold);background:#241e12;box-shadow:inset 0 0 0 1px var(--gold)}.opt:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.opt.day{min-width:84px;text-align:center}.opt.day b{display:block;font:400 26px Bebas}
+.slots .opt{min-width:84px;text-align:center;padding:10px}
+input{font:inherit;color:var(--cream);background:var(--card);border:1px solid var(--line);padding:13px 14px;width:100%;min-height:48px}input:focus,.opt:focus-visible,.btn:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-size:14px;color:var(--mut);display:block;margin-bottom:6px}
+.sum{position:sticky;top:20px;background:var(--card);border:1px solid var(--line);padding:24px}.sum h3{font:400 30px Bebas;letter-spacing:.04em;color:var(--gold)}
+.sum dl{margin:14px 0 20px}.sum dt{font:500 11px Mono;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-top:12px}.sum dd{font-size:18px}.sum dd.empty{color:#675e4b}
+.ok{border:2px solid var(--gold);padding:18px;margin-top:16px;background:#241e12}.ok b{font:400 28px Bebas;letter-spacing:.04em;color:var(--gold);display:block}.ok p{font-size:15px;color:var(--mut)}
+.hours{display:grid;grid-template-columns:1fr 1fr;gap:40px}.hrs div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.hrs .today{color:var(--gold);font-weight:500}
+.loc p{color:var(--mut);margin-bottom:6px}.loc strong{display:block;font:400 34px Bebas;letter-spacing:.04em}
+footer{border-top:1px solid var(--line);padding:30px 0 90px;color:var(--mut);font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cta-bar{display:none}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr;gap:36px}.book{padding:20px}.ticket .big{font-size:88px}.band{font-size:26px}nav a{display:none}.hero .wrap,.book,.hours{grid-template-columns:1fr}.pole{height:260px;width:96px;padding:16px;order:-1;justify-self:start}.hero{padding:28px 0 56px}.fields{grid-template-columns:1fr}.sum{position:static}
+.cta-bar{display:block;position:fixed;left:0;right:0;bottom:0;padding:10px 14px;background:#0d0c0acc;backdrop-filter:blur(6px);border-top:1px solid var(--line);z-index:5}.cta-bar .btn{display:block;text-align:center}}
+</style></head><body>
+<div class="demo">Dit is een <strong>demo van Sovera</strong>: een verzonnen zaak, geen echte klant. Er wordt niets verstuurd. <a href="../index.html">Terug naar Sovera</a></div>
+<header><div class="wrap"><a class="logo" href="#">DE KADE<small>BARBERSHOP · ROTTERDAM</small></a><nav><a href="#prijzen">Prijzen</a><a href="#afspraak">Afspraak</a><a href="#tijden">Openingstijden</a><a class="btn" href="#afspraak" style="padding:9px 18px;font-size:19px;min-height:44px">Afspraak maken</a></nav></div></header>
+<main>
+<div class="hero"><div class="wrap"><div>
+<div class="chip" id="chip"><i></i><span id="chipt">Even checken…</span></div>
+<h1>Strak geknipt<br>aan <em>de Maas.</em></h1>
+<p class="lead">Knippen, baard en scheren in Rotterdam-Noord. Kies je tijd, kom langs, geen wachtrij.</p>
+<div class="ctas"><a class="btn" href="#afspraak">Afspraak maken</a><a class="btn o" href="#prijzen">Bekijk prijzen</a></div></div>
+<div class="pole" aria-hidden="true"><b></b></div></div></div>
+
+<div class="band" aria-hidden="true"><span>KNIPPEN</span><b>✂</b><span>BAARD</span><b>✂</b><span>SCHEREN</span><b>✂</b><span>KNIPPEN</span><b>✂</b><span>BAARD</span><b>✂</b><span>SCHEREN</span><b>✂</b><span>KNIPPEN</span></div>
+<section id="prijzen"><div class="wrap pgrid"><div><div class="lab">Prijslijst</div><h2>Wat het kost.</h2>
+<div class="prices" id="prices"></div></div><div class="ticket"><div class="sc"><svg viewBox="0 0 300 300" aria-hidden="true"><g fill="none" stroke="#cfa84e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="82" cy="236" r="38"/><circle cx="218" cy="236" r="38"/><path d="M104 204 L238 28 L248 36 L134 214Z" fill="#cfa84e22"/><path d="M196 204 L62 28 L52 36 L166 214Z" fill="#cfa84e22"/><circle cx="150" cy="150" r="7" fill="#cfa84e"/></g></svg></div><div class="lab">Combi</div><div class="big">€ 35</div><div class="tt">Knippen + baard</div><p>Eén stoel, één afspraak van 45 minuten. Goedkoper dan los boeken (€ 40).</p><a class="btn" href="#afspraak">Deze boeken</a></div></div></section>
+
+<section id="afspraak"><div class="wrap"><div class="lab">Afspraak</div><h2>Kies je moment.</h2>
+<div class="book"><div>
+<div class="step"><h3><span>1</span> Behandeling</h3><div class="opts" id="svc"></div></div>
+<div class="step"><h3><span>2</span> Dag</h3><div class="opts" id="days"></div></div>
+<div class="step"><h3><span>3</span> Tijd</h3><div class="opts slots" id="slots"><span style="color:var(--mut)">Kies eerst een behandeling en een dag.</span></div></div>
+<div class="step"><h3><span>4</span> Jouw gegevens</h3><div class="fields"><div><label for="nm">Naam</label><input id="nm" autocomplete="name"></div><div><label for="ph">Telefoon</label><input id="ph" inputmode="tel" autocomplete="tel"></div></div></div>
+</div>
+<aside class="sum"><h3>Jouw afspraak</h3><dl><dt>Behandeling</dt><dd id="s1" class="empty">Nog niet gekozen</dd><dt>Dag</dt><dd id="s2" class="empty">Nog niet gekozen</dd><dt>Tijd</dt><dd id="s3" class="empty">Nog niet gekozen</dd><dt>Prijs</dt><dd id="s4" class="empty">-</dd></dl>
+<button class="btn" id="go" style="width:100%" disabled>Afspraak vastleggen</button><div id="done"></div></aside></div></div></section>
+
+<section id="tijden"><div class="wrap hours"><div><div class="lab">Openingstijden</div><h2>Wanneer we open zijn.</h2><div class="hrs" id="hrs"></div></div>
+<div class="loc"><div class="lab">Langskomen</div><h2>Op de kade.</h2><p>Demo-adres, dit is een verzonnen zaak:</p><strong>Voorbeeldkade 12</strong><p>3000 AA Rotterdam</p><p style="margin-top:14px">Bellen kan ook: 010 000 00 00 (demo)</p></div></div></section>
+</main>
+<footer><div class="wrap"><span>© Barbershop De Kade (demo)</span><span>Website door <a href="../index.html">Sovera Studio</a></span></div></footer>
+<div class="cta-bar"><a class="btn" href="#afspraak">Afspraak maken</a></div>
+<script>
+const SV=[["Knippen heren",25,30],["Knippen dames",35,45],["Baard trimmen",15,20],["Knippen + baard",35,45],["Kinderen t/m 12 jaar",18,30],["Kleuren (v.a.)",45,60]];
+const H={0:null,1:null,2:[9,18],3:[9,18],4:[9,20],5:[9,18],6:[9,17]};const DN=["zo","ma","di","wo","do","vr","za"],DL=["zondag","maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag"];
+const fmt=h=>String(Math.floor(h)).padStart(2,"0")+":"+(h%1?"30":"00");const eur=n=>"€ "+n;
+function nowNL(){const p=new Intl.DateTimeFormat("en-US",{timeZone:"Europe/Amsterdam",weekday:"short",hour:"numeric",minute:"numeric",hourCycle:"h23"}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t).value;
+ const wd=["sun","mon","tue","wed","thu","fri","sat"].indexOf(g("weekday").toLowerCase());return{wd,h:(+g("hour")%24)+(+g("minute"))/60}}
+const N=nowNL();
+// prijzen
+document.getElementById("prices").innerHTML=SV.map(s=>`<div class="pr"><strong>${s[0]}<small>${s[2]} min</small></strong><i></i><b>${eur(s[1])}</b></div>`).join("");
+// open nu
+function status(){const t=H[N.wd];const c=document.getElementById("chip"),x=document.getElementById("chipt");
+ if(t&&N.h>=t[0]&&N.h<t[1]){c.classList.remove("closed");x.textContent="Nu open · tot "+fmt(t[1]);return}
+ c.classList.add("closed");for(let i=0;i<=7;i++){const d=(N.wd+i)%7,h=H[d];if(h&&(i>0||N.h<h[0])){x.textContent="Nu gesloten · open "+(i===0?"vandaag":i===1?"morgen":DL[d])+" vanaf "+fmt(h[0]);return}}}
+status();
+document.getElementById("hrs").innerHTML=[1,2,3,4,5,6,0].map(d=>`<div class="${d===N.wd?"today":""}"><span>${DL[d][0].toUpperCase()+DL[d].slice(1)}</span><span>${H[d]?fmt(H[d][0])+" – "+fmt(H[d][1]):"Gesloten"}</span></div>`).join("");
+// afspraak
+const st={svc:null,day:null,slot:null};const $=id=>document.getElementById(id);
+$("svc").innerHTML=SV.map((s,i)=>`<button class="opt" data-i="${i}" aria-pressed="false">${s[0]}<small>${eur(s[1])} · ${s[2]} min</small></button>`).join("");
+const today=new Date();const days=[];for(let i=0;i<8;i++){const d=new Date(today.getTime()+i*864e5);const wd=(N.wd+i)%7;days.push({i,wd,date:d})}
+$("days").innerHTML=days.map(d=>{const closed=!H[d.wd];const done=d.i===0&&H[d.wd]&&N.h>=H[d.wd][1]-0.5;return `<button class="opt day" data-i="${d.i}" aria-pressed="false" ${closed||done?"disabled":""}>${DN[d.wd]}<b>${d.date.getDate()}</b></button>`}).join("");
+function slots(){const el=$("slots");if(st.svc==null||st.day==null){el.innerHTML='<span style="color:var(--mut)">Kies eerst een behandeling en een dag.</span>';return}
+ const dur=SV[st.svc][2]/60,d=days[st.day],t=H[d.wd];let out="";for(let h=t[0];h+dur<=t[1]+1e-6;h+=.5){const busy=((Math.floor(h*2)*7+d.date.getDate()*3+st.svc)%5)===0;const past=d.i===0&&h<=N.h+.25;
+  out+=`<button class="opt" data-h="${h}" aria-pressed="${st.slot===h}" ${busy||past?"disabled":""}>${fmt(h)}</button>`}
+ el.innerHTML=out||"Geen tijden vrij."}
+function sum(){const set=(id,v)=>{$(id).textContent=v||(id==="s4"?"-":"Nog niet gekozen");$(id).classList.toggle("empty",!v)};
+ set("s1",st.svc!=null?SV[st.svc][0]:"");const d=st.day!=null?days[st.day]:null;set("s2",d?DL[d.wd]+" "+d.date.getDate()+" "+["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"][d.date.getMonth()]:"");
+ set("s3",st.slot!=null?fmt(st.slot):"");set("s4",st.svc!=null?eur(SV[st.svc][1])+" (betaal in de zaak)":"");
+ $("go").disabled=!(st.svc!=null&&st.day!=null&&st.slot!=null&&$("nm").value.trim().length>1&&$("ph").value.replace(/\D/g,"").length>=8)}
+document.addEventListener("click",e=>{const b=e.target.closest("button.opt");if(!b)return;
+ if(b.parentElement.id==="svc"){st.svc=+b.dataset.i;st.slot=null;[...$("svc").children].forEach(x=>x.setAttribute("aria-pressed",x===b))}
+ else if(b.parentElement.id==="days"){st.day=+b.dataset.i;st.slot=null;[...$("days").children].forEach(x=>x.setAttribute("aria-pressed",x===b))}
+ else if(b.parentElement.id==="slots"){st.slot=+b.dataset.h}
+ slots();sum()});
+["nm","ph"].forEach(i=>$(i).addEventListener("input",sum));
+$("go").addEventListener("click",()=>{$("done").innerHTML=`<div class="ok" role="status"><b>Gelukt (demo)</b><p>Zo ziet de bevestiging voor je klant eruit. Er is niets verstuurd. Bij een echte klant krijgt de zaak je aanvraag per WhatsApp of mail.</p></div>`;$("go").disabled=true});
+sum();
+</script></body></html>
