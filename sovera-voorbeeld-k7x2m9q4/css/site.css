@@ -398,7 +398,7 @@ button{font:inherit}
 .faq details{border-bottom:1px solid var(--line-l)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-size:20px;font-weight:600;letter-spacing:-.01em}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"";flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%23C8F03C' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .35s var(--ease)}
+.faq summary::after{content:"";flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='%2386D1A9' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .35s var(--ease)}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{margin:0 0 26px;max-width:640px;color:#3A3E3B;font-size:17px}
 .faq details[open] p{animation:rise2 .4s var(--ease)}
@@ -535,3 +535,28 @@ button{font:inherit}
 /* v8.4: footer past ook op smalle telefoons */
 .foot__links{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .foot__links a{overflow-wrap:anywhere}
+
+/* v8.5: hero op mobiel past in beeld */
+.comp__g .acts span{background:#E3F2EA;color:#1E6B4A}
+.comp__g .acts span:first-child{background:var(--ink);color:#86D1A9}
+@media (max-width:960px){
+  .comp{height:auto;margin:4px 0 0;padding:0 0 44px}
+  .comp__browser{position:relative;left:auto;right:auto;top:auto;width:100%;height:auto;aspect-ratio:16/11;border-radius:12px}
+  .comp__browser .bar{height:28px;padding:0 10px;gap:5px}
+  .comp__browser .bar i{width:8px;height:8px}
+  .comp__browser .bar span{height:16px;font-size:10px;margin-left:8px}
+  .comp__browser .shot{height:calc(100% - 28px)}
+  .comp__phone{left:auto;right:-4px;bottom:0;width:31%;height:auto;aspect-ratio:585/1200;border-radius:24px;padding:6px}
+  .comp__phone .scr{border-radius:19px}
+  .comp__g{display:none}
+  .strip{flex-wrap:wrap;justify-content:center;gap:8px;padding:22px 20px;overflow:visible}
+  .strip span{flex:none;padding:8px 14px;border:0;border-radius:99px;background:rgba(239,235,226,.06);font-size:13px}
+}
+/* v8.5: rest van mobiel */
+.contact .btn--wa{background:var(--ink);color:#fff}
+.contact .btn--wa::before{background:var(--ink4)}
+@media (max-width:560px){
+  .plan .btn,.calc__out .btn{width:100%;white-space:nowrap;padding:0 18px;font-size:16px}
+  .gtoggle button{font-size:14px;padding:0 8px;white-space:nowrap}
+  .facts strong{font-size:20px}.facts span{font-size:12px}
+}
