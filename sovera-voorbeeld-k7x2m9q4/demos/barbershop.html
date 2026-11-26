@@ -325,8 +325,8 @@ footer a[href^="tel:"],footer a[href^="#"]{display:inline-block;padding-block:10
   var names=['zo','ma','di','wo','do','vr','za'],full=['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'];
   var now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60,t=H[d];
   var open=t&&h>=t[0]&&h<t[1];
-  var nxt='';if(!open){if(t&&h<t[0])nxt='vandaag om '+t[0]+':00';else{for(var k=1;k<=7;k++){var dk=(d+k)%7;if(H[dk]){nxt=(k===1?'morgen':full[dk].toLowerCase())+' om '+H[dk][0]+':00';break}}}}
-  $('[data-status]').textContent=open?'Nu open · tot '+t[1]+':00':'Nu gesloten · weer open '+nxt;
+  var nxt='';if(!open){if(t&&h<t[0])nxt='vandaag '+t[0]+':00';else{for(var k=1;k<=7;k++){var dk=(d+k)%7;if(H[dk]){nxt=(k===1?'morgen':full[dk].toLowerCase())+' '+H[dk][0]+':00';break}}}}
+  $('[data-status]').textContent=open?'Nu open · tot '+t[1]+':00':'Gesloten · open '+nxt;
   if(!open)$('[data-dot]').classList.add('closed');
   $('[data-hours]').innerHTML=[2,3,4,5,6,0,1].map(function(i){return '<div'+(i===d?' class="today"':'')+'><span>'+full[i]+'</span><span>'+(H[i]?H[i][0]+':00 – '+H[i][1]+':00':'Gesloten')+'</span></div>'}).join('');
   // filter
