@@ -139,8 +139,8 @@ button{font:inherit}
 .proj__browser .shot{height:500px}
 .proj__browser:hover{transform:translateY(-6px);box-shadow:0 60px 100px -40px rgba(11,13,12,.6),0 0 0 1px rgba(11,13,12,.12)}
 .proj__browser:hover .shot img{transform:translateY(calc(-100% + 500px))}
-.proj__phone{position:absolute;right:-24px;bottom:0;width:190px;height:390px;border-radius:30px;padding:8px;background:#0F1110;box-shadow:0 30px 60px -20px rgba(11,13,12,.6);transition:transform .5s var(--ease)}
-.proj--r .proj__phone{right:auto;left:-24px}
+.proj__phone{position:absolute;right:28px;bottom:0;width:190px;height:390px;border-radius:30px;padding:8px;background:#0F1110;box-shadow:0 30px 60px -20px rgba(11,13,12,.6);transition:transform .5s var(--ease)}
+.proj--r .proj__phone{right:auto;left:28px}
 .proj__phone .scr{width:100%;height:100%;border-radius:23px;overflow:hidden}
 .proj__phone img{width:100%;height:100%;object-fit:cover;object-position:top}
 .proj:hover .proj__phone{transform:translateY(-12px) rotate(-1.5deg)}
@@ -458,8 +458,8 @@ button{font:inherit}
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1180px){
   .comp__browser{right:-80px}.comp__g{right:-20px}
-  .proj__phone{right:-8px;width:160px;height:330px}
-  .proj--r .proj__phone{left:-8px}
+  .proj__phone{right:16px;width:160px;height:330px}
+  .proj--r .proj__phone{left:16px}
 }
 @media (max-width:960px){
   body{font-size:17px}
