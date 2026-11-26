@@ -531,3 +531,7 @@ button{font:inherit}
   html{scroll-behavior:auto}
   .js .reveal{opacity:1;transform:none}
 }
+
+/* v8.4: footer past ook op smalle telefoons */
+.foot__links{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.foot__links a{overflow-wrap:anywhere}
