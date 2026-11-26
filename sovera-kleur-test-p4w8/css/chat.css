@@ -55,6 +55,8 @@ body.sc-on .totop { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
   body.has-dock .sc-teaser { bottom: calc(148px + env(safe-area-inset-bottom, 0px)); }
   body.sc-on.has-dock .totop { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
   .sc-launch span { display: none; }
+  .sc-teaser { display: none !important; }
+  body.has-dock .sc-launch { width: 46px; min-height: 46px; right: 14px; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
   .sc-launch { width: 54px; padding: 0; justify-content: center; }
   .sc-panel { left: 8px; right: 8px; bottom: 8px; width: auto; height: min(82vh, 640px); height: min(82dvh, 640px); border-radius: 20px; }
 }
