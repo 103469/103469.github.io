@@ -175,6 +175,10 @@ blockquote cite{font-style:normal;font-size:13px;font-weight:700;letter-spacing:
 }
 @media (min-width:961px){.menu{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* v8.3: grotere tikvlakken op mobiel */
+.demo-bar a{display:inline-block;padding:0 4px}
+footer a[href^="tel:"],footer a[href^="#"]{display:inline-block;padding-block:10px}
+@media (max-width:960px){.pick{min-height:44px;padding:12px 0}}
 </style>
 </head>
 <body>
@@ -321,7 +325,8 @@ blockquote cite{font-style:normal;font-size:13px;font-weight:700;letter-spacing:
   var names=['zo','ma','di','wo','do','vr','za'],full=['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'];
   var now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60,t=H[d];
   var open=t&&h>=t[0]&&h<t[1];
-  $('[data-status]').textContent=open?'Nu open · tot '+t[1]+':00':'Nu gesloten';
+  var nxt='';if(!open){if(t&&h<t[0])nxt='vandaag om '+t[0]+':00';else{for(var k=1;k<=7;k++){var dk=(d+k)%7;if(H[dk]){nxt=(k===1?'morgen':full[dk].toLowerCase())+' om '+H[dk][0]+':00';break}}}}
+  $('[data-status]').textContent=open?'Nu open · tot '+t[1]+':00':'Nu gesloten · weer open '+nxt;
   if(!open)$('[data-dot]').classList.add('closed');
   $('[data-hours]').innerHTML=[2,3,4,5,6,0,1].map(function(i){return '<div'+(i===d?' class="today"':'')+'><span>'+full[i]+'</span><span>'+(H[i]?H[i][0]+':00 – '+H[i][1]+':00':'Gesloten')+'</span></div>'}).join('');
   // filter
@@ -338,9 +343,9 @@ blockquote cite{font-style:normal;font-size:13px;font-weight:700;letter-spacing:
   function times(){
     var dd=days[sel.day],end=dd?H[dd.getDay()][1]:19,out=[];
     for(var hh=9;hh<end;hh++){[0,30].forEach(function(m){var busy=dd&&((dd.getDate()*7+hh*3+m)%5===0);out.push('<button type="button" '+(busy?'disabled ':'')+'aria-pressed="false" data-t="'+hh+':'+(m?'30':'00')+'">'+hh+':'+(m?'30':'00')+'</button>')})}
-    $('[data-times]').innerHTML=out.slice(0,15).join('');
+    $('[data-times]').innerHTML=out.join('');
   }
-  times();
+  sel.day=0;times();$$('[data-days] button')[0].setAttribute('aria-pressed','true');
   $('[data-days]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;sel.day=+b.dataset.i;sel.time=null;$$('[data-days] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)});times();sum()});
   $('[data-times]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled)return;sel.time=b.dataset.t;$$('[data-times] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)});sum()});
   function sum(){var dd=days[sel.day];$('[data-sum]').innerHTML=dd&&sel.time?'<b>'+svc.value+'</b> · '+full[dd.getDay()]+' '+dd.getDate()+' · '+sel.time:'Kies een dag en tijd.'}

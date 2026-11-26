@@ -172,6 +172,10 @@ a{color:inherit}
 }
 @media (min-width:961px){.mm{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* v8.3: grotere tikvlakken op mobiel */
+.demo-bar a{display:inline-block;padding:0 4px}
+footer a[href^="tel:"],footer a[href^="#"]{display:inline-block;padding-block:10px}
+@media (max-width:960px){.quick select{min-height:44px;width:100%}}
 </style>
 </head>
 <body>
@@ -333,23 +337,27 @@ a{color:inherit}
   // open vandaag
   var H={0:[12,24],1:null,2:[12,24],3:[12,24],4:[12,24],5:[12,24],6:[12,24]},full=['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],sh=['zo','ma','di','wo','do','vr','za'];
   var now=new Date(),d=now.getDay(),hh=now.getHours();
-  $('[data-today]').innerHTML=H[d]?(hh>=12?'<b>Nu open</b> · keuken tot 22:00':'Vandaag open vanaf <b>12:00</b>'):'Vandaag gesloten · morgen weer open';
+  $('[data-today]').innerHTML=H[d]?(hh>=22?'<b>Nu open</b> · keuken dicht, bar tot 00:00':hh>=12?'<b>Nu open</b> · keuken tot 22:00':'Vandaag open vanaf <b>12:00</b>'):'Vandaag gesloten · morgen weer open';
   $('[data-hrs]').innerHTML=[1,2,3,4,5,6,0].map(function(i){return '<div'+(i===d?' class="now"':'')+'><span>'+full[i]+'</span><span>'+(H[i]?'12:00 – 00:00':'Gesloten')+'</span></div>'}).join('');
   // reserveren
   var st={n:2,day:null,t:null},days=[],x=new Date();x.setHours(0,0,0,0);
   while(days.length<7){if(H[x.getDay()])days.push(new Date(x));x.setDate(x.getDate()+1)}
   $('[data-dates]').innerHTML=days.map(function(dd,i){return '<button type="button" aria-pressed="false" data-i="'+i+'">'+sh[dd.getDay()]+'<b>'+dd.getDate()+'</b></button>'}).join('');
   function slots(){var o=[];['12:00','12:30','13:00','13:30','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'].forEach(function(t,i){var dd=st.day!==null?days[st.day]:null,past=dd&&dd.toDateString()===new Date().toDateString()&&(+t.split(':')[0]+(+t.split(':')[1])/60)<=new Date().getHours()+new Date().getMinutes()/60+1,full=past||(dd&&((dd.getDate()+i*3+st.n)%4===0));o.push('<button type="button" aria-pressed="false" '+(full?'disabled title="Vol"':'')+' data-t="'+t+'">'+t+'</button>')});$('[data-slots]').innerHTML=o.join('')}
-  slots();
+  function isFull(dd,t,i){var past=dd.toDateString()===new Date().toDateString()&&(+t.split(':')[0]+(+t.split(':')[1])/60)<=new Date().getHours()+new Date().getMinutes()/60+1;return past||((dd.getDate()+i*3+st.n)%4===0)}
+  var TT=['12:00','12:30','13:00','13:30','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'];
+  function firstFree(from){for(var k=from;k<days.length;k++){if(TT.some(function(t,i){return !isFull(days[k],t,i)}))return k}return from}
+  function pickDay(k){st.day=k;st.t=null;$$('[data-dates] button').forEach(function(y,j){y.setAttribute('aria-pressed',j===k)});slots()}
+  pickDay(firstFree(0));
   function n(v){st.n=Math.max(1,Math.min(8,st.n+v));$('[data-n]').textContent=st.n;slots();st.t=null}
   $('[data-m]').addEventListener('click',function(){n(-1)});$('[data-p]').addEventListener('click',function(){n(1)});
   $('[data-dates]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;st.day=+b.dataset.i;st.t=null;$$('[data-dates] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)});slots()});
   $('[data-slots]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled)return;st.t=b.dataset.t;$$('[data-slots] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)})});
-  $('[data-quick]').addEventListener('submit',function(e){e.preventDefault();st.n=+$('[data-qppl]').value;$('[data-n]').textContent=st.n;var i=$('[data-qday]').selectedIndex;var target=new Date();target.setHours(0,0,0,0);target.setDate(target.getDate()+i);var k=days.findIndex(function(dd){return dd.getTime()>=target.getTime()});st.day=k<0?0:k;$$('[data-dates] button').forEach(function(y,j){y.setAttribute('aria-pressed',j===st.day)});slots();$('#reserveren').scrollIntoView({behavior:'smooth'})});
+  $('[data-quick]').addEventListener('submit',function(e){e.preventDefault();st.n=+$('[data-qppl]').value;$('[data-n]').textContent=st.n;var i=$('[data-qday]').selectedIndex;var target=new Date();target.setHours(0,0,0,0);target.setDate(target.getDate()+i);var k=days.findIndex(function(dd){return dd.getTime()>=target.getTime()});pickDay(firstFree(k<0?0:k));$('#reserveren').scrollIntoView({behavior:'smooth'})});
   $('[data-res]').addEventListener('submit',function(e){e.preventDefault();var nm=$('[data-rn]');
     if(st.day===null||!st.t){alertBox('Kies eerst een dag en een tijd.');return}
     if(nm.value.trim().length<2){nm.focus();nm.style.borderColor='#B5502B';return}
-    var dd=days[st.day];$('[data-ct]').textContent=full[dd.getDay()]+' '+dd.getDate()+' om '+st.t+', '+st.n+' personen, op naam van '+nm.value.trim()+'.';$('[data-conf]').classList.add('show')});
+    var dd=days[st.day];$('[data-ct]').textContent=full[dd.getDay()]+' '+dd.getDate()+' om '+st.t+', '+st.n+(st.n===1?' persoon':' personen')+', op naam van '+nm.value.trim()+'.';$('[data-conf]').classList.add('show')});
   function alertBox(t){var c=$('[data-conf]');c.querySelector('h3').textContent='Bijna.';$('[data-ct]').textContent=t;c.classList.add('show');setTimeout(function(){c.classList.remove('show');c.querySelector('h3').textContent='Je tafel staat klaar.'},2500)}
   // menu
   var mm=$('[data-mm]');$('[data-burger]').addEventListener('click',function(){mm.classList.add('open')});$('[data-close]').addEventListener('click',function(){mm.classList.remove('open')});$$('a',mm).forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open')})});
