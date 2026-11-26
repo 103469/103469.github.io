@@ -1,0 +1,7 @@
+/* Sovera v9: subpagina's (branches, privacy, voorwaarden, 404) in dezelfde groene huisstijl als de homepage */
+:root{
+  --night:#07100C;--night-2:#0C1813;--night-3:#12221A;--on-night:#F2EFE8;--on-night-muted:#A3AEA8;
+  --lime:#47A97B;--lime-2:#2B8A60;--lime-ink:#07100C;--accent-text:#1E6B4A;--good:#1E6B4A;
+  --paper:#F5F3EE;--ink:#161D19;--line:#E3DFD6;
+}
+::selection{background:#86D1A9;color:#07100C}

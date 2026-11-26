@@ -80,4 +80,39 @@
     }, { threshold: 0.55 });
     document.querySelectorAll('.case').forEach((c) => io.observe(c));
   }
+  // 3. Werkwijze: de lijn vult zich als de tijdlijn in beeld komt
+  const tl = document.querySelector('[data-tl]');
+  if (tl) {
+    if (reduce || !('IntersectionObserver' in window)) tl.classList.add('is-on');
+    else new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { tl.classList.add('is-on'); io.disconnect(); } }, { threshold: 0.3 }).observe(tl);
+  }
+
+  // 4. Stijlkiezer: stappen afvinken en keuzes meenemen naar het contactformulier
+  const cfg = document.querySelector('.cfg');
+  if (cfg) {
+    const steps = [...cfg.querySelectorAll('.cfg__step')];
+    steps.forEach((st) => {
+      const done = () => st.classList.add('is-done');
+      st.addEventListener('click', (e) => { if (e.target.closest('button')) done(); });
+      st.addEventListener('input', done);
+    });
+    const cta = cfg.querySelector('[data-cfg-cta]');
+    if (cta) cta.addEventListener('click', () => {
+      const pick = (sel) => { const b = cfg.querySelector(sel + ' .is-on'); return b ? (b.textContent.trim() || b.getAttribute('aria-label')) : ''; };
+      const name = (cfg.querySelector('[data-c-name]').value || '').trim();
+      const msg = document.getElementById('c-bericht');
+      const zaak = document.getElementById('c-zaak');
+      if (zaak && name && !zaak.value) zaak.value = name;
+      if (msg && !msg.value) msg.value = 'Ik heb de stijlkiezer geprobeerd: ' + pick('[data-c-type]').toLowerCase() + ', kleur ' + pick('[data-c-color]').toLowerCase() + ', stijl ' + pick('[data-c-font]').toLowerCase() + '. Ik wil graag kennismaken.';
+      document.querySelectorAll('input[name="interesse"]').forEach((b) => { if (b.value === 'Website') b.checked = true; });
+    });
+  }
+
+  // 5. Calculator: bedragen lichten kort op als ze veranderen
+  if (!reduce && 'MutationObserver' in window) {
+    document.querySelectorAll('[data-calc-once],[data-calc-month],[data-calc-year]').forEach((el) => {
+      new MutationObserver(() => { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('flash'), 500); })
+        .observe(el, { childList: true, characterData: true, subtree: true });
+    });
+  }
 })();

@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kraan &amp; Ketel · Installatiebedrijf Rotterdam (demo van Sovera)</title>
+<meta name="description" content="Demosite van Sovera voor een fictief installatiebedrijf in Rotterdam.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F2240">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/archivo-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Archivo;src:url(../fonts/archivo-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Archivo;src:url(../fonts/archivo-latin-800-normal.woff2) format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:Archivo;src:url(../fonts/archivo-latin-900-normal.woff2) format('woff2');font-weight:900;font-display:swap}
+@font-face{font-family:Plex;src:url(../fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Plex;src:url(../fonts/ibm-plex-sans-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Plex;src:url(../fonts/ibm-plex-sans-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
+:root{--navy:#0F2240;--navy2:#16305A;--navy3:#1D3A6B;--sky:#E9EEF5;--white:#fff;--yel:#FFC530;--ink:#0E1A2E;--mute:#5B6B82;--line:#D5DDE8;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);font-family:Plex,system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1260px;margin:0 auto;padding:0 40px}
+.h{font-family:Archivo,sans-serif;font-weight:800;letter-spacing:-.025em;line-height:.98}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-family:Archivo,sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy3)}
+.lbl::before{content:"";width:18px;height:3px;background:var(--yel)}
+.demo-bar{background:#000;color:#cfd6e2;font-size:13px;text-align:center;height:32px;line-height:32px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px}
+.demo-bar a{color:var(--yel);font-weight:600}
+.sos{background:var(--yel);color:var(--navy);font-weight:700;font-size:15px}
+.sos .wrap{display:flex;justify-content:space-between;align-items:center;height:44px;gap:12px}
+.sos a{text-decoration:none}
+.sos .blink{display:inline-block;width:9px;height:9px;border-radius:50%;background:#D1342F;margin-right:8px;animation:bl 1.2s infinite}
+@keyframes bl{50%{opacity:.2}}
+.nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center;height:80px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:Archivo,sans-serif;font-weight:900;font-size:22px;letter-spacing:-.02em;color:var(--navy)}
+.logo i{display:grid;place-items:center;width:40px;height:40px;background:var(--navy);color:var(--yel);font-style:normal;font-size:20px}
+.nav ul{display:flex;gap:30px;list-style:none;margin:0;padding:0;font-weight:600;font-size:16px}
+.nav ul a{text-decoration:none;color:var(--navy)}.nav ul a:hover{color:var(--navy3);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;text-decoration-color:var(--yel)}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;font:800 16px Archivo,sans-serif;letter-spacing:-.01em;text-decoration:none;border:0;cursor:pointer;background:var(--yel);color:var(--navy);transition:transform .15s,background .2s}
+.b:hover{background:#FFD45F}.b:active{transform:translateY(1px)}
+.b--navy{background:var(--navy);color:#fff}.b--navy:hover{background:var(--navy3)}
+.b--line{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}.b--line:hover{background:rgba(255,255,255,.08)}
+.burger{display:none}
+
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:stretch;padding-top:84px;padding-bottom:0}
+.hero h1{font-size:clamp(52px,6.6vw,100px);margin:18px 0 26px}
+.hero h1 span{color:var(--yel)}
+.hero .lbl{color:#9FB3D1}
+.hero p{font-size:19px;color:#C9D4E5;max-width:500px;margin:0 0 32px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px}
+.pc{background:#fff;color:var(--ink);padding:26px 28px;max-width:520px;margin-bottom:-1px;border-top:4px solid var(--yel)}
+.pc label{display:block;font-family:Archivo,sans-serif;font-weight:800;font-size:18px;margin-bottom:12px}
+.pc .r{display:flex;gap:8px}
+.pc input{flex:1;min-width:0;min-height:52px;border:2px solid var(--line);padding:0 16px;font:600 18px Plex,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.pc input:focus{outline:none;border-color:var(--navy)}
+.pc .out{min-height:26px;margin:12px 0 0;font-weight:600;font-size:15px}
+.pc .out.y{color:#17804A}.pc .out.n{color:#B4322B}
+.hphoto{position:relative;min-height:560px}
+.hphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:-40px;top:60px;background:var(--yel);color:var(--navy);padding:20px 22px;font-family:Archivo,sans-serif;font-weight:900;font-size:40px;line-height:.9;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.badge small{display:block;font:600 14px/1.3 Plex,sans-serif;margin-top:8px;max-width:130px}
+
+.trust{border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.trust div{padding:28px 0;display:flex;gap:14px;align-items:center;border-left:1px solid var(--line);padding-left:24px}
+.trust div:first-child{border-left:0;padding-left:0}
+.trust b{font-family:Archivo,sans-serif;font-weight:900;font-size:34px;color:var(--navy);letter-spacing:-.03em}
+.trust span{font-size:14px;color:var(--mute);line-height:1.35}
+
+.svc{padding:120px 0}
+.svc .top{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px}
+.svc h2{font-size:clamp(42px,5vw,72px);margin:14px 0 0}
+.svc .top p{color:var(--mute);max-width:470px;margin:0}
+.slist{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.sl{list-style:none;margin:0;padding:0;border-top:2px solid var(--navy)}
+.sl li{border-bottom:1px solid var(--line)}
+.sl button{width:100%;display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;padding:26px 0;border:0;background:none;text-align:left;cursor:pointer;color:var(--ink);font:inherit}
+.sl .n{font-family:Archivo,sans-serif;font-weight:800;color:var(--mute);font-size:16px}
+.sl h3{margin:0;font-family:Archivo,sans-serif;font-weight:800;font-size:28px;letter-spacing:-.02em;transition:transform .3s var(--ease)}
+.sl .ar{font-size:26px;color:var(--navy);transition:transform .3s var(--ease)}
+.sl .d{display:none;padding:0 0 26px 72px;color:var(--mute)}
+.sl li.on .d{display:block;animation:fade .4s var(--ease)}
+.sl li.on h3{transform:translateX(6px)}
+.sl li.on .ar{transform:rotate(90deg)}
+.sl li.on .n{color:var(--navy);background:var(--yel);display:inline-grid;place-items:center;width:40px;height:40px}
+.simg{position:sticky;top:110px;aspect-ratio:4/5;overflow:hidden;background:var(--sky)}
+.simg img{width:100%;height:100%;object-fit:cover;animation:fade .5s var(--ease)}
+.simg .cap{position:absolute;left:0;bottom:0;background:var(--navy);color:#fff;padding:14px 18px;font-weight:600;font-size:15px}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+.proj{background:var(--sky);padding:120px 0}
+.proj .top{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
+.proj h2{font-size:clamp(42px,5vw,72px);margin:14px 0 0}
+.flt{display:flex;flex-wrap:wrap;gap:6px}
+.flt button{min-height:46px;padding:0 18px;border:2px solid var(--navy);background:transparent;color:var(--navy);font:700 15px Plex,sans-serif;cursor:pointer}
+.flt button[aria-pressed=true]{background:var(--navy);color:#fff}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{background:#fff;overflow:hidden;animation:fade .45s var(--ease) both}
+.pcard[hidden]{display:none}
+.pcard .im{aspect-ratio:4/3;overflow:hidden}
+.pcard img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.pcard:hover img{transform:scale(1.05)}
+.pcard .t{padding:20px 22px 24px}
+.pcard small{font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy3)}
+.pcard h3{margin:6px 0 8px;font-family:Archivo,sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em}
+.pcard p{margin:0;color:var(--mute);font-size:15px}
+.pcard .meta{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;font-weight:600;color:var(--navy)}
+.pcard.wide{grid-column:span 2}.pcard.wide .im{aspect-ratio:16/9}
+
+.quote{padding:120px 0}
+.quote .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}
+.quote h2{font-size:clamp(40px,4.6vw,64px);margin:14px 0 18px}
+.steps{display:flex;gap:6px;margin-bottom:28px}
+.steps i{flex:1;height:6px;background:var(--line);transition:background .3s}
+.steps i.on{background:var(--yel)}
+.qf{border:2px solid var(--navy);padding:36px}
+.qs{display:none}.qs.on{display:block;animation:fade .4s var(--ease)}
+.qs h3{margin:0 0 20px;font-family:Archivo,sans-serif;font-weight:800;font-size:28px;letter-spacing:-.02em}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts label{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 18px;border:2px solid var(--line);font-weight:600;cursor:pointer;transition:border-color .2s,background .2s}
+.opts input{accent-color:var(--navy);width:20px;height:20px}
+.opts label:has(input:checked){border-color:var(--navy);background:var(--sky)}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.fld input,.fld textarea,.fld select{width:100%;min-height:52px;border:2px solid var(--line);padding:10px 14px;font:500 16px Plex,sans-serif;background:#fff;color:var(--ink)}
+.fld textarea{min-height:110px;resize:vertical}
+.fld input:focus,.fld textarea:focus,.fld select:focus{outline:none;border-color:var(--navy)}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:24px}
+.err{color:#B4322B;font-weight:600;font-size:15px;min-height:22px;margin:10px 0 0}
+.done{text-align:left}
+.done .big{font-family:Archivo,sans-serif;font-weight:900;font-size:64px;color:var(--navy);line-height:1}
+.qside ul{list-style:none;padding:0;margin:28px 0 0}
+.qside li{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.qside li b{font-family:Archivo,sans-serif;font-weight:900;color:var(--navy);min-width:28px}
+
+.revs{background:var(--navy);color:#fff;padding:110px 0}
+.revs .top{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:20px;margin-bottom:44px}
+.revs h2{font-size:clamp(40px,4.6vw,64px);margin:14px 0 0}
+.revs .lbl{color:#9FB3D1}
+.revs .score{display:flex;align-items:center;gap:16px}
+.revs .score b{font-family:Archivo,sans-serif;font-weight:900;font-size:72px;color:var(--yel);line-height:1}
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rc{background:var(--navy2);padding:30px}
+.rc .st{color:var(--yel);letter-spacing:3px}
+.rc p{font-size:18px;margin:14px 0 24px}
+.rc small{color:#9FB3D1}
+.disc{font-size:14px;color:#9FB3D1;margin-top:24px}
+
+.foot{background:#0A172C;color:#C9D4E5;padding:80px 0 36px;font-size:15px}
+.foot .g{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+.foot h4{color:#fff;font-family:Archivo,sans-serif;font-weight:800;font-size:16px;margin:0 0 12px}
+.foot p{margin:0}
+.foot .legal{margin-top:60px;padding-top:24px;border-top:1px solid #1D3050;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:14px}
+.mbar{display:none}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+ .wrap{padding:0 20px}
+ .hide-m{display:none}
+ .nav ul,.nav .b{display:none}
+ .burger{display:inline-grid;place-items:center;width:48px;height:48px;border:2px solid var(--navy);background:#fff;font-size:18px;color:var(--navy)}
+ .mm{position:fixed;inset:0;z-index:90;background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:40px;transform:translateY(-100%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s}
+ .mm.open{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+ .mm a{font-family:Archivo,sans-serif;font-weight:900;font-size:40px;text-decoration:none}
+ .mm button{position:absolute;top:20px;right:20px;width:48px;height:48px;border:2px solid #fff;background:none;color:#fff;font-size:18px}
+ .hero .wrap{grid-template-columns:minmax(0,1fr);padding-top:48px;gap:0}
+ .hero h1{font-size:42px}
+ .sos{font-size:14px}
+ .hero .acts{margin-bottom:32px}
+ .hphoto{min-height:300px;margin:0 -20px}
+ .badge{left:16px;top:auto;bottom:16px;font-size:30px;padding:14px 16px}
+ .pc{margin:0 0 28px}
+ .trust .wrap{grid-template-columns:1fr 1fr}.trust div{padding:18px 0 18px 14px}.trust div:nth-child(3){border-left:0;padding-left:0}
+ .svc,.proj,.quote{padding:80px 0}
+ .svc .top,.slist,.quote .wrap{grid-template-columns:minmax(0,1fr);gap:32px}
+ .simg{position:relative;top:0;aspect-ratio:4/3}
+ .sl h3{font-size:22px}.sl .d{padding-left:0}
+ .pgrid{grid-template-columns:1fr}.pcard.wide{grid-column:auto}
+ .qf{padding:22px}.opts{grid-template-columns:1fr}
+ .rg{grid-template-columns:1fr}
+ .foot .g{grid-template-columns:1fr 1fr}
+ .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60}
+ .mbar a{min-height:58px;display:flex;align-items:center;justify-content:center;font:800 16px Archivo,sans-serif;text-decoration:none;background:var(--navy);color:#fff}
+ .mbar a:last-child{background:var(--yel);color:var(--navy)}
+ body{padding-bottom:58px}
+}
+@media (min-width:961px){.mm{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* v8.3: grotere tikvlakken op mobiel */
+.demo-bar a{display:inline-block;padding:0 4px}
+footer a[href^="tel:"],footer a[href^="#"]{display:inline-block;padding-block:10px}
+@media (max-width:960px){.sos a{display:inline-block;padding:10px 0}}
+</style>
+</head>
+<body>
+<div class="demo-bar">Demo van Sovera<span class="hide-m"> · Kraan &amp; Ketel is een verzonnen bedrijf</span> · <a href="../index.html#voorbeelden">Terug naar Sovera</a></div>
+<div class="sos"><div class="wrap"><span><span class="blink"></span>Lekkage of storing?<span class="hide-m"> 24/7 bereikbaar</span></span><a href="tel:+31100000000">Bel 24/7 →</a></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><i>K</i>Kraan &amp; Ketel</a>
+    <ul><li><a href="#diensten">Diensten</a></li><li><a href="#projecten">Projecten</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#offerte">Offerte</a></li></ul>
+    <a class="b b--navy" href="#offerte">Gratis offerte</a>
+    <button class="burger" type="button" aria-label="Menu" data-burger>☰</button>
+  </div>
+</header>
+<nav class="mm" data-mm aria-label="Menu"><button type="button" data-close aria-label="Sluit menu">✕</button><a href="#diensten">Diensten</a><a href="#projecten">Projecten</a><a href="#reviews">Reviews</a><a href="#offerte">Offerte</a></nav>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="lbl">Installatiebedrijf · regio Rotterdam</span>
+      <h1 class="h">Cv, sanitair en warmtepompen. <span>Goed geregeld.</span></h1>
+      <p>Van een lekkende kraan tot een complete badkamer. Vaste monteurs, heldere offertes en geen verrassingen op de factuur.</p>
+      <div class="acts"><a class="b" href="#offerte">Vraag een offerte aan</a><a class="b b--line" href="tel:+31100000000">Bel direct</a></div>
+      <form class="pc" data-pc novalidate>
+        <label for="pc">Werken jullie bij mij in de buurt?</label>
+        <div class="r"><input id="pc" data-pcin inputmode="text" maxlength="7" placeholder="3011 AB" autocomplete="postal-code"><button class="b b--navy" type="submit">Check</button></div>
+        <p class="out" data-pcout aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="hphoto">
+      <img src="foto/inst-hero.jpg" alt="Monteur in blauwe werkkleding bij een raam op de bouwplaats" fetchpriority="high">
+      <div class="badge">&lt; 4 uur<small>ter plaatse bij spoed, ook in het weekend</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div><b>18</b><span>jaar ervaring<br>in de regio</span></div>
+    <div><b>9</b><span>vaste monteurs,<br>geen uitzendkrachten</span></div>
+    <div><b>5 jr</b><span>garantie op<br>installatiewerk</span></div>
+    <div><b>4,8</b><span>gemiddeld uit<br>voorbeeldreviews</span></div>
+  </div>
+</section>
+
+<section class="svc" id="diensten">
+  <div class="wrap">
+    <div class="top rv"><div><span class="lbl">Diensten</span><h2 class="h">Waar we je mee helpen.</h2></div><p>Klik op een dienst voor meer uitleg. Twijfel je wat je nodig hebt? Bel, dan denken we gratis mee.</p></div>
+    <div class="slist">
+      <ul class="sl rv" data-sl>
+        <li class="on" data-img="foto/inst-afvoer.jpg" data-cap="Lekkage onder het aanrecht verholpen"><button type="button" aria-expanded="true"><span class="n">01</span><h3>Lekkage &amp; storingen</h3><span class="ar">→</span></button><p class="d">Druppelt het, valt de cv uit of is de afvoer verstopt? Bij spoed staan we binnen vier uur voor de deur. Vooraf hoor je wat het voorrijden kost.</p></li>
+        <li data-img="foto/inst-warmtepomp.jpg" data-cap="Buitenunit warmtepomp, rijtjeswoning"><button type="button" aria-expanded="false"><span class="n">02</span><h3>Warmtepompen</h3><span class="ar">→</span></button><p class="d">Hybride of all-electric. We rekenen uit wat het bespaart, regelen de subsidieaanvraag en plaatsen de unit netjes en stil.</p></li>
+        <li data-img="foto/inst-badkamer.jpg" data-cap="Badkamer met inloopdouche en houten meubel"><button type="button" aria-expanded="false"><span class="n">03</span><h3>Badkamers</h3><span class="ar">→</span></button><p class="d">Van ontwerp tot laatste kitnaad. Eén aanspreekpunt, een vaste planning en je badkamer is meestal binnen twee weken klaar.</p></li>
+        <li data-img="foto/inst-meterkast.jpg" data-cap="Groepenkast uitgebreid voor inductie"><button type="button" aria-expanded="false"><span class="n">04</span><h3>Elektra &amp; groepenkast</h3><span class="ar">→</span></button><p class="d">Extra groep voor inductie of een laadpaal, aardlekschakelaars vervangen, alles volgens NEN 1010.</p></li>
+        <li data-img="foto/inst-woning.jpg" data-cap="Nieuwbouwwoning met warmtepomp"><button type="button" aria-expanded="false"><span class="n">05</span><h3>Onderhoud cv-ketel</h3><span class="ar">→</span></button><p class="d">Jaarlijkse beurt met een vaste afspraak. Je krijgt vanzelf een herinnering, wij nemen het rapport mee.</p></li>
+      </ul>
+      <div class="simg rv" data-simg><img src="foto/inst-afvoer.jpg" alt="" data-simgi><span class="cap" data-simgc>Lekkage onder het aanrecht verholpen</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="proj" id="projecten">
+  <div class="wrap">
+    <div class="top rv"><div><span class="lbl">Projecten</span><h2 class="h">Recent opgeleverd.</h2></div>
+      <div class="flt" role="group" aria-label="Filter projecten" data-flt><button type="button" data-f="alle" aria-pressed="true">Alles</button><button type="button" data-f="bad" aria-pressed="false">Badkamer</button><button type="button" data-f="warm" aria-pressed="false">Warmtepomp</button><button type="button" data-f="inst" aria-pressed="false">Installatie</button></div>
+    </div>
+    <div class="pgrid" data-pgrid>
+      <article class="pcard wide" data-c="bad"><div class="im"><img src="foto/inst-badkamer2.jpg" alt="Badkamer in aanbouw met monteur" loading="lazy"></div><div class="t"><small>Badkamer · Kralingen</small><h3>Complete badkamer in een jaren-30 woning</h3><p>Oude leidingen eruit, inloopdouche, vloerverwarming en een hangend toilet.</p><div class="meta"><span>12 werkdagen</span><span>Voorbeeldproject</span></div></div></article>
+      <article class="pcard" data-c="warm"><div class="im"><img src="foto/inst-warmtepomp.jpg" alt="Buitenunit van een warmtepomp" loading="lazy"></div><div class="t"><small>Warmtepomp · Hillegersberg</small><h3>Hybride warmtepomp</h3><p>Gasverbruik naar verwachting flink omlaag.</p><div class="meta"><span>1 dag</span><span>Voorbeeldproject</span></div></div></article>
+      <article class="pcard" data-c="inst"><div class="im"><img src="foto/inst-meterkast.jpg" alt="Elektricien test een groepenkast" loading="lazy"></div><div class="t"><small>Elektra · Noord</small><h3>Groepenkast voor inductie</h3><p>Twee extra groepen en nieuwe aardlekschakelaars.</p><div class="meta"><span>Halve dag</span><span>Voorbeeldproject</span></div></div></article>
+      <article class="pcard" data-c="bad"><div class="im"><img src="foto/inst-badkamer3.jpg" alt="Moderne badkamer met stenen tegels" loading="lazy"></div><div class="t"><small>Badkamer · Centrum</small><h3>Kleine badkamer, groot gevoel</h3><p>Lichte tegels, nis in de douche, slimme opbergruimte.</p><div class="meta"><span>9 werkdagen</span><span>Voorbeeldproject</span></div></div></article>
+      <article class="pcard" data-c="warm"><div class="im"><img src="foto/inst-woning.jpg" alt="Nieuwbouwwoning met warmtepomp naast de gevel" loading="lazy"></div><div class="t"><small>Warmtepomp · Nesselande</small><h3>All-electric nieuwbouw</h3><p>Lucht-water-warmtepomp met boilervat.</p><div class="meta"><span>2 dagen</span><span>Voorbeeldproject</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="quote" id="offerte">
+  <div class="wrap">
+    <div class="qside rv">
+      <span class="lbl">Offerte</span>
+      <h2 class="h">Binnen één werkdag een prijs.</h2>
+      <p style="color:var(--mute)">Drie korte stappen. Je zit nergens aan vast.</p>
+      <ul><li><b>1</b>Je vertelt wat er moet gebeuren</li><li><b>2</b>We bellen voor een paar vragen of komen kijken</li><li><b>3</b>Je krijgt een vaste prijs op papier</li></ul>
+    </div>
+    <form class="qf rv" data-qf novalidate>
+      <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <div class="qs on" data-s="1"><h3>Waar gaat het om?</h3>
+        <div class="opts"><label><input type="radio" name="w" value="Lekkage of storing">Lekkage of storing</label><label><input type="radio" name="w" value="Warmtepomp">Warmtepomp</label><label><input type="radio" name="w" value="Badkamer">Badkamer</label><label><input type="radio" name="w" value="Iets anders">Iets anders</label></div></div>
+      <div class="qs" data-s="2"><h3>Waar en wanneer?</h3>
+        <div class="fld"><label for="q-pc">Postcode</label><input id="q-pc" name="pc" placeholder="3011 AB" autocomplete="postal-code"></div>
+        <div class="fld"><label for="q-when">Wanneer</label><select id="q-when" name="when"><option>Zo snel mogelijk</option><option>Binnen een maand</option><option>Later dit jaar</option></select></div>
+        <div class="fld"><label for="q-msg">Korte uitleg (mag ook leeg)</label><textarea id="q-msg" name="msg" placeholder="Bijvoorbeeld: cv-ketel geeft foutcode, 12 jaar oud."></textarea></div></div>
+      <div class="qs" data-s="3"><h3>Hoe bereiken we je?</h3>
+        <div class="fld"><label for="q-n">Naam</label><input id="q-n" name="n" autocomplete="name"></div>
+        <div class="fld"><label for="q-t">Telefoon</label><input id="q-t" name="t" inputmode="tel" autocomplete="tel"></div></div>
+      <div class="qs done" data-s="4" role="status"><div class="big">Ontvangen.</div><p data-donet></p><p style="font-size:14px;color:var(--mute)">Dit is een demo: er is niets verstuurd.</p></div>
+      <p class="err" data-err aria-live="polite"></p>
+      <div class="nav2" data-nav2><button class="b b--line" type="button" data-back style="color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy);visibility:hidden">Terug</button><button class="b" type="submit" data-next>Volgende</button></div>
+    </form>
+  </div>
+</section>
+
+<section class="revs" id="reviews">
+  <div class="wrap">
+    <div class="top rv"><div><span class="lbl">Reviews</span><h2 class="h">Wat klanten zeggen.</h2></div><div class="score"><b>4,8</b><span>gemiddeld<br>(voorbeeld)</span></div></div>
+    <div class="rg rv">
+      <div class="rc"><div class="st">★★★★★</div><p>Zondagavond lekkage, binnen drie uur stond er iemand. Netjes opgeruimd ook.</p><small>Voorbeeld · Rotterdam-Zuid</small></div>
+      <div class="rc"><div class="st">★★★★★</div><p>Offerte was precies wat we betaalden. Badkamer is prachtig geworden.</p><small>Voorbeeld · Kralingen</small></div>
+      <div class="rc"><div class="st">★★★★☆</div><p>Goed advies over de warmtepomp, eerlijk dat hybride voor ons huis slimmer was.</p><small>Voorbeeld · Schiedam</small></div>
+    </div>
+    <p class="disc">Voorbeeldreviews: dit bedrijf bestaat niet. Op jouw site komen echte reviews van Google.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="g">
+      <div><a class="logo" href="#top" style="color:#fff"><i>K</i>Kraan &amp; Ketel</a><p style="margin-top:14px;max-width:300px">Installatiebedrijf voor Rotterdam en omgeving. KvK 00000000 (demo).</p></div>
+      <div><h4>Contact</h4><p><a href="tel:+31100000000">010 000 00 00</a><br>info@voorbeeld.nl</p></div>
+      <div><h4>Werkgebied</h4><p>Rotterdam, Schiedam, Capelle, Barendrecht</p></div>
+      <div><h4>Open</h4><p>Ma t/m vr 7:30 – 17:00<br>Spoed: 24/7</p></div>
+    </div>
+    <div class="legal"><span>© Kraan &amp; Ketel (demo)</span><span>Website door <a href="../index.html" style="color:var(--yel)">Sovera</a></span></div>
+  </div>
+</footer>
+<div class="mbar"><a href="tel:+31100000000">Bel direct</a><a href="#offerte">Offerte</a></div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  // postcode
+  $('[data-pc]').addEventListener('submit',function(e){e.preventDefault();var v=$('[data-pcin]').value.replace(/\s/g,'').toUpperCase(),o=$('[data-pcout]');
+    if(!/^\d{4}[A-Z]{0,2}$/.test(v)){o.className='out n';o.textContent='Vul een postcode in, zoals 3011 AB.';return}
+    var n=+v.slice(0,4);var ok=(n>=2900&&n<=3199);o.className='out '+(ok?'y':'n');o.textContent=ok?'Ja, '+v.slice(0,4)+' valt in ons werkgebied. Bij spoed binnen 4 uur.':'Net buiten ons vaste gebied. Bel even, soms kan het toch.'});
+  // diensten
+  $$('[data-sl] li').forEach(function(li){li.querySelector('button').addEventListener('click',function(){
+    $$('[data-sl] li').forEach(function(x){x.classList.toggle('on',x===li);x.querySelector('button').setAttribute('aria-expanded',x===li)});
+    var im=$('[data-simgi]');var n=im.cloneNode();n.src=li.dataset.img;im.replaceWith(n);$('[data-simgc]').textContent=li.dataset.cap})});
+  // filter
+  $$('[data-flt] button').forEach(function(b){b.addEventListener('click',function(){$$('[data-flt] button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});$$('[data-pgrid] .pcard').forEach(function(c){c.hidden=!(b.dataset.f==='alle'||c.dataset.c===b.dataset.f)})})});
+  // offerte
+  var f=$('[data-qf]'),step=1;
+  function show(){$$('.qs',f).forEach(function(s){s.classList.toggle('on',+s.dataset.s===step)});$$('.steps i',f).forEach(function(i,k){i.classList.toggle('on',k<step)});$('[data-back]').style.visibility=step>1&&step<4?'visible':'hidden';$('[data-next]').textContent=step===3?'Verstuur aanvraag':'Volgende';if(step===4)$('[data-nav2]').style.display='none'}
+  $('[data-back]').addEventListener('click',function(){step--;$('[data-err]').textContent='';show()});
+  f.addEventListener('submit',function(e){e.preventDefault();var err=$('[data-err]');err.textContent='';
+    if(step===1&&!f.querySelector('input[name=w]:checked')){err.textContent='Kies waar het om gaat.';return}
+    if(step===2&&!/^\d{4}\s?[A-Za-z]{2}$/.test(f.pc.value.trim())){err.textContent='Vul je postcode in, zoals 3011 AB.';f.pc.focus();return}
+    if(step===3){if(f.n.value.trim().length<2){err.textContent='Vul je naam in.';f.n.focus();return}if(f.t.value.replace(/\D/g,'').length<10){err.textContent='Vul een telefoonnummer in.';f.t.focus();return}
+      $('[data-donet]').textContent='Bedankt '+f.n.value.trim()+'. We bellen je over "'+f.querySelector('input[name=w]:checked').value.toLowerCase()+'" binnen één werkdag.'}
+    step++;show()});
+  // menu
+  var mm=$('[data-mm]');$('[data-burger]').addEventListener('click',function(){mm.classList.add('open')});$('[data-close]').addEventListener('click',function(){mm.classList.remove('open')});$$('a',mm).forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open')})});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(z){if(z.isIntersecting){z.target.classList.add('in');io.unobserve(z.target)}})},{threshold:.1});$$('.rv').forEach(function(el){io.observe(el)})}else $$('.rv').forEach(function(el){el.classList.add('in')});
+})();
+</script>
+</body>
+</html>
