@@ -215,7 +215,7 @@ button{font:inherit}
 @keyframes pop{40%{transform:scale(.985)}}
 .cs__top{display:flex;justify-content:space-between;align-items:center;padding:22px 22px 0;font-size:12px;font-weight:700}
 .cs__top i{width:22px;height:2px;background:#111;box-shadow:0 6px 0 #111}
-.cs__hero{margin:16px 12px 0;padding:26px 18px 22px;border-radius:22px;background:var(--c,#F2A37A);color:var(--on,#111)}
+.cs__hero{margin:16px 12px 0;padding:26px 18px 22px;border-radius:22px;background:var(--c,#3F9D74);color:var(--on,#111)}
 .cs__tag{font-size:11px;font-weight:700;letter-spacing:.04em;opacity:.8}
 .cs__name{display:block;font-family:var(--cf);font-weight:var(--cw);text-transform:var(--cup);letter-spacing:var(--cls);font-size:30px;line-height:1;margin:8px 0 6px;overflow-wrap:anywhere}
 .cs__head{font-size:15px;margin:0 0 14px;opacity:.9}
