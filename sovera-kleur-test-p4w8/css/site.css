@@ -1,4 +1,4 @@
-/* Sovera versie 8 — hoofdsite. Eén lettertype (Schibsted Grotesk), bijna-zwart, crème en één abrikoos accent. */
+/* Sovera versie 8 — hoofdsite. Eén lettertype (Schibsted Grotesk), bijna-zwart, crème en één donkergroen accent. */
 @font-face{font-family:Schibsted;src:url(../fonts/schibsted-grotesk-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Schibsted;src:url(../fonts/schibsted-grotesk-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Schibsted;src:url(../fonts/schibsted-grotesk-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
@@ -9,15 +9,15 @@
 @font-face{font-family:Oswald;src:url(../fonts/oswald-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
 
 :root{
-  --ink:#0F0D0C;--ink2:#161312;--ink3:#1F1A18;--ink4:#2A2421;
+  --ink:#0C100E;--ink2:#131916;--ink3:#1B221E;--ink4:#252E29;
   --cream:#EFEBE2;--cream2:#E6E1D5;--paper:#F7F5F0;
-  --lime:#F2A37A;--lime2:#E58A5C;--lime-ink:#1C120C;
+  --lime:#3F9D74;--lime2:#2F865F;--lime-ink:#04140D;
   --mute:#8C938D;--mute-d:#5C625D;
   --line-d:rgba(239,235,226,.12);--line-l:rgba(11,13,12,.13);
   --ease:cubic-bezier(.2,.7,.2,1);
   --f:Schibsted,system-ui,-apple-system,sans-serif;
   /* voor chat.css */
-  --night:#0F0D0C;--night-2:#161312;--night-3:#1F1A18;--on-night:#EFEBE2;--on-night-muted:#A0A69F;--f-body:var(--f);--f-display:var(--f);--f-mono:var(--f);
+  --night:#0C100E;--night-2:#131916;--night-3:#1B221E;--on-night:#EFEBE2;--on-night-muted:#A0A69F;--f-body:var(--f);--f-display:var(--f);--f-mono:var(--f);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -180,7 +180,7 @@ button{font:inherit}
 .gres__me .thumb{background:#F1F3F4;display:grid;place-items:center;color:#9AA0A6;font-size:11px;text-align:center;line-height:1.2}
 .gme__full,.gme__btns{display:none}
 .gres__me b{color:#70757A}
-.gres__me.is-full{background:#FDEFE4;box-shadow:inset 4px 0 0 var(--lime2)}
+.gres__me.is-full{background:#E3F3EA;box-shadow:inset 4px 0 0 var(--lime2)}
 .gres__me.is-full b{color:#1A0DAB}
 .gres__me.is-full .gme__thin{display:none}
 .gres__me.is-full .gme__full{display:block}
@@ -303,7 +303,7 @@ button{font:inherit}
 .plans{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
 .plan{border-radius:26px;padding:36px;background:#fff;box-shadow:inset 0 0 0 1px var(--line-l);display:flex;flex-direction:column}
 .plan--main{grid-column:1/span 7;grid-row:span 2;background:var(--ink);color:var(--cream);box-shadow:none;padding:48px;position:relative;overflow:hidden}
-.plan--main::after{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(242,163,122,.22),rgba(242,163,122,0) 70%)}
+.plan--main::after{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(63,157,116,.22),rgba(63,157,116,0) 70%)}
 .plan--side{grid-column:8/span 5}
 .plan__badge{align-self:flex-start;font-size:13px;font-weight:700;padding:7px 12px;border-radius:99px;background:var(--lime);color:var(--ink)}
 .plan__name{font-size:18px;font-weight:700;margin:22px 0 4px}
