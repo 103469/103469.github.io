@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Brasserie Spoor · Rotterdam (demo van Sovera)</title>
+<meta name="description" content="Demosite van Sovera voor een fictieve brasserie in Rotterdam.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3EADB">
+<link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Fraunces;src:url(../fonts/fraunces-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Fraunces;src:url(../fonts/fraunces-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Fraunces;src:url(../fonts/fraunces-latin-400-italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:Work;src:url(../fonts/work-sans-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Work;src:url(../fonts/work-sans-latin-500-normal.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:Work;src:url(../fonts/work-sans-latin-600-normal.woff2) format('woff2');font-weight:600;font-display:swap}
+:root{--cream:#F3EADB;--cream2:#EADDC8;--terra:#B5502B;--terra2:#9A4122;--olive:#2E3826;--olive2:#3B4732;--ink:#2A1F17;--mute:#7A6A5B;--line:rgba(42,31,23,.16);--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Work,system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 44px}
+.f{font-family:Fraunces,Georgia,serif;font-weight:400;letter-spacing:-.02em}
+.kicker{font-family:Fraunces,serif;font-style:italic;font-size:20px;color:var(--terra)}
+.demo-bar{background:var(--olive);color:var(--cream);font-size:13px;text-align:center;height:34px;line-height:34px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px}
+.demo-bar a{color:#F0C9A8;font-weight:600}
+.today{background:var(--terra);color:var(--cream);font-size:14px}
+.today .wrap{display:flex;justify-content:space-between;gap:16px;height:40px;align-items:center}
+.today b{font-weight:600}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(243,234,219,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center;height:78px}
+.logo{text-decoration:none;font-family:Fraunces,serif;font-size:30px;font-weight:600;letter-spacing:-.03em;display:flex;align-items:center;gap:10px}
+.logo i{width:30px;height:30px;border-radius:50% 50% 0 0;background:var(--terra);display:inline-block}
+.nav ul{display:flex;gap:34px;list-style:none;margin:0;padding:0;font-weight:500;font-size:16px}
+.nav ul a{text-decoration:none;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--terra);transition:right .3s var(--ease)}
+.nav ul a:hover::after{right:0}
+.pill{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 26px;border-radius:999px;background:var(--terra);color:var(--cream);font:600 16px Work,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:background .2s,transform .2s}
+.pill:hover{background:var(--terra2)}
+.pill:active{transform:scale(.98)}
+.pill--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pill--ghost:hover{background:var(--ink);color:var(--cream)}
+.burger{display:none}
+
+.hero{padding:64px 0 100px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:end}
+.hero h1{font-size:clamp(60px,8vw,128px);line-height:.88;margin:18px 0 30px}
+.hero p.lead{font-size:20px;max-width:440px;margin:0 0 34px;color:#4A3A2D}
+.quick{display:grid;grid-template-columns:1.2fr 1fr auto;gap:0;background:#fff;border-radius:999px;padding:6px;box-shadow:0 20px 50px -25px rgba(42,31,23,.35);max-width:560px}
+.quick label{display:grid;padding:6px 20px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.quick label+label{border-left:1px solid var(--line)}
+.quick select{border:0;background:transparent;font:500 17px Work,sans-serif;color:var(--ink);padding:2px 0;cursor:pointer}
+.arch{position:relative;height:640px}
+.arch img{width:100%;height:100%;object-fit:cover;border-radius:320px 320px 0 0}
+.arch .stamp{position:absolute;left:-46px;bottom:60px;width:132px;height:132px;border-radius:50%;background:var(--olive);color:var(--cream);display:grid;place-items:center;text-align:center;font-family:Fraunces,serif;font-size:17px;line-height:1.2;animation:spin 30s linear infinite}
+.arch .stamp span{animation:spin 30s linear infinite reverse;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.strip{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:16px;padding:0 16px}
+.strip img{width:100%;height:420px;object-fit:cover;border-radius:6px}
+
+.menu{padding:120px 0}
+.menu .head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px;margin-bottom:48px}
+.menu h2{font-size:clamp(48px,6vw,88px);line-height:.95;margin:8px 0 0}
+.mtabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mtabs button{min-height:46px;padding:0 22px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;font:500 16px Work,sans-serif;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.mtabs button[aria-pressed=true]{background:var(--ink);color:var(--cream)}
+.veg{display:inline-flex;align-items:center;gap:10px;margin-left:10px;font-weight:500;cursor:pointer;min-height:46px}
+.veg input{width:20px;height:20px;accent-color:var(--olive)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
+.dish{display:grid;grid-template-columns:1fr auto;gap:4px 20px;padding:26px 0;border-top:1px solid var(--line);animation:fade .45s var(--ease) both}
+.dish h3{margin:0;font-family:Fraunces,serif;font-weight:400;font-size:28px;letter-spacing:-.01em}
+.dish .p{font-family:Fraunces,serif;font-size:24px;font-variant-numeric:lining-nums}
+.dish p{grid-column:1/-1;margin:0;color:var(--mute);font-size:16px}
+.tag{display:inline-block;margin-left:10px;font:600 11px/1 Work,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:99px;background:#DCE3CF;color:var(--olive);vertical-align:middle}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.empty{grid-column:1/-1;padding:30px 0;color:var(--mute)}
+
+.chef{background:var(--olive);color:var(--cream);padding:130px 0;overflow:hidden}
+.chef .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:90px;align-items:center}
+.chef .ph{position:relative}
+.chef .ph img{width:100%;height:620px;object-fit:cover;border-radius:6px}
+.chef .ph img.small{position:absolute;right:-60px;bottom:-60px;width:52%;height:280px;border:10px solid var(--olive)}
+.chef h2{font-size:clamp(40px,4.6vw,70px);line-height:1;margin:14px 0 26px}
+.chef p{color:#D9D2C2;max-width:520px}
+.chef .kicker{color:#F0B48E}
+.sig{font-family:Fraunces,serif;font-style:italic;font-size:26px;margin-top:30px;color:#F0B48E}
+
+.res{padding:130px 0}
+.res .wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.res h2{font-size:clamp(44px,5.4vw,80px);line-height:.95;margin:8px 0 22px}
+.card{background:#fff;border-radius:28px;padding:36px;box-shadow:0 30px 70px -40px rgba(42,31,23,.45)}
+.row{margin-bottom:26px}
+.row .lb{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+.ppl{display:flex;align-items:center;gap:18px}
+.ppl button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;font-size:22px;cursor:pointer}
+.ppl output{font-family:Fraunces,serif;font-size:40px;min-width:40px;text-align:center}
+.dates{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.dates button,.slots button{flex:none;border:1.5px solid var(--line);background:var(--cream);border-radius:16px;cursor:pointer;font:500 15px Work,sans-serif;color:var(--ink);transition:border-color .2s,background .2s}
+.dates button{width:72px;height:80px}
+.dates button b{display:block;font-family:Fraunces,serif;font-size:26px;font-weight:400}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.slots button{height:48px}
+.dates button:hover,.slots button:hover{border-color:var(--terra)}
+.dates button[aria-pressed=true],.slots button[aria-pressed=true]{background:var(--terra);border-color:var(--terra);color:var(--cream)}
+.slots button:disabled{opacity:.35;cursor:not-allowed}
+.card input{width:100%;min-height:52px;border-radius:14px;border:1.5px solid var(--line);padding:0 16px;font:500 16px Work,sans-serif;background:var(--cream)}
+.card input:focus{outline:none;border-color:var(--terra)}
+.conf{display:none;margin-top:20px;padding:22px;border-radius:18px;background:#E5ECDA;color:var(--olive)}
+.conf.show{display:block;animation:fade .5s var(--ease)}
+.conf h3{font-family:Fraunces,serif;font-weight:400;font-size:28px;margin:0 0 6px}
+.hrs{margin-top:34px}
+.hrs div{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line)}
+.hrs .now{color:var(--terra);font-weight:600}
+
+.loc{padding:0 0 130px}
+.loc .box{display:grid;grid-template-columns:1fr 1.3fr;border-radius:28px;overflow:hidden;background:var(--cream2)}
+.loc .txt{padding:56px}
+.loc h2{font-size:clamp(38px,4vw,58px);line-height:1;margin:8px 0 20px}
+.loc svg{width:100%;height:100%;min-height:420px;display:block}
+
+.quotes{padding:0 0 130px}
+.quotes h2{font-size:clamp(40px,4.6vw,66px);line-height:1;margin:8px 0 40px;max-width:700px}
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.q{background:#fff;border-radius:24px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.q p{font-family:Fraunces,serif;font-size:22px;line-height:1.35;margin:0}
+.q small{color:var(--mute)}
+.q .st{color:var(--terra);letter-spacing:2px}
+.disc{font-size:14px;color:var(--mute);margin-top:18px}
+
+.foot{background:var(--terra);color:var(--cream);padding:90px 0 40px}
+.foot .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.foot .big{font-family:Fraunces,serif;font-size:clamp(56px,7vw,104px);line-height:.9;margin:0;letter-spacing:-.03em}
+.foot h4{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.foot p{margin:0}
+.foot .legal{margin-top:70px;padding-top:24px;border-top:1px solid rgba(243,234,219,.3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:14px}
+.mbar{display:none}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+ .wrap{padding:0 22px}
+ .hide-m{display:none}
+ .nav ul,.nav .pill{display:none}
+ .burger{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;font-size:18px;cursor:pointer}
+ .mm{position:fixed;inset:0;z-index:90;background:var(--terra);color:var(--cream);display:flex;flex-direction:column;justify-content:center;gap:14px;padding:40px;transform:translateY(-100%);visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s}
+ .mm.open{transform:none;visibility:visible;transition:transform .45s var(--ease)}
+ .mm a{font-family:Fraunces,serif;font-size:46px;text-decoration:none}
+ .mm button{position:absolute;top:22px;right:22px;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--cream);background:transparent;color:var(--cream);font-size:18px}
+ .hero{padding:36px 0 70px}
+ .hero .wrap{grid-template-columns:1fr;gap:40px}
+ .quick{grid-template-columns:1fr 1fr;border-radius:24px}.quick .pill{grid-column:1/-1;margin-top:6px;justify-content:center}
+ .arch{height:460px}.arch .stamp{left:auto;right:10px;bottom:-30px;width:110px;height:110px;font-size:15px}
+ .strip{grid-template-columns:1fr 1fr;padding:0 8px;gap:8px}.strip img{height:220px}.strip img:nth-child(2){display:none}
+ .menu,.chef,.res{padding:80px 0}
+ .menu .head{grid-template-columns:1fr}
+ .mgrid{grid-template-columns:1fr}
+ .chef .wrap,.res .wrap{grid-template-columns:minmax(0,1fr);gap:50px}
+ .chef .ph img{height:440px}.chef .ph img.small{right:-6px;bottom:-40px;height:180px}
+ .card{padding:22px;border-radius:22px}
+ .loc .box{grid-template-columns:1fr}.loc .txt{padding:32px}
+ .qs{grid-template-columns:1fr}
+ .foot .top{grid-template-columns:1fr 1fr}.foot .top>div:first-child{grid-column:1/-1}
+ .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:10px;right:10px;bottom:10px;z-index:60}
+ .mbar a{min-height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:600;text-decoration:none;background:var(--ink);color:var(--cream)}
+ .mbar a:last-child{background:var(--terra)}
+ body{padding-bottom:74px}
+}
+@media (min-width:961px){.mm{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="demo-bar">Demo van Sovera<span class="hide-m"> · Brasserie Spoor is een verzonnen zaak</span> · <a href="../index.html#voorbeelden">Terug naar Sovera</a></div>
+<div class="today"><div class="wrap"><span data-today>Vandaag open vanaf 12:00</span><span class="hide-m">Terras open bij goed weer</span></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i>Spoor</a>
+    <ul><li><a href="#kaart">Menukaart</a></li><li><a href="#keuken">Keuken</a></li><li><a href="#vinden">Vinden</a></li><li><a href="#reserveren">Reserveren</a></li></ul>
+    <a class="pill" href="#reserveren">Reserveer een tafel</a>
+    <button class="burger" type="button" aria-label="Menu" data-burger>☰</button>
+  </div>
+</header>
+<nav class="mm" data-mm aria-label="Menu"><button type="button" data-close aria-label="Sluit menu">✕</button><a href="#kaart">Menukaart</a><a href="#keuken">Keuken</a><a href="#reserveren">Reserveren</a><a href="#vinden">Vinden</a></nav>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="rv in">
+      <span class="kicker">Brasserie aan het spoor · Rotterdam</span>
+      <h1 class="f">Eten zoals thuis, maar dan beter.</h1>
+      <p class="lead">Seizoenskeuken met Hollandse producten. Lunch, diner en een glas wijn tot middernacht.</p>
+      <form class="quick" data-quick>
+        <label>Wanneer<select data-qday><option>Vandaag</option><option>Morgen</option><option>Overmorgen</option></select></label>
+        <label>Personen<select data-qppl><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+        <button class="pill" type="submit">Kies tijd</button>
+      </form>
+    </div>
+    <div class="arch rv in">
+      <img src="foto/rest-hero.jpg" alt="Warm verlicht restaurant met oranje banken en gedekte tafels" fetchpriority="high">
+      <div class="stamp"><span>Elke dag<br>vers van<br>de markt</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip rv">
+  <img src="foto/rest-borden.jpg" alt="Kleine gerechten op borden" loading="lazy">
+  <img src="foto/rest-zaal.jpg" alt="Volle zaal met hanglampen" loading="lazy">
+  <img src="foto/rest-garnering.jpg" alt="Kok garneert een gerecht" loading="lazy">
+</div>
+
+<section class="menu" id="kaart">
+  <div class="wrap">
+    <div class="head rv">
+      <div><span class="kicker">Menukaart</span><h2 class="f">Wat de pot schaft.</h2></div>
+      <div class="mtabs" role="group" aria-label="Kies een kaart" data-mtabs>
+        <button type="button" data-k="lunch" aria-pressed="false">Lunch</button>
+        <button type="button" data-k="diner" aria-pressed="true">Diner</button>
+        <button type="button" data-k="dessert" aria-pressed="false">Dessert</button>
+        <label class="veg"><input type="checkbox" data-veg> Alleen vega</label>
+      </div>
+    </div>
+    <div class="mgrid" data-mgrid></div>
+  </div>
+</section>
+
+<section class="chef" id="keuken">
+  <div class="wrap">
+    <div class="ph rv">
+      <img src="foto/rest-chef.jpg" alt="Kok legt de laatste hand aan een bord" loading="lazy">
+      <img class="small" src="foto/rest-zalm.jpg" alt="Zalm met groenten in een diep bord" loading="lazy">
+    </div>
+    <div class="rv">
+      <span class="kicker">De keuken</span>
+      <h2 class="f">Klein menu, grote aandacht.</h2>
+      <p>Elke dinsdag schrijven we de kaart opnieuw, met wat de boeren en vissers uit de regio die week hebben. Geen vriezer vol halffabricaten: wat op is, is op.</p>
+      <p>Allergie of dieetwens? Zeg het bij het reserveren, dan houdt de keuken er rekening mee.</p>
+      <p class="sig">Chef Voorbeeld</p>
+    </div>
+  </div>
+</section>
+
+<section class="res" id="reserveren">
+  <div class="wrap">
+    <div class="rv">
+      <span class="kicker">Reserveren</span>
+      <h2 class="f">Schuif aan.</h2>
+      <p style="max-width:420px;color:#4A3A2D">Kies een dag, met hoeveel je komt en een tijd. Met meer dan acht personen? Bel ons, dan maken we iets moois.</p>
+      <div class="hrs" data-hrs></div>
+    </div>
+    <form class="card rv" data-res novalidate>
+      <div class="row"><span class="lb">Personen</span><div class="ppl"><button type="button" data-m aria-label="Minder personen">−</button><output data-n>2</output><button type="button" data-p aria-label="Meer personen">+</button></div></div>
+      <div class="row"><span class="lb">Dag</span><div class="dates" data-dates></div></div>
+      <div class="row"><span class="lb">Tijd</span><div class="slots" data-slots></div></div>
+      <div class="row"><label class="lb" for="r-naam">Naam</label><input id="r-naam" data-rn autocomplete="name" placeholder="Op welke naam?"></div>
+      <button class="pill" type="submit" style="width:100%;justify-content:center">Bevestig reservering</button>
+      <div class="conf" data-conf role="status"><h3>Je tafel staat klaar.</h3><p data-ct style="margin:0"></p><p style="margin:8px 0 0;font-size:13px">Dit is een demo: er is niets gereserveerd.</p></div>
+    </form>
+  </div>
+</section>
+
+<section class="loc" id="vinden">
+  <div class="wrap">
+    <div class="box rv">
+      <div class="txt">
+        <span class="kicker">Vinden</span>
+        <h2 class="f">Vijf minuten van Rotterdam Centraal.</h2>
+        <p>Voorbeeldstraat 1, Rotterdam<br><a href="tel:+31100000000">010 000 00 00</a></p>
+        <p style="color:var(--mute)">Fiets voor de deur, parkeergarage om de hoek. Rolstoeltoegankelijk.</p>
+        <a class="pill pill--ghost" href="#vinden" style="margin-top:12px">Plan je route</a>
+      </div>
+      <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Kaartje met de ligging van het restaurant">
+        <rect width="600" height="420" fill="#E3D4BC"/>
+        <path d="M-10 300 C 120 260 220 340 360 300 S 560 230 620 260" stroke="#BFD0C4" stroke-width="46" fill="none"/>
+        <g stroke="#F6EEE1" stroke-width="12" fill="none" stroke-linecap="round"><path d="M40 -10 L 120 430"/><path d="M-10 120 L 610 80"/><path d="M260 -10 L 300 430"/><path d="M-10 200 L 610 170"/><path d="M470 -10 L 430 430"/></g>
+        <g stroke="#2E3826" stroke-width="5" stroke-dasharray="14 10" fill="none"><path d="M-10 40 L 610 20"/></g>
+        <circle cx="290" cy="150" r="34" fill="#B5502B" opacity=".18"/>
+        <circle cx="290" cy="150" r="13" fill="#B5502B"/>
+        <text x="312" y="140" font-family="Work, sans-serif" font-size="15" font-weight="600" fill="#2A1F17">Brasserie Spoor</text>
+        <text x="40" y="30" font-family="Work, sans-serif" font-size="13" fill="#2E3826">spoor</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="quotes">
+  <div class="wrap">
+    <span class="kicker">Gasten</span>
+    <h2 class="f rv">"We komen terug voor de bitterballen. En de rest."</h2>
+    <div class="qs rv">
+      <div class="q"><div><div class="st">★★★★★</div><p>Vriendelijk, niet stijf, en de kabeljauw was perfect. Fijne wijnkaart.</p></div><small>Voorbeeld · Annelies</small></div>
+      <div class="q"><div><div class="st">★★★★★</div><p>Binnen een minuut gereserveerd via de site. Zaterdag om zeven zat alles vol, wij hadden een tafel.</p></div><small>Voorbeeld · Jeroen</small></div>
+      <div class="q"><div><div class="st">★★★★☆</div><p>Leuke plek voor een lange lunch. Vega-opties zijn echt meer dan een bijgerecht.</p></div><small>Voorbeeld · Fatima</small></div>
+    </div>
+    <p class="disc">Voorbeeldreviews: deze zaak bestaat niet. Op jouw site komen echte reviews van Google.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="top">
+      <div><p class="big">Tot zo.</p></div>
+      <div><h4>Adres</h4><p>Voorbeeldstraat 1<br>Rotterdam</p></div>
+      <div><h4>Open</h4><p>Di t/m zo 12:00 – 00:00<br>Keuken tot 22:00</p></div>
+      <div><h4>Contact</h4><p><a href="tel:+31100000000">010 000 00 00</a><br><a href="#reserveren">Reserveren</a></p></div>
+    </div>
+    <div class="legal"><span>© Brasserie Spoor (demo)</span><span>Website door <a href="../index.html">Sovera</a></span></div>
+  </div>
+</footer>
+<div class="mbar"><a href="tel:+31100000000">Bellen</a><a href="#reserveren">Reserveren</a></div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var M={
+    lunch:[['Kroketten van de slager','Twee stuks, Zaanse mosterd, desembrood',9.5,0],['Soep van de dag','Vraag ernaar, met brood en boter',7.5,1],['Uitsmijter','Drie eieren, oude kaas, ham of vega',11,0],['Geroosterde bloemkool','Tahin, granaatappel, dukkah',13.5,1],['Club Spoor','Kip, bacon, avocado, frites',14.5,0],['Salade geitenkaas','Honing, walnoot, rode biet',13,1]],
+    diner:[['Kabeljauw','Beurre blanc, groene asperge, krieltjes',26,0],['Bavette','Chimichurri, frites, sla',27.5,0],['Risotto paddenstoel','Truffel, Parmezaan, rucola',22,1],['Oesters','Per zes, sjalotazijn, citroen',21,0],['Burrata','Tomaat uit de kas, basilicum, olijfolie',14,1],['Dagvangst','Wat de vissers vandaag hebben',0,0]],
+    dessert:[['Crème brûlée','Tahitiaanse vanille',9,1],['Chocolade','Zeezout, karamel, room',9.5,1],['Kaasplank','Vier Hollandse kazen, notenbrood',14,1],['Dame blanche','Zoals het hoort',8.5,1]]
+  };
+  var cur='diner';
+  function draw(){
+    var veg=$('[data-veg]').checked,list=M[cur].filter(function(d){return !veg||d[3]});
+    $('[data-mgrid]').innerHTML=list.length?list.map(function(d,i){return '<article class="dish" style="animation-delay:'+(i*50)+'ms"><h3>'+d[0]+(d[3]?'<span class="tag">vega</span>':'')+'</h3><span class="p">'+(d[2]?'€ '+d[2].toFixed(2).replace('.',','):'dagprijs')+'</span><p>'+d[1]+'</p></article>'}).join(''):'<p class="empty">Geen vega-gerechten in deze kaart.</p>';
+  }
+  $$('[data-mtabs] button').forEach(function(b){b.addEventListener('click',function(){cur=b.dataset.k;$$('[data-mtabs] button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});draw()})});
+  $('[data-veg]').addEventListener('change',draw);draw();
+  // open vandaag
+  var H={0:[12,24],1:null,2:[12,24],3:[12,24],4:[12,24],5:[12,24],6:[12,24]},full=['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],sh=['zo','ma','di','wo','do','vr','za'];
+  var now=new Date(),d=now.getDay(),hh=now.getHours();
+  $('[data-today]').innerHTML=H[d]?(hh>=12?'<b>Nu open</b> · keuken tot 22:00':'Vandaag open vanaf <b>12:00</b>'):'Vandaag gesloten · morgen weer open';
+  $('[data-hrs]').innerHTML=[1,2,3,4,5,6,0].map(function(i){return '<div'+(i===d?' class="now"':'')+'><span>'+full[i]+'</span><span>'+(H[i]?'12:00 – 00:00':'Gesloten')+'</span></div>'}).join('');
+  // reserveren
+  var st={n:2,day:null,t:null},days=[],x=new Date();x.setHours(0,0,0,0);
+  while(days.length<7){if(H[x.getDay()])days.push(new Date(x));x.setDate(x.getDate()+1)}
+  $('[data-dates]').innerHTML=days.map(function(dd,i){return '<button type="button" aria-pressed="false" data-i="'+i+'">'+sh[dd.getDay()]+'<b>'+dd.getDate()+'</b></button>'}).join('');
+  function slots(){var o=[];['12:00','12:30','13:00','13:30','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'].forEach(function(t,i){var dd=st.day!==null?days[st.day]:null,past=dd&&dd.toDateString()===new Date().toDateString()&&(+t.split(':')[0]+(+t.split(':')[1])/60)<=new Date().getHours()+new Date().getMinutes()/60+1,full=past||(dd&&((dd.getDate()+i*3+st.n)%4===0));o.push('<button type="button" aria-pressed="false" '+(full?'disabled title="Vol"':'')+' data-t="'+t+'">'+t+'</button>')});$('[data-slots]').innerHTML=o.join('')}
+  slots();
+  function n(v){st.n=Math.max(1,Math.min(8,st.n+v));$('[data-n]').textContent=st.n;slots();st.t=null}
+  $('[data-m]').addEventListener('click',function(){n(-1)});$('[data-p]').addEventListener('click',function(){n(1)});
+  $('[data-dates]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;st.day=+b.dataset.i;st.t=null;$$('[data-dates] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)});slots()});
+  $('[data-slots]').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled)return;st.t=b.dataset.t;$$('[data-slots] button').forEach(function(y){y.setAttribute('aria-pressed',y===b)})});
+  $('[data-quick]').addEventListener('submit',function(e){e.preventDefault();st.n=+$('[data-qppl]').value;$('[data-n]').textContent=st.n;var i=$('[data-qday]').selectedIndex;var target=new Date();target.setHours(0,0,0,0);target.setDate(target.getDate()+i);var k=days.findIndex(function(dd){return dd.getTime()>=target.getTime()});st.day=k<0?0:k;$$('[data-dates] button').forEach(function(y,j){y.setAttribute('aria-pressed',j===st.day)});slots();$('#reserveren').scrollIntoView({behavior:'smooth'})});
+  $('[data-res]').addEventListener('submit',function(e){e.preventDefault();var nm=$('[data-rn]');
+    if(st.day===null||!st.t){alertBox('Kies eerst een dag en een tijd.');return}
+    if(nm.value.trim().length<2){nm.focus();nm.style.borderColor='#B5502B';return}
+    var dd=days[st.day];$('[data-ct]').textContent=full[dd.getDay()]+' '+dd.getDate()+' om '+st.t+', '+st.n+' personen, op naam van '+nm.value.trim()+'.';$('[data-conf]').classList.add('show')});
+  function alertBox(t){var c=$('[data-conf]');c.querySelector('h3').textContent='Bijna.';$('[data-ct]').textContent=t;c.classList.add('show');setTimeout(function(){c.classList.remove('show');c.querySelector('h3').textContent='Je tafel staat klaar.'},2500)}
+  // menu
+  var mm=$('[data-mm]');$('[data-burger]').addEventListener('click',function(){mm.classList.add('open')});$('[data-close]').addEventListener('click',function(){mm.classList.remove('open')});$$('a',mm).forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open')})});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(z){if(z.isIntersecting){z.target.classList.add('in');io.unobserve(z.target)}})},{threshold:.12});$$('.rv').forEach(function(el){io.observe(el)})}else $$('.rv').forEach(function(el){el.classList.add('in')});
+})();
+</script>
+</body>
+</html>
