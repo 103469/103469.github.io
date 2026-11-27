@@ -584,3 +584,30 @@ button{font:inherit}
 
 .check__fallback{margin:10px 0 0;font-size:14px;color:var(--on-night-muted,#A3AEA8)}
 .check__fallback a{color:#86D1A9;font-weight:600}
+/* v8.9: alles valt binnen het scherm, op elke breedte */
+@media (min-width:961px){
+  .comp__browser{right:0}
+  .comp__g{right:12px}
+}
+@media (max-width:960px){
+  .top__inner{min-width:0;max-width:100%}
+  .nav{box-sizing:border-box;max-width:100%;overflow-x:hidden}
+  .nav a{min-width:0;overflow-wrap:anywhere}
+}
+@media (max-width:340px){
+  .dock{left:8px;right:8px;gap:2px;padding:4px}
+  .dock__a{font-size:13px}
+  .dock__a--chat{flex-basis:42px}
+  .logo{font-size:23px}
+}
+@media (max-width:380px){
+  .h2{font-size:clamp(30px,10.4vw,40px)}
+  .facts strong{font-size:18px}.facts li+li{padding-left:8px}.facts li{padding-right:6px}
+  .plan .btn,.calc__out .btn{font-size:14px;padding:0 14px}
+}
+/* v9.2: rustigere hero: laptop + telefoon, geen extra kaartje eroverheen */
+.comp__g{display:none!important}
+@media (min-width:961px) and (max-width:1280px){
+  .comp__phone{width:170px;height:348px;border-radius:28px;padding:7px;left:-24px}
+  .comp__phone .scr{border-radius:22px}
+}
