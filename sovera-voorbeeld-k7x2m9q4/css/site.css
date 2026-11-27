@@ -560,3 +560,11 @@ button{font:inherit}
   .gtoggle button{font-size:14px;padding:0 8px;white-space:nowrap}
   .facts strong{font-size:20px}.facts span{font-size:12px}
 }
+/* v8.7: op telefoons alleen een grote telefoon-mockup, geen piepkleine laptop */
+@media (max-width:600px){
+  .comp{display:grid;place-items:center;padding:12px 0 48px;isolation:isolate}
+  .comp::before{content:"";position:absolute;z-index:-1;width:120%;aspect-ratio:1;left:-10%;top:50%;transform:translateY(-50%);background:radial-gradient(circle,rgba(63,157,116,.28),transparent 62%);pointer-events:none}
+  .comp__browser{display:none}
+  .comp__phone{position:relative;left:auto;right:auto;bottom:auto;width:min(64vw,250px);height:auto;aspect-ratio:585/1200;border-radius:34px;padding:8px}
+  .comp__phone .scr{border-radius:27px}
+}
