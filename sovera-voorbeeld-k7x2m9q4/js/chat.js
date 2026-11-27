@@ -283,17 +283,8 @@
   });
   window.addEventListener('sovera:chat', function () { open(); });
 
-  // Kleine uitnodiging na een paar seconden (eenmalig per bezoek)
-  var seen = false;
-  try { seen = !!sessionStorage.getItem('sc-seen'); } catch (e) { /* geen opslag */ }
+  // Geen automatische pop-up meer: de chat opent alleen als de bezoeker zelf op de knop drukt.
   try { if (sessionStorage.getItem('sc-open')) { open(); } } catch (e) { /* geen opslag */ }
-  if (!seen && !reduce) {
-    setTimeout(function () {
-      if (!panel.hidden) return;
-      teaser.hidden = false;
-      setTimeout(function () { teaser.hidden = true; }, 12000);
-    }, 8000);
-  }
   teaser.querySelector('.sc-teaser__x').addEventListener('click', function () { teaser.hidden = true; try { sessionStorage.setItem('sc-seen', '1'); } catch (e) { /* geen opslag */ } });
   teaser.querySelector('.sc-teaser__t').addEventListener('click', function () { try { sessionStorage.setItem('sc-seen', '1'); } catch (e) { /* geen opslag */ } open(); });
 })();

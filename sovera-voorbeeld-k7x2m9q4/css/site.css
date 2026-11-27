@@ -568,3 +568,16 @@ button{font:inherit}
   .comp__phone{position:relative;left:auto;right:auto;bottom:auto;width:min(64vw,250px);height:auto;aspect-ratio:585/1200;border-radius:34px;padding:8px}
   .comp__phone .scr{border-radius:27px}
 }
+/* v8.8: geen dubbele zwevende knoppen op mobiel; chat zit in de knoppenbalk */
+@media (max-width:760px){
+  .dock{display:flex}
+  .dock__a{flex:1 1 0;min-width:0;white-space:nowrap}
+  .dock__a--chat{flex:0 0 48px;border:0;background:rgba(239,235,226,.08);font:inherit;cursor:pointer}
+  .dock__a--chat svg{width:20px;height:20px}
+  .has-dock .sc-launch{display:none}
+}
+@media (max-width:420px){
+  .dock__a:not(.dock__a--chat) svg{display:none}
+  .dock__a{font-size:14px}
+}
+.sc-teaser{display:none!important}

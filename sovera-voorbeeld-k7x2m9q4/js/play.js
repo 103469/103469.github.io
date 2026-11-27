@@ -107,6 +107,8 @@
   const dock = document.querySelector('[data-dock]');
   if (dock) {
     document.body.classList.add('has-dock');
+    const dc = dock.querySelector('[data-dock-chat]');
+    if (dc) dc.addEventListener('click', () => window.dispatchEvent(new Event('sovera:chat')));
     const upd = () => dock.classList.toggle('is-on', scrollY > 520);
     upd(); addEventListener('scroll', upd, { passive: true });
   }
