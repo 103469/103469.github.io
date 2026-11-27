@@ -121,9 +121,11 @@
       </div>` + nextStep(host, null);
   }
 
-  function fail(text) {
+  function fail(text, url) {
     setHint(text, false);
-    result.innerHTML = '';
+    result.innerHTML = url
+      ? '<p class="check__fallback">Je kunt de check ook direct bij Google doen: <a href="https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(url) + '&form_factor=mobile" target="_blank" rel="noopener">open PageSpeed Insights ↗</a></p>'
+      : '';
   }
 
   // Knoppen "Laat me terugbellen" vullen het contactformulier alvast in
@@ -177,8 +179,8 @@
       setHint('Klaar.', false);
       result.focus();
     } catch (err) {
-      if (err.name === 'AbortError') fail('Dit duurt te lang. Probeer het later nog eens.');
-      else if (err.message === 'druk') fail('Het is even te druk. Probeer het over een paar minuten opnieuw.');
+      if (err.name === 'AbortError') fail('Dit duurt te lang. Probeer het later nog eens.', u);
+      else if (err.message === 'druk') fail('Het is even te druk. Probeer het over een paar minuten opnieuw.', u);
       else fail('Google kon deze site niet openen. Klopt het adres? Probeer het met of zonder www.');
     } finally {
       clearTimeout(timer);

@@ -581,3 +581,6 @@ button{font:inherit}
   .dock__a{font-size:14px}
 }
 .sc-teaser{display:none!important}
+
+.check__fallback{margin:10px 0 0;font-size:14px;color:var(--on-night-muted,#A3AEA8)}
+.check__fallback a{color:#86D1A9;font-weight:600}
